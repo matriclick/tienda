@@ -1,0 +1,44 @@
+<table class="list">
+  <tr>
+		<th>
+			<%= t "details" %>
+		</th>
+		<th class="width20">
+			<%= t "options" %>
+		</th>		
+	</tr> 
+	  <% @supplier.supplier_account.important_dates.each do |important_date| %>
+	    <% unless important_date.date.nil? %>
+	      <tr>
+					<td>
+						<div class="floatLeft textAlignRight width25">
+							<%= t 'activerecord.attributes.name' %><br/>
+							<%= t 'activerecord.attributes.important_date.date' %><br/>
+							<%= t 'activerecord.attributes.important_date.ends_date' %><br/>
+							<%= t 'activerecord.attributes.important_date.locked' %><br/>
+							<%= t('activerecord.models.supplier') %><br/>
+							<%= t('activerecord.attributes.important_date.custom_message') %><br/>
+						</div>
+						<div class="floatLeft textAlignLeft paddingLeft10 light width65">
+							<%= (important_date.date_name.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.name'), :class => 'profileBlankField') : content_tag(:span, important_date.date_name) %><br/>
+							<%= (important_date.date.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.important_dates.date'), :class => 'profileBlankField') : content_tag(:span, l(important_date.date, :format => :short )) %><br/>
+							<%= (important_date.ends_date.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.important_dates.ends_date'), :class => 'profileBlankField') : content_tag(:span, l(important_date.ends_date, :format => :short )) %><br/>
+							<%= content_tag(:span, important_date.locked == true ? "✔" : "✘" ) %><br/>
+							<%= (important_date.supplier_account.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.supplier_account.fantasy_name'), :class => 'profileBlankField') : content_tag(:span, important_date.supplier_account.fantasy_name) %><br/>
+							<%= (important_date.custom_message.blank?) ?
+							content_tag(:span, t('acctiverecord.attributes.important_dates.custom_message'), :class => 'profileBlankField') : content_tag(:span, important_date.custom_message) %><br/>
+						</div>	
+					</td>
+				
+	        <td class="list_actions">
+	          <div><%= link_to t('edit'), edit_supplier_account_important_date_path(@supplier, important_date) %></div>
+	          <div><%= link_to t('destroy'), supplier_account_important_date_path(@supplier, important_date), confirm: t('are_you_sure'), method: :delete %></div>
+	        </td>
+	      </tr>
+	    <% end %>
+	  <% end %>
+</table>

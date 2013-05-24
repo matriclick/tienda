@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  street: MyString
+  number: MyString
+  region: MyString
+
+two:
+  street: MyString
+  number: MyString
+  region: MyString

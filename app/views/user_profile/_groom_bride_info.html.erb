@@ -1,0 +1,35 @@
+	<div class="half_40">
+		<table class="invisible">
+			<tr>
+				<td>
+					<% unless eval("@user_account.#{person.class.to_s.downcase}.blank?") %>
+						<% if eval("@user_account.#{person.class.to_s.downcase}.#{person.class.to_s.downcase}_image.blank?") %>
+							<%= image_tag (person.class.to_s.downcase == "groom" ? "novio.png" : "novia.png"), :size => "120x120" %>						
+						<% else %>
+							<%= image_tag eval("@user_account.#{person.class.to_s.downcase}.#{person.class.to_s.downcase}_image.#{person.class.to_s.downcase}.url(:normal)") %>
+						<% end %>
+					<% end %>
+				</td>
+				<td>
+					<div class="floatRight textAlignRight">
+						<% if person.name.blank? %>
+							<%= content_tag(:span, t("activerecord.attributes.#{person.class.to_s.downcase}.name"), :class => 'profileBlankField') %><br/>
+						<% else %>
+						  <span class="bold"><%= content_tag(:span, person.name) %> 
+						  <%= content_tag(:span, person.lastname_p) unless person.lastname_p.blank? %> 
+						  <%= content_tag(:span, person.lastname_m) unless person.lastname_m.blank? %></span><br/>
+						<% end %>
+						rut: <span class="bold"><%= person.rut.blank? ? 
+						content_tag(:span, t("activerecord.attributes.#{person.class.to_s.downcase}.rut"), :class => 'profileBlankField') : content_tag(:span, number_to_rut(person.rut)) %></span><br/><br/>
+						
+						cumpleaños: <span class="bold"><%= person.born_date.blank? ? 
+						content_tag(:span, t("activerecord.attributes.#{person.class.to_s.downcase}.born_date"), :class => 'profileBlankField') : content_tag(:span, person.born_date.strftime("%d-%b-%y") ) %></span><br/>
+						email: <span class="bold"><%= person.email.blank? ? 
+						content_tag(:span, t("activerecord.attributes.#{person.class.to_s.downcase}.email"), :class => 'profileBlankField') : content_tag(:span, person.email) %></span><br/>
+						teléfono: <span class="bold"><%= (person.cell_phone.blank?) ? 
+						content_tag(:span, t("activerecord.attributes.#{person.class.to_s.downcase}.cell_phone"), :class => 'profileBlankField') : content_tag(:span, person.cell_phone) %></span><br/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>

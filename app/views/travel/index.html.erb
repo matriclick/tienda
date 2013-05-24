@@ -1,0 +1,39 @@
+<h1><%= @h1 %></h1>
+<h2><%= @h2 %></h2>
+<div class="slider_blog">
+	<% @slider_images.each do |slider| %>
+		<div class="slider-item">
+			<% if !slider.link.nil? %>
+	       		<%= link_to (image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name), slider.link, 
+					:target => slider.target ? '_self' : '_blank' %>
+			<% else %>
+				<%= image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name %>
+			<% end %>
+			<% unless slider.title.blank? %>
+	       	<div class="caption"><b><%= slider.title %></b><br /> 
+				<% unless slider.content.blank? %>
+					<%= slider.content.html_safe %>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+<h3><%= @h3 %></h3>
+<div class="blog_box">
+<% @posts.each do |post| %>
+	<div class="post_container" style="width:370px; height:300px;">
+		<div style="margin:10px">
+			<%= link_to image_tag(post.main_image.url(:regular), :alt => post.main_image_name, :class => 'image_button'), post_path(post) %>
+			<div class="blog_titulos">
+				<%= link_to post.title, post_path(post) %>
+			</div>
+			<div class="blog_texto">
+				<%= (desc = strip_tags(post.introduction)).blank? ? 
+				'Próximamente en Matriclick.com' : content_tag(:span, (desc[0..200].gsub(/\n/, '<br/>')).html_safe + ("..." if desc.length > 200) ) %>
+			</div>
+		</div>
+	</div>
+<% end %>
+<div class="clear"></div>
+</div>

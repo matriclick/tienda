@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  matriclicker_id: 1
+  lead_id: 1
+  name: MyString
+  follow_up_date: 2012-08-15
+  description: MyText
+
+two:
+  matriclicker_id: 1
+  lead_id: 1
+  name: MyString
+  follow_up_date: 2012-08-15
+  description: MyText

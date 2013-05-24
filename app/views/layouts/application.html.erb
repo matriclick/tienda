@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="<%= @meta_languaje_content %>" xml:lang="<%= @meta_languaje_content %>">
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+		<!-- METADATA PARA FACEBOOK -->
+		<meta property="og:title" content="<%= @title_content %>" />
+		<meta property="og:type" content="<%= @og_type %>" />
+		<meta property="og:url" content="<%= request.url %>/" />
+		<meta property="og:image" content="<%= @og_image %>" />
+		<meta property="og:description" content="<%= @og_description %>" />
+		<meta property="og:site_name" content="Matriclick.com" />
+		<meta property="fb:app_id" content="199668766763277" />
+		<!-- EOF METADATA PARA FB -->
+
+		<meta name="google-site-verification" content="QD2_IDMnpsgM222y8diLuYu0n-l_GyUpxiLU4hnD-g8" />
+
+		<title><%= @title_content %> | Matriclick</title>
+		<meta name="description" content="<%= @meta_description_content %>"/>
+		<meta name="keywords" content="<%= @meta_keywords_content %>">
+
+		<%= stylesheet_link_tag("application") %>
+		<%= stylesheet_link_tag("tipTip") %>
+		<%= javascript_include_tag('application') %>
+		<%= javascript_include_tag('http://maps.googleapis.com/maps/api/js?key=AIzaSyD9u2C5a_3Fueu5XbRXXL8YPPc12HRoESY&sensor=false') if @show_map %>
+		<%= csrf_meta_tag %>
+		<!-- [if lte IE 7]>
+			<style type="text/css">
+			html .jqueryslidemenu{height: 1%;} /*Holly Hack for IE7 and below*/
+			</style>
+		<![endif] -->
+		
+		<%= init_tinymce_hammer_if_required %>
+
+		<!-- FBcDbhr0WsxceBrjSWDlzAl1hio -->
+		<script type="text/javascript">
+			var __lc = {};
+			__lc.license = 1563001;
+
+			(function() {
+				var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+				lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+			})();
+		</script>
+		
+		<!-- Crazy EGG -->
+		<script type="text/javascript">
+		setTimeout(function(){var a=document.createElement("script");
+		var b=document.getElementsByTagName("script")[0];
+		a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0016/3417.js?"+Math.floor(new Date().getTime()/3600000);
+		a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+		</script>
+		
+	</head>
+
+	<% (@show_map || false) ? (@msg = 'initialize('+@map.latitude.to_s+','+@map.longitude.to_s+',"'+@map.get_address_string.to_s+'");') : nil  %>
+
+	<body onload='<%= @subscriber_pop_up %><%= @msg %>'>
+		
+		<div id="fb-root"></div>
+		
+		<script>
+			window.fbAsyncInit = function() {
+				// init the FB JS SDK
+				FB.init({
+					appId      : '199668766763277', // App ID from the App Dashboard
+					channelUrl : '//www.matriclick.com/channel.html', // Channel File for x-domain communication
+					status     : true, // check the login status upon init?
+					cookie     : true, // set sessions cookies to allow your server to access the session?
+					xfbml      : true  // parse XFBML tags on this page?
+				});
+				// Additional initialization code such as adding Event Listeners goes here
+			};
+			// Load the SDK's source Asynchronously
+			// Note that the debug version is being actively developed and might 
+			// contain some type checks that are overly strict. 
+			// Please report such bugs using the bugs tool.
+			(function(d, debug){
+				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement('script'); js.id = id; js.async = true;
+				js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+				ref.parentNode.insertBefore(js, ref);
+			}(document, /*debug*/ false));
+		</script>
+		<div style="display: none;">
+		 	<%= link_to '#', subscription_path, :class => 'subscription_popup', :rel => 'nofollow' %>
+		</div>
+		<% if @supplier_layout %>
+			<%= render 'layouts/supplier_layout' %>
+		<% else %>
+			<%= render 'layouts/normal_layout' %>
+		<% end %>		
+		<% if developer? %>
+			<%= render 'layouts/debug_tool' %>
+		<% end %>
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<%= nested_form_for(@invoice,:html => { :multipart => true }) do |f| %>
+  <% if @invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+      <% @invoice.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :contract_id %>
+  <div class="field">
+    <%= f.label :number, 'Número de factura' %> <%= f.text_field :number %> 
+    <%= f.label :issued_date, 'Fecha de facturación' %> <%= f.text_field :issued_date %>
+  </div>
+  <br />
+ <div class="field">
+	Valor U.F <%= text_field 'UF', 'value', 
+		:onchange =>"update_prices(#{@invoice.contract.price}, #{ !@invoice.contract.discount.nil? ? @invoice.contract.discount : 0 });" %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :net_price, 'Precio Neto (CLP $)' %> 
+	<%= f.text_field :net_price, :onchange => "update_total();" %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :vat, 'IVA (CLP $)' %> 
+	<%= f.text_field :vat, :onchange => "update_total();" %>
+  </div>
+  <br />
+  <b>Total: $ <span id="total">0</span></b>
+  <br />  <br />
+  <div class="field" style="width:700px">
+    Meses a los que corresponde la factura:<br />
+	<span class="lucida small">El contrato se paga en <b><%= @invoice.contract.quotas %> cuotas</b></span><br /><br />
+	<% i = 0 %>
+	<table>
+	<% @invoice_months.each do |im| %>
+	<% if i == 0 %><tr><% end %>
+		<td>
+			<span><%= check_box_tag("invoice[invoice_month_ids][]", im.id, (@invoice.invoice_months.include? im), :class => "im_#{im.id}") %></span> <span class="lucida small"><%= Date::MONTHNAMES[im.month] %> - <%= im.year %></span>
+		</td>
+	<% i = i + 1; if i == 5 %></tr><% i = 0; end %>
+	<% end %>
+	</table>	
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :collection_mail_sent, '¿Se envió el coreo de cobranzas?' %> 
+	<%= f.check_box :collection_mail_sent, :onchange => "update_date(invoice_date_collection_mail_sent)" %> | 
+    <%= f.label :date_collection_mail_sent, 'Fecha envío' %> <%= f.text_field :date_collection_mail_sent %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :paid, '¿Fue pagada?' %> <%= f.check_box :paid, :onchange => "update_date(invoice_pay_date)" %> | 
+    <%= f.label :pay_date, 'Fecha pago' %> <%= f.text_field :pay_date %>
+  </div>
+  <br />
+  <b>Archivos adjuntos:</b>
+  <div class="field">
+		<%= f.fields_for :attached_files do |attached_file_form| %>
+			<%= attached_file_form.object.attached_file_name %> <%= attached_file_form.file_field :attached %> 
+			<%= attached_file_form.link_to_remove "✘", :title => t('remove') %>
+		<% end %>
+		<%= f.link_to_add 'Agregar documento adjunto', :attached_files, :style => 'color:blue' %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :comments, 'Comentarios' %><br />
+    <%= f.text_area :comments %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

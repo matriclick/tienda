@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Industry category:</b>
+  <%= @supplier_without_account.industry_category.get_name %><br />
+
+  <b>Image:</b><br /><br />
+  <%= image_tag(@supplier_without_account.image.url(:small)) %><br /><br />
+
+  <b>Corp Name:</b>
+  <%= @supplier_without_account.corporate_name %><br />
+  <b>WEB:</b>
+  <%= @supplier_without_account.web_page %><br />
+  <b>Fantasy Name:</b>
+  <%= @supplier_without_account.fantasy_name %><br />
+  <b>Phone:</b>
+  <%= @supplier_without_account.phone_number %><br />
+  <b>Address:</b>
+  <%= @supplier_without_account.address %><br /><br />
+  <b>Description:</b><br />
+  <%= strip_tags(@supplier_without_account.description) %><br />
+
+</p>
+
+
+<%= link_to 'Edit', edit_supplier_without_account_path(@supplier_without_account) %> |
+<%= link_to 'Back', supplier_without_accounts_path %>

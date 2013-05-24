@@ -1,0 +1,30 @@
+<div class="right" style="margin-right:20px; margin-bottom:20px;">
+	<%= link_to 'Volver al Administrador', administration_index_path(), :class => :button %>
+</div>
+<div class="right" style="margin-right:20px; margin-bottom:20px;">
+	<%= link_to 'Nuevo Vestido', new_dress_path, :class => :button %>
+</div>
+<div class="right" style="margin-right:20px; margin-bottom:20px;">
+	<%= link_to 'Ver Lista de Dueños', administration_dresses_list_path, :class => :button %>
+</div>
+<div class="clear"></div>
+
+<% @dresses.each do |dress| %>
+	<div class="dresses_index_box left">
+		<% unless dress.dress_images.blank? %>
+			<%= link_to image_tag(dress.dress_images.first.dress.url(:index)), administration_dress_path(:id => dress.id) %>
+		<% end %>
+		<div style="text-align:left; width:127px;">
+			<%= raw dress.description[0..30] %>
+			<br />
+			<%= "CLP $: #{number_to_currency dress.price}" %>
+		</div>
+	</div>
+<% end %>
+
+<div class="clear"></div>
+<% if @dresses.total_pages > 1 %>
+	<div class="apple_pagination">
+		<%= will_paginate @dresses, :container => false %>
+	</div>		
+<% end %>

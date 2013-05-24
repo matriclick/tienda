@@ -1,0 +1,49 @@
+
+<% if @contest_travelites.size >= @scrolling_set %>
+	<script>	
+		ids = '<%= @contestant_ids %>'
+		<% if @contest_travelite_vote %>
+			vote_id = <%= @contest_travelite_vote.id %>
+		<% end %>
+		flag_up = false	
+		load_album_endless_scrolling(next_album_scroll_feed)
+		$(".loading").load($(this).show())		
+	</script>
+<% end %>
+
+<%= image_tag 'contests/despedida-de-soltera/despedida-de-soltera.jpg', 
+	:alt => 'despedida de solteras en buenos aires' %>
+
+<%= image_tag 'contests/despedida-de-soltera/sube-tu-mejor-foto-despedida-de-soltera.jpg', 
+	:alt => 'participa para ganar tu despedida de solteras a buenos aires' %>
+
+<div style="float:right; margin-right:20px;">
+	<%= form_tag(despedida_de_soltera_path, :method => "get") do %>
+		<%= text_field_tag(:q, @search_term, :style => 'width:200px') %> <%= submit_tag("Buscar", :class => 'button_filter_pink') %>
+	<% end %>
+</div>
+
+<div style="float:left; margin-left:20px;">
+	<%= link_to '¡Concursar!', contests_subir_imagen_path, :class => 'contest_button' %> 
+	<%= link_to '(ver bases)', contests_bases_path, :class => 'blue' %>
+</div>
+
+<div class="clear"></div>
+
+
+<div id="albums_columns">
+	<% @contest_travelites.each do |contest_travelite| %>
+		<% @contest_travelite = contest_travelite %>
+		<%= render 'contestants' %>
+	<% end %>
+	<div id="infinite-scroll"></div>
+</div>
+
+<% if @contest_travelites.size >= @scrolling_set %>
+	<div class="loading"><%=image_tag "campaign/after_contest/1/loading.gif", :size =>'50x22' %></div>
+<% end %>
+
+<%= link_to "hidden", "#sign_in_fancybox", :class => "fancybox_message",:style=>"display:none" %>
+<%= render "layouts/sign_in_facebook_google" %>
+
+<div class="clear"></div>

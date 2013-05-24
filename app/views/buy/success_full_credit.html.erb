@@ -1,0 +1,41 @@
+<div style="line-height:20px">
+	FELICITACIONES. Tu compra ha <b>finalizada exitosamente.</b><br/>
+</div>
+<div>
+	<% if !@purchase.nil? %><br/>
+		<div style="float:left">
+			<%= image_tag @purchasable.main_image %>
+		</div>
+		<div style="float:left; margin-left:20px; width:450px; line-height:20px">
+			<b>Descripción:</b><br />
+			<hr>
+			<%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br />
+			<% if !@purchase.size.blank? %>
+				Talla: <%= @purchase.size %><br />
+			<% end %>
+			<% if !@purchase.quantity.blank? %>
+				Cantidad: <%= @purchase.quantity.to_s %><br />
+			<% end %>
+			<br />
+			<b>Detalle de la compra:</b><br />
+			<hr>
+			<%= 'Usuario Matriclick: ' + @purchase.user.email %><br/>
+			<%= 'Tipo de Pago: Créditos Matriclick' %><br/>
+			¿Consultas o Dudas?, llámanos al 2247 8174<br/><br/>
+			<%= link_to_function("Imprimir esta página", "javascript:print()", :style => 'color:blue') %>
+			<br /><br />
+			<% if @purchasable.class.to_s == 'GiftCardCode' %>
+				<%= link_to 'Ver Detalle del Cupón de Descuento e Imprimir', @purchasable.link_to_view(params[:country_url_path], @purchase.id), :style => 'color:blue' %>
+				<br /><br />
+			<% end %>
+			<% if @purchasable.class.to_s == 'Dress' %>
+				Tu producto será despachado según los plazos estipulados en el <%= link_to 'detalle', @purchasable.link_to_view(params[:country_url_path], @purchase.id), :style => 'color:blue' %>
+				<br /><br />
+			<% end %>
+			<%= render "layouts/purchasable_options" %>
+		</div>
+	<% else %><br/>
+		No se pudo rescatar la información de compra
+	<% end %>
+</div>
+<div class="clear"></div>

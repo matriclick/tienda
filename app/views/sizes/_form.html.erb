@@ -1,0 +1,23 @@
+<%= form_for @size do |f| %>
+	<% if @size.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@size.errors.count, "error") %> prohibited this size from being saved:</h2>
+			<ul>
+				<% @size.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<div class="field">
+		<%= f.label :name, 'Talla' %> <%= f.text_field :name, :size => 10, :style => "font-size:40px;" %><br />
+		<br />
+		<% @dress_types.each do |dress_type| %>
+			<%= check_box_tag "size[dress_type_ids][]", dress_type.id, @size.dress_types.include?(dress_type) %> <%= dress_type.name %><br />
+		<% end %>
+	</div>
+	<br />
+	<div class="">
+		<%= f.submit %>
+	</div>
+<% end %>

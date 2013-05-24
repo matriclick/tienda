@@ -1,0 +1,14 @@
+//Controls the voting system through AJAX
+if($('#campaign_stories').find('#'+<%= @campaign_user_account_info.id %>).find('.cua_vote').find('.vote_active').size()>0){
+$votes= <%= @campaign_user_account_info.cua_votes.count %> //TCT: Search the total votes votes 
+$('#campaign_stories').find('#'+<%= @campaign_user_account_info.id %>).find('.vote_count').html("("+$votes+")") //TCT: Display the new votes total
+$('#campaign_stories').find('#'+<%= @campaign_user_account_info.id %>).find('.cua_vote').find('.vote_active').replaceWith('<a class="vote_inactive" title="Ya has votado por esta historia"></a>') //TCT: Change link to inactive
+}
+//If user exceeds the amount of vouts by ip a message will be displayed
+if(<%= !@votes %>){
+$('#campaign_stories').find('#'+<%= @campaign_user_account_info.id %>).find('.cua_vote').append('<br /><span class="cannot_vote" style="text-align:center;clear:both; padding:5px 0; color:red; position:absolute;"><b>¡Ya haz votado muchas veces!</b></span>')
+$('#campaign_stories').find('#'+<%= @campaign_user_account_info.id %>).find('.cua_vote').find('.cannot_vote').hide()
+$('#campaign_stories').find('#'+<%= @campaign_user_account_info.id %>).find('.cua_vote').find('.cannot_vote').fadeIn(6000).fadeOut(6000)
+
+}
+

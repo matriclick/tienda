@@ -1,0 +1,65 @@
+<div class="titulos">
+	<%= t('statistics') %>
+</div>
+
+<div class="box">
+<div style="margin: 10px 10px 10px 10px; text-align:center">
+	<b><%= @cummulative_unique_views %></b> personas han visitado | <b><%= @cummulative_page_views %></b> visitas a tu página principal | <b><%= @cummulative_contact_views %></b> visitas a tu página de contacto
+</div>
+<script src="https://www.google.com/jsapi"></script>
+<div id="visits_chart" class="big_chart"></div>
+<hr class="soften"></hr>
+<div id="contacts_chart" class="big_chart"></div>
+<hr class="soften"></hr>
+<div id="conversations_chart" class="big_chart"></div>
+<hr class="soften"></hr>
+<div id="budgets_chart" class="big_chart"></div>
+<div class="holder"></div>
+
+<script type='text/javascript'>
+// Load the Visualization API and the piechart package.
+google.load('visualization', '1.0', {'packages':['corechart']});
+<% unless @total_views.blank? %>
+	var graph_data_visits = [{'title':'Visitas únicas nuevas a tu perfil' ,'div':'visits_chart','type':'line','legend':'bottom', 'width':750, 'height':300, 'var_name':"Visitas únicas"},
+
+	<% @total_views.each do |key,value| %>
+	{'name': '<%= key %>', 'quantity': <%= value %>},
+	<% end %>
+	];
+<% end %>
+
+<% unless @total_contact_views.blank? %>
+	var graph_data_contacts = [{'title':'Visitas únicas nuevas a tu página de contacto (desde el 15 de Junio)' ,'div':'contacts_chart','type':'line','legend':'bottom', 'width':750, 'height':300, 'var_name':"Visitas únicas"},
+
+	<% @total_contact_views.each do |key,value| %>
+	{'name': '<%= key %>', 'quantity': <%= value %>},
+	<% end %>
+	];
+<% end %>
+
+var graph_data_conversations = [{'title':'Cotizaciones (conversaciones) nuevas mensuales' ,'div':'conversations_chart','type':'column','legend':'bottom', 'width':750, 'height':300, 'var_name':"Conversaciones"},
+
+<% @total_conversations.each do |key,value| %>
+{'name': '<%= key %>', 'quantity': <%= value %>},	
+<% end %>
+];
+
+var graph_data_budgets = [{'title':'Participación mensual en Presupuestos' ,'div':'budgets_chart','type':'column','legend':'bottom', 'width':750, 'height':300, 'var_name':"Cuánto te han agregado a su presupuesto"},
+
+<% @total_budgets.each do |key,value| %>
+{'name': '<%= key %>', 'quantity': <%= value %>},	
+<% end %>
+];
+
+// Set a callback to run when the Google Visualization API is loaded.
+<% unless @total_views.blank? %>
+	google.setOnLoadCallback(function(){drawChart(graph_data_visits)});
+	google.setOnLoadCallback(function(){drawChart(graph_data_contacts)});
+<% end %>
+
+google.setOnLoadCallback(function(){drawChart(graph_data_conversations)});
+//google.setOnLoadCallback(function(){drawChart(graph_data_budgets)});
+</script>
+
+<div class="clear"></div>
+</div>

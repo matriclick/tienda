@@ -1,0 +1,42 @@
+<div style="float:right">
+    <%= link_to 'Administrador', administration_index_path, :class => :button %>
+</div>
+<div class="clear"></div>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @matriclicker.name %>
+</p>
+<br />
+<p>
+  <b>User:</b>
+  <%= if !@matriclicker.user.nil? then @matriclicker.user.email else 'No Definido' end %>
+</p>
+<br />
+<p>
+  <b>Rol:</b>
+  <%= @matriclicker.role %>
+</p>
+<br />
+<p>
+  <b>Estado:</b>
+  <%= @matriclicker.matriclicker_status.name if !@matriclicker.matriclicker_status.nil? %>
+</p>
+<br />
+<p>
+  <b>Privilegios:</b>
+	<br />
+  	<% @matriclicker.privileges.each do |p| %>
+		- <%= p.description %><br />
+	<% end %>
+</p>
+<br />
+<p>
+  <b>Description:</b>
+  <%= @matriclicker.description %>
+</p>
+<br />
+<%= link_to 'Editar', edit_matriclicker_path(@matriclicker) %> |
+<%= link_to 'Volver a lista de Matriclickers', matriclickers_path %>

@@ -1,0 +1,29 @@
+<h1>Listing challenge_activities</h1>
+
+<table>
+  <tr>
+    <th>Matriclicker</th>
+    <th>Challenge</th>
+    <th>Activity type</th>
+    <th>Comments</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @challenge_activities.each do |challenge_activity| %>
+  <tr>
+    <td><%= challenge_activity.matriclicker_id %></td>
+    <td><%= challenge_activity.challenge_id %></td>
+    <td><%= challenge_activity.challenge_activity_type_id %></td>
+    <td><%= challenge_activity.comments %></td>
+    <td><%= link_to 'Show', challenge_activity %></td>
+    <td><%= link_to 'Edit', edit_challenge_activity_path(challenge_activity) %></td>
+    <td><%= link_to 'Destroy', challenge_activity, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Challenge activity', new_challenge_activity_path %>

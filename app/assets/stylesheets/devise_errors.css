@@ -1,0 +1,5 @@
+.loginBox #error_explanation {
+	background:lightBlue;
+	font-size:small;
+	padding:0 45px;
+}

@@ -1,0 +1,57 @@
+<%= form_for @delivery_info, :validate => true do |f| %>
+	<% if @delivery_info.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@delivery_info.errors.count, "error") %> Han ocurrido los siguientes errores en la dirección:</h2>
+			<ul>
+				<% @delivery_info.errors.full_messages.each do |msg| %>
+		    		<li><%= msg %></li>
+		  		<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+
+	<div class="field" style="float:left; margin-right:15px;">
+	    <%= f.label :name, 'Nombre completo' %><br/><%= f.text_field :name %>
+	  </div>
+	  <div class="field" style="float:left; margin-right:15px;">
+	    <%= f.label :rut, 'RUT' %><br/><%= f.text_field :rut %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :contact_phone, 'Teléfono de contacto' %><br/><%= f.text_field :contact_phone %>
+	  </div>
+		<br />
+	  <div class="field" style="float:left; margin-right:15px;">
+	    <%= f.label :street, 'Calle' %>		
+		<div class="help_tip" style="margin-bottom:-20px;">Ejemplo: “Apoquindo”</div>
+		<br/><%= f.text_field :street %>
+	  </div>
+	  <div class="field" style="float:left; margin-right:15px;">
+	    <%= f.label :number, 'Número' %>
+		<div class="help_tip" style="margin-bottom:-20px;">Ejemplo: “2355”</div>
+		<br/><%= f.text_field :number %>
+	  </div>
+	  <div class="field" style="float:left; margin-right:15px;">
+	    <%= f.label :apartment, 'Depto/Casa' %>
+		<div class="help_tip" style="margin-bottom:-20px;">Ejemplo: “709”</div>
+		<br/><%= f.text_field :apartment %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :commune_id, 'Comuna' %>
+		<div class="help_tip" style="margin-bottom:-20px;">Ejemplo: “Las Condes”</div>
+		<br/><%= f.grouped_collection_select :commune_id, Region.order(:name), :communes, :name, :id, :name, :prompt=>t('select')%>
+	  </div>
+		<br />
+	  <div class="field">
+	    <%= f.label :additional_info, 'Información adicional para quien entrega el producto' %>
+		<div class="help_tip" style="margin-bottom:-20px;">Ejemplo: “ Esquina avenida Las Condes. Lo va a recibir Juanita”</div>
+		<br />
+	    <%= f.text_area :additional_info, :size => '4x3' %>
+	  </div>
+		<%= f.hidden_field :user_id, :value => @user.id %>
+		<%= hidden_field :purchasable, :type, :value => @object.class %>
+		<%= hidden_field :purchasable, :id, :value => @object.id %>
+  <div class="actions">
+    <%= f.submit('Guardar', :class => 'button_buy_dress') %>
+  </div>
+<% end %>

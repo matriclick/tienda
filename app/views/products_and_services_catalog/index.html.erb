@@ -1,0 +1,21 @@
+<%= render 'menu' %>
+
+<div class="clear"></div>
+
+<% if @sub_industries.count > 0 %>
+	<% @sub_industries.each do |si| %>
+		<div style="margin-bottom:15px;">
+			<div style="font-size:14px; color:#666666;"><%= si.get_name %></div>
+			<hr style="color:#EEE">
+			<div id="suppliers">
+				<%= render "layouts/suppliers", :supplier_accounts => si.get_suppliers_accounts_for_country(session[:country]) %>
+				<div class="clear"></div>
+			</div>
+		</div>
+	<% end %>
+<% else %>
+<div id="suppliers">
+	<%= render "layouts/suppliers", :supplier_accounts => @industry_category.get_suppliers_accounts_for_country(session[:country]) %>
+	<div class="clear"></div>
+</div>
+<% end %>

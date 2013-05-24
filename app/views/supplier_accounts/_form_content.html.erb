@@ -1,0 +1,91 @@
+<table class="invisible">
+			<tr>
+				<td>
+					<div class="old_image">
+						<%= image_tag @supplier_account.image.url(:tiny) %>
+					</div>
+					<div class="image_field">
+					<%= f.label :image, t('change_image') %><%= mark_required @supplier_account, :image %><br />
+					<%= f.file_field :image %><span class="tiptip" title="<%= t('helptip.supplier_account.image') %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><%= f.label :corporate_name %><%= mark_required @supplier_account, :corporate_name %><br />
+				<%= f.text_field :corporate_name, :serviceholder => "Monsters Incorporated" %><span class="tiptip" title="<%= t('helptip.supplier_account.corporate_name') %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
+			</tr>
+			<tr>
+				<td><%= f.label :rut %><%= mark_required @supplier_account, :rut %><br />
+				<%= f.text_field :rut, :serviceholder => "23.456.345-3", :onblur => 'format_rut(this)' %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :fantasy_name %><%= mark_required @supplier_account, :fantasy_name %><br />
+				<%= f.text_field :fantasy_name, :serviceholder => "Monsters Inc." %><span class="tiptip" title="<%= t('helptip.supplier_account.fantasy_name') %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
+			</tr>			
+			<tr>
+				<td><%= f.label :web_page %><%= mark_required @supplier_account, :web_page %><br />
+				<%= f.text_field :web_page, :serviceholder => "www.example.com" %><span class="tiptip" title="<%= t('helptip.supplier_account.web_page') %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
+			</tr>
+			<tr>
+				<td><%= f.label :facebook %><%= mark_required @supplier_account, :facebook %><br />
+				<%= f.text_field :facebook, :serviceholder => 'www.facebook.com/example' %><span class="tiptip" title="<%= t('helptip.supplier_account.facebook') %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
+			</tr>
+			<tr>
+				<td><%= f.label :twiter %><%= mark_required @supplier_account, :twiter %><br />
+				<%= f.text_field :twiter, :serviceholder => '@example' %><span class="tiptip" title="<%= t('helptip.supplier_account.twiter') %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
+			</tr>
+			<tr>
+				<td><%= f.label :phone_number %><%= mark_required @supplier_account, :phone_number %><br />
+				<%= f.text_field :phone_number, :serviceholder => "+56 2 324 3434" %></td>
+			</tr>
+
+			<tr>
+				<td>
+					<div class="line"></div>
+					<%= f.fields_for :address do |address| %>
+						<tr>
+							<td><%= address.label :street, t('activerecord.attributes.address.street') %><br/>
+								<%= address.text_field :street %></td>
+						</tr>
+						<tr>
+							<td><%= address.label :number, t('activerecord.attributes.address.number') %><br/>
+							<%= address.text_field :number %></td>
+						</tr>
+						<tr>	
+							<td>	 
+								<div>
+									<%= address.label :region_id, t('activerecord.attributes.address.region') %><br />
+									<%= address.collection_select(:region_id, Region.order(:name), :id, :name, :prompt=>t('select')) %>
+								</div><br />
+								<div>
+									<%= address.label :commune_id, t('activerecord.attributes.address.commune') %><br />
+									<%= address.grouped_collection_select :commune_id, Region.order(:name), :communes, :name, :id, :name, :prompt=>t('select')%>
+								</div>
+							</td>
+						</tr>
+					<% end %>
+				</td>
+			</tr>
+
+			<tr>
+				<td><%= f.label t('industry_categories') %><span class="tiptip" title="<%= t('helptip.supplier_account.industry_categories') %>"><%= mark_required @supplier_account, :industry_category_ids %><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span>
+					<br />
+					<span class="small"><i>Consulta por planes y tarifas especiales al inscribirte en más de un rubro enviando un correo a socios@matriclick.com.</i></span>
+					<br />
+					<br />
+					<% for ict in @industry_category_types %>
+						<span class="small"><%= t(ict.name) %></span>
+						<div class="holder">
+							<% for ic in @industry_categories.find_all_by_industry_category_type_id(ict.id) %>
+								<span><%= check_box_tag("supplier_account[industry_category_ids][]", ic.id, (@supplier_account.industry_categories.include? ic), :class => "ict_#{ict.id}", :onchange => 'is_bookable();') %></span>
+								<span class="lucida small"><%= ic.get_name %></span><br />
+							<% end %>
+						</div>
+						<br/>
+					<% end %>
+				</td>
+				</tr>
+</table>
+<div class="holder">
+	<%= f.submit t('save'), :class => "button check_size" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+</div>

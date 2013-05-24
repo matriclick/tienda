@@ -1,0 +1,7 @@
+<h1>Editando GiftCard</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Ver', @gift_card %> |
+<%= link_to 'Volver', gift_cards_path %> |
+<%= link_to 'Eliminar', @gift_card, confirm: 'Estás seguro?', method: :delete %>

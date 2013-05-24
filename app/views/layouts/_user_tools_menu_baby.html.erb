@@ -1,0 +1,29 @@
+<div class="left_menu">
+	<div class="sidebarmenu bold">
+		<ul id="sidebarmenu1">
+			<li>
+				<div class="<%= "hover_style" if params[:action] == 'baby_clothing_menu' %>">
+					<%= link_to '¡Ropa de Bebe!', mibebe_menu_path(), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if @type_param == "ropa-bebe-niño" %>">
+					<%= link_to 'Ropa para Niños', dresses_ver_path(:type => "ropa-bebe-niño"), :class => "left_link" %>				
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if @type_param == "ropa-bebe-niña" %>">
+					<%= link_to 'Ropa para Niñas', dresses_ver_path(:type => "ropa-bebe-niña"), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if %w[user_conversations buy purchases].include?(controller_name) %>">
+					<%= link_to 'Mensajes | Compras', user_conversations_index_path(), :class => "left_link" %>
+				</div>
+				<% if (@user_conversations_unread_count || 0 ) > 0 %>
+					<div class="notification_counter<%= "_selected" if params[:controller] == "bookings" %> "><%= @user_conversations_unread_count.to_s %></div>
+				<% end %>	
+			</li>
+		</ul>	
+	</div>
+</div>

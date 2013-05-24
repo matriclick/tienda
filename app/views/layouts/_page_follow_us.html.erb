@@ -1,0 +1,20 @@
+<% logo = check_top_menu %>
+	<span style="margin-right:10px"><%= image_tag "iconos_redes/comparte_matriclick.png", :alt => "Comparte Matriclick" %></span>
+	<br />
+	<% if logo == 'El Bazar' %>
+		<span style="margin-right:10px"><%= link_to (image_tag "iconos_redes/facebook.png", :alt => "El Bazar de Matriclick en Facebook", :class => 'image_button'), 'https://www.facebook.com/ElBazarMatriclick', :target => '_blank' %></span>
+	<% elsif logo == 'Bebe' %>
+		<% if session[:country].url_path == 'peru' %>
+			<span style="margin-right:10px"><%= link_to (image_tag "iconos_redes/facebook.png", :alt => "Aguclick en Facebook", :class => 'image_button'), 'http://www.facebook.com/pages/Matriclick-Perú/344996538911153', :target => '_blank' %></span>
+		<% else %>
+			<span style="margin-right:10px"><%= link_to (image_tag "iconos_redes/facebook.png", :alt => "Aguclick en Facebook", :class => 'image_button'),  'https://www.facebook.com/matriclick', :target => '_blank' %></span>
+		<% end %>
+	<% else %>
+		<% if session[:country].url_path == 'peru' %>
+			<span style="margin-right:10px"><%= link_to (image_tag "iconos_redes/facebook.png", :alt => "Matriclick en Facebook", :class => 'image_button'), 'http://www.facebook.com/pages/Matriclick-Perú/344996538911153', :target => '_blank' %></span>
+		<% else %>
+			<span style="margin-right:10px"><%= link_to (image_tag "iconos_redes/facebook.png", :alt => "Matriclick en Facebook", :class => 'image_button'),  'https://www.facebook.com/matriclick', :target => '_blank' %></span>
+		<% end %>
+	<% end %>
+	<span style="margin-right:10px"><%= link_to (image_tag "iconos_redes/twitter.png" ,:alt => "Matriclick en Twitter", :class => 'image_button'), 'https://twitter.com/matriclick', :target => '_blank' %></span>
+	<span style="margin-right:10px"><%= link_to (image_tag "iconos_redes/pinterest.png", :alt => "Matriclick en Pinterest", :class => 'image_button'), 'http://pinterest.com/matriclick/', :target => '_blank' %></span>

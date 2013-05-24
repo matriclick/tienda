@@ -1,0 +1,21 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola <%= @supplier_account.fantasy_name %>,<br/><br/>
+					La reserva por <%= @bookable.name %> para el <%= l @booking.date %>, ha sido cancelada por <%= @booking.user_account.get_wedding_name %>. 
+					<% if @booking.attachednote.present? %>
+						La razón que dieron fue:<br>
+						<%= simple_format @booking.attachednote.message %>
+					<% end %>
+					<br><br>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

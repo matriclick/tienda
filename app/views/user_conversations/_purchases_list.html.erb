@@ -1,0 +1,22 @@
+<% purchases.each do |purchase| %>
+	<% unless purchase.purchasable.nil? %>
+		<div class="conversation_box">
+			<div class="time_in_words">		
+				<%= purchase.created_at.strftime("%d %b %Y") %>
+			</div>
+			<div style="float:left">
+				<%= image_tag(purchase.purchasable.small_image) %>
+			</div>
+			<div style="float:left; padding-left:10px;">
+				<div style="color:#777; width:600px">
+					<%= raw purchase.purchasable.description %><br />
+					<%= number_to_currency(purchase.price) + ' ' + purchase.currency %>
+				</div>
+				<div style="margin-top:10px">
+					<%= link_to 'Ver Detalle', purchase.purchasable.link_to_view(params[:country_url_path], purchase.id), :style => 'color:blue' %>
+				</div>		
+			</div>
+			<div class="clear"></div>
+		</div>
+	<% end %>
+<% end %>

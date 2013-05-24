@@ -1,0 +1,81 @@
+<div style="float:left; width:300px">
+	<% case purchase.purchasable_type %>
+		<% when 'Dress' %>
+			<%= link_to image_tag(purchasable.main_image), dress_ver_path(:type => purchasable.dress_types.first.name, :slug => purchasable.slug) %>
+		<% else %>
+			<%= image_tag(purchasable.main_image) %>
+	<% end %>
+</div>
+<div style="float:left; width:400px; margin-left:20px">
+	<%= raw purchasable.description.gsub(/\n/, '<br/>') %><br />
+	<% if !purchase.size.blank? %>
+		Talla: <%= purchase.size %><br />
+	<% end %>
+	<br />
+	<table>
+		<tr>
+			<td>Usuario</td>
+			<td><%= purchase.user.email %></td>
+		</tr>
+		
+		<% case purchase.purchasable_type %>
+			<% when 'Dress' %>
+				<tr>
+					<td>Precio Unitario</td>
+					<td><%= number_to_currency purchasable.price %></td>
+				</tr>
+				<% if !purchase.quantity.blank? %>
+				<tr>
+					<td>Cantidad</td>
+					<td><%= purchase.quantity.to_s %></td>
+				</tr>
+				<% else %>
+				<tr>
+					<td>Cantidad</td>
+					<td>1</td>
+				</tr>
+				<% end %>
+		<% end %>
+		<tr>
+			<td>Subtotal</td>
+			<td><%= number_to_currency subtotal %></td>
+		</tr>
+		<% if !purchase.credit_reductions.nil? %>
+		<tr>
+			<td>Créditos usados</td>
+			<td><%= number_to_currency purchase.total_credit_reductions %></td>
+		</tr>
+		<% end %>
+		<% if !purchase.dispatch_cost.blank? and %w[Dress ShoppingCart].include?(purchase.purchasable_type) %>
+		<tr>
+			<td>Costo de despacho</td>
+			<td><%= number_to_currency purchase.dispatch_cost %></td>
+		</tr>
+		<% end %>
+		
+		<tr>
+			<td><b>Precio final</b></td>
+			<td><b><%= number_to_currency(purchase.price) + ' ' + purchase.currency %></b></td>
+		</tr>
+	</table>
+	<br /><br />
+	Fecha de compra: <%= purchase.created_at.strftime("%d %b %Y") %>
+</div>
+<div class="clear"></div>
+<br /><br />
+<% if purchase.purchasable_type == 'ShoppingCart' %>
+	Items comprados en este carro:<br />
+	<br /><br />
+	<%= render 'cart', :cart => purchase.purchasable %>
+<% end %>
+<div class="clear"></div>
+
+<% if !purchase.dispatch_address.blank? and %w[Dress ShoppingCart].include?(purchase.purchasable_type) %>
+	<div style="margin-top:20px;">
+		<b>Despacho</b>
+		<hr>
+		<%= purchase.dispatch_address %>
+		<br /><br />
+		<div id="map" style="width:450px; height:300px;"></div>
+	</div>
+<% end %>

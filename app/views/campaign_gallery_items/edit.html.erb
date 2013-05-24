@@ -1,0 +1,14 @@
+<div class="right_link">
+  <%= link_to t('cancel'), campaign_gallery_items_path, :class => :button%>
+</div>
+<div class="titulos">
+	<%= "Editar Item Galería" %>
+</div>
+
+<div class="box_form">
+	<div class="help_tip">
+		<%= t'helptip.required' %><br/>
+	</div>
+	
+	<%= render 'form' %>
+</div>

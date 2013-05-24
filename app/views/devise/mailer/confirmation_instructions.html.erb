@@ -1,0 +1,5 @@
+<p><%= t 'devise.views.mailer.confirmation_instructions.title' %> <%= @resource.email %>!</p>
+
+<p><%= t 'devise.views.mailer.confirmation_instructions.information' %>:</p>
+
+<p><%= link_to t('devise.views.mailer.confirmation_instructions.information'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

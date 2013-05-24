@@ -1,0 +1,55 @@
+<%= form_for(@gift_card) do |f| %>
+  <% if @gift_card.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gift_card.errors.count, "error") %> prohibited this gift_card from being saved:</h2>
+
+      <ul>
+      <% @gift_card.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<div class="field">
+		<%= f.label :supplier_account_id, 'Proveedor' %> 
+	  	<%= collection_select :gift_card, :supplier_account_id, @supplier_accounts, :id, :fantasy_name, :prompt => true %>
+	</div>
+	<br />
+	<div class="field">
+	  <%= f.label :price, 'Precio (paga)' %> <%= f.text_field :price %>
+	</div>
+	<br />
+	<div class="field">
+	  <%= f.label :value, 'Valor (por):' %> <%= f.text_field :value %>
+	</div>
+	<br />
+	<div class="field">
+	  <%= f.label :min_price, 'Precio mínimo de vestido al que aplica:' %> <%= f.text_field :min_price %>
+	</div>
+	<br />
+	<div class="field">
+	  <%= f.label :max_price, 'Precio máximo de vestido al que aplica:' %> <%= f.text_field :max_price %>
+	</div>
+	<br />
+	<div class="field">
+	  <%= f.label :stock, 'Stock (cantidad de códigos que se generarán):' %> <%= f.text_field :stock %>
+	</div>
+	<br />
+	<div class="field">
+	  <%= f.label :valid_from, 'Canje válido desde' %> <%= f.text_field :valid_from %>
+	</div>
+	<br />
+	<div class="field">
+	  <%= f.label :valid_to, 'Canje válido hasta' %> <%= f.text_field :valid_to %>
+	</div>
+	<br />
+	<div class="field">
+	   <%= f.label :gift_card_status_id, 'Estado' %> 
+	   <%= f.collection_select :gift_card_status_id, GiftCardStatus.all, :id, :name, :prompt => "Select", :allow_blank => true %>
+	</div>
+	<br />
+  <div class="field">
+    <%= f.submit %>
+  </div>
+	<br />
+<% end %>

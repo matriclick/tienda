@@ -1,0 +1,28 @@
+<div class="review_image_with_caption">
+	<div class="reviewed_image" style="width:auto;">
+			<% if review.reviewable.class.to_s == "SupplierAccount" %>
+				<%= image_tag(review.reviewable.image.url(:tiny)) %>
+			<% else %>
+				<%= image_tag eval("review.reviewable.#{review.class.to_s.downcase}_images.active.cover_first.first.image.url(:small)") %>
+			<% end %>
+	</div>
+	<div class="reviewed_image_caption">
+		<% if review.reviewable.class.to_s == "SupplierAccount" %>
+			<%= crop_if_longer review.reviewable.corporate_name, 30 %>
+		<% else %>
+			<%= crop_if_longer review.reviewable.name, 30 %>
+		<% end %>
+	</div>			
+</div>
+<div class="time_in_words">
+	<%= "Hace " + distance_of_time_in_words(review.created_at, Time.now) %>
+</div>
+<div class="reviewed_thanks">
+	¡Muchas gracias por dejar tu opinión!
+	<br/><br/>
+	¡La revisaremos y habilitaremos dentro de los próximos días!
+	<br/><br/>
+	<span style="cursor:pointer; text-decoration:underline;" onclick="parent.$.fancybox.close()">Volver</span>
+</div>
+
+<div class="clear"></div>

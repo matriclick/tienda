@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<br><br>
+  <b>Contrato:</b>
+  <%= link_to @invoice.contract_id, @invoice.contract %> - <%= link_to @invoice.contract.lead.name, @invoice.contract.lead %>
+<br><br>
+  <b>Fecha de facturación:</b>
+  <%= @invoice.issued_date %>
+<br><br>
+  <b>Número de factura:</b>
+  <%= @invoice.number %>
+<br><br>
+  <b>Precio Neto:</b>
+  $ <%= @invoice.net_price %>
+<br><br>
+  <b>IVA:</b>
+  $ <%= @invoice.vat %>
+<br><br>		
+<b>Factura por: </b> |
+<% @invoice.invoice_months.each do |im| %>
+	<%= Date::MONTHNAMES[im.month] %> <%= im.year %> |
+<% end %>
+<br><br>
+  	<b>¿Se envío correo de cobranzas?:</b> <%= @invoice.collection_mail_sent ? "✓" : '✘' %> | 
+	<b>Fecha de envío:</b> <%= @invoice.date_collection_mail_sent %>
+<br><br>
+  <b>¿Fue pagada?:</b> <%= @invoice.paid ? "✓" : '✘' %> | <b>Fecha de pago:</b> <%= @invoice.pay_date %>
+<br><br>
+  <b>Comentarios:</b>
+  <%= @invoice.comments %>
+<br><br>
+<% unless @invoice.attached_files.blank? %>
+	<div class="attached_files">
+		<% @invoice.attached_files.each do |file|%>
+			<%=	link_to ((image_tag ("clip.gif"))+" "+file.attached_file_name.to_s), invoices_download_file_path(file) %><br/><br/>
+		<% end -%>
+	</div>
+<% end %>
+<br />
+
+<%= link_to 'Editar', edit_invoice_path(@invoice) %> |
+<%= link_to 'Ir al contrato', @invoice.contract %> | 
+<%= link_to 'Eliminar', @invoice, confirm: 'Are you sure?', method: :delete %> | 
+<%= link_to 'Lista de facturas',  reports_invoices_list_path %>

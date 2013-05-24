@@ -1,0 +1,49 @@
+<%= nested_form_for @review, :html => {:class => :star_rating_form}, :url => reviews_create_path, :remote => true do |f|%>
+<div class="review_image_with_caption">
+	<div class="review_image">
+			<% if object.class.to_s == "SupplierAccount" %>
+				<%= image_tag(object.image.url(:small)) %>
+			<% else %>
+				<%= image_tag eval("object.#{object.class.to_s.downcase}_images.active.cover_first.first.image.url(:small)") %>
+			<% end %>
+	</div>
+	<div class="review_image_caption">
+		<% if object.class.to_s == "SupplierAccount" %>
+			<%= crop_if_longer object.corporate_name, 20 %>
+		<% else %>
+			<%= crop_if_longer object.name, 20 %>
+		<% end %>
+	</div>			
+</div>
+	<div class="review_star_rating_system">
+	<h3>¿Cuánto te gustó?</h3>
+		<ul class="rating">
+			<% form_id = "#{object.id}" %>
+			<%= f.fields_for :star_rating do |star| %>
+				<%= star.hidden_field :value, :value => 1, :id => form_id + "_stars" %>
+					<% (1..5).each do |i| %>
+						<li id="<%= form_id %>_<%= i %>" class="rating_star" data-stars= "<%= i %>" data-form-id="<%= form_id %>"></li>
+					<% end %>
+			<% end %>
+		</ul>
+	</div>
+
+	<div class="review_form">
+		<table class="invisible">
+			<tr>
+				<td>
+					<%= label_tag :tip, "¿Te gustó? ¿Por qué? ¿Lo recomendarías?", :class => "help_tip" %>
+					<%= f.text_field :reviewable_type, :hidden => true, :value => "#{object.class}"%>
+					<%= f.number_field :reviewable_id, :hidden => true, :value => "#{object.id}"%>
+					<%= f.text_area :content, :size => "70x8" %>
+				</td>
+				<td style="width:23%;">
+					<%= f.submit t("send"), :class => :button %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="clear">
+		
+	</div>
+<% end %>

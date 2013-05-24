@@ -1,0 +1,13 @@
+<b>LA TRANSACCION NO SE PUDO REALIZAR</b><br/><br/>
+<div style="line-height:20px">
+El número de la orden de compra es: <%= params['TBK_ORDEN_COMPRA'] %><br/><br/>
+Transacción Fracasada. Las posibles causas de este rechazo son:<br/><br/>
+
+- Error en el ingreso de los datos de su tarjeta de crédito (fecha y/o código de seguridad).<br/>
+- Su tarjeta de crédito no cuenta con el cupo necesario para cancelar la compra.<br/>
+- Tarjeta aún no habilitada en el sistema financiero.<br/>
+- Si el problema persiste favor comunicarse con su Banco emisor.<br/><br/>
+
+¿Consultas o Dudas?, llámanos al 247 8174<br/><br/>
+<%= link_to 'Ir al Bazar', bazar_path %>
+</div>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_account_id: 1
+  couple_file_name: MyString
+  couple_content_type: MyString
+  couple_file_size: 1
+  couple_updated_at: 2012-01-11 12:09:20
+
+two:
+  user_account_id: 1
+  couple_file_name: MyString
+  couple_content_type: MyString
+  couple_file_size: 1
+  couple_updated_at: 2012-01-11 12:09:20

@@ -1,0 +1,23 @@
+<div class="<%= (small ||= false) ? "nothing_to_show_small" : "nothing_to_show" %>">
+	<div class="message help_tip">
+		<% if (message ||= nil) %>
+			<%= t("#{message}") %>
+		<% end %>
+		<% if (word ||= nil) %>
+			<%= (t('you_dont_have') + " " + word) %><br/>			
+			<%= t('coming_soon!') if (coming_soon ||= nil) %>
+		<% end %>
+		<% if (category ||= nil) %>
+			<%= t('theres_nothing_for_this_category', :objects => objects) %>			
+		<% else %>
+			<%= t('have_been_added', :objects => objects) if (objects ||= nil) %>
+		<% end %>
+		<% if (no_booking ||= nil) -%>
+			<%= t ('supplier_has_no_bookings_system') %>
+		<% end -%>
+		<% if (user_notice ||= nil) -%>
+			<br/>
+			<%= t ('booking_is_ok') %>
+		<% end -%>
+	</div>
+</div>

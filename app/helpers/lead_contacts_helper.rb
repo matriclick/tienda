@@ -1,0 +1,2 @@
+module LeadContactsHelper
+end

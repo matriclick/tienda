@@ -1,0 +1,86 @@
+<%= form_for(@opportunity) do |f| %>
+  <% if @opportunity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this opportunity from being saved:</h2>
+
+      <ul>
+      <% @opportunity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :supplier_account_id, 'Socio' %><br />
+		<div class="help_tip">
+			Selecciona el socio que está entregando la oportunidad
+		</div>
+	<%= f.collection_select :supplier_account_id, @supplier_accounts, :id, :fantasy_name, :prompt => true %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title, :size => '100x1' %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :valid_until %><br />
+		<div class="help_tip">
+		    Fecha en la que dejará de ser válido el descuento<br />
+			En la página aparecerán solo los descuentos con fecha de validez anterior a hoy
+		</div>
+    <%= f.date_select :valid_until %>
+  </div>
+<br />
+	<div class="field">
+	<%= f.label :main_image, "Imagen 300x200" %><br />
+		<div class="help_tip">
+			Relación de tamaño requerido: 300px de ancho × 200px de largo (prohibido ingresar imágenes con otras dimensiones).<br />
+			Esta imagen es la que se muestra cuando se ven todas las oportunidades
+		</div>
+	<%= f.file_field :main_image %>
+	</div>
+<br />
+  <div class="field">
+    <%= f.label :introduction %><br />
+		<div class="help_tip">
+			Mencionar el descuento y describir las cualidades del proveedor para que la gente haga click y vea el detalle.<br />
+			Debe ser una descripción breve, no más de 2 líneas.
+		</div>
+    <%= f.tinymce :introduction %>
+  </div>
+<br />
+	<div class="field">
+	<%= f.label :side_image, "Imagen 400x500" %><br />
+		<div class="help_tip">
+			Imagen que aparece a la izquierda de la descripción cuando se muestre la oportunidad (texto que escribirás más abajo).<br />
+			Tamaño requerido: 400px × 600px (prohibido ingresar imágenes con otras dimensiones)
+		</div>
+	<%= f.file_field :side_image %>
+	</div>
+<br />
+<br />
+  <div class="field">
+    <%= f.label :description %><br />
+		<div class="help_tip">
+		    (1) Hablar sobre el descuento [matriclick te presenta esta gran oportunidad...] <br />
+			(2) Mencionar todas las condiciones especiales que son importantes <br />
+			(3) Poner los datos de contacto y cómo hacer válido el descuento
+		</div>
+    <%= f.tinymce :description %>
+  </div>
+<br />
+<div id="contents_for_posts">
+	<%= f.fields_for :opportunity_images do |builder| %>
+		<%= render 'opportunity_image_fields', :f => builder %>
+	<% end %>	
+</div>
+<br />
+	<%= link_to_add_fields_post "Agregar Imagen para la Galería de Imágenes", f, :opportunity_images %>
+<br />
+
+<br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

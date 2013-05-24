@@ -1,0 +1,181 @@
+<%= form_for(@wedding_planner_quote) do |f| %>
+  <% if @wedding_planner_quote.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wedding_planner_quote.errors.count, "error") %> prohibited this wedding_planner_quote from being saved:</h2>
+
+      <ul>
+      <% @wedding_planner_quote.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div style="margin-top:20px; font-weight:bold">Información de los Novios</div>
+<hr>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <div class="field">
+    <%= f.label :nombre_novia %> <%= f.text_field :nombre_novia %>
+	<div class="help_tip" style="display:inline">La persona más importante de la fiesta</div>
+  </div>
+  <div class="field">
+    <%= f.label :fono_novia %> <%= f.text_field :fono_novia %>
+  </div>
+  <div class="field">
+    <%= f.label :email_novia %> <%= f.text_field :email_novia %>
+  </div>
+	<br />
+  <div class="field">
+    <%= f.label :nombre_novio %> <%= f.text_field :nombre_novio %>
+	<div class="help_tip" style="display:inline">El hombre más feliz del mundo</div>
+  </div>
+  <div class="field">
+    <%= f.label :fono_novio %> <%= f.text_field :fono_novio %>
+  </div>
+  <div class="field">
+    <%= f.label :email_novio %> <%= f.text_field :email_novio %>
+  </div>
+<div style="margin-top:20px; font-weight:bold">Fecha del Matrimonio y Presupuesto General</div>
+<hr>
+  <div class="field">
+    <%= f.label :fecha_del_matrimonio %> <%= f.text_field :fecha_del_matrimonio %>
+	<div class="help_tip" style="display:inline">¿Cuándo será el gran día o cuándo te gustaría que fuera?</div>
+  </div>
+  <div class="field">
+    <%= f.label :cantidad_de_invitados %> <%= f.text_field :cantidad_de_invitados %>
+	<div class="help_tip" style="display:inline">La cantidad de invitados que irán <b>a la comida</b></div>
+  </div>
+  <div class="field">
+    Presupuesto total estimado $<%= text_field 'ppto', 'global', :onchange => "update_ppto()" %>
+	<div class="help_tip" style="display:inline">La idea de presupuesto total que tienes pensado para tu matrimonio</div>
+  </div>
+<div style="margin-top:20px; font-weight:bold">Detalle del Presupuesto</div>
+<div class="help_tip" style="display:inline">Se genera automáticamente según el presupuesto global, asignando un porcentaje a cada item. 
+	<br />La idea es que tu lo vayas ajustando y con eso llegarás a un presupuesto estimado final.</div>
+<hr>
+  <div class="field">
+    <%= f.label :presupuesto_banqueteria %> $<%= f.text_field :presupuesto_banqueteria, :onchange => "update_ppto_final()" %>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_centro_de_eventos %> $<%= f.text_field :presupuesto_centro_de_eventos, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Lo que tienes pensado gastar en el lugar del evento</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_iglesia %> $<%= f.text_field :presupuesto_iglesia, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Hay que hacer una donación de entre $ 200,000 a $ 300,000</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_civil %> $<%= f.text_field :presupuesto_civil, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Civil y/o postura de argollas. Tu decides cómo quieres celebrarlo y a quiénes incluír</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_coro %> $<%= f.text_field :presupuesto_coro, :onchange => "update_ppto_final()" %>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_flores %> $<%= f.text_field :presupuesto_flores, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Principalmente las flores para la iglesia</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_arriendo_auto %> $<%= f.text_field :presupuesto_arriendo_auto, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Para la esperada llegada de la novia</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_decoracion_salon %> $<%= f.text_field :presupuesto_decoracion_salon, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Muchas veces lo incluye la banquetera pero se pueden considerar extras</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_musica_iluminacion %> $<%= f.text_field :presupuesto_musica_iluminacion, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Principalmente el presupuesto para el DJ</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_argollas %> $<%= f.text_field :presupuesto_argollas, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">¡Hay que mandar a hacer las argollas!</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_fotografia %> $<%= f.text_field :presupuesto_fotografia, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">El fotógrafo</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_video %> $<%= f.text_field :presupuesto_video, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Depende si quieres o no que filmen el matrimonio</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_animacion %> $<%= f.text_field :presupuesto_animacion, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">¿Quieres que vaya una banda en vivo o un show de algo en especial?</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_cotillon %> $<%= f.text_field :presupuesto_cotillon, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">¿Te interesa que haya cotillón en la fiesta?</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_partes_de_matrimonio %> $<%= f.text_field :presupuesto_partes_de_matrimonio, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">¿Tienes pensado dónde mandar a hacer los partes? ¿Qué diseño te gustaría?</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_torta_de_novios %> $<%= f.text_field :presupuesto_torta_de_novios, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">¿Quieres que haya una torta?</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_recuerdo_matrimonio %> $<%= f.text_field :presupuesto_recuerdo_matrimonio, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">¿Algún recuerdo para los invitados?</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_vinos %> $<%= f.text_field :presupuesto_vinos, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Tenemos que calcular qué vinos queremos y cuántos</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_bar_destilados %> $<%= f.text_field :presupuesto_bar_destilados, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Lo mismo para el bar. Muchas veces viene incluído con la banquetería</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_vestido_novia %> $<%= f.text_field :presupuesto_vestido_novia, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">¡Clave! Un gasto importante</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_zapatos_novia %> $<%= f.text_field :presupuesto_zapatos_novia, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Los zapatos de la novia</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_maquillaje %> $<%= f.text_field :presupuesto_maquillaje, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Una buena maquilladora hará gran diferencia</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_peinado %> $<%= f.text_field :presupuesto_peinado, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Puede ser la misma maquilladora u otra persona</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_tocado %> $<%= f.text_field :presupuesto_tocado, :onchange => "update_ppto_final()" %>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_ramo_de_novia %> $<%= f.text_field :presupuesto_ramo_de_novia, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Con el que entrarás a la iglesia</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_traje_novio %> $<%= f.text_field :presupuesto_traje_novio, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">¿Cómo vestirá el novio?</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_camisa_a_medida %> $<%= f.text_field :presupuesto_camisa_a_medida, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">La camisa. ¡No olvidar llevar más de una!</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_zapatos_novio %> $<%= f.text_field :presupuesto_zapatos_novio, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Los zapatos del novio</div>
+  </div>
+  <div class="field">
+    <%= f.label :presupuesto_extras %> $<%= f.text_field :presupuesto_extras, :onchange => "update_ppto_final()" %>
+	<div class="help_tip" style="display:inline">Todos los extras que podríamos no estar considerando acá</div>
+  </div>
+<br />
+<b>Total con los ajustes: $<span id="ppto_total">0</span></b>
+<div style="margin-top:20px; font-weight:bold">Comentarios Adicionales</div>
+<div class="help_tip" style="display:inline">¿Algo importante que nos quieras decir antes de que conversemos?</div>
+<hr>
+  <div class="field">
+    <%= f.text_area :comentarios_adicionales %>
+  </div>
+  <div>
+    <%= f.submit 'Enviar', :class => 'button' %>
+  </div>
+<% end %>
+<div class="clear"></div>

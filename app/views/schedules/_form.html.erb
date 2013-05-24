@@ -1,0 +1,41 @@
+<%= form_for [@supplier_account,@service,@schedule], :url => supplier_account_service_schedule_path(@supplier, @service, @schedule), :html => {:multipart => true, :id => 'edit_schedule'} do |f| %>
+	<% if @schedule.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= @schedule.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+		<ul>
+			<% @schedule.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+	<table class="list">
+		<tr>
+			<th><%= t 'day'%></th>
+			<th><%= t 'activerecord.attributes.schedule_day.enabled' %></th>
+			<th><%= t 'activerecord.attributes.schedule_day.all_day' %></th>
+			<th><%= t 'activerecord.attributes.schedule_day.from' %></th>
+			<th><%= t 'activerecord.attributes.schedule_day.to' %></th>
+			<th><%= t 'activerecord.attributes.schedule_day.start_lunch_time' %></th>
+			<th><%= t 'activerecord.attributes.schedule_day.end_lunch_time' %></th>
+		</tr>
+		<%= f.fields_for :schedule_days do |schedule_days_form| %>    
+		<tr>        
+			<td><%=set_day_name_by_day_id(@i)%></td>
+			<td><div class ="fields"> <%= schedule_days_form.check_box :enabled %> </div></td>
+			<td><div class ="days"> <%= schedule_days_form.check_box :all_day %> </div></td>
+			<td><div id= "<%= @cont %>from" class ="cont"><%= schedule_days_form.time_select :from, {:minute_step => 15, :prompt => {:hour => '00', :minute => '00' }}, :onchange =>"check_schedule_hour(this.name)" %></div> </td>
+			<td><div id= "<%= @cont %>to" class ="cont"><%= schedule_days_form.time_select :to, {:minute_step => 15, :prompt => {:hour => '00', :minute => '00' }}, :onchange =>"check_schedule_hour(this.name)" %></div></td>
+			<td><div id= "<%= @cont %>start_lunch_time" class ="cont"><%= schedule_days_form.time_select :start_lunch_time, {:minute_step => 15, :prompt => {:hour => '00', :minute => '00' }}, :onchange =>"check_lunch_hour(this.name)" %></div></td>
+			<td><div id= "<%= @cont %>end_lunch_time" class ="cont"><%= schedule_days_form.time_select :end_lunch_time, {:minute_step => 15, :prompt => {:hour => '00', :minute => '00' }}, :onchange =>"check_lunch_hour(this.name)" %></div></td>
+			<% @cont = @cont + 1 %>
+			<% @i = @i + 1 %>
+		</tr>
+		<% end %>
+	</table><br/>
+	<%= collection_select(:schedule_day_types, :schedule_day_type_id ,ScheduleDayType.all, :id, :name, { :include_blank => t('schedule_types')}, { :onchange => 'schedule_type_changed(this)'} ) %>
+	<br />
+<div class="holder">
+	<%= f.submit :class => "button" %>
+</div>
+<% end %>

@@ -1,0 +1,17 @@
+<tr class="review">
+	<td class="stars">
+		<div class="star-rating-wrap">
+			<div class="star-rating-value" style="background-color: #FCDD3B; width: <%= (review.star_rating.value * 100) / 5  if review.star_rating.present? %>%;"></div>
+		</div>
+		<div class="time_in_words">
+			<%= "Hace " + distance_of_time_in_words(review.created_at, Time.now) %>
+		</div>
+	</td>
+	
+	<td class="review_description">
+		<div style="position:relative;">
+		<span class="review_quotes">"</span> 
+			<%= review.content %>
+		</div>
+	</td>
+</tr>

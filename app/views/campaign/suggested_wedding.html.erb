@@ -1,0 +1,127 @@
+<div class="campaign_titles">
+	<h1>Matrimonio sugerido por Matriclick</h1>
+	<h2>Los novios ganadores podrán elegir entre los $8.000.000 o este matrimonio que Matriclick ha armado para ellos. Podrán elegir máximo un proveedor por rubro, sin pagar un peso de más!</h2>
+</div>
+<div class="clear"></div>
+	<div class="help_tip" style="color:#aaa;">(*) Los proveedores sugeridos ya tienen una propuesta definida para los novios ganadores. En caso de que querer otros servicios, se deberán pagar de manera adicional.
+	</div>
+<br>
+<div class="box">
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/centro_de_eventos.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("centro_de_eventos").id) %>	
+			<div style="color:#aaa;">Centro de Eventos</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(78)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+				<li><%= link_to (sa = SupplierAccount.find(277)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/banqueteras.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("banqueteras").id) %>	
+			<div style="color:#aaa;">Banquetera</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(369)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/dj_y_musica.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("dj_y_musica").id) %>
+			<div style="color:#aaa;">DJ</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(96)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+				<li><%= link_to (sa = SupplierAccount.find(372)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+				<li><%= link_to (sa = SupplierAccount.find(692)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/fotografia_y_video.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("fotografia_y_video").id) %>
+			<div style="color:#aaa;">Fotografía y vídeo</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(96)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+				<li><%= link_to (sa = SupplierAccount.find(334)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/iluminacion_y_decoracion.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("iluminacion_y_decoracion").id) %>
+			<div style="color:#aaa;">Iluminación</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(96)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/coros.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("coros").id) %>
+			<div style="color:#aaa;">Coro</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(51)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/florerias.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("florerias").id) %>
+			<div style="color:#aaa;">Florerías</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(253)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/vestidos_y_calzado_novia.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("vestidos_y_calzado_novia").id) %>
+			<div style="color:#aaa;">Vestidos y calzado novia</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(53)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/peinado_y_maquillaje.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("peinado_y_maquillaje").id) %>
+			<div style="color:#aaa;">Peinado y maquillaje</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(61)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+				<li><%= link_to (sa = SupplierAccount.find(270)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+								<li><%= link_to (sa = SupplierAccount.find(292)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="suggested_ic">
+		<div class="image">
+			<%= link_to image_tag("industry_category/entretencion_y_fiesta.jpg", :class => :shadow), products_and_services_catalog_index_path(:industry_category_ids => IndustryCategory.find_by_name("entretencion_y_fiesta").id) %>
+			<div style="color:#aaa;">Entretención y fiesta</div>
+		</div>
+		<div class="list">
+			<ul>
+				<li><%= link_to (sa = SupplierAccount.find(121)).fantasy_name, supplier_products_and_services_path(sa.supplier, :public_url => sa.public_url) %></li>
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,29 @@
+<% @conversation.messages.each do |message| %>
+	<div class="holder">
+		<div class="time_in_words">
+			<%= distance_of_time_in_words(Time.now, message.created_at) %>
+		</div>
+		<br />
+		<div class="transmitter">
+			<%= message.transmitter %>
+		</div>
+		<br />
+		<div class="<%= message.is_supplier == true ? 'transmitter_supplier_account' : 'transmitter_user_account' %>">
+			<span style="font-size:11px; line-height:15px;">
+				<% if (c = message.content).length > 251 %>
+						<%= sanitize message.content.gsub(/\n/, "<br>") %>
+						<%= link_to_function "(#{t('more').downcase})", "toggle_description(this)", :class => 'see_more showable', :style => 'display:none' %>
+				<% else  %>
+						<%= sanitize c.gsub(/\n/, "<br>"), :tags => %W(br) %>
+				<% end %>
+			</span>
+		</div>
+		<% unless message.attached_files.blank? %>
+			<div class="attached_files"><br/>
+				<% message.attached_files.each do |file|%>
+					<%=	link_to ((image_tag ("clip.gif"))+" "+file.attached_file_name.to_s), conversations_download_file_supplier_account_path(@supplier, file) %><br/><br/>
+				<% end -%>
+			</div>
+		<% end %>
+	</div>
+<% end %>

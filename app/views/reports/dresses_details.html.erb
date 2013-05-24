@@ -1,0 +1,63 @@
+<h1>Reporte Vestidos</h1>
+<%= render 'date_range_selector' %>
+
+<table style="width:900px">
+	<tr>
+		<th style="width:10px">ID</th>
+		<th>Cotizaciones</th>
+		<th>Imagen</th>
+		<th>Tipo</th>
+		<th>Estado</th>
+		<th style="width:60px">Precio</th>
+		<th>Dueño</th>
+		<th>Teléfono</th>
+		<th>Email</th>
+		<th>Posición</th>
+		<th></th>
+	</tr>
+	<% @dresses.each do |dress| %>
+	<tr>
+		<td>
+			<%= dress.id %>
+	 	</td>
+		<td style="text-align:center">
+			<%= dress.dress_requests.count %>
+	 	</td>
+		<td>
+			<%= link_to image_tag(dress.dress_images.first.dress.url(:tiny)), dress %>
+	 	</td>
+		<td>
+			<%= dress.dress_type.name %>
+	 	</td>
+		<td>
+			<%= dress.dress_status.name %>
+	 	</td>
+		<td>
+			<%= number_to_currency dress.price %>
+	 	</td>
+		<% if !dress.supplier_account.nil? %>
+			<% if dress.supplier_account.supplier_account_type.name == 'Vestidos de Novia Usados' %>
+				<td><%= dress.seller_name %></td>
+				<td><%= dress.seller_phone_number %></td>
+				<td><%= dress.seller_email %></td>
+			<% elsif !dress.supplier_account.supplier_contacts.last.nil? %>
+				<td><%= dress.supplier_account.fantasy_name %><br />(<%= dress.supplier_account.supplier_contacts.first.name %>)</td>
+				<td><%= dress.supplier_account.supplier_contacts.first.phone_number %></td>
+				<td><%= dress.supplier_account.supplier_contacts.first.email %></td>
+			<% else %>
+				<td></td>
+				<td></td>
+				<td></td>
+			<% end %>
+		<% end %>
+		<td style="text-align:center">
+			<%= dress.position %>
+	 	</td>
+		<td>
+			<%= link_to 'ver', dress, :style => 'text-decoration:underline' %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+<br /><br />
+<%= link_to 'Volver al reporte de vestidos', reports_dresses_path %> | <%= link_to 'Volver al menú de administración', administration_index_path %>

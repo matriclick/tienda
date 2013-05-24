@@ -1,0 +1,83 @@
+<div class="left_menu">
+	<div class="sidebarmenu bold">
+		<ul id="sidebarmenu1">
+		<% if session[:preview] == true %>
+			<li class="menu_li_disabled"><%= t('profile') %></li>
+			<li class="menu_li_disabled"><%= t('products_and_services') %></li>
+			<li class="menu_li_disabled"><%= t('checklist') %></li>
+			<li class="menu_li_disabled"><%= t('activerecord.attributes.event.booking_list') %></li>
+			<li class="menu_li_disabled"><%= t('finance') %></li>
+			<li class="menu_li_disabled"><%= t('invitees') %></li>
+			<li class="menu_li_disabled"><%= t('ceremony') %></li>
+		<% else %>
+			<li>
+				<div class="<%= "hover_style" if controller_name == "user_profile" %>">
+					<%= link_to 'Perfil Novios', user_profile_path, :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= controller_name == "contests" ? "hover_style" : "not_hover_style_travelite" %>">
+					<%= link_to 'Despedida de Soltera', despedida_de_soltera_final_path, :class => "left_link" %>
+				</div>
+			</li>			
+			<li>
+				<div class="<%= "hover_style" if ["products_and_services_catalog", "suppliers_catalog"].include?(controller_name) and !@vestido_boutique %>">
+					<%= link_to 'Catálogo', products_and_services_catalog_select_industry_category_path, :class => "left_link" %>
+				</div>	
+			</li>
+			<% if ['chile'].include?(session[:country].url_path) %>
+				<li>
+					<div class="<%= "hover_style" if controller_name == "packs" and action_name == 'index' or (controller_name == "posts" and post_type_for(@post) == 'Pack') %>">
+						<%= link_to 'Casonas Matriclick', casonas_matriclick_path, :class => "left_link" %>
+					</div>
+				</li>
+			<% end %>
+			<% if ['chile'].include?(session[:country].url_path) %>
+				<li>
+					<div class="<%= "hover_style" if controller_name == "packs" and action_name == 'honey_moons' or (controller_name == "posts" and post_type_for(@post) == 'Lunas de Miel') %>">
+						<%= link_to 'Lunas de Miel', lunas_de_miel_path, :class => "left_link" %>
+					</div>
+				</li>
+			<% end %>
+			<% if ['chile'].include?(session[:country].url_path) %>
+				<li>
+					<div class="<%= "hover_style" if controller_name == "opportunities" %>">
+						<%= link_to 'Ofertas de la Semana', opportunities_path, :class => "left_link" %>
+					</div>
+				</li>
+			<% end %>
+			<% if ['chile'].include?(session[:country].url_path) %>
+				<li>
+					<div class="<%= "hover_style" if controller_name == "dresses" and 
+					(action_name == "wedding_dress_menu" or action_name == "wedding_dress_stores" or params[:type] == "Novia" or params[:type] == "Civil" or params[:type].nil?) %>">
+						<%= link_to 'Vestidos de Novia', dresses_wedding_dress_menu_path, :class => "left_link" %>
+					</div>
+				</li>
+			<% end %>
+			<li>
+				<div class="<%= "hover_style" if (controller_name == "posts" and action_name == "blog") or (controller_name == "posts" and post_type_for(@post) == 'Post') %>">
+					<%= link_to 'Revista Matriclick', blog_path, :class => "left_link" %>
+				</div>
+			</li>
+			<% if ['chile'].include?(session[:country].url_path) %>
+				<li>
+					<div class="<%= "hover_style" if controller_name == "ceremonies" or controller_name == "tips" %>">
+						<%= link_to t('ceremonies'), ceremonies_menu_path, :class => "left_link" %>
+					</div>
+				</li>
+			<% end %>
+			
+			<% if ['chile'].include?(session[:country].url_path) %>
+				<li>
+					<div class="<%= "hover_style" if %w[user_conversations buy purchases].include?(controller_name) %>">
+						<%= link_to 'Mensajes | Compras', user_conversations_index_path(), :class => "left_link" %>
+					</div>
+					<% if (@user_conversations_unread_count || 0 ) > 0 %>
+						<div class="notification_counter<%= "_selected" if controller_name == "bookings" %> "><%= @user_conversations_unread_count.to_s %></div>
+					<% end %>	
+				</li>
+			<% end %>
+		<% end %>
+		</ul>	
+	</div>
+</div>

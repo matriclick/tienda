@@ -1,0 +1,38 @@
+<% if @product.errors.any? %>
+<div id="error_explanation">
+	<h2><%= @product.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+
+	<ul>
+		<% @product.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+  <div>
+	  <div class="field">
+		<div class="help_tip"><%= t('image_size_limit') %></div>
+	    <% @aux = true %>
+	    <% @countaux = 0 %>
+		  <%= f.fields_for :product_images do |product_images_form| %>
+		    <% @countaux >= @product.product_images.count ? (@aux = false) : @aux = true %>
+				<div class="old_image">
+					<%= image_tag product_images_form.object.image.url(:tiny) %>
+				</div>
+				<div class="image_field">
+					<%= product_images_form.label :image, @aux ? t('change_image') : t('new_image') %><br />
+					<%= product_images_form.file_field :image %>
+					<%= product_images_form.link_to_remove t('remove_this_image'), :class => "small_button" %>
+				</div>
+				<div class="clear"></div>
+		    <% @countaux = @countaux + 1 %>
+		  <% end %>
+			<%= f.link_to_add t('add_image'), :product_images, :onclick => @aux = false, :class => "small_button" %>
+	  </div>		
+  </div>
+<div class="holder">
+	<%= f.submit :class => "button", :onclick => "show_loading_gif()" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;", :id => 'loading_gif' %>
+</div>
+	
+
+

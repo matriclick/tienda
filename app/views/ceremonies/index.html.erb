@@ -1,0 +1,37 @@
+<div class="titulos">
+	<%= label_tag 'Listing ceremonies' %>
+</div>
+
+<table>
+  <tr>
+    <th>Teléfono</th>
+    <th>Email de contacto</th>
+    <th>Persona de contacto</th>
+    <th>Horario</th>
+    <th>Capacidad</th>
+    <th>Precio</th>
+    <th>Precio máximo</th>
+    <th>Tipo de Ceremonia</th>
+    <th>Información adicional</th>
+    <th>Opciones</th>
+  </tr>
+	<% @ceremonies.each do |ceremony| %>
+		<tr>
+			<td><%= ceremony.phone_number %></td>
+			<td><%= ceremony.contact_email %></td>
+			<td><%= ceremony.contact_person %></td>
+			<td><%= ceremony.schedule %></td>
+			<td><%= ceremony.capacity %></td>
+			<td><%= ceremony.price %></td>
+			<td><%= ceremony.top_price_range %></td>
+			<td><%= ceremony.ceremony_type.name unless ceremony.ceremony_type.blank? %></td>
+			<td><%= ceremony.additional_information %></td>
+			<td><%= link_to 'Show', ceremony %> | 
+					<%= link_to 'Edit', edit_ceremony_path(ceremony) %> | 
+					<%= link_to 'Destroy', ceremony, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+	<% end %>
+</table>
+<br />
+
+<%= link_to 'New Ceremony', new_ceremony_path, :class => :button %>

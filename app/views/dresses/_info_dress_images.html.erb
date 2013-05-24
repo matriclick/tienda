@@ -1,0 +1,42 @@
+<style>
+	/*set a border on the images to prevent shifting*/
+	 #gallery_01 img{ border:2px solid white; }
+ 
+	 /*Change the colour*/
+	 .active img{ border:1px solid #333 !important; }
+	
+</style>
+
+<% if enable_edit %>
+<div style="background:black; padding:2px; text-align:center;">
+	<%= link_to 'Editar | ', edit_supplier_account_dress_path(supplier, dress), :class => 'edit_dress_link' %>
+	<% if developer? %>
+		<%= link_to 'Eliminar', dress, confirm: '¿Estás seguro?', method: :delete, :class => 'edit_dress_link' %>
+	<% end %>
+</div>
+<% end %>
+
+<img id="zoom_03" src="<%= dress.dress_images.first.dress.url(:main) %>" data-zoom-image="<%= dress.dress_images.first.dress.url(:original) %>" alt="<%= dress.dress_images.first.name %>" />
+
+<% unless (imgs = dress.dress_images).blank? %>
+<div id="gallery_01"> 
+	<% for image in imgs %>
+	<a href="#" data-image="<%= image.dress.url(:main) %>" data-zoom-image="<%= image.dress.url(:original) %>">
+	  <img src="<%= image.dress.url(:side) %>" alt="<%= image.name %>" />
+	</a>
+	<% end %>
+</div>
+<% end %>
+
+<script type="text/javascript">
+	//initiate the plugin and pass the id of the div containing gallery images
+	$("#zoom_03").elevateZoom({gallery:'gallery_01', cursor: 'pointer', galleryActiveClass: 'active', borderColour: '#FFF', zoomWindowWidth: 400 }); 
+
+	//pass the images to Fancybox
+	$("#zoom_03").bind("click", function(e) {  
+	  var ez =   $('#zoom_03').data('elevateZoom');	
+		$.fancybox(ez.getGalleryList());
+	  return false;
+	});
+
+</script>

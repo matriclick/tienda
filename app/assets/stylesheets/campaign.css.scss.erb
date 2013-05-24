@@ -1,0 +1,586 @@
+/*--------------------- Winners ---------------------*/
+.title_winners {
+	font: {
+		size:18px;
+		weight:bold;
+	}
+	margin-top:10px;
+	margin-bottom:20px;
+	text-align:center;
+}
+.p_winners {
+	font: {
+		size:14px;
+	}
+	text-align:center;
+}
+
+/*--------------------- END Winners ---------------------*/
+/*--------------------- Endind ---------------------*/
+.slider_ending {
+	margin-left:100px;
+}
+.title_ending {
+	font: {
+		size:18px;
+		weight:bold;
+	}
+	margin-top:10px;
+	margin-bottom:20px;
+	text-align:center;
+}
+.gallery_ending {
+	font: {
+		size:18px;
+		weight:bold;
+	}
+	margin-top:10px;
+	margin-bottom:20px;
+}
+
+.mini_image_ending {
+	width:'120px';
+	
+}
+/*--------------------- END Ending ---------------------*/
+/*--------------------- Finalists ---------------------*/
+.title_finalists {
+	font: {
+		size:18px;
+		weight:bold;
+	}
+	margin-top:10px;
+	margin-bottom:20px;
+	text-align:center;
+}
+
+/*--------------------- END Finalists ---------------------*/
+/*--------------------- Thanks ---------------------*/
+.title_thanks {
+	font: {
+		size:18px;
+		weight:bold;
+	}
+	margin-top:10px;
+	margin-bottom:20px;
+	text-align:center;
+}
+.p_thanks {
+	font: {
+		size:14px;
+	}
+	text-align:center;
+}
+
+/*--------------------- END Thanks ---------------------*/
+
+.win_wedding_profile {
+	color: #555555;
+	float: right;
+	font-size: 32px;
+	line-height: 38px;
+	margin-right: 99px;
+	margin-top: 23px;
+	width: 217px;
+}
+div.campaign_titles {
+	margin:auto;
+	text-align:center;
+	width:80%;
+	color:#444;
+	h1 {
+		font: {
+			size:18px;
+			weight:bold;
+		}
+	}
+	h2 {
+		font: {
+			size:14px;
+			weight:lighter;
+		}
+	}
+}
+.anecdote_box {
+	border:solid 1px #ccc;
+	padding:10px 10px 10px 8px;
+	font-size:11px;
+	background:white;
+	margin:15px 19px 10px 10px;
+	text-align:center;
+	
+	.images_box {
+		float:left;
+		margin:10px 20px 10px 10px;
+	}
+	.title {
+		font: {
+			size:18px;
+			weight:bold;
+		}
+		margin-top:10px;
+		margin-bottom:20px;
+	}
+	.description {
+		text-align:left;
+	}
+	.anecdote_stars {
+		margin-top:10px;
+		float:right;
+	}
+	.addthis_toolbox {
+		@extend .stars;
+		float:left;
+		padding-top:5px;
+	}
+}
+#left_arrow_box {
+	height: 55px;
+	width: 20px;
+	a.arrow {
+		height:100%;
+		width:100%;
+		background:#EEEEEE url(<%= asset_path('prev_next_arrows.png') %>) no-repeat scroll 3px 18px;
+	  border: 1px solid #DDDDDD;
+		display:block;
+	}
+	a.arrow:hover {
+		background-color:#E4E4E4;
+	}
+}
+#right_arrow_box {
+	@extend #left_arrow_box;
+	a.arrow {
+		background:#EEEEEE url(<%= asset_path('prev_next_arrows.png') %>) no-repeat scroll -31px 18px;
+	}
+}
+.rating_star:hover {
+	cursor:pointer;
+}
+.counter {
+	color:#aaa;
+	margin-top:20px;	
+}
+div.slider_width {
+	width:96%;
+	height:310px;
+	margin-left:45px;
+}
+div.campaign_section {
+	width:96%;
+	margin:30px auto;
+	padding-bottom:20px;
+	clear:both;
+	border-bottom:1px solid #DDD;
+	height:105px;
+}
+div.campaign_body {
+	margin:20px auto;
+	font-size:15px;
+	font-weight:lighter;
+	line-height:28px;
+	color:#000;
+	width:95%;
+	
+	strong {
+		font-weight:700;
+	}
+	
+}
+div.campaign_title {
+	color:#000;
+	font-size:20px;
+	font-weight:bolder;
+}
+div.cua_vote {
+	margin:4px 0px;
+}
+div.cua_vote span.vote_count {
+	position:relative;
+	bottom:3px;
+	font-size:10px;
+	font-family:lucida grande, helvetica, arial, sans-serif;
+	color:#555;
+}
+a.vote_active, a.vote_inactive {
+	height:16px;
+	width:13px;
+	display:inline-block;
+	background:url(<%= asset_path('vote_up.png') %>) no-repeat;
+}
+a.vote_inactive, a.vote_active:hover {
+	background:url(<%= asset_path('vote_up.png') %>) no-repeat scroll -15px 0px;
+}
+div#user_story {
+	span#quote {
+		font-size:46px;
+		position:relative;
+		top:15px;
+		color:#555;
+	}
+	min-width:600px;
+	max-width:700px;
+	#image {
+		float:left;
+		margin-right:30px;
+	}
+	#description {
+		float:left;
+		width:200px;
+	}
+}
+table#campaign_stories {
+	margin-right:20px;
+	float:left;
+	td {padding:10px;}
+	td.image {
+		width:120px;
+		text-align:center;
+	}
+	span.quote {
+		font-size:34px;
+		color:#888;
+		position:relative;
+		top:3px;
+		right:3px;
+	}
+	td.campaign_user_account_info_id {
+		color:#ccc;
+		font-size:14px;
+		padding:0;
+		padding-left:5px;
+	}
+}
+table#campaign_best_stories {
+    border:2px solid #ccc;
+    width:35%;
+    td.vote_count {
+    text-align:center;
+    padding-left:5px;
+    }
+}
+div.rock_image {
+	width:634px;
+	height:450;
+	margin:20px auto;
+}
+div.alert {
+	padding:8px 14px;
+	color:#3A87AD;
+	background-color:#D9EDF7;
+	border:1px solid #BCE8F1;
+	-webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+
+
+/*--------------------- Suggested Wedding ---------------------*/
+div.suggested_ic {
+	width:45%;
+	float:left;
+	display:table;
+	margin:10px;
+	img {
+		vertical-align:middle;
+		display:table-cell;
+	}
+	div.image {
+		text-align:center;
+		width:67%;
+		div {margin-top:4px;}
+	}
+	div.list {
+		display:table-cell;
+		vertical-align:middle;
+		width:50%;
+		ul {
+			li {
+				font-size:12px;
+				color:#444;
+				list-style:disc;
+			}
+		}
+	}
+}
+/*--------------------- END Suggested Wedding ---------------------*/
+
+
+/*--------------- Studio Snaps -----------------------------*/
+
+.studio_logo {
+	margin:0 auto;
+	width:439px;
+	height:82px;
+}
+hr.soften {
+ height: 1px;
+ margin: 30px 0;
+ background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .3), transparent);
+ background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .3), transparent);
+ background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .3), transparent);
+ background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .3), transparent);
+ border: 0;
+}
+.studio_left_content {
+	float:left;
+	width:300px;
+	height:650px;
+}
+.studio_right_content {
+	float:left;
+	width:464px;
+	margin-left:10px;
+}
+.studio_content1 {
+	width:350px;
+	margin:0 auto;
+	text-align:center;
+	line-height:20px;
+	font-size:17px;
+}
+.studio_content2 {
+	margin-top:15px;
+	border:1px solid #ccc;
+	padding:15px;
+	line-height:18px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+.studio_content3 {
+	margin-top:15px;
+	text-align:center;
+	font-weight:lighter;
+}
+.studio_video {
+	margin-top:30px;
+	width:464px;
+	height:350px;
+}
+.studio_footer {
+	height:43px;
+	width:119px;
+	background:url(<%= asset_path('campaign/by_matri.jpg') %>);
+	float:right;
+	margin-right:30px;
+}
+.tiempo_campana {
+	font-size:12px;
+	font-weight:lighter;
+	margin-left:45px;
+	margin-top:10px;
+	line-height:16px;
+	color:#aaa;
+	text-align:center;
+}
+#link_campana{
+	left: 350px;
+  position: absolute;
+  top: 80px;
+  z-index: -1;
+}
+#link_campana:hover{
+	zoom: 1;
+	filter: alpha(opacity=70);
+	opacity: 0.7;	
+}
+
+/*--------------- nueva seccion -----------------------------*/
+
+#video_wedding{
+	margin-left:160px;
+	margin-top:20px;
+}
+#campaign_logo{
+	width:297px;
+	height:145px;
+	margin-left:254px;
+	margin-bottom:5px;
+	
+}
+#campaign_menu{
+	margin-left:200px;
+	padding-right:10px;
+}
+.texto1_wedding_of_the_year{
+	width:605px;
+	margin-left:110px;
+}
+.h1_wedding_of_the_year{
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:14px;
+	color:#666;
+	
+}
+.foto_wedding_of_the_year{
+	margin-top:10px;
+	margin-left:110px;
+}
+.texto2_wedding_of_the_year{
+	margin-left:110px;
+	margin-top:20px;
+}
+.texto3_wedding_of_the_year{
+	width:380px;
+	margin-left:335px;
+}
+.h2_wedding_of_the_year{
+	text-align:justify;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:14px;
+	color:#666;
+}
+
+/*--------d_day---------*/
+
+#contenido_d_day{
+	width:679px;
+	margin-left:69px;
+	margin-top:10px;
+}
+.h1_d_day{
+	width:341px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#333;
+	font-size:12px;
+	margin-left:351px;
+	margin-top:-100px;
+	position:absolute;
+}
+.foto1_d_day{
+			width:320px;
+}
+.h2_d_day{
+	width:341px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#333;
+	font-size:12px;
+	margin-top:50px;
+	position:absolute;
+}
+.foto2_d_day{
+			margin-left:351px;
+			width:320px;
+}
+.h3_d_day{
+	width:341px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#333;
+	font-size:12px;
+	margin-left:351px;
+	margin-top:40px;
+	position:absolute;
+}
+.foto3_d_day{
+			width:320px;
+}
+
+.h4_d_day{
+	width:341px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#333;
+	font-size:12px;
+	margin-top:65px;
+	position:absolute;
+}
+.foto4_d_day{
+			margin-left:351px;
+			width:320px;
+}
+
+/*--------suppliers---------*/
+
+#suppliers_fondo{
+	margin-top:30px;
+	margin-left:200px;
+
+}
+/*--------gallery---------*/
+
+.div1, .div2 {width:700px;margin:0 auto;}
+.div1 {margin-top:30px;margin-bottom:60px;text-align:center;line-height:20px;}
+.div1 P {font-size:18px;}
+.div1 a, .div2 a {color:#07C; }
+.div1 a {margin:0 8px;}
+.div1 a.current {color:black; text-decoration:none;}
+.div2 {margin-top:70px;}
+.div2 li {padding-top:6px;padding-bottom:6px;}
+.green {color:Green;}
+.cn {font-family: "Courier New", Georgia;}
+#status {display:inline-block; margin-left:26px;line-height:50px;height:50px;vertical-align:middle;}
+
+.code
+{
+    border: dashed 1px #BCBCCB; padding:8px 12px; background-color: #F3F3F9; white-space:pre; font-family:"Courier New", Georgia;
+    font-size:12px; margin:6px 0;overflow:auto; 
+}
+/* http://www.menucool.com */
+
+#sliderFrame {position:relative;width:700px;margin: 0 auto;} /*remove the "margin:0 auto;" if you want to align the whole slider to the left side*/
+
+        
+#slider {
+    width:700px;height:306px;/* Make it the same size as your images */
+	background:#fff url(loading.gif) no-repeat 50% 50%;
+	position:relative;
+	margin:0 auto;/*make the image slider center-aligned */
+    box-shadow: 0px 1px 5px #999999;
+		margin-top:30px;
+}
+#slider img {
+	position:absolute;
+	border:none;
+	display:none;
+}
+
+
+
+
+
+/* ------ built-in navigation bullets wrapper ------*/
+div.navBulletsWrapper  {
+	top:320px; left:280px; /* Its position is relative to the #slider */
+	width:150px;
+	background:none;
+	padding-left:20px;
+	position:relative;
+	z-index:5;
+	cursor:pointer;
+}
+
+/* each bullet */
+div.navBulletsWrapper div 
+{
+    width:11px; height:11px;
+    background:transparent url(/after_contest/1/bullet.png) no-repeat 0 0;
+    float:left;overflow:hidden;vertical-align:middle;cursor:pointer;
+    margin-right:11px;/* distance between each bullet*/
+    _position:relative;/*IE6 hack*/
+}
+
+div.navBulletsWrapper div.active {background-position:0 -11px;}
+
+
+/* --------- Others ------- */
+#slider 
+{
+	transform: translate3d(0,0,0);
+    -ms-transform:translate3d(0,0,0);
+    -moz-transform:translate3d(0,0,0);
+    -o-transform:translate3d(0,0,0);
+}
+
+/* --------- Suppliers ------- */
+
+#link_suppliers{
+	width:150px;
+	margin-left:350px;
+	position:absolute;
+	margin-top:-130px;
+
+}

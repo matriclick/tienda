@@ -1,0 +1,36 @@
+<%= form_for @pack_promotion do |f| %>
+	<% if @pack_promotion.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@pack_promotion.errors.count, "error") %> prohibited this pack promotion from being saved:</h2>
+			<ul>
+				<% @pack_promotion.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<div class="field">
+		<%= f.label :name, 'Nombre' %> <%= f.text_field :name %><br />
+		<br />
+		<b><%= f.label :valid, 'Vigencia' %></b><br />
+		Desde: <%= f.date_select :start_date %> Hasta: <%= f.date_select :end_date %><br />
+		<br />
+		<%= f.label :description, 'Descripción' %> <%= f.text_area :description %><br />
+		<br />
+		<%= f.label :link, 'Link' %> <%= f.text_field :link %><br />
+		<br />
+		<% if !@pack_promotion.pack_promotion_image_file_name.blank? %>
+			<%= image_tag @pack_promotion.pack_promotion_image(:small) %><br />
+			<br />
+		<% end %>
+		<%= f.file_field :pack_promotion_image %><br />
+		<br />
+		<% @packs.each do |pack| %>
+			<%= check_box_tag "pack_promotion[post_ids][]", pack.id, @pack_promotion.posts.include?(pack) %> <%= pack.title %><br />
+		<% end %>
+	</div>
+	<br />
+	<div class="">
+		<%= f.submit %>
+	</div>
+<% end %>

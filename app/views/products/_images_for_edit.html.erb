@@ -1,0 +1,20 @@
+<div id="images_for_edit">
+	<div class="product_image_row_caption"><%= t("active_images") %></div>
+	<% for product_image in @product.product_images.cover_first.active %>
+	<%= render "products/product_image", :product_image => product_image %>
+	<% end %>
+	<div class="image_for_edit">
+		<div class="image_placeholder"></div>
+		<div class="name"><%= t 'new_image' %></div>
+		<div class="actions">
+			<%= link_to t('add'), new_supplier_account_product_product_image_path(@supplier,@product) %>
+		</div>
+	</div>  
+
+	<div class="product_image_row">
+		<div class="product_image_row_caption"><%= t("inactive_images") %></div>
+		<% for product_image in @product.product_images.cover_first.inactive %>
+		<%= render "products/product_image", :product_image => product_image %>
+		<% end %>  
+	</div>	
+</div>

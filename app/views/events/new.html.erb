@@ -1,0 +1,13 @@
+<div class="right_link">
+	<%= link_to  @services.blank? ? t('back') : t('cancel'), calendar_supplier_account_path(@supplier), :class => :button %>
+</div>
+<div class="titulos">
+	<%= t 'new_event' %>
+</div>
+<div class="box_form">
+	<% if @services.blank? %>
+		<%= render "layouts/dont_have_services" %>
+	<% else -%>
+		<%= render 'form' %>
+	<% end -%>	
+</div>

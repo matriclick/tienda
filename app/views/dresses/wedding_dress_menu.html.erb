@@ -1,0 +1,46 @@
+<div class="left_content shadow" style="width:320px; float:left; margin-left:30px;">
+	<div class="">
+		<div style="float:left; min-height:200px; margin:10px;">
+			<%= link_to image_tag('dresses_icons/wedding_store.jpg', :class => 'image_button'), dresses_wedding_dress_stores_path %>
+			<div style="font:12px; width:290px">
+				<b><%= link_to '¡Tiendas de Vestidos de Novia!', dresses_wedding_dress_stores_path %></b><br>
+				<div style="color:grey; margin-top:5px;">
+				<%= link_to 'Conoce a las mejores y más elegantes tiendas de Chile. Revisa los distintos diseños y reserva tu prueba de vestido.', 
+					dresses_party_dress_boutique_path %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="left_content shadow" style="width:320px; float:left; margin-left:50px;">	
+	<div>
+		<div style="float:left; min-height:200px; margin:10px;">
+			<%= link_to image_tag('dresses_icons/vestidosusados.jpg', :class => 'image_button'), dresses_ver_path(:type => "vestidos-novia") %>
+			<div style="font:12px; width:290px">
+				<b><%= link_to '¡Vestidos usados por Novias como tu!', dresses_ver_path(:type => "vestidos-novia") %></b><br>
+				<div style="color:grey; margin-top:5px;">
+				<%= link_to 'Cotiza y compra vestidos que han sido usado por novias como tu. ¡Vestidos que nunca pasarán de moda!', dresses_ver_path(:type => "Novia") %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="left_content shadow" style="width:320px; float:left; margin-left:210px;">	
+	<div>
+		<div style="float:left; min-height:200px; margin:10px;">
+			<%= link_to image_tag('dresses_icons/civil.jpg', :class => 'image_button'), dresses_ver_path(:type => "vestidos-civil") %>
+			<div style="font:12px; width:290px">
+				<b><%= link_to '¡Vestidos para la Postura de Argollas o Matrimonio Civil!', dresses_ver_path(:type => "vestidos-civil") %></b><br>
+				<div style="color:grey; margin-top:5px;">
+				<%= link_to 'Compra el vestido que usaras para estos eventos. Compra todos los que quieras y devúlvenos los que no te gusten. 
+								Te los llevamos donde quieras.', dresses_ver_path(:type => "vestidos-civil") %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

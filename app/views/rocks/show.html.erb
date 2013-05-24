@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Sender email:</b>
+  <%= @rock.sender_email %>
+</p>
+
+<p>
+  <b>Recipient email:</b>
+  <%= @rock.recipient_email %>
+</p>
+
+<p>
+  <b>Sender name:</b>
+  <%= @rock.sender_name %>
+</p>
+
+<p>
+  <b>Recipient name:</b>
+  <%= @rock.recipient_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_rock_path(@rock) %> |
+<%= link_to 'Back', rocks_path %>

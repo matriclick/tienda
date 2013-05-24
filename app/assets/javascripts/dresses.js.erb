@@ -1,0 +1,37 @@
+function dress_menu(show,hide1,hide2,element) {
+    $('#'+show).show();
+    $('#'+hide1).hide();
+    $('#'+hide2).hide();
+
+	$('.selected').addClass('not_selected').removeClass('selected');
+	$(element).addClass('selected').removeClass('not_selected');
+}
+
+function switch_image(element) {
+	new_side = $('.main').attr("src");
+	new_main = $(element).attr("src")
+	
+	$(element).attr("src", new_side)
+	$('.main').attr("src", new_main);
+}
+
+
+function next_dress_scroll_feed(){
+
+	    
+	    if(flag_up) return;
+        else flag_up = true;
+
+
+	    $.ajax({
+	      type: 'POST',
+		  url: 'productos/endless_scrolling',
+		  data: {
+				ids: ids,
+				type: type,
+				edit: edit,
+				supp: supp				
+			},
+			dataType: 'script'
+		 });
+	  }

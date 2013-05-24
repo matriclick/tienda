@@ -1,0 +1,25 @@
+<%= form_for(@product_type) do |f| %>
+<% if @product_type.errors.any? %>
+<div id="error_explanation">
+	<h2><%= @product_type.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+
+	<ul>
+		<% @product_type.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<div class="field">
+	<%= f.label :industry_category %><br />
+	<%= f.collection_select(:industry_category_id, IndustryCategory.all.joins(:countries).where("countries.id = ?", session[:country].id), :id, :get_name) %>
+</div>
+<div class="field">
+	<%= f.label :name %><br />
+	<%= f.text_field :name %>
+</div>
+<div class="actions">
+	<%= f.submit %>
+</div>
+<% end %>

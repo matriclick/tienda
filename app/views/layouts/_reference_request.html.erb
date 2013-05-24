@@ -1,0 +1,39 @@
+<% if current_user.user_account.has_enough_info == true %>
+	<% if params[:ask_reference] %> <!-- DZF Mailing logic-->
+		<%= link_to t('ask_reference'), "#reference_request", :id => "budget_hidden_link", :hidden => true %>
+	<% end %>
+		<%= link_to raw("<div class='image'></div><div class='message'>"+t('ask_reference')+"</div>"), "#reference_request" , :id => "reference_request_button", :class => 'action_button reference_request_fancybox' %>
+	
+
+	<div style="display:none"> <!-- fancy view -->
+		<div id="reference_request" style="width:400px">
+			<%= form_for @reference_request, :as => :reference_request, :url => @object.blank? ? suppliers_catalog_ask_reference_path(@supplier, :public_url => @supplier.supplier_account.public_url) : products_and_services_catalog_ask_reference_ask_reference_path(@object, :object_class => @object.class) do |f| %>
+				<div>
+					<div class="titulos">
+						<%= t'reference_text'%>
+					</div>
+					<div class="help_tip">
+						<%= t('helptip.reference') %>
+					</div>
+					<div class="box100">
+						<div class="help_tip">
+							Si quieres que te contacten puedes anotar tus datos (celular, email, cantidad de invitados, etc).
+						</div>
+						<%= f.label :content, t('message') %> <%= mark_required @reference_request, :content %><br/>
+						<%= f.text_area :content, :size => '50x20' %>
+					</div>
+					<br>
+					<div style="text-align:right;">
+						<%= f.submit t('send'), :class => :button %>
+					</div>
+					<br>
+				</div>
+			<% end %>
+		</div>
+	</div>
+	<% if params[:fancy_successful] %>
+		<%= render 'layouts/fancy_successful', :message => t('reference_request_created'), :title => t("reference_request_created_title") %>
+	<% end %>
+<% else -%>
+	<%= render "layouts/no_enough_user_info", :word => t('ask_reference'), :link_class => 'button' %>
+<% end -%>

@@ -1,0 +1,20 @@
+<div class="right_link">
+	<%= link_to t('back'), user_profile_path(), :class => :button %>
+</div>
+<div class="titulos">
+	<%= t('add_user') %>
+</div>
+<%= form_for @user, :url => user_profile_create_user_path(), :validate => true do |f| %>
+	<div class="box_form">
+		<table class="invisible">
+			<tr>
+				<td><%= f.label :email %><%= mark_required @user, :email %><br />
+				 	<%= f.text_field :email %>
+				</td>
+			</tr>
+		</table>
+		<div class="holder">
+				<%= f.submit :class => "button" %>
+		</div>
+	</div>
+<% end %>

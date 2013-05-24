@@ -1,0 +1,30 @@
+<div class="right_link">
+	<%= link_to t('back'), conversations_supplier_account_path(@supplier), :class => :button  %>
+</div>
+<div class="titulos">
+	<%= crop_if_longer(@conversation.conversable.name, 30) + " :: " + @conversation.user.user_account.get_wedding_first_name.to_s  %>
+</div>
+<div id="conversation_history">
+	<%= render 'conversations/conversation_history' %>
+</div>
+<div class="content"><br/>
+	<%= nested_form_for @message, :html => { :multipart => true }, :url => conversations_create_message_path(:conversation_id => @conversation.id, :transmitter => @transmitter), :remote => true do |f| %>
+		<div class="attached_box">				
+			<div class="message_area" style="width:642px;float:left;">
+				<%= f.text_area :content, :size => "10x5" %> 
+			</div>
+			<div style="float:right;">
+				<%= f.submit t("send"), :class => 'button' %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+			</div>
+			<div style="clear:both;">
+				<%= f.fields_for :attached_files do |attached_file_form| %>
+					<div>
+						<%= attached_file_form.file_field :attached %> <%= attached_file_form.link_to_remove "✘", :title => t('remove') %>
+					</div>
+					<br>
+				<% end %>
+				<%= f.link_to_add t('add_attached_file'), :attached_files %>							
+			</div>
+		</div>
+	<% end %>
+</div>

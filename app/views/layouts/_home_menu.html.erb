@@ -1,0 +1,34 @@
+<div class="left_menu">
+	<ul class="menu bold">
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:controller] == "home" and params[:action] == "company" %>">
+				<%= link_to t('company'), company_path, :class => "left_link" %>
+			</div>
+		</li>
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:controller] == "home" and params[:action] == "como_nace"%>">
+				<%= link_to t('como_nace'), como_nace_path, :class => "left_link" %>
+			</div>
+		</li>
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:controller] == "home" and params[:action] == "press"%>">
+				<%= link_to t('press'), press_path, :class => "left_link" %>
+			</div>
+		</li>
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:controller] == "home" and params[:action] == "work_with_us"%>">
+				<%= link_to t('work_with_us'), work_with_us_path, :class => "left_link" %>
+			</div>
+		</li>
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:controller] == "home"and params[:action] == "faq" %>">
+				<%= link_to t('faq'), faq_path, :class => "left_link" %>
+			</div>
+		</li>
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:controller] == "contacts"%>">
+				<%= link_to t('contact'), new_contact_path, :class => "left_link" %>
+			</div>
+		</li>
+	</ul>
+</div>

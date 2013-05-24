@@ -1,0 +1,32 @@
+<%= nested_form_for @user_account, :url => update_user_profile_path, :validate => true, :multipart => true do |f| %>
+	<div class="titulos">
+		<%= t('wedding_info') %>
+	</div>
+	<div class="box">
+		<% if @user_account.errors.any? and !@enable_campaign %>
+			<div id="error_explanation">
+				<h2><%= @user_account.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+				<ul>
+					<% @user_account.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+		<%= render "user_profile/user_account_fields", :f => f %>
+		<br />
+		<div class="half">
+			<%= render "groom_bride_fields", :f => f, :is_groom => true %>
+		</div>
+		<div class="half">
+			<%= render "groom_bride_fields", :f => f, :is_groom => false %>
+		</div>
+		<div class="holder clear">
+			<%= f.submit "¡Guardar!", :class => "button" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+			<div style="float:right"> 
+				<%= link_to t('cancel'), user_profile_path(), :class => :button %>
+			</div>
+		</div>
+		
+	</div>
+<% end %>

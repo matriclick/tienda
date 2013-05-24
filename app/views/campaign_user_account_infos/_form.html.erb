@@ -1,0 +1,42 @@
+<%= form_for(@campaign_user_account_info) do |f| %>
+  <% if @campaign_user_account_info.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@campaign_user_account_info.errors.count, "error") %> prohibited this campaign_user_account_info from being saved:</h2>
+
+      <ul>
+      <% @campaign_user_account_info.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<b><%= t 'images' %></b>
+	<div class="help_tip">
+	<%= t('image_size_limit') %>
+	<br>
+	Las fotos están optimizadas para aspecto 4:3 (por ejemplo: 800 x 600 px)
+	</div>
+	<div class="field">
+		<div class="old_image">
+			<%= image_tag f.object.campaign_user_image.url(:tiny) %>
+		</div>
+		<%= f.file_field :campaign_user_image %>
+		<br/>
+	</div>
+		<table class="invisible">
+			<tr>
+				<td>
+					<%= f.label :description %> <%= mark_required @campaign_user_account_info, :description %><br />
+				  <%= f.text_field :description %>		
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= f.check_box :approved_by_us %> <%= f.label :approved_by_us %>
+				</td>
+			</tr>
+		</table>	
+  <div class="holder">
+    <%= f.submit :class => "button" %>
+  </div>
+<% end %>

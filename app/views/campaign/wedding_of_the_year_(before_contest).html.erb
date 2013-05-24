@@ -1,0 +1,70 @@
+<div class="campaign_section" style="margin-top:0px;">
+	<div style="margin:-20px 30px 0px 20px; float:left;">
+		<%= image_tag 'campaign/campaign_logo.png' %>
+		<br />
+		<span style="margin-left:20px;">
+			<%= link_to "¡Revisa las propuestas compitiendo por el gran premio!", campaign_how_to_win_path %>
+		</span><br />
+		<div style="color:#aaa;font-style:italic;margin:5px 0px 0px 40px;">
+			<strong>Todos</strong> los novios Matriclick pueden participar!
+		</div>
+	</div> 
+	<div style="font-size:25px;color:#555;line-height:30px;margin-top:10px;margin-right:30px">
+		 ¡Muy pronto conocerás la propuesta ganadora!
+	</div>
+	<div style="margin-left:30px;">
+		<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FMatriclickcom%2F272699936103994&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true">
+		</iframe>
+	</div>
+</div>
+
+<div class="slider_width">
+	<div class="slider_campaign">
+		<div class="slider-item">
+	        <%= image_tag "campaign/slider-campana-premio.jpg" %>
+	    </div>
+
+	    <div class="slider-item">
+	        <%= image_tag "campaign/slider-campana-abonos.jpg" %>
+	    </div>
+	</div>
+</div>
+<div class="tiempo_campana">
+	 El ganador de los $8 millones será designado por un jurado y sólo podrán participar las propuestas que se hayan inscrito antes del 31 de mayo del 2012. Todas las propuestas que se hayan inscrito posterior a esta fecha podrán participar por un premio sorpresa. <br /><i>(*) Los ganadores de ambos premios se darán a conocer a fines de junio.</i><br />
+</div>
+<div class="campaign_section">
+	<div class="campaign_title">
+		¿Cómo participar?
+	</div>
+	<div class="campaign_body">
+		Es <strong>rápido</strong> y <strong>simple</strong>, regístrate y sube, en no más de 800 caracteres, cómo pediste o te pidieron matrimonio.
+	</div>
+	
+	<% if user_signed_in? and !current_user.user_account.nil? %>
+		<% if current_user.user_account.in_campaign %>
+			<div style="font-size:24px;color:#888;text-align:center;font-weight:bolder;">
+				<%= link_to "¡Ya estás participando!", user_profile_path, :target => :blank %>
+			</div>
+		<% else %>
+			<div style="width:175px;margin:auto;">
+					<%= link_to "Quiero participar!", edit_user_profile_path(:campaign => true), :class => :button_sign_in, :style => 'height:40px;display:table-cell;text-align:center;vertical-align:middle;' %>
+			</div>		
+		<% end %>
+	<% else %>
+	<div class="content_middle">
+		<%= render 'home/user_sign_up_form', :override_width => true, :campaign => true %>
+			<%- if devise_mapping.omniauthable? %>
+			  <%- devise_mapping.to.omniauth_providers.each do |provider| %>
+					<div class="no_register_sign_in">
+				    <%= link_to t('devise.views.shared._links.omniauth_authorize') + " #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>						
+					</div>
+			  <% end -%>
+			<% end -%>
+			<div class="no_register_sign_in">
+				<%= link_to t("sign_in_no_registration_apply"), blog_path %> 
+			</div>
+	</div>
+	<% end %>
+</div>
+<br />
+<br />

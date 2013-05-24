@@ -1,0 +1,50 @@
+<!-- Mostrar servicios de un proveedor -->
+<div class="right_link">
+	<%= link_to 'Ver todos los proveedores', administration_suppliers_list_path(), :class => :button  %>
+</div>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>supplier account id</th>
+		<th>Direccion</th>
+		<th>Teléfono de contacto</th>
+		<th>Comuna</th>
+		<th>Id tipo de color</th>
+		<th>Maximo reservas</th>
+		<th>Maximo reservas confirmadas</th>
+		<th>Estacionamiento</th>
+		<th>a domicilio</th>
+		<th>Nombre</th>
+		<th>descripcion</th>
+		<th>Precio</th>
+		<th>Descripcion de Precio</th>
+		<th>Precio maximo</th>
+		<th>Id Rubro</th>
+		<th></th>
+		<th></th>
+	</tr>
+	
+	<% @services.each do |service| %>
+		<tr>
+			<td><%= service.id %></td>
+			<td><%= service.supplier_account_id %></td>
+			<td><%= service.address %></td>
+			<td><%= service.contact_phone %></td>
+			<td><%= service.commune %></td>
+			<td><%= service.color_type_id %></td>
+			<td><%= service.max_bookings %></td>
+			<td><%= service.max_confirmed_bookings %></td>
+			<td><%= service.parking %></td>
+			<td><%= service.deliverable %></td>
+			<td><%= service.name %></td>
+			<td><%= service.description %></td>
+			<td><%= service.price %></td>
+			<td><%= service.price_description %></td>
+			<td><%= service.top_price_range %></td>
+			<td><%= service.industry_category_id %></td>
+			<td><%= link_to t('edit'), administration_edit_supplier_service_path(service)  %></td>
+			<td><%= link_to t('destroy'), administration_destroy_supplier_service_path(service), :method => :delete, confirm: t('are_you_sure') %></td>
+		</tr>
+	<% end %>
+</table>

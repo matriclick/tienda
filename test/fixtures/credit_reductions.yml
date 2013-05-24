@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  credit_id: 1
+  purchase_id: 1
+  value: 1
+  used_date: 2012-10-12
+
+two:
+  credit_id: 1
+  purchase_id: 1
+  value: 1
+  used_date: 2012-10-12

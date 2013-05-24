@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @delivery_info.name %>
+</p>
+
+<p>
+  <b>RUT:</b>
+  <%= @delivery_info.rut %>
+</p>
+
+<p>
+  <b>Teléfono contacto:</b>
+  <%= @delivery_info.contact_phone %>
+</p>
+
+<p>
+  <b>Dirección:</b>
+  <%= @delivery_info.street %> <%= @delivery_info.number %><%= ', depto/casa '+@delivery_info.apartment if !@delivery_info.apartment.nil? %>, 
+<%= @delivery_info.commune.name if !@delivery_info.commune.nil? %>
+</p>
+
+<p>
+  <b>Información adicional:</b>
+  <%= @delivery_info.additional_info %>
+</p>
+
+<%= link_to 'Historial de compras en la página',  reports_purchases_path %> |
+<%= link_to 'Administrador',  administration_index_path %>

@@ -1,0 +1,47 @@
+<div class="right_link">
+	<%= link_to t('new_contact'), new_supplier_account_supplier_contact_path(@supplier), :class => :button %>
+</div>
+<div class="titulos">
+	<%= t 'supplier_contacts' %>
+</div>
+<div class="help_tip">
+	<%= t 'helptip.supplier_account.contacts' %>
+</div>
+<div class="box">
+	<% unless @supplier_contacts.blank? %>
+	<table class="list">
+		<tr>
+			<th><%= t 'details' %></th>
+			<th class="width20"><%= t 'options' %></th>
+		</tr>
+		<% @supplier_contacts.each do |supplier_contact| %>
+		<tr>
+			<td>
+				<div class="floatLeft textAlignRight width25">
+					<%= t 'activerecord.attributes.name' %><br/>
+					<%= t 'activerecord.attributes.supplier_contact.email' %><br/>
+					<%= t('activerecord.attributes.supplier_contact.phone_number') %><br/>
+					<%= t('activerecord.attributes.supplier_contact.contact_type') %>
+				</div>
+				<div class="floatLeft textAlignLeft paddingLeft10 light width65">
+					<%= (supplier_contact.name.blank?) ? 
+					content_tag(:span, t('activerecord.attributes.name'), :class => 'profileBlankField') : content_tag(:span, supplier_contact.name) %><br/>
+					<%= (supplier_contact.email.blank?) ? 
+					content_tag(:span, t('activerecord.attributes.supplier_contact.email'), :class => 'profileBlankField') : content_tag(:span, supplier_contact.email) %><br/>
+					<%= (supplier_contact.phone_number.blank?) ? 
+					content_tag(:span, t('activerecord.attributes.supplier_contact.phone_number'), :class => 'profileBlankField') : content_tag(:span, supplier_contact.phone_number) %><br/>
+					<%= (supplier_contact.contact_type.blank?) ? 
+					content_tag(:span, t('activerecord.attributes.supplier_contact.contact_type'), :class => 'profileBlankField') : content_tag(:span, supplier_contact.contact_type.name) %>
+				</div>	
+			</td>
+			<td class="list_actions">
+				<div><%= link_to t('edit'), edit_supplier_account_supplier_contact_path(@supplier, supplier_contact) %></div>
+				<div><%= link_to t('destroy'), supplier_account_supplier_contact_path(@supplier, supplier_contact), confirm: 'Are you sure?', method: :delete %></div>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+	<% else %>
+	  <%= render "layouts/nothing_to_show", :word => t('supplier_contacts') %>
+	<% end %>
+</div>

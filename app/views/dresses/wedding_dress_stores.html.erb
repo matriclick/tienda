@@ -1,0 +1,6 @@
+<div class="right_link_in_catalog_page">
+	<%= link_to t('back'), dresses_wedding_dress_menu_path(), :class => :button %>
+</div>
+<div id="suppliers">
+	<%= render "layouts/suppliers", :supplier_accounts => @supplier_accounts, :dress_provider => 'Novia' %>
+</div>

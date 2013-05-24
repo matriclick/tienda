@@ -1,0 +1,19 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola <%= @user.user_account.get_wedding_first_name || nil %>,<br/><br/>
+					La reserva para el servicio <strong><%= @service.name %></strong> en la fecha <strong><%= @event.date %></strong> está sujeta a lista de espera para poder ser confirmada.<br/><br/>
+					<p style="color:#aaa;">
+						Les recomendamos tener otra alternativa en un servicio similar. Si necesitan sugerencias pueden hacerlo enviando un email a novios@matriclick.com 
+					</p><br/><br/><br/>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

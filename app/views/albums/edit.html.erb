@@ -1,0 +1,11 @@
+<div class="right_link">
+	<%= link_to t('cancel'), supplier_account_albums_path(@supplier), :class => :button %>
+</div>
+<div class="titulos">	
+	Editando Album
+</div>
+<div class="box_form">
+	<%= nested_form_for @album, :url => supplier_account_album_path(@supplier, @album), :validate => true, :html => {:multipart => true} do |f| %>
+		<%= render 'form', :f => f %>
+	<% end %>
+</div>

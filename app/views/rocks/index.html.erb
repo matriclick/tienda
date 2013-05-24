@@ -1,0 +1,29 @@
+<h1>Listing rocks</h1>
+
+<table>
+  <tr>
+    <th>Sender email</th>
+    <th>Recipient email</th>
+    <th>Sender name</th>
+    <th>Recipient name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rocks.each do |rock| %>
+  <tr>
+    <td><%= rock.sender_email %></td>
+    <td><%= rock.recipient_email %></td>
+    <td><%= rock.sender_name %></td>
+    <td><%= rock.recipient_name %></td>
+    <td><%= link_to 'Show', rock %></td>
+    <td><%= link_to 'Edit', edit_rock_path(rock) %></td>
+    <td><%= link_to 'Destroy', rock, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rock', new_rock_path %>

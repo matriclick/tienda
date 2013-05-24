@@ -1,0 +1,74 @@
+<h1>Bienvenido al Matri-Administrador</h1>
+
+<div style="font-size:13px; margin:20px 0px 0px 40px; line-height:20px; color:#AAA">
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Salestool") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración comercial</div>
+	- <%= link_to 'Matri-salestool',  leads_path(:q => @matriclicker.name) %><br />
+	- <%= link_to 'Informes trimestrales',  '#', :style => 'text-decoration:line-through' %><br />
+	<br />
+	<% end %>
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Contactos") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de contactos</div>
+	- <%= link_to 'Administrar Contactos y Feedbacks',  administration_webpage_contacts_path %><br />
+	<br />
+	<% end %>
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Vestidos") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de vestidos</div>
+	- <%= link_to 'Administrar vestidos',  administration_dresses_path %><br />
+	- <%= link_to 'Administrar GiftCards',  gift_cards_path %><br />
+	- <%= link_to 'Historial de compras en la página',  reports_purchases_path %><br />
+	- <%= link_to 'Detalle de compras exitosas',  purchases_path(:status => 'finalizado') %><br />
+	- <%= link_to 'Detalle de intentos de compra en la página',  purchases_path(:status => 'all') %><br />
+	- <%= link_to 'Detalle de créditos devueltos',  purchases_path(:status => 'devuelto_creditos') %><br />
+	- <%= link_to 'Administrador de tallas',  sizes_path %><br />
+	- <%= link_to 'Administrador de costos por comuna',  administration_edit_dispatch_costs_path %><br />
+	<br />
+	<% end %>
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Proveedores") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de proveedores</div>
+	- <%= link_to 'Ver los últimos 20 agregados', administration_suppliers_list_path %>	<br />
+	- <%= link_to 'Ver todos los proveedores activos', administration_suppliers_list_path(:filter => "Active") %>	<br />
+	- <%= link_to 'Ver todos los proveedores inactivos', administration_suppliers_list_path(:filter => "Inactive") %>	<br />
+	- <%= link_to 'Ver proveedores Bazar o Bebe', administration_suppliers_list_path(:filter => "Active", :type => 'bazar') %>	<br />
+	<br />
+	<% end %>
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Webpage") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de la página</div>
+ 	- <%= link_to 'Administrar reviews', administration_reviews_path %><br />
+	- <%= link_to 'Administrar posts',  posts_path %><br />
+	- <%= link_to 'Administrar promociones de packs',  pack_promotions_path %><br />
+	- <%= link_to 'Administrar imágenes del slider', slider_images_path %><br />
+	- <%= link_to 'Administrar oportunidades', opportunities_path %><br />
+	- <%= link_to 'Administrar proveedores sin cuentas', supplier_without_accounts_path %> <br />
+	- <%= link_to 'Administrar categorías de industrias', industry_categories_path %><br />
+	<br />
+	<% end %>
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Reportes") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Reportes</div>
+	- <%= link_to 'Reporte comercial',  reports_salestool_path %><br />
+	- <%= link_to 'Reporte de usuarios',  reports_users_path %><br />
+	- <%= link_to 'Reporte de conversaciones de usuarios',  reports_list_user_conversations_path %><br />
+	- <%= link_to 'Reporte de socios (perfiles) con contrato',  reports_suppliers_with_contract_path %><br />
+	- <%= link_to 'Reporte de todos los socios (perfiles)',  reports_suppliers_path %><br />
+	- <%= link_to 'Reporte de conversaciones sin responder',  reports_conversations_without_reply_path %><br />
+	- <%= link_to 'Reporte de vestidos',  reports_dresses_path %><br />
+	<br />
+	<% end %>
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Finanzas") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración financiera</div>
+	- <%= link_to 'Reporte contratos generados',  reports_contracts_path %><br />
+	- <%= link_to 'Reporte vencimiento contratos',  reports_contracts_expiration_path %><br />
+	- <%= link_to 'Reporte flujos de caja',  reports_invoices_path %><br />
+	- <%= link_to 'Reporte de contratos para cobrar',  reports_collections_path %><br />
+	- <%= link_to 'Reporte de flujo esperado',  reports_expected_flow_path %><br />
+	- <%= link_to 'Lista de facturas emitidas',  reports_invoices_list_path %><br />
+	- <%= link_to 'Lista de deudores',  reports_debtor_list_path %><br />
+	- <%= link_to 'Reporte de envío de correos para cobrar',  reports_collections_email_path(:order => 'mail') %><br />
+	- <%= link_to 'Reporte de pagos realizado',  reports_collections_email_path(:order => 'paid') %><br />
+	<% end %>
+	<br />
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Matriclickers") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de matriclickers</div>
+	- <%= link_to 'Administrar Matriclickers',  matriclickers_path %><br />
+	<% end %>
+</div>

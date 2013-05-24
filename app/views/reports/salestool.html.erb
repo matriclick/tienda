@@ -1,0 +1,103 @@
+<h1>Reporte Comercial</h1>
+<%= render 'date_range_selector' %>
+
+<table style="width:900px">
+	<tr style="border-top: 2px solid #000; border-bottom: 2px solid #000">
+		<th></th>
+		<th></th>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<th><%= @init.strftime("%d %b %Y") %></th>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<th><b>Total</b></th>
+	</tr>
+<% @matriclickers.each do |matriclicker| %>
+	<tr style="border-top: 2px solid #000">
+		<td></td>
+		<td>Llamados</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_challenge_activity(matriclicker, 'call', @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_challenge_activity(matriclicker, 'call', @from, @to) %></b>
+		</td>
+	<tr>
+	<tr>
+		<td><b><%= matriclicker.name %></b></td>
+		<td>Reuniones</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_challenge_activity(matriclicker, 'meeting', @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_challenge_activity(matriclicker, 'meeting', @from, @to) %></b>
+		</td>
+	<tr>
+	<tr style="border-bottom: 2px solid #000">
+		<td></td>
+		<td>Contratos</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_contracts(matriclicker, @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_contracts(matriclicker, @from, @to) %></b>
+		</td>
+	</tr>
+<% end %>
+	<tr style="border-top: 2px solid #000; background:#DDD">
+		<td></td>
+		<td>Llamados</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_challenge_activity('all_matriclickers', 'call', @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_challenge_activity('all_matriclickers', 'call', @from, @to) %></b>
+		</td>
+	<tr>
+	<tr style="background:#DDD">
+		<td><b>Total</b></td>
+		<td>Reuniones</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_challenge_activity('all_matriclickers', 'meeting', @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_challenge_activity('all_matriclickers', 'meeting', @from, @to) %></b>
+		</td>
+	<tr>
+	<tr style="border-bottom: 2px solid #000; background:#DDD">
+		<td></td>
+		<td>Contratos</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_contracts('all_matriclickers', @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_contracts('all_matriclickers', @from, @to) %></b>
+		</td>
+	</tr>
+</table>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

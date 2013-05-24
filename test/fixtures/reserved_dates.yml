@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  date: 2012-07-15
+  supplier_account_id: 1
+  comment: MyText
+
+two:
+  date: 2012-07-15
+  supplier_account_id: 1
+  comment: MyText

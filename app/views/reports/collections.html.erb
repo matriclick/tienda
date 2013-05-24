@@ -1,0 +1,51 @@
+<h1>Reporte de cobranzas</h1>
+<div>Contratos Fijos, Mixtos y Especiales</div>
+<%= '<b>Matriclicker:</b> '.html_safe+@matriclicker.name if defined? @matriclicker %>
+<%= '<b>Tipo:</b> '.html_safe+@type.name if defined? @type %>
+<br /><br />
+<b>Desde:</b> <%= @from.to_date.strftime("%d %B %Y") %>
+<br /><br />
+<b>Hasta:</b> <%= @to.to_date.strftime("%d %B %Y") %>
+<br /><br />
+
+<table style="width:950px">
+  <tr>
+    <th>Lead</th>
+    <th>Propietario</th>
+    <th>Tipo</th>
+    <th>Fecha Término</th>
+    <th>Invoice rut</th>
+    <th>Price (U.F)</th>
+    <th>Commission (%)</th>
+	<th>Ultima Factura | ¿Pagada?</th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @contracts.each do |contract| %>
+  <tr>
+    <td><%= link_to(contract.lead.name, contract.lead, :style => 'text-decoration:underline') if !contract.lead.nil? %></td>
+    <td><%= contract.matriclicker.name if !contract.matriclicker.nil? %></td>
+    <td><%= contract.contract_type.name if !contract.contract_type.nil? %></td>
+    <td><%= contract.end_contract_date.strftime("%d %b %Y") if !contract.end_contract_date.nil? %></td>
+    <td><%= contract.invoice_rut %></td>
+    <td><%= number_to_currency contract.price %></td>
+    <td><%= contract.commission %></td>
+	<% if contract.invoices.count > 0%>
+    <td><%= link_to contract.invoices.last.number, contract.invoices.last if contract.invoices.count > 0 %> | 
+		<%= contract.invoices.last.paid ? "✔" : '✘' %>
+		<br /> <span class="lucida small"> |
+		<% contract.invoices.last.invoice_months.each do |im| %>
+			<%= Date::MONTHNAMES[im.month] %> <%= im.year %> |
+		<% end %>
+		</span>
+	</td>
+	<% else %>
+		<td>Ninguna</td>
+	<% end %>
+    <td><%= link_to 'facturar', new_invoice_path(contract_id: contract.id), :style => 'text-decoration:underline' %></td>
+	<td><%= raw(contract.comments.gsub(/\n/, '<br/>')) if contract.read_comments_before_invoice %></td>
+  </tr>
+<% end %>
+</table>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

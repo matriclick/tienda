@@ -1,0 +1,87 @@
+/*------------ User Checklist CSS ----------------------*/
+
+.box_checklist {
+	width:99%;
+	float:left;
+	font-size:11px;
+}
+.checklist_header {
+	height:30px;
+	float:left;
+	background:#777;
+	color:#FFF;
+	width:100%;
+}
+.checklist_header .checklist_check {
+	float:left;
+	width:30px;
+	padding:9px 10px;
+}
+.checklist_header .checklist_titulo {
+	width:635px;
+	float:left;
+	padding:9px 10px;
+}
+.checklist_see_more_titulo{
+	width:40px;
+	float:left;
+	padding:9px 10px;
+}
+.checklist_content {
+	height:30px;
+	float:left;	
+	width:100%;
+}
+.checklist_check {
+	float:left;
+	width:30px;
+	padding:5px 10px;
+}
+.checklist_titulo {
+	width:635px;
+	float:left;
+	padding:9px 10px;
+}
+.checklist_see_more {
+	width:84px;
+	float:left;
+	padding:9px 0px;
+	cursor:pointer;
+}
+.checklist_see_more:hover {
+	width:84px;
+	float:left;
+	padding:9px 0px;
+	cursor:pointer;
+	color:#0088CC;
+}
+/*----Caja de la descripcion de la tarea----*/
+.checklist_descripcion {
+	width:778px;
+	clear:both;
+	overflow:hidden;
+	position:relative;
+	background:#FFF;
+	padding-left:10px;
+	z-index:3;
+}
+.cl_d_titulo {
+	border-bottom:1px dotted #ccc;
+	width:95%;
+	font-size:13px;
+	font-weight:bold;
+	padding:10px 0px 5px 10px;
+	color:#444;
+}
+.cl_d_texto {
+	width:95%;
+	padding:10px 0px 5px 10px;
+	line-height:15px;
+}
+/*----FIN Caja de la descripcion de la tarea----*/
+.cl_gray {
+	background:#ddd;
+}
+.cl_light_gray {
+	background:#eee;
+}

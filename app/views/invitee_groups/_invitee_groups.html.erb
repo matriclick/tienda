@@ -1,0 +1,19 @@
+<div class="titulos">
+	<%= t('invitees_group') %>
+</div>
+<% @invitee_groups.each do |invitee_group| %>
+	<div id="invitee_group_<%= invitee_group.id %>">
+		<div class="name_invitee_group">
+			<%= t('group_name') %>:
+			<b><%= invitee_group.name %></b>
+		</div>
+		<div class="invitee_group_actions">
+			<%= link_to_function(t('edit'), '$(this).next(".hideable").slideToggle();') %>
+			<div class="hideable", id="edit_invitee_group_form_<%= invitee_group.id %>", style=display:none>
+			<%= render 'form', :invitee_group => invitee_group %></div>
+		</div>
+		<div class="invitee_group_actions">
+			<%= link_to t('destroy'), invitee_group, method: :delete, :remote => true %><br/>
+		</div>			
+	</div>	
+<% end %>

@@ -1,0 +1,9 @@
+<% if !enable_edit %>
+	<div class="right_link_in_catalog_page">
+		<%= link_to t('back'), dresses_path(:type => @type.name), :class => :button %>		
+	</div>
+<% else %>
+	<div class="right_link">
+		<%= link_to 'Volver a todos los productos', supplier_account_dresses_path(@supplier), :class => 'button' %>
+	</div>
+<% end %>

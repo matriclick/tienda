@@ -1,0 +1,94 @@
+<% # FGM: ALERT!!! Validations on expenses.js %>
+
+<%= form_for(@expense) do |f| %>
+  <% if @expense.errors.any? %>
+    <div id="error_explanation">
+			<h2><%= @expense.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+			<ul>
+				<% @expense.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+  <% end %>
+
+<!-- FGM: Trick to register Matrliclick points -->
+<%= hidden_field :expense, :wants_points %>
+
+<table class="invisible form_section">
+	<tr class="title">
+		<td>
+			<%= "1. " + t('forms.expenses.select_category_and_supplier_account') %>
+		</td>
+	</tr>
+	<tr class="content">
+		<td>
+			<%= f.collection_select :industry_category_id, IndustryCategory.joins(:countries).where("countries.id = ?", session[:country].id).order(:name), :id, :get_name, :prompt => t("category"), :include_blank => "Otra..." %>
+			<%= image_tag "loading.gif", :class => :select_loading, :style => "display:none" %>
+		</td>
+		<td style="<%= "display:none" if f.object.industry_category_name.blank? %>">
+			<%= f.label :industry_category_name, "Otra categoría" %><span class="required">*</span><br />
+			<%= f.text_field :industry_category_name %>
+		</td>
+	</tr>
+	<tr class="content">
+		<td style="<%= "display:none" if f.object.supplier_account_id.blank? %>">
+			<%= f.collection_select :supplier_account_id, SupplierAccount.where(:country_id => session[:country].id).approved.order(:fantasy_name), :id, :fantasy_name, :prompt => t("activerecord.models.supplier"), :include_blank => "Otro...", :disabled => true  %>
+		</td>
+		<td style="<%= "display:none" if f.object.supplier_account_fantasy_name.blank? %>">
+			<%= f.label :supplier_account_fantasy_name, t("activerecord.models.supplier") %><span class="required">*</span><br />
+			<%= f.text_field :supplier_account_fantasy_name %>
+		</td>
+	</tr>
+</table>
+<table class="invisible form_section">
+	<tr class="title">
+		<td colspan="2">
+			<%= "2. " + t('forms.expenses.determine_price_quantity_payed_percentage') %>
+		</td>
+	</tr>
+	<tr class="content">
+		<td>
+    <%= f.label :price %><%= mark_required @expense, :price %><br/>
+    <%= f.number_field :price %>			
+		</td>
+		<td>
+    <%= f.label :price_description %><br />
+    <%= f.text_field :price_description %>			
+		</td>
+	</tr>
+	<tr class="content">
+		<td>
+    <%= f.label :quantity %><%= mark_required @expense, :quantity %><br />
+    <%= f.number_field :quantity, :size => 3 %>			
+		</td>
+		<td>
+    <%= f.label :payed_percentage %><%= mark_required @expense, :payed_percentage %><br />
+    <%= f.text_field :payed_percentage, :size => 3 %>%			
+		</td>
+	</tr>
+</table>
+<table class="invisible form_section">
+	<tr class="title">
+		<td colspan="5">
+			<span class="error_field_target"><%= "3. " + t('forms.expenses.determine_expense_distribution') %></span>
+		</td>
+	</tr>
+	<tr>
+		<td><%= radio_button_tag 'range', 'half', false, :onchange => 'change_range_check_box_value()' %><%= label_tag '50%-50%' %></td>
+		<td style="width:140px;"><%= radio_button_tag 'range', 'quarter', false, :onchange => 'change_range_check_box_value()' %><%= label_tag '25%-25%-25%-25%' %></td>
+	</tr>
+	<tr class="content">	
+		<%= f.fields_for :payers do |payer_form| %>
+			<td>
+			<%= payer_form.label payer_form.object.payer_type.name %>
+			<%= payer_form.number_field :percentage, :class => 'numeric', :size => 3 %>%
+			<%= payer_form.hidden_field :payer_type_id %>
+			</td>
+		<% end %>
+	</tr>
+</table>
+<div class="holder">
+  <%= f.submit t('save'), :class => :button %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+</div>
+<% end %>

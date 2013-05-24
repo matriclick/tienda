@@ -1,0 +1,62 @@
+<% if @opportunities.size == 0 %>
+<div class="nothing_to_show"%>
+	<div class="message help_tip">
+		<b>¡Agotamos las ofertas de esta semana!</b><br /><br />
+		Te esperamos la próxima con nuevas oportunidades
+	</div>
+</div>
+<% else %>
+	<% @opportunities.each do |opportunity| %>
+	<div class="left_content shadow" style="width:320px; min-height: 266px; float:left; margin-left:30px;">
+		<div class="">
+			<div style="float:left; min-height:200px; margin:10px;">
+				<div style="margin:0px 0px 5px 5px; font-weight:bold"><%= link_to opportunity.title[0..45], opportunity %></div>
+				<div><%= link_to image_tag(opportunity.main_image(:regular)), opportunity %></div>
+				<div style="font:12px;">
+					<div style="color:grey; margin-top:5px;">
+					<div style="margin-bottom:5px"><b>Oportunidad hasta: </b>
+					<%= opportunity.valid_until.strftime("%d-%b-%Y") %></div>
+					<%= link_to strip_tags(opportunity.introduction[0..90]+'...'), opportunity %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<% end %>
+<% end %>
+
+<% if user_signed_in? and current_user.role_id == 1 -%>
+	<div class="clear"></div>
+	<h1>Listing opportunities</h1>
+	<%= link_to 'Nueva Oferta', new_opportunity_path %> | <%= link_to 'Volver al menú de Administración', administration_index_path() %>
+	<br />
+	<br />
+	<table>
+	  <tr>
+		<th>Socio</th>
+	    <th>Title</th>
+	    <th>Introduction</th>
+	    <th>Description</th>
+	    <th>Main image file name</th>
+	    <th>Valid Until</th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+
+	<% @opportunities_admin.each do |opportunity| %>
+	  <tr>
+		<td><%= opportunity.supplier_account.fantasy_name %></td>
+	    <td><%= opportunity.title %></td>
+	    <td><%= opportunity.introduction %></td>
+	    <td><%= opportunity.description %></td>
+	    <td><%= opportunity.main_image_file_name %></td>
+	    <td><%= opportunity.valid_until %></td>
+	    <td><%= link_to 'Show', opportunity %></td>
+	    <td><%= link_to 'Edit', edit_opportunity_path(opportunity) %></td>
+	    <td><%= link_to 'Destroy', opportunity, confirm: 'Are you sure?', method: :delete %></td>
+	  </tr>
+	<% end %>
+	</table>
+<% end %>

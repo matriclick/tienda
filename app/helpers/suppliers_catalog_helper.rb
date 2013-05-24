@@ -1,0 +1,2 @@
+module SuppliersCatalogHelper
+end

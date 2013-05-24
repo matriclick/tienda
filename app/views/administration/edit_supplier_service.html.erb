@@ -1,0 +1,23 @@
+<div class="right_link">
+	<%= link_to t('back'), administration_show_supplier_services_path(@service.supplier_account), :class => :button %>
+</div>
+<div class="titulos">
+	Editar Servicio
+</div>
+
+<%= nested_form_for @service, :url=> administration_update_supplier_service_path(@service) do |f| %>
+
+	<% if @service.errors.any? %>
+			<div id="error_explanation">
+		  	<h2><%= pluralize(@service.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+		  	<ul>
+		  	<% @service.errors.full_messages.each do |msg| %>
+		    	<li><%= msg %></li>
+		  	<% end %>
+		  	</ul>
+			</div>
+	<% end %>
+	
+	<%= render 'services/form_content', :f => f %>
+<% end %>

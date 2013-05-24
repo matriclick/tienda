@@ -1,0 +1,23 @@
+<div class="invitation">
+	<div class="top_text">
+		<div class="upper_invitation_text" id="upper_left">
+			<%= sanitize @upper_left.gsub('\r\n', '<br />'), :tags => %W(br) %>
+		</div>
+		<div class="upper_invitation_text" id="upper_right">
+			<%= sanitize @upper_right.gsub('\r\n', '<br />'), :tags => %W(br) %>
+		</div>
+	</div>
+	<div class="mid_text">
+		<div class="mid_invitation_text" id="mid_1">
+			<%= sanitize @mid_1.gsub('\r\n', '<br />'), :tags => %W(br) %>
+		</div>
+		<div class="mid_invitation_text" id="mid_2">
+			<%= sanitize @mid_2.gsub('\r\n', '<br />'), :tags => %W(br) %>
+		</div>
+	</div>
+	<div class="lower_invitation_text" id="lower_invitation_text">
+		<%= sanitize @lower.gsub('\r\n', '<br />'), :tags => %W(br) %>
+	</div>	
+</div>
+
+

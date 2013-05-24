@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  opportunity_id: 1
+  caption: MyString
+  opportunity_image_file_name: MyString
+  opportunity_image_content_type: MyString
+  opportunity_image_file_size: MyString
+  opportunity_image_updated_at: 2012-06-30
+
+two:
+  opportunity_id: 1
+  caption: MyString
+  opportunity_image_file_name: MyString
+  opportunity_image_content_type: MyString
+  opportunity_image_file_size: MyString
+  opportunity_image_updated_at: 2012-06-30

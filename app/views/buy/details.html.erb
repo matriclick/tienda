@@ -1,0 +1,59 @@
+<div id="notice" style="margin-left:20px;"><%= raw notice %></div>
+<%= form_for(@purchase) do |f| %>
+	<% if @purchase.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
+			<ul>
+				<% @purchase.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<% case @purchasable.class.to_s %>
+		<% when 'Dress' %>
+			<%= render 'dress', purchasable: @purchasable, f: f %>
+			<div class="clear" style="padding:10px"></div>
+			<%= render 'stock_size', purchasable: @purchasable, f: f %>
+			<div class="clear" style="padding:10px"></div>
+			<%= render 'delivery_info', user: @user, purchasable: @purchasable, f: f %>
+		<% when 'GiftCardCode' %>
+			<%= render 'gift_card_code', purchasable: @purchasable, f: f %>
+		<% when 'Service' %>
+			<%= render 'service', purchasable: @purchasable, f: f %>
+		<% when 'Product' %>
+			<%= render 'product', purchasable: @purchasable, f: f %>
+		<% when 'ShoppingCart' %>
+			<%= render 'cart', purchasable: @purchasable, f: f %>
+			<div class="clear" style="padding:10px"></div>
+			<%= render 'delivery_info', user: @user, purchasable: @purchasable, f: f %>
+	<% end %>
+	<div class="clear" style="padding:10px"></div>
+		<%= render 'payment_method' %>
+	<div class="clear" style="padding:10px"></div>
+	
+	<div>
+		<b>Confirmación</b>
+		<hr>
+		<div class="clear" style="margin-left:20px">
+			<%= f.check_box :confirmed_terms %>
+			He leído y estoy de acuerdo con 
+			<b><%= link_to 'los términos y condiciones', terms_path, :style => 'color:blue;', :target => '_blank' %></b>
+			<% case @purchasable.class.to_s %>
+				<% when 'ShoppingCart' %>
+					.
+				<% else %>
+					y con las 
+					<b><%= link_to 'políticas de cambio y devolución.', "#refund", :style => 'color:blue;', :id => :form_inline, :class => :hideable %></b>
+			<% end %>
+			
+		</div>
+	</div>
+
+	<div style="margin-top:10px">
+  		<%= f.submit 'Confirmar Opciones', :class => 'button_buy_dress_pink', :style => "cursor:pointer;"  %>
+	</div>
+<% end %>
+
+<%= render 'terms_and_conditions', purchasable: @purchasable if @purchasable.class.to_s != 'ShoppingCart' %>

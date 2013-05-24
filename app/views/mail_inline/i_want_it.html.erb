@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%= stylesheet_link_tag("application") %>
+		<%= javascript_include_tag('application') %>
+	</head>
+	
+	<body>
+		<div style="width:650px; height:550px;">
+			<br />
+			<%= nested_form_for @mail_inline, :url => mail_inline_send_i_want_it_path, :validate => true do |f| %>
+				<br />
+				<div style="text-align:center;">
+					<b>¿Cansada de que te hagan regalos que no necesitas?</b><br />
+					<br />
+					Envíale este mensaje a tu mamá, papá, pololo... o la persona que quieres que te lo regale.<br />
+					Ésta recibirá un correo y en un sólo click ¡te lo podrá comprar! <br />
+				</div>
+				<br />
+				<i>Tu nombre: </i>
+				<%= f.text_field :sender_name %><br /><br />
+				<i>Tu apellido: </i>
+				<%= f.text_field :sender_last_name %><br /><br />
+				<i>Email del que regala: </i>
+				<%= f.text_field :recipient_email %><br /><br />
+				<i>Mensaje para el comprador:</i><br />
+				<%= f.text_area :message, :size => "10x2" %><br /><br />
+				<%= f.hidden_field :dress_id %>
+				<%= f.hidden_field :dress_url %>
+				<%= f.hidden_field :dress_image_url %>
+				<%= f.submit 'Enviar', :class => "button" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+			<% end %>
+			<div class="clear"></div>
+			<div style="text-align:center;">
+				<%= image_tag(@dress.dress_images.first.dress.url(:main)) %><br /><br />
+			</div>
+		</div>
+	</body>
+</html>

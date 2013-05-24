@@ -1,0 +1,45 @@
+.ceremony_box {
+	float:left;
+	border:1px solid #ccc;
+	margin-bottom:10px;
+}
+.ceremony_images {
+	width:200px;
+	float:left;
+	height:150px;
+	margin:12px 10px 0 10px;
+	border: 5px solid #CCCCCC;
+}
+.ceremony_info {
+	float:left;
+	width:330px;
+}
+table.ceremony_table tr td {
+	border:none;
+	line-height:16px;
+	padding: 2px 8px;
+	font-size:11px !important;
+	line-height:13px;
+}
+table.ceremony_table {
+	margin:5px 0 0 0;
+}
+.ceremonies_schedule {
+	width:96%;
+	margin:5px 0 12px 10px;
+}
+.title_schedule {
+	float:left;
+	clear:both;
+	margin:15px 0 0px 10px;
+	font-weight:bold;
+}
+.ceremony_name {
+	float:left;
+	margin:12px 0 0px 10px;
+	font-size:13px;
+	font-weight:lighter;
+	border-bottom:1px dotted #ccc;
+	width:90%;
+	padding-bottom:3px;
+}

@@ -1,0 +1,104 @@
+<div class="right_link">
+	<%= link_to t('back'), expenses_path, :class => :button %>
+</div>
+<div class="titulos">
+	<%= t('expenses') %>
+</div>
+<div class="box">
+
+<div id="my_chart" class="big_chart"></div>
+<div class="holder"></div>
+<div class="help_tip">
+	<%= t("helptip.expenses.statistics") %>
+</div>
+<%=select('average','budget',[['3.500.000 (100 - 200 personas)','1'],['12.000.000 (200 - 250 personas)','2'],['16.000.000 (300 - 350 personas)','3'],['22.000.000 (350 - 400 personas)','4']], :prompt=>'Presupuesto promedio', :remote=>true)%>
+<div id="average_chart_1" class="big_chart" style="display:none"></div>
+<div id="average_chart_2" class="big_chart" style="display:none"></div>
+<div id="average_chart_3" class="big_chart" style="display:none"></div>
+<div id="average_chart_4" class="big_chart" style="display:none"></div>
+
+<script src="https://www.google.com/jsapi"></script>
+<script type='text/javascript'>
+	// Load the Visualization API and the piechart package.
+	google.load('visualization', '1.0', {'packages':['corechart']});
+
+	var graph_data_average_1 = [
+											{'title':'Presupuesto promedio 3.500.000 (100 - 200 personas)','div':'average_chart_1','type':'pie','legend':'right', 'width':640, 'height':480, 'var_name':"Gasto"},
+											{'name':'Argollas', 'quantity':70000},
+											{'name':'Partes y Detalles', 'quantity':60000 },
+											{'name':'Vestimenta (novio y novia)', 'quantity':500000 },
+											{'name':'Iglesia', 'quantity':40000 },
+											{'name':'Centro de Eventos', 'quantity':900000 },
+											{'name':'Banqueteria', 'quantity': 1440000 },
+											{'name':'Vinos y Whisky', 'quantity':500000 },
+											{'name':'Entretencion Fiesta', 'quantity':0 },
+											{'name':'Servicios de Belleza', 'quantity':50000 },
+											{'name':'Fotografia y Video', 'quantity':100000 },
+											{'name':'Luna de Miel', 'quantity':400000 }
+											];
+
+	var graph_data_average_2 = [
+											{'title':'Presupuesto promedio 12.000.000 (200 - 250 personas)','div':'average_chart_2','type':'pie','legend':'right', 'width':640, 'height':480, 'var_name':"Gasto"},
+											{'name':'Argollas', 'quantity':142857},
+											{'name':'Partes y Detalles', 'quantity':135714 },
+											{'name':'Vestimenta (novio y novia)', 'quantity':635714 },
+											{'name':'Iglesia', 'quantity':414286 },
+											{'name':'Centro de Eventos', 'quantity':1428571 },
+											{'name':'Banqueteria', 'quantity': 5785714 },
+											{'name':'Vinos y Whisky', 'quantity':1000000 },
+											{'name':'Entretencion Fiesta', 'quantity':600000 },
+											{'name':'Servicios de Belleza', 'quantity':135714 },
+											{'name':'Fotografia y Video', 'quantity':392857 },
+											{'name':'Luna de Miel', 'quantity':1357143 }
+											];
+
+	var graph_data_average_3 = [
+											{'title':'Presupuesto promedio 16.000.000 (300 - 350 personas)','div':'average_chart_3','type':'pie','legend':'right', 'width':640, 'height':480, 'var_name':"Gasto"},
+											{'name':'Argollas', 'quantity':157500},
+											{'name':'Partes y Detalles', 'quantity':145000 },
+											{'name':'Vestimenta (novio y novia)', 'quantity':790000 },
+											{'name':'Iglesia', 'quantity':480000 },
+											{'name':'Centro de Eventos', 'quantity':2050000 },
+											{'name':'Banqueteria', 'quantity': 8700000 },
+											{'name':'Vinos y Whisky', 'quantity':1350000 },
+											{'name':'Entretencion Fiesta', 'quantity':660000 },
+											{'name':'Servicios de Belleza', 'quantity':120000 },
+											{'name':'Fotografia y Video', 'quantity':425000 },
+											{'name':'Luna de Miel', 'quantity':1820000 }
+											];
+
+	var graph_data_average_4 = [
+											{'title':'Presupuesto promedio 22.000.000 (350 - 400 personas)','div':'average_chart_4','type':'pie','legend':'right', 'width':640, 'height':480, 'var_name':"Gasto"},
+											{'name':'Argollas', 'quantity':200000},
+											{'name':'Partes y Detalles', 'quantity':154545 },
+											{'name':'Vestimenta (novio y novia)', 'quantity':672918 },
+											{'name':'Iglesia', 'quantity':581818 },
+											{'name':'Centro de Eventos', 'quantity':3227273 },
+											{'name':'Banqueteria', 'quantity': 10227273 },
+											{'name':'Vinos y Whisky', 'quantity':1227273 },
+											{'name':'Entretencion Fiesta', 'quantity':3045455 },
+											{'name':'Servicios de Belleza', 'quantity':218182 },
+											{'name':'Fotografia y Video', 'quantity':504545 },
+											{'name':'Luna de Miel', 'quantity':2000000 }
+											];
+	
+  var graph_data = new Array();
+	<% @my_graph_data.each_with_index do |data,index| %>		
+		graph_data[<%= index %>] = $.parseJSON('<%= raw data %>')
+	<% end %>
+	
+								
+
+		    
+	// Set a callback to run when the Google Visualization API is loaded.
+	google.setOnLoadCallback(function(){drawChart(graph_data)});
+	google.setOnLoadCallback(function(){drawChart(graph_data_average_1)});
+	google.setOnLoadCallback(function(){drawChart(graph_data_average_2)});
+	google.setOnLoadCallback(function(){drawChart(graph_data_average_3)});
+	google.setOnLoadCallback(function(){drawChart(graph_data_average_4)});
+	
+	
+</script>
+
+<div class="clear"></div>
+</div>

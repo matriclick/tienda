@@ -1,0 +1,67 @@
+<div class="title_finalists">
+	¡Conoce las propuestas de los 5 finalistas!
+</div>
+<br />
+
+
+<div class="box">
+	<table class="invisible" id="campaign_stories">
+		<tr class="">
+			<td>
+				<p>PRIMER LUGAR</p>
+			</td>
+			<td class="image">
+				<%= image_tag(@winners.campaign_user_image.url(:index)) %>
+			</td>
+			<td>
+				<span class="quote">“</span><%= sanitize(@winners.description.gsub(/\n/,"<br>"), :tags => %w(br)) %>						
+			</td>
+		</tr>
+		<tr class="">
+			<td>
+				<p>SEGUNDO LUGAR</p>
+			</td>
+			<td class="image">
+				<%= image_tag(@parachute.campaign_user_image.url(:index)) %>
+			</td>
+			<td>
+				<span class="quote">“</span><%= sanitize(@parachute.description.gsub(/\n/,"<br>"), :tags => %w(br)) %>						
+			</td>
+		</tr>
+	</table>
+	<div class="clear"></div>
+</div>
+<br />
+<div class="title_finalists">
+	Más propuestas finalistas
+</div>
+
+<div class="box">
+	<table class="invisible" id="campaign_stories">
+		<tr class="">
+			<td class="image">
+				<%= image_tag(@hamburger.campaign_user_image.url(:index)) %>
+			</td>
+			<td>
+				<span class="quote">“</span><%= sanitize(@hamburger.description.gsub(/\n/,"<br>"), :tags => %w(br)) %>						
+			</td>
+		</tr>
+		<tr class="">
+			<td class="image">
+				<%= image_tag(@new_york.campaign_user_image.url(:index)) %>
+			</td>
+			<td>
+				<span class="quote">“</span><%= sanitize(@new_york.description.gsub(/\n/,"<br>"), :tags => %w(br)) %>						
+			</td>
+		</tr>
+		<tr class="">
+			<td class="image">
+				<%= image_tag(@trekking.campaign_user_image.url(:index)) %>
+			</td>
+			<td>
+				<span class="quote">“</span><%= sanitize(@trekking.description.gsub(/\n/,"<br>"), :tags => %w(br)) %>						
+			</td>
+		</tr>
+	</table>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,23 @@
+<%= form_for @user_contest_travelite, :url => contests_update_image_path(:id => @user_contest_travelite.id), :method => "put" do |f| %>
+	<div id="d_instrucciones">
+		Instrucciones:
+	</div>
+	<div id="d_txt_instrucciones">
+		</br></br> 	
+		1- Sube tu mejor foto <b>relacionada</b> al destino, la que tu quieras, puede ser entretenenida, artística,</br>  alternativa o lo que tu prefieras!
+		</br></br>
+		2- Invita a tus amigos a <b>votar</b> por tu foto
+		</br></br> 	
+		3- Las <b>10 fotos más votadas</b>pasarán a la final donde un jurado compuesto por fotógrafos </br>especializados decidirán cuál es la mejor foto
+	</div>
+	<div id="d_sube">
+		¡Sube tu mejor foto!
+	</div>
+
+	<div id="d_subir_foto">
+		<%= render 'travelite_form', :f => f %>
+		<br />
+		<%= image_submit_tag "contests/btn_subir.png" %>
+	</div>
+<% end %>
+

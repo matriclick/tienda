@@ -1,0 +1,42 @@
+<div class="right_link">
+	<%= link_to t('back'), administration_show_supplier_account_path(@supplier_account), :class => :button  %>
+</div>
+<div class="titulos">
+	Editar Cuenta del Proveedor
+</div>
+
+<%= form_for @supplier_account, :url=> administration_update_supplier_account_path(@supplier_account) do |f| %>
+	<% if @supplier_account.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= @supplier_account.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+		<ul>
+			<% @supplier_account.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+	<%= f.label :approved_by_supplier %> <%= f.check_box :approved_by_supplier %><br />
+	<%= f.label :approved_by_us %> <%= f.check_box :approved_by_us %><br />
+	<%= f.label :mail_sent %> <%= f.check_box :mail_sent %><br />
+	<%= f.label :online_payment %> <%= f.check_box :online_payment %><br />
+	<br /><br />
+	<b>SUB-RUBROS</b>
+	<br /><br />
+	<% for ic in @supplier_account.industry_categories %>
+		<span class="small"><%= ic.get_name %></span>
+		<div class="holder">
+			<% for sic in ic.sub_industry_categories %>
+				<span><%= check_box_tag("supplier_account[sub_industry_category_ids][]", sic.id, (@supplier_account.sub_industry_categories.include? sic), :class => "sic_#{sic.id}") %></span>
+				<span class="lucida small"><%= sic.get_name %></span><br />
+			<% end %>
+		</div>
+		<br/>
+	<% end %>
+	<hr>
+	<br />
+	<b><%= f.label :supplier_account_type_id %></b>
+	<%= collection_select :supplier_account, :supplier_account_type_id, SupplierAccountType.all, :id, :name, :prompt => true %>
+	<br /><br />
+	<%= render 'supplier_accounts/form_content', :f => f %>
+<% end %>

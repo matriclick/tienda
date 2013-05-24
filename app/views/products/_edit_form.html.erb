@@ -1,0 +1,106 @@
+<%= nested_form_for [@supplier_account, @product], 
+# Had to create a new form for the :edit action because the route for updating is not the same as for creating
+:url => supplier_account_product_path(@supplier, @product),
+:validate => true,
+:html => {:multipart => true} do |f| %> 
+
+<% if @product.errors.any? %>
+<div id="error_explanation">
+	<h2><%= @product.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+	<ul>
+		<% @product.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<div class="clear"></div>
+<div class="holder">
+	<table class="invisible">
+		<tr>
+			<td><%= f.label :name %><%= mark_required @product, :name %><br />
+			<%= f.text_field :name %></td>
+			<td><%= f.label :place, (t "place") + ': Orden en despliegue' %><br />
+			<%= f.number_field :place %><span class="tiptip" title="Número para determinar la posición en que se desplegará este producto/servicio (mientras más alto el número, más abajo la posición)."><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
+		</tr>
+	</table>
+</div>
+<% if @industry_categories%>
+	<div class="holder">
+		<table class="invisible">
+			<tr>
+				<td><%= f.label :industry_category %><%= mark_required @product, :industry_category %><br/>
+					<%= f.collection_select :industry_category_id, @industry_categories, :id, :get_name %>
+				</td>
+			</tr>
+		</table>
+	</div>
+<% end %>
+<% if @product.supplier_account.bookable %>
+<div class="holder">
+	<table class="invisible">
+		<tr>
+			<td><%= f.label :booking_resources_consumed, "Recursos consumidos al reservar (máximo #{@product.supplier_account.booking_resources})" %><br />
+			<%= f.number_field :booking_resources_consumed %><span class="tiptip" title="Corresponde a la cantidad de recursos que consumirá cada reserva que se haga para este servicio."><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
+		</tr>	
+	</table>	
+</div>
+<% end %>
+<div class="holder">
+	<table class="invisible">
+		<tr>
+			<td class="bold"><%= label_tag t('price_range') %></td>
+		</tr>
+	</table>
+	<div class="help_tip">
+		<%= t'helptip.product.price_range' %>
+	</div>	
+	<table class="invisible">
+		<tr>		
+			<td><%= radio_button_tag 'price', 'unique', (@product.top_price_range == 0 ? true : false ), :onchange => "set_prices_visibility()" %> <%= t('unique_price') %></td>
+			<td><%= radio_button_tag 'price', 'range', (@product.top_price_range == 0 ? false : true ), :onchange => "set_prices_visibility()"%> <%= t('range_price') %></td>		
+		</tr>
+		<tr>
+			<td><%= f.label :price %><%= mark_required @product, :price %></td>
+			<td><%= f.label :top_price_range, :id => 'top_price_label' %><%= mark_required @product, :top_price_range %></td>			
+			<td><%= f.label :price_description %><%= mark_required @product, :price_description %></td>
+		</tr>
+		<tr>
+			<td><%= f.number_field :price, :size => 10, :onblur =>"change_product_prices()" %></td>
+			<td style="width:150px"><%= f.number_field :top_price_range, :size => 10, :onblur =>"change_product_prices()" %></td>
+			<td id="hidden_top_price_range" style="display: none;"><%= @product.top_price_range.present? ? @product.top_price_range : 0 %></td>
+			<td><%= f.number_field :price_description %><span class="tiptip" title="<%= t 'helptip.product.price_description' %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
+		</tr>
+	</table>
+</div>
+<br/>
+<div class="holder">
+<p><%= render "layouts/how_to_upload_a_video" %></p>
+	<%= f.fields_for :videos do |videos_form| %>
+		<table class="invisible">
+			<tr>
+				<td>
+					<%= videos_form.label :url_code %><br />
+					<%= videos_form.text_field :url_code %>
+					<%= videos_form.link_to_remove "Remover video", :class => 'small_button' %>
+				</td>
+			</tr>			
+		</table>
+	<% end %>
+	<%= f.link_to_add "Agregar video", :videos, :class => 'small_button' %>
+</div>
+<div class="holder">
+	<table class="invisible">		
+		<tr>
+			<td><%= f.label :description %><%= mark_required @product, :description %><br />
+			<%= f.text_area :description, :size => '150x10' %></td>
+		</tr>
+	</table>
+</div>
+<div class="holder">
+  <%= render "product_faq_fields", :f => f %>
+</div>
+<div class="holder">
+	<%= f.submit :class => "button" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+</div>
+<% end %>

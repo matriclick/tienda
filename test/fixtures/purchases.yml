@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  purchasable_id: 1
+  purchasable_type: MyString
+  user_id: 1
+  delivery_info_id: 1
+  price: 1.5
+  currency: MyString
+
+two:
+  purchasable_id: 1
+  purchasable_type: MyString
+  user_id: 1
+  delivery_info_id: 1
+  price: 1.5
+  currency: MyString

@@ -1,0 +1,2 @@
+module UserChecklistHelper
+end

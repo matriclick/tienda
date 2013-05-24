@@ -1,0 +1,19 @@
+$(function(){
+	$(".checklist_descripcion").hide();
+});
+
+function toggle_activity_description(link){
+ 	$(link).closest(".checklist_content").next(".checklist_descripcion").slideToggle(300);
+}
+
+function activity_done(act_id) {
+	$.ajax({
+		url: "/matrichecklist/done",
+	    data: "id="+act_id, 
+	});
+	if ($("div#titulo_"+act_id).css('text-decoration') === 'line-through') {
+		$("div#titulo_"+act_id).css('text-decoration','none');
+	} else {
+		$("div#titulo_"+act_id).css('text-decoration','line-through');
+	}
+}

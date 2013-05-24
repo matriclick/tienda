@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  service_id: 1
+  product_id: 1
+  user_account_id: 1
+  supplier_account_id: 1
+  content: MyText
+
+two:
+  service_id: 1
+  product_id: 1
+  user_account_id: 1
+  supplier_account_id: 1
+  content: MyText

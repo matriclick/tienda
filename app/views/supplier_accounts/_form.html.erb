@@ -1,0 +1,17 @@
+<%= nested_form_for @supplier_account, :url => supplier_account_path(@supplier), :validate => true, :multipart => true do |f| %>
+  <% if @supplier_account.errors.any? %>
+    <div id="error_explanation">
+	    <h2><%= @supplier_account.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+	    <ul>
+		    <% @supplier_account.errors.full_messages.each do |msg| %>
+		    <li><%= msg %></li>
+		    <% end %>
+	    </ul>
+    </div>
+  <% end %>
+  <%= render 'form_content', :f => f %>
+<% end %>		
+
+
+
+

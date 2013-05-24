@@ -1,0 +1,110 @@
+<p id="notice"><%= notice %></p>
+<h1>
+	<%= @lead.name %>
+</h1>
+<br />
+  <b>Matriclicker:</b>
+  <%= @lead.matriclicker.name %>
+<br /><br />
+  <b>Categoría:</b>
+  <%= @lead.industry_category.get_name %>
+<br /><br />
+  <b>Country:</b>
+  <%= @lead.country.name %>
+<br /><br />
+  <b>Webpage:</b>
+  <%= @lead.webpage %>
+<br /><br />
+  <b>Perfil:</b>
+	<% if !@lead.supplier_account.nil? %>
+		<% if !@lead.supplier_account.public_url.blank? %>
+			<%= link_to(@lead.supplier_account.fantasy_name, supplier_products_and_services_path(@lead.supplier_account.supplier_id, :public_url => @lead.supplier_account.public_url), :style => 'color: blue', :target => '_blank') %>
+		<% else %>
+			<%= 'No asignado' %>
+		<% end %>
+	<% else %>
+		<%= 'No asignado' %>
+	<% end %>
+<br /><br />
+  <b>Description:</b>
+  <%= @lead.description %>
+<br /><br /><br />
+<b style="color:red">Contactos</b> <%= link_to '(+ contacto)', new_lead_contact_path(:lead_id => @lead.id), :style => 'color: blue' %>
+<% if @lead.lead_contacts.count != 0 %>
+	<hr>
+	<% @lead.lead_contacts.each do |contact| %>
+	<div style="margin:5px 0px 5px 20px">
+		- <b><%= contact.name %></b> | <%= contact.position %> | <%= contact.email %> | <%= contact.phone %> | <%= contact.cell_phone %> | <%= link_to 'Editar', edit_lead_contact_path(contact), :style => 'color: blue' %>
+	</div>
+	<% end %>
+	<hr>
+<% else %>
+<div style="margin:5px 0px 5px 0px">
+	- No existen contactos
+</div>
+<% end %>
+
+<br /><br /><br />
+<b style="color:red">Contratos</b> <%= link_to '(+ contrato)', new_contract_path(:lead_id => @lead.id), :style => 'color: blue' %>
+<% if @lead.contracts.count != 0 %>
+	<hr>
+	<% @lead.contracts.each do |contract| %>
+	<div style="margin:5px 0px 5px 20px">
+		- <b style="color:green"><%= contract.contract_type.name %></b>
+		<%= link_to '(ver)', contract, :style => 'color: blue' %> | 
+		<%= contract.matriclicker.name if !contract.matriclicker.nil? %> |
+		<%= contract.created_at.strftime("%d %b %Y a las %I:%M%p") %>
+	</div>
+	<% end %>
+	<hr>
+<% else %>
+<div style="margin:5px 0px 5px 0px">
+	- No existen contratos
+</div>
+<% end %>
+<br /><br /><br />
+  <b style="color:red">Desafíos</b> <%= link_to '(+ desafío)', new_challenge_path(:lead_id => @lead.id), :style => 'color: blue' %>
+  <% if @lead.challenges.count != 0 %>
+	<hr>
+	<% i = 1 %>
+  	<% @lead.challenges.each do |challenge| %>
+	<div style="margin:10px 0px 5px 10px">
+	- <b>Desafío <%= i %></b> 
+		<%= link_to 'Editar', edit_challenge_path(challenge), :style => 'color: blue' %> 
+		<% if @matriclicker.privileges.include? Privilege.find_by_name("Tecnologia") %>
+			| <%= link_to 'Destroy', challenge, confirm: 'Are you sure?', method: :delete, :style => 'color: blue' %></td>
+		<% end %>:
+		<%= challenge.name %> <%= link_to '(+ actividad)', new_challenge_activity_path(:challenge_id => challenge.id), :style => 'color: blue' %>:
+	  	<% if challenge.challenge_activities.count != 0 %>
+			<% challenge.challenge_activities.each do |activity| %>
+			<div style="margin:5px 0px 5px 20px">
+				- <b style="color:green"><%= activity.challenge_activity_type.name if !activity.challenge_activity_type.nil? %></b> |
+				<%= activity.matriclicker.name %> |
+				<%= activity.created_at.strftime("%d %b %Y a las %I:%M%p") %>
+				<% if @matriclicker.privileges.include? Privilege.find_by_name("Tecnologia") %>
+					<%= link_to 'Edit', edit_challenge_activity_path(activity), :style => 'color: blue' %> | <%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete, :style => 'color: blue' %></td>
+				<% end %>
+				<br />
+				<div style="margin:5px 0px 5px 20px; font-style:italic">
+					<%= raw activity.comments.gsub(/\n/, '<br/>') %>
+				</div>
+			</div>
+			<% end %>
+		<% else %>
+			<div style="margin:5px 0px 5px 20px">
+				- No existen actividades registradas para este desafío
+			</div>
+		<% end %>
+	</div>
+	<hr>
+	<% i = i + 1 %>
+	<% end %>
+  <% else %>
+	<div style="margin:5px 0px 5px 0px">
+		- No existen desafios
+	</div>
+  <% end %>
+<br /><br />
+
+<%= link_to 'Editar Lead', edit_lead_path(@lead) %> |
+<%= link_to 'Volver a la lista de Leads', leads_path(:q => @lead.matriclicker.name) %>

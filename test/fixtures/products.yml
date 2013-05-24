@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  supplier_id: 1
+  product_type_id: 1
+  name: MyString
+  description: MyText
+
+two:
+  supplier_id: 1
+  product_type_id: 1
+  name: MyString
+  description: MyText

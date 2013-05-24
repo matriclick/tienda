@@ -1,0 +1,53 @@
+<% if params[:yield_fancybox] %>
+	<%= yield %>
+<% else %>
+	<% title("Matriclick", false) %>
+	<%= render "layouts/user_bar" %>
+	
+	<% # FGM: Catch all login-related views here %>
+	<% if (params[:controller] == "home" and (params[:action] == "check_country" or params[:action] == "chile" or params[:action] == "peru" or params[:action] == "tour" or params[:action] == "test_home")) or 
+	(params[:controller] == "devise/registrations" and (params[:action] == "new" or params[:action] == "create")) or
+	(params[:controller] == "devise/passwords" and (params[:action] == "new" or params[:action] == "create")) or
+	(params[:controller] == "devise/sessions" and (params[:action] == "new" or params[:action] == "create")) or 
+	(params[:controller] == "users/registrations" and (params[:action] == "new" or params[:action] == "create")) %>
+		<%= yield %>
+	<% else %>
+		<div class="full_content_inapp center shadow">
+			<% unless @hide_left_menu or 
+				["contacts", "campaign_anecdotes", "campaign_gallery_items", "campaign_user_account_infos", "rocks"].include? params[:controller] %>
+				<% if check_top_menu == 'El Bazar' %>
+					<%= render "layouts/user_tools_menu_bazar" %>
+				<% elsif check_top_menu == 'Bebe' %>
+					<%= render "layouts/user_tools_menu_baby" %>
+				<% elsif check_top_menu == 'Tu Casa' %>
+					<%= render "layouts/user_tools_menu_tu_casa" %>
+				<% elsif check_top_menu == 'Viajes' %>
+					<%= render "layouts/user_tools_menu_travel" %>
+				<% else %>
+					<%= render "layouts/user_tools_menu" %>
+				<% end %>
+				<div class="main_content">
+					<%= render "layouts/discount_warning" %>
+					<%= render "layouts/navigation" %>
+					<%= yield %>
+				</div>
+			<% else %>
+				<% if ["campaign_anecdotes", "campaign_gallery_items", "campaign_user_account_infos", "rocks"].include? params[:controller] %>
+					<%= render "layouts/campaign_menu" %>
+				<% elsif ["home", "contacts"].include? params[:controller] %>
+					<%= render "layouts/home_menu" %>
+				<% end %>
+				<div class="main_content">
+					<%= yield %>
+				</div>	
+			<% end %>
+			<div class="clear"></div>
+		</div>
+	<% end %>
+
+	<% unless @supplier_login_footer %>
+		<%= render "layouts/footer" %>
+	<% else %>
+	  <%= render "layouts/supplier_login_footer" %>
+	<% end %>
+<% end %>

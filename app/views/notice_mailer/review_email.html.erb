@@ -1,0 +1,20 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Estimada Carolina,<br/><br/>
+					Se ingresó el siguiente review a través del <strong>formulario de Reviews</strong>.<br/><br/>
+					<p>Review ID = <%= @review.id %></p>
+					<p>Proveedor = <%= @supplier.fantasy_name %></p>
+					<p><%= @review.user.email %> escribió:</p>
+					<p>"<%= @review.content %>"</p>
+					<br /><br />
+					<p><b>Carolina, recuerda que el review no aparecerá hasta que lo aprueben</b></p>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

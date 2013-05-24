@@ -1,0 +1,80 @@
+<% @user_account.activities.each do |act| %>
+		<div class="checklist_content <%= cycle("cl_light_gray","cl_gray") %>">
+			<div class="checklist_check">
+				<%= check_box_tag 'activity_status', act.id, act.done, :class => 'activity_status', :onchange => 'activity_done('+act.id.to_s+')' %>
+			</div>
+			<div class="checklist_titulo" id="titulo_<%=act.id%>" <% if act.done %> style="text-decoration:line-through;"<% end %>>
+				<%= l(act.done_by_date) %>: <%= act.name %>
+			</div>
+			<div class="checklist_see_more" id="see_more_<%=act.id%>">
+				<%= link_to_function t("see_more"), "toggle_activity_description(this)" %>
+			</div>
+		</div>
+		<div class="checklist_descripcion">
+			<div style="float:right; margin:10px 20px;">
+				<% if user_signed_in? -%>
+					<% if current_user.role_id == 3 -%>
+						<%= link_to 'Editar', "#sign_in_fancybox" , :id => "fancybox_form" %> | 
+						<% if act.activity_reminders.blank? %>
+							<%= link_to 'Agregar recordatorio', "#sign_in_fancybox" , :id => "fancybox_form" %> |					
+						<% end %>
+						<%= link_to 'Eliminar', "#sign_in_fancybox" , :id => "fancybox_form" %>
+						<%= render "layouts/sign_in_fancybox" %>
+					<% else -%>
+						<%= link_to 'Editar', matrichecklist_edit_path(:id => act) %> | 
+						<% if act.activity_reminders.blank? %>
+							<%= link_to 'Agregar recordatorio', matrichecklist_reminders_path(:id => act.id) %> |					
+						<% end %>
+						<%= link_to 'Eliminar', matrichecklist_delete_path(:id => act), :confirm => '¿Estás seguro?', :method => :delete %>
+					<% end -%>
+				<% else -%>
+					<%= link_to 'Editar', matrichecklist_edit_path(:id => act) %> | 
+					<% if act.activity_reminders.blank? %>
+						<%= link_to 'Agregar recordatorio', matrichecklist_reminders_path(:id => act.id) %> |					
+					<% end %>
+					<%= link_to 'Eliminar', matrichecklist_delete_path(:id => act), :confirm => '¿Estás seguro?', :method => :delete %>
+				<% end -%>
+			</div>
+			<div class="cl_d_titulo">
+				Descripción de la actividad
+			</div>
+			<div class="cl_d_texto">
+				<% unless act.description.blank? %>
+					<%= sanitize act.description.gsub(/\n/,'<br>'), :tags => %W(br) %>	
+				<% end %>
+				<br><br>
+				<% if act.comments.present? %>
+    				<i><b>Comentarios:</b> <%= sanitize act.comments.gsub(/\n/,'<br>'), :tags => %W(br) %></i>
+				<% end %>
+				
+			</div>
+			<% unless act.activity_reminders.blank? %>
+			<br>
+			<div style="float:right; margin:10px 20px;">
+				<%= link_to 'Agregar recordatorio', matrichecklist_reminders_path(:id => act.id) %>
+			</div>
+			<div class="cl_d_titulo">
+				Recordatorios
+			</div>				
+			<div class="cl_d_texto">
+				<table class="list">	
+					<tr>
+						<th>Nombre</th>
+						<th>Correo</th>
+						<th>Días de anticipación</th>
+						<th>Opciones</th>
+					</tr>
+					<% act.activity_reminders.each do |act_r| %>
+					<tr>
+						<td><%= act_r.name %></td>
+						<td><%= act_r.mail %></td>
+						<td><%= act_r.days_before %></td>
+						<td><%= link_to t('destroy'), matrichecklist_delete_reminder_path(:id => act_r.id), :method => :delete, :confirm => t("are_you_sure") %></td>
+					</tr>
+					<% end %>
+				</table>									
+			</div>
+			<% end %>				
+			<div class="clear"></div>
+		</div>
+		<% end %>

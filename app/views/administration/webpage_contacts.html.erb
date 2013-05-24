@@ -1,0 +1,18 @@
+<h2><%= @type %></h2>
+<%= link_to 'Contactos', administration_webpage_contacts_path(:type => 'Contact') %> 
+| <%= link_to 'Feedbacks', administration_webpage_contacts_path(:type => 'Feedback') %>
+<br />	<br />	
+<table>
+	<tr>
+		<th>Nombre</th>
+		<th>Email</th>
+		<th>Comentario</th>
+	</tr>
+	<% @objects.each do |object| %>
+		<tr>
+		  <td><%= object.name %></td>
+		  <td><%= object.email %></td>
+		  <td><%= object.comment %></td>
+		</tr>
+	<% end %>
+</table>

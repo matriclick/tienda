@@ -1,0 +1,34 @@
+
+<% if(album_photos.size >= @scrolling_set)%>
+
+<script>	
+	ids = '<%=@photos_ids%>'
+	flag_up = false	
+	load_album_endless_scrolling(next_album_scroll_feed)
+	$(".loading").load($(this).show())
+</script>
+
+<%end%>
+
+<div id="albums_columns">
+	<% album_photos.each do |album_photo| %>
+		<div class="albums_photo">
+			<%= link_to image_tag(album_photo.album_photo_image.url(:album_photo_size), :alt => album_photo.album_photo_image.name), supplier_products_and_services_path(album_photo.album.supplier_account.supplier_id, :public_url => album_photo.album.supplier_account.public_url, :matridream_ic => params[:industry_category_ids]), :title => t('show') %>
+			<div class="albums_text">
+				<div class="albums_h1">
+					<b><%= link_to album_photo.album.supplier_account.fantasy_name, supplier_products_and_services_path(album_photo.album.supplier_account.supplier_id, :public_url => album_photo.album.supplier_account.public_url, :matridream_ic => params[:industry_category_ids]), :title => t('show') %></b><br/>
+				</div>
+				<div class="albums_h2">
+					<%= link_to album_photo.album.name, supplier_products_and_services_path(album_photo.album.supplier_account.supplier_id, :public_url => album_photo.album.supplier_account.public_url, :matridream_ic => params[:industry_category_ids]), :title => t('show') %><br/>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<div id="infinite-scroll"></div>
+</div>
+
+
+<% if(album_photos.size >= @scrolling_set)%>
+	<div class="loading"><%=image_tag "campaign/after_contest/1/loading.gif", :size =>'50x22' %></div>
+<%end%>
+

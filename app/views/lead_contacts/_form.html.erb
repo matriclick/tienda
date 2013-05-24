@@ -1,0 +1,39 @@
+<%= form_for(@lead_contact) do |f| %>
+  <% if @lead_contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lead_contact.errors.count, "error") %> prohibited this lead_contact from being saved:</h2>
+
+      <ul>
+      <% @lead_contact.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.hidden_field :lead_id, :value => @lead.id %>
+  <div class="field">
+    <%= f.label :position, 'Posición/Cargo' %> <%= f.text_field :position %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :name, 'Nombre completo' %> <%= f.text_field :name %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :email, 'Email' %> <%= f.text_field :email %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :cell_phone, 'Celular' %> <%= f.text_field :cell_phone %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :phone, 'Teléfono Fijo' %> <%= f.text_field :phone %>
+  </div>
+<br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<br />
+<br />
+<% end %>

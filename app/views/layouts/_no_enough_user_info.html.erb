@@ -1,0 +1,18 @@
+<%= link_to word, "#not_enough_info", :id => 'fancybox_form', :class => link_class %>
+
+<div style="display:none"> <!-- fancy view -->
+		<div id="not_enough_info" style="width:400px;padding:5px;">
+			<div>
+				<div class="titulos">
+					<%= t('helptip.would_you_like_to_use_this') %>
+				</div>
+				<div class="help_tip">
+					<%= t('helptip.we_need_some_more_info') %>
+				</div>
+				<div class="holder">
+					<%= link_to t('edit_profile'), edit_user_profile_path(), :class => link_class+" right" %>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+</div>

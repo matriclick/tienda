@@ -1,0 +1,27 @@
+/* FGM: Flashes from supplier_layout and login_layout are different */
+#supplier_flash_notice, #supplier_flash_error, #supplier_flash_alert {
+	height:25px;
+  text-align:center;
+	float:left;
+	font-family:helvetica;
+	font-weight:bold;
+	padding:0 5px;
+	z-index:1;
+	line-height:22px;
+}
+
+#supplier_flash_notice {
+  background-color: #D4FFCD;
+	color:#5FB052;
+  border-bottom: solid 1px #6C6;
+	border-left: solid 1px #6C6;
+	border-right: solid 1px #6C6;
+}
+
+#supplier_flash_error, #supplier_flash_alert {
+  background-color: #FCD0D0;
+  border-bottom: solid 1px #AC1313;
+	border-left: solid 1px #AC1313;
+	border-right: solid 1px #AC1313;
+	color:#871414;
+}

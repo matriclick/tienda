@@ -1,0 +1,5 @@
+<% lead.invoices.where(:paid => false).each do |invoice| %>
+	<% if invoice.issued_date.to_datetime >= from and invoice.issued_date.to_datetime <= to %>
+		<%= link_to 'Número: ' + invoice.number.to_s + ' | Fecha: ' + invoice.issued_date.strftime("%d %b %Y") + ' | Neto: ' + number_to_currency(invoice.net_price) + ' | IVA: ' + number_to_currency(invoice.vat), invoice  %><br />
+	<% end %>
+<% end %>

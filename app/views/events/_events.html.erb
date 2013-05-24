@@ -1,0 +1,21 @@
+<br />
+	<table>
+	  <tr>
+	    <th><%= t 'activerecord.attributes.event.title' %></th>
+	    <th><%= t 'activerecord.attributes.event.starts_at' %></th>
+	    <th><%= t 'activerecord.attributes.event.ends_at' %></th>
+	    <th><%= t 'activerecord.attributes.event.all_day' %></th>
+	    <th><%= t 'activerecord.attributes.event.description' %></th>
+	    <th><%= t('options') %></th>
+	  </tr>
+	  <% @events.each do |event| %>
+	    <tr>
+	      <td><%= event.title %></td>
+	      <td><%= event.starts_at %></td>
+	      <td><%= event.ends_at %></td>
+	      <td><%= event.all_day %></td>
+	      <td><%= event.description %></td>
+	      <td>  <%= link_to t('edit'), edit_supplier_account_service_event_path(@supplier, @service, event) %> | <%= link_to t('destroy'), supplier_account_service_event_path(@supplier, @service, event), confirm: t('are_you_sure'), method: :delete %> </td>
+	    </tr>
+	  <% end %>
+	</table>

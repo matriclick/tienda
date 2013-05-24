@@ -1,0 +1,21 @@
+<%= form_for(@contact_type) do |f| %>
+  <% if @contact_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @contact_type.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+      <ul>
+      <% @contact_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<table class="invisible">
+	<tr>
+		<td><%= f.label :name %><br />
+	    <%= f.text_field :name %></td>
+	</tr>
+</table>
+    <%= f.submit, :class => :button %>
+
+<% end %>

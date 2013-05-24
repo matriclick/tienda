@@ -1,0 +1,87 @@
+<div class="titulos">
+	<%= t 'matriclick_points' %>
+</div>
+<div class="box">
+	<% if notice %>
+		<div class="alert"><%= notice %></div>	
+	<% end %>
+
+		<div style="width:300px; float:left; padding-right:20px">
+			<h3>¿Cómo ganar Puntos Matriclick?</h3><br>
+			
+			<p>
+				Acumula Puntos Matriclick en todas las compras que realices con proveedores registrados en Matriclick. <br><br>
+				Regístrate y luego agrégalas a tus gastos. Espera el email de confirmación que te enviaremos luego de validar tus Puntos Matriclick.
+			</p>
+				
+			<h3>¿Cuánto Puntos Matriclick gano?</h3> <br>
+			
+			<p>
+				Por cada compra que hagas, te daremos un % en puntos según el rubro. Revisa acá la <strong><%= link_to "tabla de conversión", "#conversion_table", :class => :fancybox %></strong>.
+			</p>									
+
+			<h3>¿Para qué sirven los Puntos Matriclick?</h3><br>
+			
+			<p>
+				Los puntos serán canjeables por increíbles <strong><%= link_to "premios", "#prizes", :class => :fancybox %></strong>.<br><br> Revisa <strong><%= link_to "acá los premios", "#prizes", :class => :fancybox %></strong> que tenemos para ti.
+			</p>					
+			
+			<h3>¡Comienza a acumular Puntos Matriclick!</h3><br>
+			<p>
+				Ingresa un <%= link_to t('new_expense'), new_expense_path(:wants_points => true), "data-type" => "expense", :class => 'expense_fancybox' %> o revisa <%= link_to "tus gastos actuales", expenses_path %>
+			</p>
+	</div>
+	<div style="padding:20px 0px 20px 0px">
+		<%= image_tag 'vintage-wrapping.jpg' %>
+	</div>
+</div>
+
+<div style="display:none;">
+	<div id="prizes" style="padding:10px 20px;position:relative;">
+		<div class="titulos">
+			Premios para canjear por Puntos Matriclick
+		</div>
+		<div class="box">
+			<b>¡A principios de Abril tendremos una lista con increíbles premios!</b> <br><br>
+			<div align="center">
+				<%= image_tag 'tour/proximamente.jpg' %>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display:none;">
+	<div id="conversion_table" style="padding:10px 20px;">
+		<div class="titulos">
+			Tabla de conversión para Puntos Matriclick
+		</div>
+		<div class="box">
+			<table>
+				<tr>
+					<th>Rubro</th>
+					<th>Puntos</th>
+				</tr>
+				<tr>
+					<td>
+						<ul>
+							<li>Banquetera</li>
+							<li>Centro de Evento</li>
+							<li>Hoteles</li>
+						</ul>
+					</td>
+					<td>Por cada $1.000 pesos acumula 5 puntos</td>
+				</tr>
+				<tr>
+					<td>
+						<ul>
+							<li>DJ y música</li>
+							<li>Transporte</li>
+							<li>Maquillaje y peinado</li>
+							<li>Otros</li>
+						</ul>
+					</td>
+					<td>Por cada $1.000 pesos acumula 25 puntos</td>
+				</tr>
+			</table>			
+		</div>
+	</div>
+</div>

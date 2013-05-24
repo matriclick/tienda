@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  supplier_account_id: 1
+  contract_number: MyString
+  contract_type: MyString
+  signature_date: 2012-07-16
+  invoice_rut: MyString
+  price: 1.5
+  commision: 1.5
+  not_invoice_until: 2012-07-16
+  comments: MyText
+
+two:
+  supplier_account_id: 1
+  contract_number: MyString
+  contract_type: MyString
+  signature_date: 2012-07-16
+  invoice_rut: MyString
+  price: 1.5
+  commision: 1.5
+  not_invoice_until: 2012-07-16
+  comments: MyText

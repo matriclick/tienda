@@ -1,0 +1,41 @@
+<% if !@user_contest_travelite.contest_travelite_image_file_name.nil? %>
+	<div id="d_instrucciones">
+		¡Ya estás concursando!
+	</div>
+	<div>
+		<%= image_tag(@user_contest_travelite.contest_travelite_image(:contest_travelite_big)) %>
+	</div>
+	<div>
+		<%= link_to (image_tag("contests/volver.png", :class => 'image_button')), despedida_de_soltera_path %>
+	</div>
+<% else %>
+	<%= form_for @user_contest_travelite, :url => contests_update_image_path(:id => @user_contest_travelite.id), :method => "put" do |f| %>
+		<div id="d_instrucciones">
+			Instrucciones:
+		</div>
+		<div id="d_txt_instrucciones">
+			</br>
+			1.- Sube tu mejor foto junto a tus 3 mejores amigas, la que tu quieras, puede ser entretenida, artística,</br>  
+			alternativa o ¡lo que tu prefieras!
+			</br></br>
+			2.- Invita a todos tus amigos a votas, ¡ojo! que los votos válidos serán lo que realicen a través de Matriclick, NO los "like" de facebook, estos sólo ayudarán a generar movimiento
+			</br></br> 
+			3.- <b>Consejo:</b> Copia la URL de tu imagen, y pégala en tu muro de facebook exlicando que deberán entrar y dejar su voto
+			4.- ¡Las <b>5 fotos más votadas</b>pasarán a la gran final!
+		</div>
+		<div id="d_sube">
+			¡Sube tu mejor foto!
+		</div>
+
+		<div id="d_subir_foto">
+
+			<%= f.file_field :contest_travelite_image, :class => 'upload_custom_image', :style => "display: none;", :onchange => "$('.custom_file_name').html($('.upload_custom_image').val());" %>
+			<%= image_tag 'contests/btn_seleccionar.png', :class => 'image_button', :onclick => "$('.upload_custom_image').click()" %> <span class="custom_file_name"><%= @user_contest_travelite.contest_travelite_image_file_name %></span><br />
+			<br />
+			Nombre foto* <%= f.text_field :photo_name %><br />
+			Nombre novia* <%= f.text_field :bride_name %><br />
+			<br />
+			<%= image_submit_tag "contests/btn_subir.png", :class => 'image_button' %>
+		</div>
+	<% end %>
+<% end %>

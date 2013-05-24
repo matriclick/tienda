@@ -1,0 +1,33 @@
+<%= form_for(@rock) do |f| %>
+  <% if @rock.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rock.errors.count, "error") %> prohibited this rock from being saved:</h2>
+
+      <ul>
+      <% @rock.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sender_email %><br />
+    <%= f.text_field :sender_email %>
+  </div>
+  <div class="field">
+    <%= f.label :recipient_email %><br />
+    <%= f.text_field :recipient_email %>
+  </div>
+  <div class="field">
+    <%= f.label :sender_name %><br />
+    <%= f.text_field :sender_name %>
+  </div>
+  <div class="field">
+    <%= f.label :recipient_name %><br />
+    <%= f.text_field :recipient_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,90 @@
+<div style="display:none"> <!-- fancy view -->
+	<div id="ceremony_<%= c.id%>">
+		<div class="ceremony_images">
+		<% if c.ceremony_images.blank? %>
+			<%= image_tag "/images/smaller/missing.png", :size =>'200x150'%>
+		<% else %>
+			<%= image_tag c.ceremony_images.first.image.url(), :size =>'200x150' unless c.ceremony_images.blank? %>
+		<% end %>
+		</div>
+		<div class="ceremony_info">
+			<div class="ceremony_name">
+				<%= c.name %>
+			</div>
+			<table class="ceremony_table">
+				<% unless c.address_id.blank? %>
+					<tr>
+						<td style="width:130px;"><%= t 'activerecord.attributes.ceremony.address' %></td>
+						<td style="font-weight:lighter;"><%= c.address.get_address %></td>
+					</tr>
+				<% end %>
+				<% unless c.capacity.blank? %>
+					<tr>
+						<td><%= t 'activerecord.attributes.ceremony.capacity' %></td>
+						<td style="font-weight:lighter;"><%= c.capacity %></td>
+					</tr>
+				<% end %>
+				<% unless c.contact_person.blank? %>
+					<tr>
+						<td><%= t 'contact_person' %></td>
+						<td style="font-weight:lighter;"><%= c.contact_person %></td>
+					</tr>
+				<% end %>
+				<% unless c.contact_email.blank? %>
+					<tr>
+						<td></td>
+						<td style="font-weight:lighter;"><%= c.contact_email %></td>
+					</tr>
+				<% end %>
+				<% unless c.phone_number.blank? %>
+					<tr>
+						<td></td>
+						<td style="font-weight:lighter;"><%= c.phone_number %></td>
+					</tr>
+				<% end %>
+				<% unless c.schedule.blank? %>
+					<tr>
+						<td><%= t ('operation_hours') %></td>
+						<td style="font-weight:lighter;"><%= c.schedule %></td>
+					</tr>
+				<% end %>
+				<% unless c.additional_information.blank? %>
+					<tr>
+						<td><%= t 'activerecord.attributes.ceremony.additional_information' %></td>
+						<td style="font-weight:lighter; width:300px;"><%= c.additional_information %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+		<% unless c.ceremony_days.blank? %>
+			<div class="title_schedule">
+				<%= t'ceremony_schedule' %>
+			</div><br/>
+			<table class="small_schedules ceremonies_schedule">
+					<tr>
+						<th><%= t 'day' %></th>
+						<%@aux = 0 %>
+						<% c.ceremony_days.each do |ceremony_day|
+							@aux = ceremony_day.ceremony_day_hours.count if ceremony_day.ceremony_day_hours.count > @aux
+						 end %>
+						 <% @aux.times do %>
+						 	<th><%= t'hour' %></th>
+						 <% end %>
+					</tr>
+					<tr>
+					<% c.ceremony_days.each do |ceremony_day| %>
+						<% if ceremony_day.name.to_i < 8 and ceremony_day.name.to_i > 0 %>
+							<td><%= set_day_name_by_day_number(ceremony_day.name.to_i) %></td>
+						<% else %>
+							<td><%= ceremony_day.name %></td>
+						<% end %>
+						<% ceremony_day.ceremony_day_hours.each do |ceremony_day_hour| %>
+							<td><%= (ceremony_day_hour.hour).strftime('%H:%M') unless ceremony_day_hour.hour.blank? %></td>
+						<% end %>
+					<% end %>
+					</tr>
+			</table>
+			<div class="clear"></div>
+		<% end %>
+	</div>
+</div>

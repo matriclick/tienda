@@ -1,0 +1,26 @@
+.current {  
+  padding-right: 12px;  
+  background-repeat: no-repeat;  
+  background-position: right center;  
+}  
+.asc {   
+  background-image: url("flecha_up.png");   
+}  
+  
+.desc {   
+  background-image: url("flecha_down.png");   
+} 
+.name_invitee_group {
+  border-top: 1px dotted #CCCCCC;
+  clear: both;
+  margin-top: 10px;
+  padding: 6px 0;
+  width: 400px;
+}
+.invitee_group_actions {
+	float: left;
+  font-size: 11px;
+  margin-right: 5px;
+	clear:both;
+}
+

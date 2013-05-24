@@ -1,0 +1,6 @@
+<% case session[:country].url_path %>
+	<% when 'peru'%>
+		<%= render 'peru' %>
+	<% else %>
+		<%= render 'chile' %>
+<% end %>

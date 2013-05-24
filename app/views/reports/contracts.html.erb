@@ -1,0 +1,89 @@
+<h1>Reporte Contratos Activos</h1>
+<%= render 'date_range_selector' %>
+
+<br /><br />
+<table style="width:900px">
+	<tr style="">
+		<th></th>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<th><%= @init.strftime("%d %b %Y") %></th>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<th>
+			<b>Total</b> (acumulado)
+		</th>
+	</tr>
+	<tr style="">
+		<td>Fijos</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_contracts_by_type(@init, @init + 1.day, @fijo) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_contracts_by_type(@from, @to, @fijo) %></b> 
+			 (<%= count_link_contracts_by_type(DateTime.new(2010,01,01), @to, @fijo) %>)
+		</td>
+	<tr>
+	<tr style="">
+		<td>Mixtos</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_contracts_by_type(@init, @init + 1.day, @mixto) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_contracts_by_type(@from, @to, @mixto) %></b> 
+			 (<%= count_link_contracts_by_type(DateTime.new(2010,01,01), @to, @mixto) %>)
+		</td>
+	<tr>
+	<tr style="">
+		<td>Variable</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_contracts_by_type(@init, @init + 1.day, @variable) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_contracts_by_type(@from, @to, @variable) %></b> 
+			(<%= count_link_contracts_by_type(DateTime.new(2010,01,01), @to, @variable) %>)
+		</td>
+	<tr>
+	<tr style="">
+		<td>Especial</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_contracts_by_type(@init, @init + 1.day, @especial) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_contracts_by_type(@from, @to, @especial) %></b> 
+			 (<%= count_link_contracts_by_type(DateTime.new(2010,01,01), @to, @especial) %>)
+		</td>
+	<tr>
+	<tr style="">
+		<td><b>Total</b></td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_contracts_by_type(@init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_contracts_by_type(@from, @to) %></b> 
+		 	(<%= count_link_contracts_by_type(DateTime.new(2010,01,01), @to) %>)
+		</td>
+	<tr>
+</table>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

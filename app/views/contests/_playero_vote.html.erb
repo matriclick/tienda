@@ -1,0 +1,11 @@
+<div id="d_ganaron_playeros">
+	<div id="d_subir_foto">
+		<div id="d_txt_subir_foto">
+			<% if @user_contest_travelite.contest_travelite_image_file_name.blank? %>
+				<%= render 'playero_vote_first_time' %>
+			<% else %>
+				<%= render 'playero_vote_not_first_time' %>
+			<% end %>
+		</div>
+	</div>
+</div>

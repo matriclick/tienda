@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @invitee.name %>
+</p>
+
+<p>
+  <b>Lastname p:</b>
+  <%= @invitee.lastname_p %>
+</p>
+
+<p>
+  <b>Lastname m:</b>
+  <%= @invitee.lastname_m %>
+</p>
+
+
+
+<p>
+  <b>Confirmed:</b>
+  <%= @invitee.confirmed %>
+</p>
+
+
+<%= link_to t('edit'), edit_invitee_path(@invitee) %> |
+<%= link_to t('back'), invitees_path %>
+

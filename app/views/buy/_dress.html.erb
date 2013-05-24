@@ -1,0 +1,54 @@
+<div>
+	<% case @purchasable.dress_type.name %>
+		<% when 'Novia' %>
+			<b>Vestido de Novia</b>
+		<% when 'Fiesta' %>
+			<b>Comprar Vestido</b>
+		<% when 'Madrina' %>
+			<b>Comprar Vestido</b>
+		<% when 'Civil' %>
+			<b>Comprar Vestido</b>
+		<% else %>
+			<b>Comprar <%= @purchasable.dress_type.name %></b>
+	<% end %>
+	<hr>
+	<div style="float:left;">
+		<div class="image" style="float:left">
+			<%= image_tag(@purchasable.main_image) %>
+		</div>
+		<div style="float:left; margin-left:10px;">
+			<table>
+				<tr>
+					<th style="min-width:300px">Descripción</th>
+					<th style="width:100px">Precio Unitario</th>
+				</tr>
+				<tr>
+					<td><%= raw @purchasable.description.gsub(/\n/, '<br/>') if !@purchasable.description.nil? %></td>
+					<td><%= "#{number_to_currency @purchasable.price}" %></td>
+				</tr>
+				<% if current_user.check_if_has_credits %>
+				<tr>
+					<td colspan="2">Tienes <%= number_to_currency current_user.credit_amount %> en créditos</td>
+				</tr>
+				<% end %>
+				
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="field">
+	<%= f.hidden_field :purchasable_id, :value => @purchasable.id %>
+</div>
+<div class="field">
+	<%= f.hidden_field :purchasable_type, :value => @purchasable.class %>
+</div>
+<div class="field">
+	<%= f.hidden_field :user_id, :value => @user.id %>
+</div>
+<div class="field">
+	<%= f.hidden_field :price, :value => @price %>
+</div>
+<div class="field">
+	<%= f.hidden_field :currency, :value => 'CLP' %>
+</div>

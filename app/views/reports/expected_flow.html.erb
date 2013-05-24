@@ -1,0 +1,33 @@
+<h1>Reporte de flujo esperado</h1>
+<div>Contratos Fijos, Mixtos y Especiales</div>
+<%= render 'date_range_selector' %>
+<br />
+<%= link_to 'Ver todo', reports_expected_flow_path %><br />
+<br />
+<table style="width:950px">
+	<tr>
+		<th>Lead</th>
+		<% @months_to_report_date_time.each do |month_to_report_date_time| %>
+			<th><%= month_to_report_date_time.to_date.strftime("%Y %b") %></th>
+		<% end %>
+	</tr>
+	<% @leads.each do |lead| %>
+		<% if lead.expected_flow_in_range(@months_to_report_date_time) > 0 %>
+			<tr>
+				<td><%= lead.name %></td>
+				<% @months_to_report_date_time.each do |month_to_report_date_time| %>
+					<td><%= lead.expected_flow_in(month_to_report_date_time).to_s %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	<% end %>
+	<tr>
+		<th>Total</th>
+		<% @months_to_report_date_time.each do |month_to_report_date_time| %>
+			<th><%= number_to_currency total_expected_flow_in(@leads, month_to_report_date_time).to_s %></th>
+		<% end %>
+	</tr>
+	
+</table>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

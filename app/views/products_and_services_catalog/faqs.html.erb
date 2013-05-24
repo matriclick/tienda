@@ -1,0 +1,11 @@
+<%= content_for :products_and_services_page_in_content do %>
+	<% if @faqs.blank? %>
+		<%= render "layouts/nothing_to_show", :objects => t("faq").downcase, :small => true %>
+	<% else %>
+		<% @faqs.each do |faq| %>
+		<div style="margin:5px 0px 5px 0px"><%= t 'question' %>: <b><%= faq.question %></b></div>
+		<div style="margin-bottom:15px"><i><%= t 'answer' %>: <%= faq.answer %></i></div>
+		<% end %>
+	<% end %>
+<% end %>
+<%= render "products_and_services_page" %>

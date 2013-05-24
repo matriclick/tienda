@@ -1,0 +1,46 @@
+*Aquellos proveedores con sello, tienen la recomendación matriclick
+<br />
+<br />
+<% @supplier_with_accounts.each do |supplier_account| %>
+	<div style=<%= cycle("background-color:#ebeaea;", "") %>>
+		<div style="padding:10px 0px 10px 0px; border-top:1px dotted;">
+			<div style="float:left; width:100px; margin-left:10px">
+				<%= image_tag(supplier_account.image.url(:thumb), :alt => supplier_account.image_name, :style => "max-height:50px; max-width:90px; border:2px solid grey;") %><br />
+			</div>
+			<div style="float:left; margin-left:10px;">
+				<%= image_tag('suppliers_without_account/sello.png', :width => "20px", :height => "40px") %>
+			</div>
+			<div style="float:left; width:500px; margin-left:10px;">
+			    <b><%= supplier_account.fantasy_name %></b><br />
+			    <%= supplier_account.presentation.description[0..200].html_safe+'...' unless supplier_account.presentation.description.nil? %>
+			</div>
+			<div style="float:right; margin-right:10px;">
+				<%= link_to 'Entrar', supplier_products_and_services_path(supplier_account.supplier_id, :public_url => supplier_account.public_url), :class => :button  %>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+<% end %>
+
+<% @supplier_without_accounts.each do |supplier| %>
+	<div style=<%= cycle("background-color:#ebeaea;", "") %>>
+		<div style="padding:10px 0px 10px 0px; border-top:1px dotted;">
+			<div style="float:left; width:100px; margin-left:10px">
+				<%= image_tag(supplier.image.url(:thumb), :alt => supplier.image_name, :style => "max-height:50px; border:2px solid grey;") %>
+			</div>
+			<div style="float:left; width:500px; margin-left:40px;">
+			    <b><%= supplier.fantasy_name %></b><br />
+			    <%= strip_tags(supplier.description[0..200]).html_safe+'...' unless supplier.description.nil? %>
+			</div>
+			<div style="float:right; margin-right:10px;">
+				<%= link_to 'Ver', supplier_without_account_info_path(id: supplier.id), :id => :inline, :class => :button %>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+<% end %>
+
+<div style="border-top:1px dotted"></div>
+
+
+

@@ -1,0 +1,68 @@
+<div class="slider_blog">
+	<% @slider_images.each do |slider| %>
+		<div class="slider-item">
+			<% if !slider.link.nil? %>
+	       		<%= link_to (image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name), slider.link, 
+					:target => slider.target ? '_self' : '_blank' %>
+			<% else %>
+				<%= image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name %>
+			<% end %>
+			<% unless slider.title.blank? %>
+	       	<div class="caption"><b><%= slider.title %></b><br /> 
+				<% unless slider.content.blank? %>
+					<%= slider.content.html_safe %>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+
+<br />
+<br />
+
+<div class="blog_box">
+<% c = 1 %>
+<% d = 1 %>
+	<% @posts.each do |post| %>
+	
+		<% if c > 0 and c < 7 %>
+		
+			<% if c%3 == 0 %>
+				<%= render 'regular_post', :post => post %>
+			<% else %>
+				<%= render 'regular_post', :post => post, margin: true %>
+			<% end %>
+			
+		<% end %>
+		
+		<% if c == 7 %>
+			<%= render 'main_post', :post => post, :inside_text => false %>
+		<% end %>
+
+		<% if c > 7 and c < 12 %>
+			<%= render 'big_post', :post => post %>
+		<% end %>
+
+		<% if c >= 12 %>
+			<% if d%3 == 0 %>
+				<%= render 'blog_small_post', :post => post %>		
+			<% else %>
+				<%= render 'blog_small_post', :post => post, margin: true %>	
+			<% end %>
+		
+			<% d = d + 1 %>		
+		<% end %>
+	
+	<% c = c + 1 %>
+<% end %>
+<div class="clear"></div>
+</div>
+
+<!--
+<%#unless @posts.count < 10 %>
+	<div class="apple_pagination">
+		<%#= will_paginate @posts, :container => false %>
+	</div>		
+<%#end %>
+-->

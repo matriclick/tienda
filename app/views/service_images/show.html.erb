@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>service:</b>
+  <%= @service_image.service_id %>
+</p>
+
+<p>
+  <b>Image file name:</b>
+  <%= @service_image.image_file_name %>
+</p>
+
+<p>
+  <b>Image content type:</b>
+  <%= @service_image.image_content_type %>
+</p>
+
+<p>
+  <b>Image file size:</b>
+  <%= @service_image.image_file_size %>
+</p>
+
+<p>
+  <b>Image updated at:</b>
+  <%= @service_image.image_updated_at %>
+</p>
+
+<br />
+<div class="bottom_buttons">
+	<%= link_to 'Edit', edit_service_image_path(@service_image) %>
+	<%= link_to 'Back', service_images_path %>
+</div>
+<br />

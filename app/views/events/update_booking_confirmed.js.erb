@@ -1,0 +1,12 @@
+// FGM: Same as above, but for Fancybox
+$(".bookings_list").html("<%= escape_javascript(render('supplier_accounts/bookings_list', :events => @events, :paginate => false, :show => false, :remote => true)) %>");
+$("a.loading_link").bind('ajax:beforeSend', function(){
+	$(this).after('<%= image_tag("loading.gif", :size => "15x15", :class => :left_loading) %>');
+});
+$('.bookings_count').html("<%= escape_javascript(render 'supplier_accounts/bookings_count', :service => @event.service) %>");
+// FGM: Hide "destroyed" events
+<% unless @destroyed_event_ids.blank? %>
+	<% for id in @destroyed_event_ids %>
+		$('#bookings_list_row_<%= id %>').fadeOut();
+	<% end %>	
+<% end %>

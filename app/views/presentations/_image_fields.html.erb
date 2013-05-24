@@ -1,0 +1,20 @@
+<b><%= t 'images' %></b>
+<div class="help_tip"><%= t('image_size_limit') %></div>
+<div class="field">
+	<% @aux = true %>
+	<% @countaux = 0 %>
+	<%= f.fields_for :presentation_images do |presentation_images_form| %>
+		<% @countaux >= @presentation.presentation_images.count ? (@aux = false) : @aux = true %>
+		<div class="old_image">
+			<%= image_tag presentation_images_form.object.image.url(:tiny) %>
+		</div>
+		<div class="image_field">
+			<%= presentation_images_form.label :image, @aux ? t('change_image') : t('new_image') %><br />
+			<%= presentation_images_form.file_field :image %>
+			<%= presentation_images_form.link_to_remove t('remove_this_image'), :class => "small_button" %>
+		</div>
+		<div class="clear"></div>
+		<% @countaux = @countaux+1 %>
+	<% end %>
+	<%= f.link_to_add t('add_image'), :presentation_images, :onclick => @aux = false, :class => "small_button" %>
+</div>		

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  content: MyText
+  reviewable_type: MyString
+  reviewable_id: 1
+  supplier_read: false
+  user_id: 1
+  approved_by_admin: false
+
+two:
+  content: MyText
+  reviewable_type: MyString
+  reviewable_id: 1
+  supplier_read: false
+  user_id: 1
+  approved_by_admin: false

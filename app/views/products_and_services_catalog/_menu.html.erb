@@ -1,0 +1,21 @@
+<ul class="nav_menu">
+	<li class="pestana <%= 'pestana_on' if action_name == "index" %>">
+		<%= link_to 'Destacados', products_and_services_catalog_index_path(:industry_category_ids => @industry_category.slug) %>
+	</li>
+		
+	<% if @album_industry_names.include?(@industry_category.name) %>
+		<li class="pestana <%= 'pestana_on' if action_name == "album" %>">
+			<%= link_to 'Fotografías e ideas', products_and_services_catalog_album_path(:industry_category_ids => @industry_category.slug) %>
+		</li>
+	<% end %>
+<!--
+	<li class="pestana <%= 'pestana_on' if action_name == "products_and_services" %>">
+		<%= link_to 'Productos y Servicios de '+@industry_category.get_name,
+			products_and_services_catalog_all_services_path(:industry_category_ids => @industry_category.slug) %>
+	</li>
+-->
+	<li class="pestana <%= 'pestana_on' if action_name == "with_or_without_account" %>">
+		<%= link_to "Todos los proveedores de "+@industry_category.get_name, 
+ 			products_and_services_catalog_all_suppliers_path(:industry_category_ids => @industry_category.slug) %>
+	</li>
+</ul>

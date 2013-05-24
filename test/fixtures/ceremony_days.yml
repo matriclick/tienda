@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ceremony_id: 1
+  name: MyString
+
+two:
+  ceremony_id: 1
+  name: MyString

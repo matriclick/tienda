@@ -1,0 +1,70 @@
+<%= form_for @post, :html => {:multipart => true } do |f| %>
+	<% if @post.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+			<ul>
+				<% @post.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<div class="field">
+  		<%= f.label :industry_category_id %><br />
+  		<%= f.collection_select :industry_category_id, IndustryCategory.all.joins(:countries).where("countries.id = ?", session[:country].id), :id, :get_name, :prompt => "Select", :allow_blank => true %>
+	</div>
+	<br />
+	<div class="field">
+  		<%= f.label :post_type %><br />
+		<%= f.radio_button(:post_type, 'Post', :checked => (@post.post_type == 'Post' or @post.post_type.blank?)) %> <%= 'Revista Matriclick' %><br />
+		<%= f.radio_button(:post_type, 'Pack', :checked => @post.post_type == 'Pack') %> <%= 'Casonas Matriclick' %><br />
+		<%= f.radio_button(:post_type, 'Lunas de Miel', :checked => @post.post_type == 'Lunas de Miel') %> <%= 'Lunas de Miel' %><br />
+		<%= f.radio_button(:post_type, 'El Bazar', :checked => @post.post_type == 'El Bazar') %> <%= 'El Bazar' %><br />
+		<%= f.radio_button(:post_type, 'Tu Casa', :checked => @post.post_type == 'Tu Casa') %> <%= 'Tu Casa' %><br />
+		<%= f.radio_button(:post_type, 'Viajes', :checked => @post.post_type == 'Viajes') %> <%= 'Viajes' %><br />
+		<%= f.radio_button(:post_type, 'Aguclick', :checked => @post.post_type == 'Aguclick') %> <%= 'Aguclick' %><br />
+	</div>
+	<br />
+	<div class="field">
+  		<%= f.label :visible, '¿El post estará visible?' %> <%= f.check_box :visible %>
+	</div>
+	<br />
+	<div class="field">
+		<div class="help_tip">
+			Solo subir imágenes de este tamaño: 700px de ancho x 350px de largo <br />
+			Recuerda ponerle un nombre que alguien buscaría en google, separando las palabras por un guión, ejemplo: luna-de-miel-en-brasil.jpg
+		</div>
+		<%= f.label :main_image, "Imagen Principal" %><br />
+		<%= f.file_field :main_image %>
+	</div>
+	<br />
+
+	<div class="field">
+  		<%= f.label :title %><br />
+  		<%= f.text_field :title, :size => '100x1' %>
+	</div>
+	<br />
+	<div class="field">
+  		<%= f.label :introduction, "Bajada" %><br />
+  		<%= f.tinymce :introduction, :rows => 5 %>
+	</div>
+	<br />
+	<div id="contents_for_posts">
+		<%= f.fields_for :post_contents do |builder| %>
+			<%= render 'post_content_fields', :f => builder %>
+		<% end %>	
+	</div>
+	<br />
+		<%= link_to_add_fields_post "Nuevo parrafo", f, :post_contents %>
+	<br />
+	<div class="field">
+  		<%= f.label :date %><br />
+  		<%= f.date_select :date %>
+	</div>
+	<br />
+	<br />
+	<div class="actions">
+  		<%= f.submit %>
+	</div>
+	<div class="clear"></div>
+<% end %>

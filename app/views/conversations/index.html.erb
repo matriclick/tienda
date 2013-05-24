@@ -1,0 +1,13 @@
+	<div class="titulos">
+		<%= t 'products_and_services_conversations' %>
+	</div>
+<% unless @all_conversations.blank? %>
+	<div class="box">
+		<%= render 'conversations/conversations_list', :conversations => @all_conversations %>
+	</div>
+	<br/>
+<% else -%>
+	<div class="box">
+		<%= render "layouts/nothing_to_show", :word => t('products_and_services_conversations') %>
+	</div>
+<% end -%>

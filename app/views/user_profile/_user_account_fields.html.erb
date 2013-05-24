@@ -1,0 +1,63 @@
+<table class="invisible">
+	<tr>
+		<td>
+			<%= f.fields_for :user_account_image do |couple_image| %>
+				<table class="invisible">
+					<tr>
+						<td>Imagen de pareja<%= mark_required(f.object, :user_account_image) %></td>
+						<td><%= couple_image.file_field :couple %></td>
+					</tr>
+				</table>
+			<% end %>
+		</td>
+	</tr>
+	<% unless (hide_non_campaign_fields ||= false) %>
+		<tr>
+			<td>
+				<%= f.label :wedding_tentative_date %><%= mark_required(f.object, :wedding_tentative_date)%><br />
+				<%= f.date_select :wedding_tentative_date %>
+			</td>
+		</tr>		
+	<% end %>
+	<tr>
+		<td>
+			<%= f.label :wedding_city %><%= mark_required(f.object, :wedding_city) %><br />
+			<%= f.text_field :wedding_city %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<%= f.label :invitees_quantity %><%= mark_required(f.object, :invitees_quantity)%><br />
+			<%= f.text_field :invitees_quantity %>
+		</td>
+	</tr>
+	<tr>
+		<td id="tentative_budget"><%= f.label :tentative_budget %><%= mark_required(f.object, :tentative_budget) %></td>
+	</tr>
+	<%= f.fields_for :tentative_budget do |tentative_budget_form| %>
+		<% for budget_range in @budget_ranges %>
+			<tr>
+				<td><%= tentative_budget_form.radio_button :budget_range_id, budget_range.id %> <%= budget_range.range %></td>
+			</tr>
+		<% end %>
+	<% end %>
+	<% unless (hide_non_campaign_fields ||= false) %>		
+		<tr>
+			<td><%= t('trading_houses') %></td>
+		</tr>
+		<%= f.fields_for :user_account_trading_house do |user_account_trading_house| %>
+			<tr>
+				<td>
+					<%= label_tag t("trading_house") %><%= mark_required(f.object, :user_account_trading_house) %><br/>
+					<%= user_account_trading_house.collection_select :trading_house_id, @trading_houses, :id, :name, :prompt => true %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag t("trading_house_code") %><%= mark_required(f.object, :trading_house_code) %><br/>
+					<%= user_account_trading_house.text_field :trading_house_code %>
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>

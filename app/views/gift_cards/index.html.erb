@@ -1,0 +1,49 @@
+<div style="float:right; width:300px; margin-bottom:20px">
+	<div style="margin-bottom:10px; text-align:right">
+		<b id="notice"><%= raw notice %></b>
+	</div>
+	<%= form_tag(gift_cards_mark_used_code_path, :method => "get") do %>
+		<div style="margin-bottom:10px; text-align:right">
+			<b>Código:</b><%= text_field_tag(:code) %>
+		</div>
+		<div style="text-align:right">
+			<%= submit_tag("Marcar Gift Card Usada") %>
+		</div>
+	<% end %>
+</div>
+<h1 style="width:300px;">Lista de Gift Cards</h1>
+<table style="<%= @is_supplier ? 'width:100%' : 'width:950px' %>">
+  <tr>
+    <th>Socio</th>
+    <th>Estado</th>
+	<% unless @is_supplier %>
+    	<th>Precio</th>
+	<% end %>
+   	<th>Valor</th>
+    <th>Usados</th>
+    <th>Vendidos</th>
+    <th>Stock</th>
+  </tr>
+
+<% @gift_cards.each do |gift_card| %>
+  <tr>
+	<td><%= gift_card.supplier_account.fantasy_name %></td>
+	<td><%= gift_card.gift_card_status.name %></td>
+	<% unless @is_supplier %>
+		<td><%= number_to_currency gift_card.price %></td>
+	<% end %>
+	<td><%= number_to_currency gift_card.value %></td>
+	<td><%= gift_card.gift_card_codes.where('used = true').count %></td>
+	<td><%= gift_card.gift_card_codes.where('bought = true').count %></td>
+	<td><%= gift_card.stock %></td>
+    <td><%= link_to 'Ver', gift_card, :style => 'color:blue' %>
+		<% unless @is_supplier %> | <%= link_to 'Editar', edit_gift_card_path(gift_card), :style => 'color:blue' %> <% end %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+<% unless @is_supplier %>
+	<%= link_to 'Nueva GiftCard', new_gift_card_path %> | <%= link_to 'Volver al Administrador', administration_index_path %>
+<% else %>
+	<div class="help_tip">¿Quieres agregar una nueva Gift Card? ¡Contáctanos a socios@matriclick.com!</div>
+<% end %>

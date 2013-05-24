@@ -1,0 +1,23 @@
+<div class="right_link">
+	<%= link_to t('back'), administration_show_supplier_products_path(@product.supplier_account), :class => :button %>
+</div>
+<div class="titulos">
+	Editar Producto
+</div>
+
+<%= nested_form_for @product, :url=> administration_update_supplier_product_path(@product) do |f| %>
+
+	<% if @product.errors.any? %>
+			<div id="error_explanation">
+		  	<h2><%= pluralize(@product.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+		  	<ul>
+		  	<% @product.errors.full_messages.each do |msg| %>
+		    	<li><%= msg %></li>
+		  	<% end %>
+		  	</ul>
+			</div>
+	<% end %>
+	
+	<%= render 'products/form_content', :f => f %>
+<% end %>

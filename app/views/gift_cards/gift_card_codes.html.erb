@@ -1,0 +1,36 @@
+<h1>Códigos del Gift Card</h1>
+
+<table style="width:900px">
+  <tr>
+    <th>Código</th>
+    <th>¿Comprado?</th>
+    <th>¿Usado?</th>
+	<th></th>
+  </tr>
+
+<% @gift_card_codes.each do |code| %>
+  <tr>
+	<td><%= code.code %></td>
+    <td><%= code.bought %></td>
+    <td><%= code.used %></td>
+	<td><%= link_to 'ver cupón', gift_cards_view_coupon_path(:id => code.id, :format => 'pdf'), :style => 'color:blue' %></td>
+	<td>
+	<% if !code.bought %>
+    	<%= link_to 'Marcar Comprado', gift_cards_mark_bought_code_path(:id => code.id), :style => 'color:blue' %>
+	<% else %>
+		<%= link_to 'Marcar No Comprado', gift_cards_mark_bought_code_path(:id => code.id), :style => 'color:red' %>
+	<% end %>
+		| 
+	<% if !code.used %>
+    	<%= link_to 'Marcar Usado', gift_cards_mark_used_code_path(:id => code.id), :style => 'color:blue' %>
+	<% else %>
+    	<%= link_to 'Marcar No Usado', gift_cards_mark_used_code_path(:id => code.id), :style => 'color:red' %>
+	<% end %>
+	</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Volver a la Gift Card', @gift_card %>

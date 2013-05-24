@@ -1,0 +1,162 @@
+<%= content_for :products_and_services_page_in_content do %>
+	<% if !@object.supplier_account.bookable %>
+		<div class="box">
+			<%= render 'layouts/nothing_to_show', :no_booking => true, :user_notice => (params[:user_notice] == "true" ? true : false) %>
+		</div>
+	<% else -%>
+		<!-- FGM: Set date for calendar -->
+		<div class="date_search">
+			<%= form_tag products_and_services_catalog_bookings_path(@object.class, @object.id, :anchor => "calendar"), :method => 'get', :id => "service_bookings_search" do %>
+				<%= text_field_tag 'calendar_search', Date.today %>
+			<%= submit_tag 'Ir' %>
+			<% end %>
+		</div>
+		
+		<!-- FGM: Calendar -->
+		<div name ="calendar" id="calendar">
+			<h2 id="month">
+				<%= link_to "<", :object_class => @object.class, :month => (@date.beginning_of_month-1).strftime("%d-%b-%Y"), :anchor => 'calendar' %>
+				<%=h l(@date, :format => '%B' ) %><%=h @date.strftime(" %Y") %>
+				<%= link_to ">", :object_class => @object.class, :month => (@date.end_of_month+1).strftime("%d-%b-%Y"), :anchor => 'calendar' %>
+			</h2>
+
+			<%= calendar_for @bookings.all, :year => @date.year, :month => @date.month, :first_day_of_week => 1 do |calendar| %>
+				<!-- FGM: Calendar HEAD -->
+				<%= calendar.head( t('date.day_name_custom.moonday'), t('date.day_name_custom.tuesday'), t('date.day_name_custom.wednesday'), t('date.day_name_custom.thursday'), t('date.day_name_custom.friday'), t('date.day_name_custom.saturday'), t('date.day_name_custom.sunday') ) %>
+
+				<!-- FGM: Days loop -->
+				<% calendar.day(:day_method => :date) do |date, bookings| %>
+			
+				<%= "#{date.day} #{("("+t('today')+")") if Date.today == date} " %>
+
+				<ul>
+					<% if (booking = @bookings.where(:date => date).first).present? %>
+							<li>
+								<div>
+									<b><%= t "booked" %></b>
+								
+									<!-- FGM: TODO: Handle expired bookings -->
+									<% if booking.status == Booking::STATUS[:expired] %>
+										<%= " (#{t('activerecord.attributes.event.expired')})" %>
+									<% else %>
+										<%= link_to "✘", products_and_services_catalog_destroy_booking_path(booking, :anchor => :calendar), :title => t('remove'), :method => :delete, :confirm => t('delete_booking_text') unless (confirmed = booking.status == Booking::STATUS[:confirmed]) %>
+									<% end %>
+						
+									<span class="<%= confirmed ? "booking_confirmed" : "booking_pending" %>"><%= confirmed ? t("activerecord.attributes.event.booking_confirmed") : t('activerecord.attributes.event.booking_pending') %></span>
+								</div>
+							</li>
+					<% else %>
+						<% # FGM: Clear booking variable. Useful to check whether User already booked this date or not %>
+						<% booking = nil %>
+					<% end %>
+		
+		
+					<!-- FGM: Handle important dates -->
+					<% # FGM: Important_date lock flag %>
+					<% important_date_lock = false %>
+					<% @important_dates.each do |important_date| %>
+						<% if important_date_lock = date >= important_date.date.strftime("%d-%b-%Y").to_date && ( date <= important_date.ends_date.strftime("%d-%b-%Y").to_date unless important_date.ends_date.blank?) && important_date.locked == true %>
+							<li>
+								<div class="">
+									<span class="unavailable_day"><%= important_date.custom_message.blank? ? ("(Inhabilitado)") : important_date.custom_message %></span>
+								</div>
+							</li>
+						<% end %>
+					<% end %>
+
+					<!-- FGM: Handle bookable capacity and check for day_locks  -->
+					<%	# FGM: Display '(copado)' if
+							# - There's a NoMoreBooking (day locked)
+							# - Waiting list is full
+					 %>
+					<% if no_more_booking_lock = @no_more_bookings.where(date: date).first.present? || !@object.fits_in_bookings_waiting_list?(date) %>
+						<li>
+							<div class="">
+								<span class="unavailable_day">(Copado)</span>
+							</div>
+						</li>
+					<% end %>
+
+					<%	# FGM: Link_to 'book' won't appear if:
+							#  - User does not meet information requirements
+							#  - Date is in the past
+							#  - User exceeds 3 bookings for the 'bookable' in question
+							#  - User already booked this date
+							#  - There's a NoMoreBooking
+							#  - There's a ImportantDate (blocking)
+							#  - Bookings[:pending] consumed_resources for this date exceed SupplierAccount waiting list resources
+							#  - There's a confirmed booking for this 'bookable'
+					%>
+					<li>
+						<% # FGM: All conditions in one variable (DRY). Enough profile info condition separate. %>
+						<% booking_condition = 
+							date > Date.today && 
+							@bookings.count < 3 && 
+							booking.blank? &&
+							!no_more_booking_lock && 
+							!important_date_lock && 
+							@object.fits_in_bookings_waiting_list?(date) &&
+							!@already_confirmed
+						%>
+						
+						<% if current_user.user_account.has_enough_info && booking_condition %>
+							<%= link_to t('place_booking'), "#add_booking_#{date}", :class => :gray, :id => 'form_inline' %>
+						<% elsif booking_condition -%>
+							<%= render "layouts/no_enough_user_info", :word => t('place_booking'), :link_class => 'gray' %>
+						<% end -%>
+					</li>
+				
+					<!-- FGM: CREATE booking Fancybox -->
+					<div style="display:none">
+						<div id="add_booking_<%=date%>">
+							<div class="titulo_booking dottedLine">
+								<%= t'reserve_this_date'%>
+							</div>
+							<div class="help_tip">
+								Puedes hacer máximo 3 reservas para este producto/servicio.
+							</div>
+							<%= form_tag products_and_services_catalog_add_booking_path do %>
+								<%= hidden_field_tag 'booking[date]', date %>
+								<%= hidden_field_tag 'booking[bookable_type]', @object.class %>
+								<%= hidden_field_tag 'booking[bookable_id]', @object.id %>
+								<%= hidden_field_tag 'booking[supplier_account_id]', @object.supplier_account_id %>
+								<div class="texto_booking">
+										<%= t 'add_booking_message_content' %><br>
+										<%= text_area_tag 'booking[message]' %>
+								</div>
+								<li class = "add_booking_warning_message"><%= t 'add_booking_warning_message' %></li>
+								<div>
+									<%= submit_tag t('save'), :class => 'button'%>
+									<%= link_to t('cancel'), "#", :class => 'button', :onclick => "window.location.reload(); return false;" %>
+								</div>
+							<% end %>
+							<br />
+							<br />
+						</div>
+					</div>
+				</ul>
+			
+				<!-- FGM: Color of the calendar day -->
+				<div class="<%= no_more_booking_lock || important_date_lock || !@object.fits_in_bookings_waiting_list?(date) ? "isred" : @object.bookings.where(date: date).by_status(status: [:confirmed, :pending, :custom]).all.blank? ? "isgreen" : "isyellow" %>"></div>
+				<% end %>
+			<% end %>
+			
+		</div>
+		<!-- FGM: End of calendar -->
+			
+		<br/>
+		<!-- FGM: LEYEND -->
+		<div id="leyend">
+			<div class="service_leyend">
+				<span class="leyend_square_reserved green"></span><span class="texto_leyend_square_reserved"><%= t'available' %></span>
+			</div>
+			<div class="service_leyend">	
+				<span class="leyend_square_reserved yellow"></span><span class="texto_leyend_square_reserved"><%= t'few_reserve_left' %></span>
+			</div>
+			<div class="service_leyend">	
+				<span class="leyend_square_reserved red"></span><span class="texto_leyend_square_reserved"><%= t'totally_booked' %></span>
+			</div>	
+		</div>
+	<% end -%>
+<% end %>
+<%= render "products_and_services_page" %>

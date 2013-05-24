@@ -1,0 +1,9 @@
+<%= form_tag(request.fullpath, :method => "get") do %>
+	<div style="margin:0px 0px 10px 5px">
+		<b>Desde:</b><%= text_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
+	</div>
+	<div style="margin:0px 0px 10px 5px">
+		<b>Hasta:</b><%= text_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
+	</div>
+	<%= submit_tag("Actualizar Fechas") %>
+<% end %>

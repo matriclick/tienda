@@ -1,0 +1,23 @@
+<%= form_for(@supplier) do |f| %>
+<% if @supplier.errors.any? %>
+<div id="error_explanation">
+	<h2><%= @supplier.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+
+	<ul>
+		<% @supplier.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<table class="invisible">
+	<tr>
+		<td><%= f.label :email %></td>
+		<td><%= f.text_field :email %></td>
+	</tr>	
+</div>
+<div class="holder">
+	<%= f.submit :class => "button" %>
+</div>
+<% end %>

@@ -1,0 +1,135 @@
+# Additional translations at http://github.com/plataformatec/devise/wiki/I18n
+
+esPE:
+  errors:
+    messages:
+      expired: 'ha expirado, por favor solicite una nueva'
+      not_found: '%{attribute} no encontrado'
+      already_confirmed: 'ya estaba confirmado, por favor intente entrar'
+      not_locked: 'no estaba bloqueada'
+      not_saved:
+        one: 'Hay 1 problema'
+        other: 'Hay %{count} problemas'
+
+  devise:
+    failure:
+      already_authenticated: ''
+      unauthenticated: 'Necesitas entrar para continuar.'
+      unconfirmed: 'Necesitas confirmar tu cuenta para continuar.'
+      locked: 'Tu cuenta está bloqueada.'
+      invalid: 'E-mail o contraseña inválida.'
+      invalid_token: 'Token de autenticación inválido.'
+      timeout: 'Tu sesión ha expirado, por favor ingresa nuevamente.'
+      inactive: 'Tu cuenta aún no ha sido activada.'
+
+    sessions:
+      signed_in: 'Bienvenido!'
+      signed_out: 'Has salido con éxito.'
+
+    passwords:
+      send_instructions: 'Recibirás un email con instrucciones.'
+      updated: 'Tu contraseña se modificó exitosamente. Ya puedes ingresar.'
+      send_paranoid_instructions: 'Si tu correo existe en nuestra base de datos, recibirás un enlace donde podrás recuperar tu contraseña.'
+
+    confirmations:
+      send_instructions: 'Recibirás un email con instrucciones.'
+      send_paranoid_instructions: 'Si tu correo existe en nuestra base de datos, recibirás un correo de como confirmar tu cuenta en unos minutos.'
+      confirmed: 'Tu cuenta fue confirmada exitosamente. Ya estás ingresado.'
+
+    registrations:
+      signed_up: '¡Bienvenido! Te registraste en forma exitosa.'
+      inactive_signed_up: 'Te registraste en forma exitosa. Pero tu cuenta todavía está %{reason}. Porfavor, revisa tu correo y sigue los pasos para activar tu cuenta.'
+      updated: 'Has actualizado tu cuenta satisfactoriamente.'
+      destroyed: '¡Chao! Tu cuenta fue eliminada exitosamente. Esperamos verte de nuevo.'
+      reasons:
+              inactive: 'inactiva'
+              unconfirmed: 'no confirmada'
+              locked: 'bloqueada'
+      user:
+        taken: 'La contraseña no coincide con este correo!'
+        nil_password: 'La contraseña no puede estar vacía'
+        short_password: 'La contraseña debe tener al menos 6 carácteres'
+
+    unlocks:
+      send_instructions: 'Recibirás un email con instrucciones.'
+      unlocked: 'Tu cuenta fue desbloqueada exitosamente. Ya estás ingresado.'
+      send_paranoid_instructions: 'Si tu cuenta existe, recibirás un correo de como desbloquearla en unos minutos.'
+
+    omniauth_callbacks:
+      success: 'Tu cuenta fue autorizada por %{kind}.'
+      failure: 'No te pudimos autorizar con %{kind} porque "%{reason}".'
+
+    mailer:
+      confirmation_instructions:
+        subject: 'Instrucciones de confirmación'
+      reset_password_instructions:
+        subject: 'Instrucciones para recuperar la contraseña'
+      unlock_instructions:
+        subject: 'Instrucciones para desbloquear la cuenta'
+
+    main:
+      confirm: '¿Estás seguro?'
+      back: 'Atrás'
+
+    attributes:
+      email: 'E-mail'
+      password: 'Contraseña'
+      remember_me: 'Recordarme'
+      password_confirmation: 'Confirmación de contraseña'
+      current_password: 'Contraseña actual'
+
+    views:
+      shared:
+        _links:
+          new_session: 'Ingresar'
+          new_registration: 'Regístrate'
+          new_password: '¿Olvidaste tu contraseña?'
+          new_confirmation: '¿No recibiste tu correo de confirmación?'
+          new_unlock: '¿No recibiste tu correo de desbloqueo?'
+          omniauth_authorize: 'Ingresar con'
+      unlocks:
+        new:
+          title: 'Reenviar instrucciones de desbloqueo'
+          submit: 'Reenviar'
+      sessions:
+        new:
+          title: 'Entrar'
+          submit: 'Entrar'
+      registrations:
+        edit:
+          title: 'Editar'
+          leave_blank: 'dejar en blanco si no quieres modificarla'
+          current_password_confirm: 'necesitamos tu contraseña actual para confirmar los cambios'
+          submit: 'Actualizar'
+        new:
+          title: 'Registrarse'
+          submit: 'Registrarse'
+      passwords:
+        edit:
+          title: 'Modificar contraseña'
+          password: 'Nueva contraseña'
+          confirm_password: 'Confirmar nueva contraseña'
+          submit: 'Change my password'
+        new:
+          title: '¿Olvidaste tu contraseña?'
+          submit: 'Enviar instrucciones para cambiar contraseña'
+      mailer:
+        confirmation_instructions:
+          title: 'Bienvenido'
+          information: 'Puede confirmar tu cuenta con el siguiente vínculo'
+          link: 'Confirmar mi cuenta'
+        reset_password_instructions:
+          title: 'Hola'
+          information: 'Alguien ha solicitado la modificación de tu contraseña, puedes hacerlo con el siguiente vínculo'
+          link: 'Modificar contraseña'
+          ignore: "Si no has solicitado esto, por favor ignorar este e-mail"
+          more_information: "Tu contraseña no será modificada a menos que entres con el vínculo anterior y la modifiques"
+        unlock_instructions:
+          title: 'Hola'
+          information: 'Tu cuenta ha sido bloqueada debido a que se han hecho múltiples intentos de ingreso erróneos'
+          more_information: 'Entra al vínculo siguiente para desbloquear tu cuenta'
+          link: 'Desbloquear cuenta'
+      confirmations:
+        new:
+          title: 'Reenviar instrucciones de confirmación'
+          submit: 'Reenviar instrucciones de confirmación'

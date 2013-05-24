@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  comments: MyText
+  done_by_date: 2011-10-21
+  done: false
+  default_activity_id: 1
+  user_account_id: 1
+
+two:
+  name: MyString
+  description: MyText
+  comments: MyText
+  done_by_date: 2011-10-21
+  done: false
+  default_activity_id: 1
+  user_account_id: 1

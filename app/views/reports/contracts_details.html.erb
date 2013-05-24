@@ -1,0 +1,35 @@
+<h1>Detalle de contratos</h1>
+
+<%= '<b>Matriclicker:</b> '.html_safe + @matriclicker.name if defined? @matriclicker %>
+<%= '<b>Tipo:</b> '.html_safe + @type.name if defined? @type %>
+
+<%= render 'date_range_selector' %>
+
+<table style="width:900px">
+	<tr>
+		<th>Lead</th>
+		<th>Propietario</th>
+		<th>Contract type</th>
+		<th>Signature date</th>
+		<th>Invoice rut</th>
+		<th>Price (U.F)</th>
+		<th>Commission (%)</th>
+	</tr>
+	<% @contracts.each do |contract| %>
+		<tr>
+			<td><%= link_to(contract.lead.name, contract.lead, :style => 'text-decoration:underline') if !contract.lead.nil? %></td>
+			<td><%= contract.matriclicker.name if !contract.matriclicker.nil? %></td>
+			<td><%= contract.contract_type.name if !contract.contract_type.nil? %></td>
+			<td><%= contract.signature_date.strftime("%A %d %B %Y") if !contract.signature_date.nil? %></td>
+			<td><%= contract.invoice_rut %></td>
+			<td><%= number_to_currency contract.price %></td>
+			<td><%= contract.commission %></td>
+			<td><%= link_to 'ver', contract, :style => 'text-decoration:underline' %></td>
+		</tr>
+	<% end %>
+</table>
+<br /><br />
+<%= link_to 'Ir al reporte comercial', reports_salestool_path %> |
+<% if current_user.matriclicker.privileges.include? Privilege.find_by_name("Finanzas") %>
+	<%= link_to 'Ir al reporte de contratos', reports_contracts_path %>
+<% end %>

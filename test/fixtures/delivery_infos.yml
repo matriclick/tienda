@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  rut: MyString
+  contact_phone: MyString
+  street: MyString
+  number: MyString
+  commune_id: 1
+  additional_info: MyText
+
+two:
+  name: MyString
+  rut: MyString
+  contact_phone: MyString
+  street: MyString
+  number: MyString
+  commune_id: 1
+  additional_info: MyText

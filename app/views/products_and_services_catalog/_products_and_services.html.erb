@@ -1,0 +1,7 @@
+<% unless @objects.blank? %>
+	<% @objects.each do |object| %>
+		<%= render "layouts/"+object.class.to_s.downcase+"_box", :element => object %>
+	<% end %>
+<% else %>
+  <%= render "layouts/nothing_to_show", :objects => t("products_and_services"), :category => true %>
+<% end %>

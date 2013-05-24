@@ -1,0 +1,25 @@
+.field_with_errors .message {
+	color: #D00;
+	padding-left: 5px;
+	font-size: 12px;
+}
+
+#error_explanation {
+	text-align:center;
+	border: solid 1px #F99E9E;
+	padding-bottom: 10px;
+	margin-top:10px;
+	background:#FCD0D0;
+	font-size:14px;
+}
+#notice {
+	text-align:center;
+	font-size:14px;
+	color:#F22E2E;
+}
+span.invalid_next_to_label {
+	font-family:lucida grande, helvetica;
+	font-size:10px;
+	color:red;
+	margin-left:5px;
+}

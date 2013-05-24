@@ -1,0 +1,56 @@
+<div class="full_content center shadow">
+	<div class="content_top center">
+		<div class="slider">
+			<% @slider_images.each do |slider| %>
+				<div class="slider-item">
+					<% if !slider.link.nil? %>
+			       		<%= link_to (image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name), slider.link, 
+							:target => slider.target ? '_self' : '_blank' %>
+					<% else %>
+						<%= image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name %>
+					<% end %>
+					<% unless slider.title.blank? %>
+			       	<div class="caption"><b><%= slider.title %></b><br /> 
+						<% unless slider.content.blank? %>
+							<%= slider.content.html_safe %>
+						<% end %>
+					</div>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
+<!--
+<div style="width:980px" class="center">
+	<div class="left_content shadow">
+		<div class="left_content_title"><%= link_to 'Todo para los Novios', products_and_services_catalog_select_industry_category_path %></div>
+		<div class="left_content_inside_box">
+			<div class="left_content_inside_box_title">¡Los mejores servicios para tu Matrimonio!</div>
+			<div class="left_content_inside_box_image">
+				<%= link_to image_tag('home/catalogo.png', :class => 'image_button'),
+				 			products_and_services_catalog_select_industry_category_path %>
+			</div>
+			<div class="left_content_inside_box_text">
+				<%= link_to 'Entra y conoce a todos los proveedores que harán realidad tu gran día.', 
+							products_and_services_catalog_select_industry_category_path %>
+				<br /><br />
+				<%= link_to 'Encontrarás alternativas para todos los gustos y presupuestos.', 
+							products_and_services_catalog_select_industry_category_path %>
+			</div>
+		</div>
+	</div>
+	<div class="left_content shadow" style="margin-left:40px">
+		<div class="left_content_title"><%= link_to 'Matri-Revista', blog_path %></div>
+		<div class="left_content_inside_box">
+			<div class="left_content_inside_box_title">¡Revisa la Matri-Revista!</div>
+			<div class="left_content_inside_box_image">
+				<%= link_to image_tag('home/revista.jpg', :class => 'image_button'), blog_path %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+-->

@@ -1,0 +1,79 @@
+<% if user_signed_in? %>
+	<% if current_user.admin? %>
+		<div style="float:right;">
+			<%= link_to "Administrar Galería", campaign_gallery_items_path, :class => 'button' %>
+		</div>
+	<% end %>
+<% end %>
+
+<div class="campaign_titles">
+	<h1>Galería de fotos</h1>
+	<h2>Nuestros proveedores han querido mostrar sus productos y servicios en acción.</h2>	
+</div>
+<div class="box relative">
+	<table class="invisible center" style="width:60%;">
+		<tr>
+			<td style="width:5%; text-align:right;">
+				<div id="left_arrow_box">
+					<%= link_to_cycle @item, :prev, css_class: "arrow", target: "supplier_gallery_path" %>
+				</div>			
+			</td>
+			
+			<td style="width:90%;">
+				<div class="dress_box">
+					<div class="image">
+						<% unless @item.campaign_gallery_item_images.blank? %>
+							<%= link_to image_tag((cover = @item.campaign_gallery_item_images.first.gallery_item).url(:big)), cover.url(:original), :class => :fancybox %>
+						<% else %>
+							"No hay imágenes"
+						<% end %>
+					</div>
+					<% unless (imgs = @item.campaign_gallery_item_images.without_cover).blank? %>
+					<div class="images">
+						<% for image in imgs %>
+							<%= link_to image_tag(image.gallery_item.url(:tiny)), image.gallery_item.url(:original), :class => :fancybox, :rel => :gallery  %>
+						<% end %>
+					</div>								
+					<% end %>
+					<div class="description" style="width:100%;">
+						<% unless @item.tag.blank? %>
+							<% if @related_supplier_account.present? %>
+								<div class="tag"><%= link_to @related_supplier_account.fantasy_name, supplier_products_and_services_path(@related_supplier_account.supplier, :public_url => @related_supplier_account.public_url), target: :blank %></div>
+							<% else %>
+							  <div class="tag"><%= @item.tag %></div>
+							<% end %>
+						<% end %>
+						<% unless @item.description.blank? %>
+							<div style="text-align:left;"><%= sanitize @item.description.gsub(/\n/, '<br />'), :tags => %W(br) %></div>
+						<% end %>
+					</div>
+					<div class="clear"></div>
+					<div class="counter">
+						<%= "#{@i} / #{@count}" %>
+					</div>
+				</div>
+			</td>
+			
+			<td style="width:5%; text-align:left;">
+				<div id="right_arrow_box">
+					<%= link_to_cycle @item, :next, css_class: "arrow", target: "supplier_gallery_path" %>
+				</div>				
+			</td>
+		</tr>
+	</table>
+	
+	<div class="help_tip">
+		
+		Les ofrecemos la posibilidad de destacarse en nuestro sitio de campaña. No será publicidad tradicional, si no que creamos un nuevo formato:<br>
+
+		<strong>"Mostraremos fotos reales de nuestros proveedores; cómo se desenvuelven, cómo se 'ven' y cómo lo hacen..."</strong>
+		
+		<br><br>
+		<strong>¿Cómo participar?</strong><br>
+
+		Envía fotos reales de matrimonios en que has participado y una breve descripción que refleje por qué eres único en lo que haces.
+
+	</div>
+	<div class="clear"></div>
+	
+</div>

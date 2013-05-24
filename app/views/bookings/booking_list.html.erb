@@ -1,0 +1,24 @@
+<div class="titulos">
+	<%= t('bookings') %>
+</div>
+<div class="box">
+	<% unless @bookings.blank? %>
+			<table class="list">
+				<tr>
+					<th>
+						<%= t "details" %>
+					</th>
+					<th style="width:24%;">
+						<%= t "options" %>
+					</th>
+				</tr>
+				<% @bookings.each do |booking| %>
+					<tr class="<%= "unread" unless booking.read_status(:by => :user) %>" id="<%= "booking_row_#{booking.id}" %>">
+						<%= render 'booking_row', :booking => booking %>
+					</tr>
+				<% end %>
+			</table>
+	<% else %>
+		<%= render "layouts/nothing_to_show", :word => t('bookings') %>
+	<% end %>
+</div>

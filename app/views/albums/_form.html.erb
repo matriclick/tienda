@@ -1,0 +1,36 @@
+<% if @album.errors.any? %>
+  <div id="error_explanation">
+	  <h2><%= @album.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+	  <ul>
+		  <% @album.errors.full_messages.each do |msg| %>
+		  	<li><%= msg %></li>
+		  <% end %>
+	  </ul>
+  </div>
+<% end %>
+<br />
+<div class="clear"></div>
+
+<%= f.label :name %> <%= f.text_field :name %> <%= f.collection_select :industry_category_id, @industry_categories, :id, :get_name, :prompt => t("category"), :allow_blank => false %> <%= f.label :visible %> <%= f.check_box :visible %><br /><br />
+<hr>
+<hr>
+<div class="album_photo_form">
+	<%= f.fields_for :album_photos do |album_photo_form| %>
+		<%= album_photo_form.hidden_field :id %>
+		<%= album_photo_form.label :name %> <%= album_photo_form.text_field :name %><br /><br />
+		<%= album_photo_form.label :description %><%= album_photo_form.text_area :description, :rows => 3 %><br /><br />
+		<%= album_photo_form.file_field :album_photo_image %><br /><br />
+		<%= image_tag(album_photo_form.object.album_photo_image.url(:album_photo_size)) %><br /><br />
+		<%= album_photo_form.label :visible %> <%= album_photo_form.check_box :visible %><br /><br />
+		<%= album_photo_form.link_to_remove "Remove this album photo", :class => :button %><br /><br /><br />
+		<hr>
+	<% end %>
+</div>
+<div class="album_photo_form">
+	<%= f.link_to_add "Add an album photo", :album_photos, :class => :button %>
+</div>
+<br />
+<hr>
+<hr>
+<%= f.submit :class => "button" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+

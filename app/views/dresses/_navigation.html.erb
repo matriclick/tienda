@@ -1,0 +1,11 @@
+<%= content_for :left_arrow do %>
+	<div id="left_arrow" class="navigation_arrow">
+		<%= link_to_previous_dress('', dress, type, "arrow") %>
+	</div>
+<% end %>
+
+<%= content_for :right_arrow do %>
+	<div id="right_arrow" class="navigation_arrow">
+		<%= link_to_next_dress("", dress, type, "arrow") %>
+	</div>
+<% end %>	

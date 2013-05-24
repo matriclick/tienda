@@ -1,0 +1,12 @@
+<!-- the idea is show this when :fancy_successful => true  ...this is a param of the redirect of the create/update  controller action -->
+<%= link_to 'show_fancy_successful', '#fancy_successful', :hidden => true, :id=>'hidden_link'  %>
+<div style="display:none"> <!-- fancy view -->
+	<div id="fancy_successful">
+		<div class="title">
+			<%= title %>			
+		</div>
+		<div class="message">
+			<%= message %>			
+		</div>
+	</div>
+</div>

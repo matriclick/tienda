@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  weeks_length: 9.99
+  position: 1
+
+two:
+  name: MyString
+  description: MyText
+  weeks_length: 9.99
+  position: 1

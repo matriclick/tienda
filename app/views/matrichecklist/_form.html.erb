@@ -1,0 +1,29 @@
+<%= form_for @activity, :url => @url_form, :remote=>true do |f| %>
+	
+	<div id="error_explanation" style=display:none></div>
+	<div style="width:450px; ">
+		<div class="box">
+			<table class="invisible">
+				<tr>
+					<td><%= f.label :done_by_date %><br />
+					<%= f.date_select :done_by_date, :value => @activity.done_by_date %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :name %><br />
+					<%= f.text_field :name, :value => @activity.name %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :description %><br />
+					<%= f.text_area :description, :rows => 6, :value => @activity.description %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :comments %><br />
+					<%= f.text_area :comments, :rows => 6, :value => @activity.comments %></td>
+				</tr>
+			</table>		
+			<div class="holder">
+					<%= f.submit t('save'), :class => "button" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+			</div>
+		<% end %>
+		</div>
+	</div>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  industry_category_id: 1
+  name: MyString
+  description: MyText
+  position: 1
+
+two:
+  industry_category_id: 1
+  name: MyString
+  description: MyText
+  position: 1

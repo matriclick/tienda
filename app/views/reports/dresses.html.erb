@@ -1,0 +1,58 @@
+<h1>Reporte Vestidos</h1>
+<%= render 'date_range_selector' %>
+
+<table style="width:950px">
+	<tr style="">
+		<th></th>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<th><%= @init.strftime("%d %b %Y") %></th>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<th><b>Total</b> (acumulado)</th>
+	</tr>
+	<tr style="">
+		<td>Vestidos de Fiesta</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_dresses(@party_type, @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_dresses(@party_type, @from, @to) %></b> (<%= count_link_dresses(@party_type, DateTime.new(2010,01,01), @to) %>)
+		</td>
+	<tr>
+	<tr style="">
+		<td>Vestidos de Novia</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_dresses(@wedding_type, @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_dresses(@wedding_type, @from, @to) %></b> (<%= count_link_dresses(@wedding_type, DateTime.new(2010,01,01), @to) %>)
+		</td>
+	<tr>
+	<tr style="">
+		<td><b>Total</b></td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<b><%= count_link_all_dresses(@init, @init + 1.day) %></b>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_all_dresses(@from, @to) %></b> (<%= count_link_all_dresses(DateTime.new(2010,01,01), @to) %>)
+		</td>
+	<tr>
+</table>
+<div style="width:900px; text-align:right; margin-top:10px;">
+	<%= link_to 'Exportar Vestidos a Excel', reports_export_dress_info_path(:exporting => 'vestidos') %>
+</div>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

@@ -1,0 +1,52 @@
+
+
+
+
+
+<div id="d_fondo_123_e2">
+
+	<%= image_tag("contests/texto_final.png") %> 		
+	<%= image_tag("contests/banner_final.jpg") %> 		
+	<br />
+	<br />
+	<br />
+	<%= link_to image_tag("contests/jurado.png"), "/chile/posts/gran-final-hoy-22-hrs" %>
+	<br />
+	
+</div>
+
+																					<!-- PINTEREST -->
+<div class="clear"></div>
+<br />
+
+
+
+<div><%= link_to 'Ve las bases del concurso aquí!', "travel/rules", :class => "bases_contest_final", :style => "font-family:Arial, Helvetica, sans-serif;color:#6E6E6E;text-decoration:underline;" %></div>
+
+<br />
+<br />
+
+<div id="albums_columns">
+	<% @contest_travelites.each do |contest_travelite| %>
+		<div class="contests_albums_photo albums_photo">
+			<%= link_to image_tag(contest_travelite.contest_travelite_image(:contest_travelite_size)), @travelite_blog_posts_ids[contest_travelite.id]?  "/chile/posts/"+@travelite_blog_posts_ids[contest_travelite.id] : contests_travelite_image_path(:id => contest_travelite.id) %>
+			<% if !contest_travelite.groom_name.blank? and !contest_travelite.bride_name.blank? and !contest_travelite.photo_name.blank? %>
+				<div class="albums_text">
+					<div class="contests_albums_h1">
+						<b><%= @travelite_final_name_fix[contest_travelite.groom_name.truncate(22)]?  @travelite_final_name_fix[contest_travelite.groom_name.truncate(22)] : contest_travelite.groom_name.truncate(22)%></b><br/>
+						<b><%= @travelite_final_name_fix[contest_travelite.bride_name.truncate(22)]?  @travelite_final_name_fix[contest_travelite.bride_name.truncate(22)] : contest_travelite.bride_name.truncate(22) %></b><br/>
+					</div>
+					<div class="contests_albums_h2">
+						<%= contest_travelite.photo_name.truncate(30) %><br/>
+					</div>
+				</div>
+			<% end %>
+			</br>			
+		</div>
+	<% end %>
+	<div id="infinite-scroll"></div>
+</div>
+
+
+
+<div class="clear"></div>

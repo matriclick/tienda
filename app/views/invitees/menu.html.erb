@@ -1,0 +1,42 @@
+<div class="box_select_menu">
+	<div class="select_menu">
+		<div class="menu_image shadow">
+			<%= link_to (image_tag 'icono_invitados.jpg'), invitees_path %>
+		</div>
+		<div class="texto_menu">
+			<%= link_to "Invitados", invitees_path %>
+		</div>
+	</div>
+	<div class="select_menu">
+		<div class="menu_image shadow">
+			<%= link_to (image_tag 'icono_mesas_deshabilitado.jpg'),  %>
+		</div>
+		<div class="texto_menu">
+			<%= link_to "Mesas" %>
+		</div>
+	</div> 
+</div>
+
+<div class="box">
+	<div class="titulos dottedLine">
+		Resumen
+	</div>
+
+	<div class="box_resume">
+		<table class="invisible">							
+			<tr>				
+				<td style="width:200px;">Confirmados</td>  <td><%= @confirmed_invitees %></td>			
+			</tr>			
+			<tr>
+				<td>Pendientes</td>  <td><%= @unconfirmed_invitees %></td>
+			</tr>			
+			<!-- <tr>
+				<td>No asisten</td>  <td></td>
+			</tr> -->
+			<tr>
+				<td>Invitados totales</td> <td> <%= @total_invitees  %></td>
+			</tr>			
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>

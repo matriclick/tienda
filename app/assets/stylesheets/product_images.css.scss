@@ -1,0 +1,82 @@
+// Place all the styles related to the Product_Images controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.active {
+	color:green;
+	font-weight:bold;
+}
+
+.actions_images {
+	float:left;
+	font-size: 10px;	
+}
+
+.actions_images_order {
+	clear:both;
+	padding-top: 8px;
+	font-size: 10px;
+	text-align: left;
+	margin-left: 2px;	
+}
+
+#product_images {
+	margin-bottom:20px;
+	float:left;
+	padding:10px;
+	background:#f2f2f2;
+	border:1px solid #ccc;
+}
+
+.product_images_upload {
+	padding:10px;
+	margin-bottom:20px;
+	background:#f2f2f2;
+	border:1px solid #ccc;
+}
+
+.product_image_row{
+	float:left;
+	width:100%;
+}
+.image_for_edit {
+	border:solid 1px #CCC;
+	padding:10px 10px;
+	float:left;
+	margin-right:20px;
+	margin-bottom:20px;
+	text-align:center;
+	background: #fff;
+	height:150px;
+}
+.image_for_edit .name{
+	padding-top:5px;
+	padding-bottom: 5px;
+	text-align:center;
+	font-weight:bold;
+	color: #444;
+}
+.image_for_edit .image_placeholder{
+	height:90px;
+	width:120px;
+	background-color:#E4E4E4;
+}
+.image_for_edit .image_box {
+	height:90px;
+}
+.image_for_edit .name_and_actions {
+	height:60px;
+}
+
+.image_for_edit .actions{
+	font-size:10px;
+	text-align:center;
+	color:#777;
+	clear:both;
+}
+.product_info{
+	padding:10px;
+	margin-top:20px;
+	clear:both;
+	border:1px solid #ccc;
+	background:#f2f2f2;
+}

@@ -1,0 +1,36 @@
+.row_big_font {
+	font: {
+		weight: bold;
+		size: 14px;
+	}
+}
+.row_small_font {
+	font: {
+		family: lucida grande, helvetica;
+		size: 10px;
+	}
+	color:#444;
+}
+.cell_caption {
+	@extend .row_small_font;
+	color:#aaa;
+	margin-bottom:4px;
+}
+.cell_with_caption {
+	vertical-align:top;
+	padding-top:2px;
+}
+tr.expenses_total {
+	td {
+			border:none;
+		}
+	.row_big_font, .row_small_font {
+		color:#999;
+	}
+}
+tr.expenses_separator {
+	border:none;
+	td {
+		border:none;
+	}
+}

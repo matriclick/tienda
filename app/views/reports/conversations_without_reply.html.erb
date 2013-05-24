@@ -1,0 +1,26 @@
+<h1>Detalle de las conversaciones sin responder</h1>
+
+<table style="width:950px">
+	<tr>
+		<th>Proveedor</th>
+		<th>Email Novio (a)</th>
+		<th>Mensaje</th>
+		<th>Fecha Mensaje</th>
+		<th>Días sin contestar</th>
+	</tr>
+	<% @conversations.each do |conversation| %>
+		<% conversation.messages.each do |message| %>
+			<tr>
+				<td><%= conversation.supplier_account.fantasy_name %></td>
+				<td><%= conversation.user.email %></td>
+				<td><%= message.content %></td>
+				<td><%= message.created_at.strftime("%d %b %Y") %></td>
+				<td><%= (DateTime.now - message.created_at.to_datetime).to_i %></td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>
+
+<br /><br />
+
+<%= link_to 'Volver al menú de administración', administration_index_path %>

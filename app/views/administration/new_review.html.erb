@@ -1,0 +1,6 @@
+	<div class="right_link">
+		<%= link_to 'Volver a ver todos los Reviews', administration_reviews_path(), :class => :button %>
+	</div>
+<div id="review_<%=@supplier_account.id %>" class="review_box">
+	<%= render "reviews/review_detail", :object => @supplier_account %>
+</div>

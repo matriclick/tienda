@@ -1,0 +1,8 @@
+<%= nested_form_for [@supplier, @service],
+		:url => supplier_account_service_update_multiple_path(@supplier, @service),
+		:html => {:multipart => true} do |f| %>
+  
+		<%= render 'form_content', :f => f %>
+
+<% end %>
+

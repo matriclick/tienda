@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  code: MyString
+  bought: false
+  used: false
+  gift_card_id: 1
+
+two:
+  code: MyString
+  bought: false
+  used: false
+  gift_card_id: 1

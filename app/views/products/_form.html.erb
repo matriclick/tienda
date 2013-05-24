@@ -1,0 +1,8 @@
+<%= nested_form_for [@supplier_account, @product],
+:url => supplier_account_products_path(@supplier),
+:validate => true,
+:html => {:multipart => true} do |f| %>
+
+	<%= render 'form_content', :f => f %>
+
+<% end %>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  slider_image_type_id: 1
+  slider_image_file_name: MyString
+  slider_image_content_type: MyString
+  slider_image_file_size: MyString
+  slider_image_updated_at: MyString
+  title: MyString
+  content: MyText
+  link: MyString
+
+two:
+  slider_image_type_id: 1
+  slider_image_file_name: MyString
+  slider_image_content_type: MyString
+  slider_image_file_size: MyString
+  slider_image_updated_at: MyString
+  title: MyString
+  content: MyText
+  link: MyString

@@ -1,0 +1,40 @@
+<div class="right_link">
+	<%= link_to t('back'), matrichecklist_index_path, :class => "button" %>
+</div>
+<div class="titulos">
+	Carta Gantt de tu Matrichecklist
+</div>
+
+<div class="box">
+	<table class="list">
+		<tr style="background:#ddd;">
+			<td>
+				<%= t('activity') %>
+			</td>
+			<% @date_aux = @date_start %>
+			<% until @date_aux > @date_end %>
+			<td>
+				<%= @date_aux.strftime('%y') %>' <br> <%= @date_aux.strftime('%b') %> 
+			</td>
+			<% @date_aux = @date_aux + 1.month %>
+			<% end %>
+		</tr>
+		<% @activities.each do |act| %>
+		<tr style="<%= act.done == true ? 'background:#BDFFC6' : '' %>">
+			<td <% if act.done %> style="text-decoration:line-through;"<% end %>>
+				<%= act.name %>
+				<%= link_to '(+)', matrichecklist_view_activity_path(:id => act, :yield_fancybox => true), :rel => :gallery, :display => :none, :class => :fancybox  %>
+			</td>
+			<% @date_aux = @date_start %>
+			<% until @date_aux > @date_end %>
+			<td>
+				<% if act.done_by_date.month == @date_aux.month and act.done_by_date.year == @date_aux.year %>					
+				<%= image_tag('pin.png') %>
+				<% end %>
+			</td>
+			<% @date_aux = @date_aux + 1.month %>
+			<% end %>
+		</tr>
+	<% end %>
+	</table>		
+</div>

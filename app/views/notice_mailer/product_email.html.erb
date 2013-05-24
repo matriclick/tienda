@@ -1,0 +1,19 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Estimada Carolina,<br/><br/>
+					Se ingresó un <strong>rango de precios</strong> muy amplio en un producto.<br/><br/>
+					<p>$<%= @product.price %> - $<%= @product.top_price_range %> </p>
+					<p>El nombre del producto es: <%= @product.name %> </p>
+					<p>Proveedor : <%= @product.supplier_account.fantasy_name unless @product.supplier_account_id.blank? %></p>
+					<p>mail proveedor: <%= @product.supplier_account.supplier.email unless @product.supplier_account_id.blank? %></p>
+					<p></p>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

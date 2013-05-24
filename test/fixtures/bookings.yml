@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  status: MyString
+  bookable_type: MyString
+  bookable_id: 1
+  user_account_id: 1
+  deletion_reason: MyString
+  read: MyString
+
+two:
+  status: MyString
+  bookable_type: MyString
+  bookable_id: 1
+  user_account_id: 1
+  deletion_reason: MyString
+  read: MyString

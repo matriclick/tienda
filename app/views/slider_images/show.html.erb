@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Imagen aparecerá en la página:</b>
+  <%= @slider_image.slider_image_type.name unless @slider_image.slider_image_type.nil? %>
+</p>
+<br />
+<p>
+  <b>Posición: <%= @slider_image.position %></b>
+</p>
+<br />
+<p>
+  <b><%= @slider_image.title %></b>
+</p>
+<br />
+	<%= @slider_image.content.html_safe %>
+<br />
+<p>
+  <b>Link:</b>
+  <%= @slider_image.link %>
+</p>
+<br />
+<p>
+<%= image_tag @slider_image.slider_image(:original) %>
+</p>
+
+<%= link_to 'Edit', edit_slider_image_path(@slider_image) %> |
+<%= link_to 'Back', slider_images_path %>

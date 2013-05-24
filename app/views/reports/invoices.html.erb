@@ -1,0 +1,81 @@
+<h1>Reporte Contratos Activos</h1>
+<%= render 'date_range_selector' %>
+
+<br /><br />
+<table style="width:950px">
+	<tr style="border-top:solid 2px">
+		<th style="width:100px"></th>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<th style="text-align:center"><%= @init.strftime("%b") %></th>
+		<% @init = @init + 1.month %>
+		<% end %>
+		<th style="text-align:center">
+			<b>Total</b> <br />(acumulado)
+		</th>
+	</tr>
+	<tr style="border-top:solid 2px">
+		<td>Facturas pagadas de las creadas</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				 <%= calculation_link_invoices(@init, (@init + 1.month), 'count', 'Pagada') %><br />
+				<span class="lucida small"><%= calculation_ratio_invoices(@init, (@init + 1.month), 'count') %></span>
+			</td>
+		<% @init = @init + 1.month %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= calculation_link_invoices(@from, @to, 'count', 'Pagada') %></b>
+			<span class="lucida small">- <%= calculation_ratio_invoices(@from, @to, 'count') %></span>
+			<br />
+			 (<%= calculation_link_invoices(DateTime.new(2010,01,01), @to, 'count', 'Pagada') %>)
+		</td>
+	</tr>
+	<tr style="border-bottom:solid 2px">
+		<td>Monto pagado de lo facturado</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				$ <%= calculation_link_invoices(@init, (@init + 1.month), 'sum("net_price")', 'Pagada') %><br />
+				<span class="lucida small"><%= calculation_ratio_invoices(@init, (@init + 1.month), 'sum("net_price")') %></span>
+			</td>
+		<% @init = @init + 1.month %>
+		<% end %>
+		<td style="text-align:center">
+			<b>$ <%= calculation_link_invoices(@from, @to, 'sum("net_price")', 'Pagada') %></b> 
+			 	<span class="lucida small">- <%= calculation_ratio_invoices(@from, @to, 'sum("net_price")') %></span>
+				<br />
+			 ($ <%= calculation_link_invoices(DateTime.new(2010,01,01), @to, 'sum("net_price")', 'Pagada') %>)
+		</td>
+	</tr>
+	<tr style="border-top:solid 2px">
+		<td>Total facturas creadas</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= calculation_link_invoices(@init, (@init + 1.month), 'count') %>
+			</td>
+		<% @init = @init + 1.month %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= calculation_link_invoices(@from, @to, 'count') %></b><br />
+			 (<%= calculation_link_invoices(DateTime.new(2010,01,01), @to, 'count') %>)
+		</td>
+	</tr>
+	<tr style="border-bottom:solid 2px">
+		<td>Total monto facturado</td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				$ <%= calculation_link_invoices(@init, (@init + 1.month), 'sum("net_price")') %>
+			</td>
+		<% @init = @init + 1.month %>
+		<% end %>
+		<td style="text-align:center">
+			<b>$ <%= calculation_link_invoices(@from, @to, 'sum("net_price")') %></b> <br />
+			 ($ <%= calculation_link_invoices(DateTime.new(2010,01,01), @to, 'sum("net_price")') %>)
+		</td>
+	</tr>
+</table>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

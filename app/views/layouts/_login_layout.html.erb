@@ -1,0 +1,11 @@
+<div class="full_content center shadow">
+	<% flash.each do |name, msg| %>
+	<div class="centered_wrapper">
+		<div class="centered_positioner">
+			<%= content_tag(:div, msg, :id => "supplier_flash_#{name}", :class => "slideFadeOut centered_content") unless msg.blank? %>		
+		</div>
+	</div>
+	<% end %>
+	
+	<%= yield :box_content %>
+</div>

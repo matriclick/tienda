@@ -1,0 +1,6 @@
+ <h2><%= @invitation.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+		<ul>
+		<% @invitation.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>        
+		<% end %>
+    </ul>

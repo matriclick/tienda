@@ -1,0 +1,60 @@
+<div class="right_link">
+	<%= link_to t('back'), invitees_path, :class=>:button %>
+</div>
+<div class="titulos">
+	<%= t('statistics') %>
+</div>
+<div class="box">
+<script src="https://www.google.com/jsapi"></script>
+
+			
+
+
+
+<div id="from_chart" class="chart"></div>
+
+<div id="gender_chart" class="chart"></div>
+
+
+
+<div id="confirmed_chart" class="chart"></div>	
+
+<div id="age_chart" class="chart"></div>
+
+<script type='text/javascript'>
+// Load the Visualization API and the piechart package.
+google.load('visualization', '1.0', {'packages':['corechart']});
+
+var graph_data_from = [{'title':'De parte de','div':'from_chart','type':'pie','legend':'right', 'width':340, 'height':300, 'var_name':"Cantidad"},
+										{'name':'Novia', 'quantity':<%= @invited_by_bride %> },
+										{'name':'Novio', 'quantity':<%= @invited_by_groom %> },
+										{'name':'Papás Novia', 'quantity':<%= @invited_by_bride_parents %> },
+										{'name':'Papás Novio', 'quantity':<%= @invited_by_groom_parents %> }];
+
+var graph_data_gender = [{'title':'Género','div':'gender_chart','type':'column','legend':'bottom', 'width':340, 'height':300, 'var_name':"Cantidad"},
+										{'name':'Hombres', 'quantity':<%= @male_invitees %> },
+										{'name':'Mujeres', 'quantity':<%= @female_invitees %> }];
+
+var graph_data_confirmed = [{'title':'Confirman','div':'confirmed_chart','type':'column','legend':'bottom', 'width':340, 'height':300, 'var_name':"Cantidad"},
+										{'name':'Sí', 'quantity':<%= @confirmed_invitees %> },
+										{'name':'No', 'quantity':<%= @unconfirmed_invitees %> }];
+
+var graph_data_age = [{'title':'Rangos de Edad','div':'age_chart','type':'pie','legend':'right', 'width':340, 'height':300, 'var_name':"Cantidad"},
+										{'name':'0 - 14', 'quantity':<%= @invitee_age_1 %> },
+										{'name':'15 - 18', 'quantity':<%= @invitee_age_2 %> },
+										{'name':'19 - 25', 'quantity':<%= @invitee_age_3 %> },
+										{'name':'26 - 35', 'quantity':<%= @invitee_age_4 %> },
+										{'name':'36 - 45', 'quantity':<%= @invitee_age_5 %> },
+										{'name':'45+', 'quantity':<%= @invitee_age_6 %> }];										
+
+      
+// Set a callback to run when the Google Visualization API is loaded.
+google.setOnLoadCallback(function(){drawChart(graph_data_from)});
+google.setOnLoadCallback(function(){drawChart(graph_data_gender)});
+google.setOnLoadCallback(function(){drawChart(graph_data_confirmed)});	
+google.setOnLoadCallback(function(){drawChart(graph_data_age)});
+</script>
+<div class="clear">
+	
+</div>
+</div>

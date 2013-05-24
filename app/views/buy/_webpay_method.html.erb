@@ -1,0 +1,21 @@
+<%= payment_service_for @oc.tbk_orden_compra, '',
+                    :amount => oc.tbk_monto.to_f,
+                    :currency => 'CLP',
+                    :service => :webpay,
+                    :html => { :id => 'payment-form' } do |service| %>
+
+<% service.return_url success_url %>
+<% service.cancel_return_url failure_url %>
+<% service.session oc.tbk_id_sesion %>
+
+<%= submit_tag 'Confirmar Compra', :class => 'button_buy_dress' %>
+<%= link_to 'o edita la información', buy_details_path(:purchasable_type => purchasable.class, :purchasable_id => purchasable.id) %> 
+	<br /><br />
+	<span style="float:right; margin-top:10px; margin-right:20px">
+		<%= image_tag 'webpay/logo_webpay_1.png' %>
+	</span>
+	</br>
+	<span style="float:right; margin-top:10px; margin-right:20px">
+		<%= image_tag 'webpay/verisign.jpg' %>
+	</span>	
+<% end %>

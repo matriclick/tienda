@@ -1,0 +1,42 @@
+<div class="box_select_menu">
+	<div class="select_menu">
+		<div class="menu_image shadow">
+			<%= link_to (image_tag 'icono_presupuesto.jpg'), budget_instructions_path %>
+		</div>
+		<div class="texto_menu">
+			<%= link_to t('budget'), budget_instructions_path %>
+		</div>
+	</div>
+	<div class="select_menu">
+		<div class="menu_image shadow">
+			<%= link_to (image_tag 'icono_gastos.jpg'), expenses_path %>
+		</div>
+		<div class="texto_menu">
+			<%= link_to t('expenses'), expenses_path %>
+		</div>
+	</div>
+</div>
+
+<div class="box">
+	<div class="titulos dottedLine">
+		Resumen financiero
+	</div>
+	<div class="box_resume">
+		<table class="invisible">
+			<tr>
+				<td style="width:200px;">Presupuesto inicial</td>
+				<td>
+				<% if @budget %>
+					<%= @budget %>
+				<% else %>
+					<span class="help_tip">Todavía no has definido tu presupuesto tentativo... Puedes hacerlo <%= link_to "editando tu perfil", edit_user_profile_path(:anchor => "tentative_budget") %></span>
+				<% end %>
+				</td>
+			</tr>
+			<tr>
+				<td>Gasto Total</td> <td><%= number_to_currency @expenses %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>

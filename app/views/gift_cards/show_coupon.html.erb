@@ -1,0 +1,38 @@
+<div style="font-size:20px; margin:0px 0px 10px 0px">
+	Gift Card
+</div>
+<%= link_to 'Imprimir Cupón', gift_cards_view_coupon_path(:id => @gift_card_code.id, :format => 'pdf'), :style => 'color:blue' %><br /><br />
+<b>Proveedor:</b> <%= @gift_card.supplier_account.fantasy_name %>
+<br /><br />
+<b>Paga</b> <%= number_to_currency @gift_card.price %> por <%= number_to_currency @gift_card.value %>
+<br /><br />
+Canje válido desde el <b><%= @gift_card.valid_from.strftime("%d %B %Y") %></b> hasta el <b><%= @gift_card.valid_to.strftime("%d %B %Y") %></b>
+<br /><br />
+<b>Estado:</b> <%= @gift_card.gift_card_status.name %>
+<br /><br />
+<div>
+<b>Vestidos que aplican para esta Gift Card</b>
+<hr>
+<% if @dresses_all.count > 0 %>
+	<% @dresses_all.each do |dress| %>
+	<div class="dresses_index_box left">
+		<% unless dress.dress_images.blank? %>
+			<% if dress.dress_status.name == 'Vendido' %>
+			<div style="position:absolute;right:5px;">
+				<%= image_tag 'dresses_icons/sold.png' %>
+			</div>
+			<% end %>
+			<div>
+				<%= link_to image_tag(dress.dress_images.first.dress.url(:index)), dress %>
+			</div>
+		<% end %>
+		<div style="text-align:left; width:127px;">
+			<%= raw dress.introduction[0..30] if !dress.introduction.nil? %>
+			<br />
+			<%= "#{number_to_currency dress.price}" %>
+		</div>
+	</div>
+	<% end %>
+<% end %>
+</div>
+<div class="clear"></div>

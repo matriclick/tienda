@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Supplier:</b>
+  <%= @expense.supplier_id %>
+</p>
+
+<p>
+  <b>Product:</b>
+  <%= @expense.product_id %>
+</p>
+
+<p>
+  <b>Service:</b>
+  <%= @expense.service_id %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @expense.price %>
+</p>
+
+<p>
+  <b>Price description:</b>
+  <%= @expense.price_description %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @expense.quantity %>
+</p>
+
+<p>
+  <b>Payed percentage:</b>
+  <%= @expense.payed_percentage %>
+</p>
+
+
+<%= link_to 'Edit', edit_expense_path(@expense) %> |
+<%= link_to 'Back', expenses_path %>

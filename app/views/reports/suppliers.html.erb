@@ -1,0 +1,46 @@
+<h1>Reporte Conversaciones</h1>
+<%= render 'date_range_selector' %>
+<br />
+<table style="width:950px">
+	<tr style="">
+		<th></th>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<th><%= @init.strftime("%d %b %Y") %></th>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<th><b>Total</b> (acumulado)</th>
+	</tr>
+<% @industry_categories.each do |ic| %>
+	<tr style="">
+		<td><%= link_to ic.get_name, reports_industry_category_details_path(:industry_category_id => ic.id, :from => @from, :to => @to) %></td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= count_link_conversations(ic, @init, @init + 1.day) %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_conversations(ic, @from, @to) %></b>
+			(<%= count_link_conversations(ic, DateTime.new(2010,01,01), @to) %>)
+		</td>
+	<tr>
+<% end %>
+	<tr>
+		<td><b>Totales</b></td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<b><%= count_link_all_conversations(@init, @init + 1.day) %></b>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= count_link_all_conversations(@from, @to) %></b>
+			 (<%= count_link_all_conversations(DateTime.new(2010,01,01), @to) %>)
+		</td>
+	</tr>
+</table>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

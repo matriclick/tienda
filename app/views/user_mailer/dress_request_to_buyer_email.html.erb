@@ -1,0 +1,33 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					<p style="color:#444;">¡Hola!</p>
+					<p style="color:#444;">Te enviamos los datos del vestido que acabas de cotizar:</p>
+					<br/>
+					<p style="color:#444;">
+						Link: <strong><%= link_to 'Link al vestido', @dress_url %></strong>
+					</p>
+					<p style="color:#444;">Precio: <strong><%= number_to_currency @dress.price %></strong></p>
+					<% if @name.present? %>
+						<br/>
+						<p style="color:#444;">Nombre: <strong><%= @name %></strong></p>
+					<% end %>
+					<% if @email.present? %>
+						<p style="color:#444;">Email: <strong><%= @email %></strong></p>						
+					<% end %>
+					<% if @phone_number.present? %>
+						<p style="color:#444;">Teléfono: <strong><%= @phone_number %></strong></p>						
+					<% end %>
+					<br>
+					<p style="color:#444;">¡Sólo te falta hacer el contacto!</p><br/>
+					<p style="color:#444;">Saludos,<br>
+					- Equipo Matriclick<br/><br/></p>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

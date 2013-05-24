@@ -1,0 +1,11 @@
+<% pack_promotions.each do |pack_promotion| %>
+	<div class="product_box_show">
+		<div class="product_image_container_show">
+			<div class="product_image_show">
+				<%= link_to (image_tag pack_promotion.pack_promotion_image(:small)), pack_promotion.link, :target => '_blank' %>
+			</div>
+		</div>
+		<div class="product_name"><b><%= pack_promotion.name %></b></div>
+		<div class="product_description"><%= pack_promotion.description %></div>
+	</div>
+<% end %>

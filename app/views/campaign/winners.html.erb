@@ -1,0 +1,29 @@
+<div class="title_winners">
+	La mejor propuesta de Matrimonio 2012 se llevó el premio de $8 millones
+</div>
+<br />
+<div class="p_winners">
+	La pareja destacó por su originalidad, una puesta en escena innovadora y por dejarlo
+	<br />
+	 todo en el escenario al momento de presentarse
+	<br /><br />
+	¡Felicidades a Constance Fleet y Christian Thomsen!
+</div>
+<br />
+
+
+<div class="box">
+	<%= image_tag('campaign/winners/foto_cheque_2012.png') %>
+	<table class="invisible" id="campaign_stories">
+		<tr class="">
+			<td class="image">
+				<%= image_tag(@winners.campaign_user_image.url(:index)) %>
+			</td>
+			<td>
+				<span class="quote">“</span>
+				<%= sanitize(@winners.description.gsub(/\n/,"<br>"), :tags => %w(br)) %>						
+			</td>
+		</tr>
+	</table>
+  <div class="clear"></div>
+</div>

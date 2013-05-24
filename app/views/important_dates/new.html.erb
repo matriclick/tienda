@@ -1,0 +1,43 @@
+<div class="right_link">
+	<%= link_to t('cancel'), supplier_account_important_dates_path(@supplier), :class => :button %>
+</div>
+<div class= "titulos">
+	<%= t 'new_important_date'%>
+</div>
+<div class="box">
+	<div class="help_tip">
+		<%= t('helptip.important_date.general') %>
+	</div>
+	<table class="invisible">
+		<tr>
+			<td class="span-115"><%= form_for [@supplier, @schedule, @important_date],
+			:url => supplier_account_important_dates_path(@supplier, @important_date),
+			:validate => true do |f| %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :date %><br />
+			<%= f.text_field :date, :class => 'datepicker' %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :ends_date %><br />
+			<%= f.text_field :ends_date, :class => 'datepicker' %></td>
+		</tr>
+		<tr>
+			<td><%= f.label t('date_name') %><br />
+			<%= f.text_field :date_name %></td>
+		</tr>
+		<tr>
+			<td><%= f.label t('locked') %><br />
+			<%= f.check_box :locked %></td>
+		</tr>
+		<tr>
+			<td> <%= f.label t('custom_message') %><br/>
+			<%=f.text_field :custom_message %></td>
+		</tr>
+	</table>		
+<div class="holder">
+	<%= f.submit  t('add_date'), :class => "button" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+</div>
+<% end %>
+
+</div>

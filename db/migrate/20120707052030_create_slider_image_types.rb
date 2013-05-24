@@ -1,0 +1,10 @@
+class CreateSliderImageTypes < ActiveRecord::Migration
+  def change
+    create_table :slider_image_types do |t|
+      t.string :name
+      t.text :description
+
+      t.timestamps
+    end
+  end
+end

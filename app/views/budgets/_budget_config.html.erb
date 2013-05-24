@@ -1,0 +1,105 @@
+<div id="invitee_counts">
+	<%= form_tag update_budget_config_path, method: :put do %>	
+	<table id="bit_table" class="invisible form_section">
+	<% unless @budget_invitee_counts.blank? %>
+		<tr class="title">
+			<td colspan="3" style="text-align:left;">1. Determina la cantidad de invitados</td>
+		</tr>
+		<tr>
+			<td></td>
+	  <% for bic in @budget_invitee_counts %>
+			<td><strong><%= "Invitados a " + bic.kind_of_invitation %></strong></td>
+	  <% end %>
+		</tr>
+		<tr class="cl_light_gray">
+			<td class="left_column"><%= t 'activerecord.attributes.budget_invitee_count.groom' %></td>
+			<% for bic in @budget_invitee_counts %>
+				<td class="hideable_alpha"><%= bic.groom %></td>
+				<td class="showable_alpha" style="display:none;"><%= number_field_tag "budget_invitee_counts[#{bic.id}][groom]", bic.groom, size: 4 %></td>
+		  <% end %>
+		</tr>
+		<tr>
+			<td class="left_column"><%= t 'activerecord.attributes.budget_invitee_count.bride' %></td>
+			<% for bic in @budget_invitee_counts %>
+				<td class="hideable_alpha"><%= bic.bride %></td>
+				<td class="showable_alpha" style="display:none;"><%= number_field_tag "budget_invitee_counts[#{bic.id}][bride]", bic.bride, size: 4 %></td>
+		  <% end %>
+		</tr>
+		<tr class="cl_light_gray">
+			<td class="left_column"><%= t 'activerecord.attributes.budget_invitee_count.g_parents' %></td>
+			<% for bic in @budget_invitee_counts %>
+				<td class="hideable_alpha"><%= bic.g_parents %></td>
+				<td class="showable_alpha" style="display:none;"><%= number_field_tag "budget_invitee_counts[#{bic.id}][g_parents]", bic.g_parents, size: 4 %></td>
+		  <% end %>
+		</tr>
+		<tr>
+			<td class="left_column"><%= t 'activerecord.attributes.budget_invitee_count.b_parents' %></td>
+			<% for bic in @budget_invitee_counts %>
+				<td class="hideable_alpha"><%= bic.b_parents%></td>
+				<td class="showable_alpha" style="display:none;"><%= number_field_tag "budget_invitee_counts[#{bic.id}][b_parents]", bic.b_parents, size: 4 %></td>
+		  <% end %>
+		</tr>
+	<% end %>
+	</table>
+	<div class="holder budget_config_actions">
+		<span class="hideable_alpha right"><%= link_to_function t('edit'), 'toggle_hideable("_alpha")', :class => :button %></span>
+		<span class="showable_alpha right" style="display:none;"><%= submit_tag t('save'), :class => :button %> <%= link_to_function t("cancel"), "toggle_hideable('_alpha');" %></span>
+	</div>
+	<% end %>
+	
+	<%= form_tag update_budget_config_path, method: :put do %>	
+	<table id="bdt_table" class="invisible form_section">
+		<tr class="title">
+			<td>2. Determina cómo se pagará</td>
+		</tr>
+		<% @budget_distribution_types.each do |bdt| %>
+			<tr>
+				<td>
+					<span class="showable_beta" style="display:none;"><%= radio_button_tag 'user_account[budget_distribution_type_id]', bdt.id, current_user.user_account.budget_distribution_type_id == bdt.id,:onchange => 'toggle_ic_depending()' %></span>
+					<span class="hideable_beta"><%= current_user.user_account.budget_distribution_type_id == bdt.id ? "✔ " : "" %></span>
+					<%= bdt.name %>
+					<div class="help_tip" style="margin-left:10px;">
+						<% if bdt.name.include? "Prorrateo" %>
+						El monto total del presupuesto se divide proporcionalmente entre los novios y sus padres según la cantidad de invitados que tenga cada uno.							
+						<% elsif bdt.name.include? "Equitativo" %>
+						El monto total del presupuesto se divide equitativamente entre los novios y sus padres (25% cada uno).
+						<% end %>
+					</div>
+				</td>
+			</tr>
+		<% end %>
+		<tr>
+			<td>
+				<span class="showable_beta" style="display:none;"><%= radio_button_tag 'user_account[budget_distribution_type_id]', nil, current_user.user_account.budget_distribution_type_id == nil, :onchange => 'toggle_ic_depending()' %></span>
+				<span class="hideable_beta"><%= current_user.user_account.budget_distribution_type_id.blank? ? "✔ " : "" %></span>
+				<%= "Depende del rubro..." %>
+				</td>
+		</tr>
+
+		<% @budget_slots.each_with_index do |bs, i| %>
+			<% if i == 0 %>
+				<tr class="ic_depending" style="<%= "display:none;" unless current_user.user_account.budget_distribution_type_id.blank? %>">
+					<td></td>
+					<% @budget_distribution_types.each do |bdt| %>
+						<td style="text-align:center;"><%= bdt.name %></td>
+					<% end %>
+				</tr>
+			<% end %>
+			<tr class="ic_depending <%= cycle '', 'cl_light_gray' %>" style="<%= "display:none;" unless current_user.user_account.budget_distribution_type_id.blank? %>">
+				<td><%= bs.industry_category.get_name %></td>
+				<% @budget_distribution_types.each do |bdt| %>
+					<td style="text-align:center;">
+						<span class="showable_beta" style="display:none;"><%= radio_button_tag "budget_slots[#{bs.id}][budget_distribution_type_id]", bdt.id, bs.budget_distribution_type_id == bdt.id %></span>
+						<span class="hideable_beta"><%= bs.budget_distribution_type_id == bdt.id ? "✔ " : "" %></span>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+	<div class="holder budget_config_actions">
+		<span class="hideable_beta right"><%= link_to_function t('edit'), 'toggle_hideable("_beta")', :class => :button %></span>
+		<span class="showable_beta right" style="display:none;"><%= submit_tag t('save'), :class => :button %> <%= link_to_function t("cancel"), "toggle_hideable('_beta');" %></span>
+	</div>
+	<% end %>
+	<div class="clear"></div>
+</div>

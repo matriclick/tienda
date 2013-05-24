@@ -1,0 +1,51 @@
+// Place all the styles related to the presentations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+/* PROFILE PRESENTATION STUFF */
+
+.presentation_image {
+	border:solid 1px #CCC;
+	padding:10px 10px;
+	float:left;
+	margin-right:20px;
+	margin-bottom:20px;
+	background: #fff;
+}
+.presentation_image .name {
+	padding-top:5px;
+	text-align:center;
+	font-weight:bold;
+	padding-bottom: 5px;
+}
+.presentation_image .image_placeholder {
+	width:200px;
+	height:150px;
+	background-color:#E4E4E4;
+}
+.presentation_image .actions_images {
+	font-size:10px;
+	text-align:center;
+	color:#777;
+	padding:0 0 0 30px;
+}
+
+.presentation_image .actions {
+	font-size:10px;
+	text-align:left;
+	color:#777;
+	padding:0 0 0 30px;
+}
+
+#presentation_description {
+	width: 90%;
+	margin-left: 20px;
+	font-size: 12px;
+	text-align: justify;
+	line-height: 18px;
+}
+
+#presentation_images {
+	width: 90%;
+	margin:20px 0 0 20px;
+	float:left;
+}

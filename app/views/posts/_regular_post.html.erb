@@ -1,0 +1,12 @@
+<div class="post_container" style="width:220px; height:200px; <%if defined? margin then %>margin-right:40px;<% end %>">
+	<div style="margin:10px">
+		<% if !post.main_image_file_name.nil? %>
+		<%= link_to image_tag(post.main_image.url(:small), :alt => post.main_image_name, :class => 'image_button'), post_path(post) %>
+		<% else %>
+		<%= link_to image_tag('posts/matriclick_argolla.png', :width => '200px', :height => '150px', :class => 'image_button'), post_path(post) %>
+		<% end %>
+		<div class="blog_titulos">
+			<%= link_to post.title, post_path(post) %>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+<h1>Reporte de Usuarios con Conversaciones </h1>
+<%= render 'date_range_selector' %>
+<br />
+<table style="width:950px">
+	<tr>
+		<th><%= sortable 'email', 'Correo' %></th>
+		<th><%= sortable 'conversations_count', '# Conversaciones' %></th>
+		<th><%= sortable('last_conversation', 'Fecha creación de la última conversación') %></th>
+		<th><%= sortable 'wedding_date', 'Fecha Matrimonio' %></th>
+	</tr>
+	<% @users.each do |u| %>
+	<tr>
+		<td><%= link_to u.email, reports_user_conversations_path(:user_email => u.email) %></td>
+		<td><%= u.conversations.count %></td>
+		<td><%= l(u.conversations.last.created_at, :format => :custom) %></td>
+		<td><%= l(u.user_account.wedding_tentative_date, :format => :custom) if 
+				!u.user_account.nil? and !u.user_account.wedding_tentative_date.nil? %></td>
+	</tr>
+	<% end %>
+</table>
+<br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

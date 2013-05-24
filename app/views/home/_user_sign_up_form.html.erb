@@ -1,0 +1,12 @@
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name, :campaign => (campaign ||= false))) do |f| %>
+  <%= devise_error_messages! %>
+<div class="middle_sign_in">
+	<table class="invisible">
+		<tr>
+			<td><%= f.text_field :email, :placeholder => 'Email', size: '20', :class => "home_input_wrapper", :style => ("width:230px" if (override_width ||= nil)) %></td>
+	 		<td><%= f.password_field :password, :placeholder => t('password'), size: '20', :class => "home_input_wrapper", :style => ("width:230px" if (override_width ||= nil)) %></td>
+	 		<td><%= f.submit t('sign_up'), :class => "button_sign_in bold" %></td>
+		</tr>
+	</table>
+</div>
+<% end %>

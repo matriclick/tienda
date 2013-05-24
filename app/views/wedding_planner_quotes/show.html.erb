@@ -1,0 +1,113 @@
+<%= image_tag 'wedding_planner/wedding_planner_banner.png', alt: 'Wedding Planner' %>
+<p id="notice"><%= notice %></p>
+
+<div style="margin-top:20px; font-weight:bold">Información de los Novios</div>
+<hr>
+<div style="color:#545454; margin-left:10px">
+	<b>Nombre novia:</b> <%= @wedding_planner_quote.nombre_novia %> | <%= @wedding_planner_quote.fono_novia %>
+	<br /><br />
+	<b>Nombre novio:</b> <%= @wedding_planner_quote.nombre_novio %> | <%= @wedding_planner_quote.fono_novio %>
+	<br /><br />
+	<b>Fecha del matrimonio:</b> <%= l(@wedding_planner_quote.fecha_del_matrimonio, :format => :custom) %>
+	<br /><br />
+	<b>Cantidad de invitados:</b> <%= @wedding_planner_quote.cantidad_de_invitados %>
+</div>
+<div style="margin-top:20px; font-weight:bold">
+	Presupuesto total: <%= number_to_currency @wedding_planner_quote.total_budget %>
+</div>
+<div style="margin-top:20px; font-weight:bold">Detalle</div>
+<hr>
+<div style="color:#545454; margin-left:10px">
+	<b>Presupuesto banqueteria:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_banqueteria %>
+	<br /><br />
+	<b>Presupuesto centro de eventos:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_centro_de_eventos %>
+	<br /><br />
+	<b>Presupuesto iglesia:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_iglesia %>
+	<br /><br />
+	<b>Presupuesto civil:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_civil %>
+	<br /><br />
+	<b>Presupuesto coro:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_coro %>
+	<br /><br />
+	<b>Presupuesto flores:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_flores %>
+	<br /><br />
+	<b>Presupuesto arriendo auto:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_arriendo_auto %>
+	<br /><br />
+	<b>Presupuesto decoracion salon:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_decoracion_salon %>
+	<br /><br />
+	<b>Presupuesto musica iluminacion:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_musica_iluminacion %>
+	<br /><br />
+	<b>Presupuesto argollas:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_argollas %>
+	<br /><br />
+	<b>Presupuesto fotografia:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_fotografia %>
+	<br /><br />
+	<b>Presupuesto video:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_video %>
+	<br /><br />
+	<b>Presupuesto animacion:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_animacion %>
+	<br /><br />
+	<b>Presupuesto cotillon:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_cotillon %>
+	<br /><br />
+	<b>Presupuesto partes de matrimonio:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_partes_de_matrimonio %>
+	<br /><br />
+	<b>Presupuesto torta de novios:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_torta_de_novios %>
+	<br /><br />
+	<b>Presupuesto recuerdo matrimonio:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_recuerdo_matrimonio %>
+	<br /><br />
+	<b>Presupuesto vinos:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_vinos %>
+	<br /><br />
+	<b>Presupuesto bar destilados:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_bar_destilados %>
+	<br /><br />
+	<b>Presupuesto vestido novia:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_vestido_novia %>
+	<br /><br />
+	<b>Presupuesto maquillaje:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_maquillaje %>
+	<br /><br />
+	<b>Presupuesto peinado:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_peinado %>
+	<br /><br />
+	<b>Presupuesto tocado:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_tocado %>
+	<br /><br />
+	<b>Presupuesto ramo de novia:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_ramo_de_novia %>
+	<br /><br />
+	<b>Presupuesto zapatos novia:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_zapatos_novia %>
+	<br /><br />
+	<b>Presupuesto traje novio:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_traje_novio %>
+	<br /><br />
+	<b>Presupuesto camisa a medida:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_camisa_a_medida %>
+	<br /><br />
+	<b>Presupuesto zapatos novio:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_zapatos_novio %>
+	<br /><br />
+	<b>Presupuesto extras:</b>
+	<%= number_to_currency @wedding_planner_quote.presupuesto_extras %>
+	<br /><br />
+	<b>Comentarios adicionales:</b>
+	<%= @wedding_planner_quote.comentarios_adicionales %>
+	<br /><br />
+</div>
+
+<%= link_to 'Editar Información', edit_wedding_planner_quote_path(@wedding_planner_quote) %>

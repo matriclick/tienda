@@ -1,0 +1,26 @@
+<% @cont = true%> <!-- grouping by two to give some style... is not gonna work if ceremony_types are not pair -->
+<% @ceremony_types.each do |ceremony_type| %>
+
+	<% if @cont == true %>
+		<div class="box_select_menu">
+	<% end %>
+		<div class="select_menu">
+			<div class="menu_image_ceremonies shadow">
+				<%= link_to (image_tag "ceremony_types/#{ceremony_type.name.downcase.gsub(/\s/,"_").gsub(/[\u0080-\u00ff]/,"")}.jpg", 
+				:alt => 'ceremonia matrimonio '+ceremony_type.name), ceremonies_places_path(:ceremony_type_name => ceremony_type.name) %>
+			</div>
+			<div class="texto_menu">
+				<%= link_to ceremony_type.name, ceremonies_places_path(:ceremony_type_name => ceremony_type.name) %><br/>
+				<%= link_to t('tips'), tips_path(:ceremony_type_name => ceremony_type.name) %>
+			</div>	
+		</div>
+	<% if @cont == false %>
+		</div>
+	<% end %>
+		
+		<% if @cont == false %>
+			<% @cont = true %>
+		<% else %>
+			<% @cont = false %>
+		<% end %>
+<% end %>

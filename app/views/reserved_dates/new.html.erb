@@ -1,0 +1,13 @@
+<div style="width:600px">
+	<div>
+		Día: <b><%= @date.strftime("%d-%b-%Y") %></b>
+	</div>
+	<br /><br />
+	<div>
+		<%= render 'form' %>
+	</div>
+	<br /><br />
+	<div>
+		<%= link_to 'Cancelar', calendar_supplier_account_path(@supplier) %>
+	</div>
+</div>

@@ -1,0 +1,29 @@
+<% if cart.shopping_cart_items.size > 0 %>
+	<% cart.shopping_cart_items.each do |item| %>
+		<div style="float:left;">
+			<div class="image" style="float:left">
+				<%= link_to image_tag(item.purchasable.main_image), 
+							dress_ver_path(:type => item.purchasable.dress_types.first.name, :slug => item.purchasable.slug) %>
+			</div>			
+			<div style="float:left; margin-left:10px;">
+				<table>
+					<tr>
+						<th style="min-width:300px">Descripción</th>
+						<th style="width:80px">Precio Unitario</th>
+						<th style="width:80px">Talla</th>
+						<th style="width:80px">Cantidad</th>
+					</tr>
+					<tr>
+						<td><%= raw item.purchasable.description.gsub(/\n/, '<br/>') if !item.purchasable.description.nil? %></td>
+						<td><%= number_to_currency item.purchasable.price %></td>
+						<td><%= item.size %></td>
+						<td><%= item.quantity.to_s %></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="clear"></div>
+	<% end %>
+<% else %>
+	  <%= render "layouts/nothing_to_show", :message => 'No has agregado Items al Carrito de Compras' %>
+<% end %>

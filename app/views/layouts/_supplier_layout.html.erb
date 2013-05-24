@@ -1,0 +1,58 @@
+<div id="user_bar" style="margin-bottom:0px;">
+	<div class="box_nine_six_cero center">
+		<% flash.each do |name, msg| %>
+			<div class="centered_wrapper">
+				<div class="centered_positioner">
+					<%= content_tag(:div, msg, :id => "supplier_flash_#{name}", :class => "slideFadeOut centered_content") unless msg.blank? %>		
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+<div class="header center">
+	<div class="logo_matri_supplier">
+		<%= link_to (image_tag 'logo_matriclick_sin_caja.png', :alt => "matriclick.com"), root_country_path %>
+	</div>
+
+	<div class="profileMenu">
+		<div class="profileDataBox">
+			<div class="profileMenuImage">
+				<%= image_tag @supplier.supplier_account.image.url(:profile_info), :alt => @supplier.supplier_account.image_name %>
+			</div>
+			<ul class="profileMenuInfo">
+				<% if supplier_signed_in? %>
+					<li>
+						<%= link_to "#{current_supplier.email} :", [current_supplier.supplier_account] %> <%= link_to t("change_password").downcase + " : ", edit_supplier_registration_path %><%= link_to "logout", destroy_supplier_session_path, method: :delete %>
+					</li>
+				<% end %>
+				<li>
+					<%= (@supplier.supplier_account.corporate_name.blank?) ? content_tag(:span, t('activerecord.attributes.supplier_account.corporate_name'), :class => 'profileBlankField') : content_tag(:span, @supplier.supplier_account.corporate_name) %>
+				</li>
+				<% if !@supplier.supplier_account.address.nil? %>
+					<% if !@supplier.supplier_account.address.street.blank? %>
+						<li>
+							<%= content_tag(:span, @supplier.supplier_account.address.street + (@supplier.supplier_account.address.number.blank? ? '' : ' ' + @supplier.supplier_account.address.number)) %>
+						</li>
+					<% end %>
+				<% end %>
+			</ul>
+		</div>				
+	</div>
+</div>      
+
+<div class="full_content_inapp center shadow">
+	<div class="left_menu">
+		<ul class="menu bold">
+			<%= render "layouts/supplier_menu" %>
+		</ul>
+	</div>
+	
+	<div class="main_content">
+    	<%= yield %>
+    </div>
+
+	<div class="clear"></div>  
+</div>
+
+<%= render "layouts/footer" %>

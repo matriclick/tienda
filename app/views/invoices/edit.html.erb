@@ -1,0 +1,36 @@
+<b style="text-transform:uppercase"><%= @invoice.contract.lead.name %> | RUT <%= @invoice.contract.invoice_rut %> </b>
+<br />
+<% if @invoice.contract.invoices.count > 0 %>
+<hr>
+<b>Facturas antiguas:</b>	
+<div style="margin-left:10px; margin-top:5px;">
+	<% @invoice.contract.invoices.each do |invoice| %>
+		- <%= link_to 'Número de factura: '+invoice.number.to_s+' ('+invoice.issued_date.strftime("%d %B %Y")+')', invoice %>
+		| <%= invoice.paid ? 'Pagada' : 'No ha sido pagada' %><br />
+	<% end %>
+</div>
+<hr>
+<% else %>
+<hr>
+	Esta es la primera factura del proveedor.
+<hr>
+<% end %>
+<b>Editar factura</b>
+<br /><br />
+<b>Precio:</b> <span id="uf_price"><%= @invoice.contract.price %></span> U.F <%= @invoice.contract.vat_free ? 'Excenta de IVA' : '+ IVA' %>
+<br /><br />
+<b>Comisión:</b> <%= @invoice.contract.commission %> %
+<br /><br />
+<% if !@invoice.contract.discount.nil? %>
+<b>Descuento:</b> <%= @invoice.contract.discount %> %. 
+Desde <%= @invoice.contract.discount_start.strftime("%d %B %Y") if !@invoice.contract.discount_start.nil?%>
+hasta <%= @invoice.contract.discount_end.strftime("%d %B %Y")  if !@invoice.contract.discount_start.nil? %>
+<br /><br />
+<% end %>
+<% if @invoice.contract.read_comments_before_invoice %>
+<b>IMPORTANTE:</b> <%= @invoice.contract.comments %>
+<br /><br />
+<% end %>
+<%= render 'form' %>
+<br /><br />
+<%= link_to 'Back', @invoice.contract %>

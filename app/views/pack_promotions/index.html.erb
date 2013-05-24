@@ -1,0 +1,50 @@
+<%= form_tag update_multiple_pack_promotions_path, :method => "put" do %>
+	<h1>Listing pack promotions</h1>
+	<br /><br />
+	<div class="clear"></div>
+	<table style="width:950px">
+		<tr>
+			<th style="width:220px">Nombre - Vigencia</th>
+			<th>Descripción</th>
+			<th>Link</th>
+			<th>Imágen</th>
+			<th>Pack a los que aplica</th>
+		</tr>
+		<% @pack_promotions.each do |pack_promotion| %>
+			<tr>
+				<%= fields_for "pack_promotions[]", pack_promotion do |f| %>
+					<td style="vertical-align:top;">
+						<%= f.text_field :name, :size => 25 %><br />
+						<br />
+						<br />
+						Desde:<br />
+						<%= f.date_select :start_date %><br />
+						Hasta:<br />
+						<%= f.date_select :end_date %>
+					</td>
+					<td style="vertical-align:top;"><%= f.text_area :description, :size => "20x10" %></td>
+					<td style="vertical-align:top;"><%= f.text_field :link, :size => 20 %></td>
+					<td style="text-align:center;vertical-align:top;">
+						<% if !pack_promotion.pack_promotion_image_file_name.blank? %>
+							<%= image_tag pack_promotion.pack_promotion_image(:small) %><br />
+						<% end %>
+					</td>
+					<td style="vertical-align:top;">
+						<% @packs.each do |pack| %>
+	      					<%= check_box_tag "pack_promotions[#{pack_promotion.id}][post_ids][]", pack.id, pack_promotion.posts.include?(pack) %> <%= pack.title %><br />
+						<% end %>
+					</td>
+				<% end %>
+				<td>
+					<%= link_to 'Destroy', pack_promotion, confirm: 'Are you sure?', method: :delete %><br />
+					<%= link_to 'Edit', edit_pack_promotion_path(pack_promotion.id) %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+	<br /><br />
+	<div class="clear"></div>
+	<%= submit_tag "Actualizar Pack Promotions" %>
+<% end %>
+<br />
+<%= link_to 'New Pack Promotion', new_pack_promotion_path %> | <%= link_to 'Administrador', administration_index_path %>

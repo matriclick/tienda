@@ -1,0 +1,28 @@
+<div class="slide-out-div shadow">
+  <a class="handle" href="#">Content</a>
+  <%= form_for(@feedback) do |f|%>
+    <table class="invisible" style="margin:0px 0px 10px 28px; font-weight:bolder;">
+      <tr>
+        <td>
+          <%= f.label :name %><br/>
+          <%= f.text_field :name, :class => 'feedback_field' %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.label :email %><br/>
+          <%= f.text_field :email, :class => 'feedback_field' %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.label :comment %></br>
+          <%= f.text_area :comment, :size => "30x5", :class => 'feedback_field' %>
+        </td>
+      </tr>
+    </table>
+  	<div class="right">
+	    <%= f.submit t("send"), :class => "button" %>
+	  </div>
+  <% end %>
+</div>

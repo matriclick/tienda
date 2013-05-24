@@ -1,0 +1,15 @@
+<div class="right_link">
+	<%= link_to t('back'), ceremonies_places_path(:ceremony_type_name => @ceremony_type.name), :class => :button %>
+	<%= link_to t('new_tip'), new_tip_path(:ceremony_type_id => @ceremony_type.id), :class => :button if (current_user.blank? ? false : current_user.role_id == 1) %>
+</div>
+<div class="titulos">
+	Datos Prácticos Ceremonia <%= @ceremony_type.name %>
+</div>
+<div class="box">
+	<br />
+	<% @tips.each do |tip| %>
+		<p><b><%= tip.question %></b></p>
+		<p><i><%= tip.answer %> </i></p>
+		<%= link_to t('edit')+' | ', edit_tip_path(:ceremony_type_id => @ceremony_type.id, :id => tip.id) if (current_user.blank?  ? false : current_user.role_id == 1) %><%= link_to t('destroy'), tip_path(:id => tip.id), :method => :delete, confirm: t('are_you_sure') if (current_user.blank?  ? false : current_user.role_id == 1) %>
+	<% end %>
+</div>

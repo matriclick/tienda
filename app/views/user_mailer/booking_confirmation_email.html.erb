@@ -1,0 +1,25 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola <%= @booking.user_account.get_wedding_first_name || nil %>!,<br/><br/>
+					¡Felicitaciones! ya cuentan con <%= @bookable.name %> para su matrimonio<br/><br/>
+					<p style="color:#aaa;">
+					Te informamos que tu reserva para la fecha <srtrong><%= l @booking.date %></strong> ha sido confirmada por el proveedor <%= @supplier_account.fantasy_name %><br/><br/>
+					</p>
+					<p style="color:#aaa;"> Las reservas adicionales que tengas en este servicio para otras fechas se eliminarán.</p>
+					<br/><br/>
+					<p style="color:#444;">
+						Recuerda que puedes gestionar y revisar ésta y otras reservas en tu  <%= link_to "'Lista de Reservas'", bookings_booking_list_url(:country_url_path => @country_url_path), :style => "color:#0071BC;text-decoration:none;" %>.
+					</p>
+					<br/>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

@@ -1,0 +1,8 @@
+<div id="guest_notice">
+	<div class="alert relative">
+		<%= link_to_function "×", "$('#guest_notice').hide()", style: "color:gray;font-size:14px;font-weight:700;position:absolute;right:10px;top:5px;" %>
+		<div class="alert-heading">¡Hola!</div>
+		Para ocupar esta función debes ingresar o registrarte.<br><br>
+		<%= link_to t('sign_up'), user_profile_sign_in_user_path(), :method => :delete %>, sólo te tomará unos segundos!
+	</div>
+</div>

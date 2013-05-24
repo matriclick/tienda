@@ -1,0 +1,98 @@
+	<td>
+		<div class="floatLeft textAlignRight width25">
+			<%= t 'service' %><br/>
+			<%= t 'proveedor' %><br/>
+			<%= t('activerecord.attributes.event.date') %><br/>
+			<%= t('status') %><br/>
+		</div>
+		<div class="floatLeft textAlignLeft paddingLeft10 light width65">
+			<%= link_to crop_if_longer(booking.bookable.name, 25), products_and_services_catalog_description_path(booking.bookable, :object_class => booking.bookable.class) %><br/>
+			<%= link_to crop_if_longer(booking.bookable.supplier_account.fantasy_name, 25), supplier_description_path(booking.bookable.supplier_account.public_url, booking.bookable.supplier_account) %><br/>
+			<%= l(booking.date) %><br/>
+			<span class="<%= (confirmed = booking.status == Booking::STATUS[:confirmed]) ? "booking_confirmed" : "booking_pending" %>">
+				<% case booking.status %>
+					<% when Booking::STATUS[:confirmed] %>
+						<%= "Confirmada" %>
+					<% when Booking::STATUS[:pending] %>
+						<%= "Esperando confirmación" %>
+					<% when Booking::STATUS[:related_confirmed] %>
+						<%= "Será eliminada porque han confirmado otra reserva para este producto/servicio" %> 
+						<%= link_to "Ok, quiero borrarla.", bookings_update_booking_path(booking), confirm: t('are_you_sure'), :method => :delete %>
+					<% when Booking::STATUS[:deleted_by_supplier] %>
+						<%= "El proveedor ha eliminado esta reserva" %> 
+						<% if booking.attachednote.present? %>
+							<%= link_to "¿Porqué?", "#show_attachednote_#{booking.id}", class: :fancybox %>
+							<% # FGM: Attached note FANCYBOX %>
+							<div style="display:none;">
+								<div id="show_attachednote_<%= booking.id %>" style="min-height:300px;min-width:400px;padding:10px 20px;">
+									<div class="titulos" style="text-align:center;margin-bottom:20px;">
+										Mensaje del proveedor
+									</div>
+									<div class="help_tip">
+										Cuando eliminó la reserva por <strong><%= booking.bookable.name %></strong>, dejó el siguiente mensaje:
+									</div>
+									<div class="box100">
+										<%= simple_format booking.attachednote.message %>
+									</div>
+								</div>
+							</div>							
+						<% end %>
+					<% when Booking::STATUS[:expired] %>
+						<%= "Esta reserva ya ha expirado (su fecha ya pasó)" %>
+				<% end %>
+			</span>
+		</div>
+	</td>
+	<td class="list_actions">
+		<!-- MARK AS READ -->
+		<% unless booking.read_status :by => :user %>
+			<div><%= link_to "Marcar como leído", bookings_update_booking_path(booking, :read => :user), :remote => true, :onclick => "$(this).siblings('.select_loading').show();" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none" %></div>			
+		<% end %>
+		
+		<!-- SHOW on Calendar -->
+		<div>
+			<%= link_to(t('show'), products_and_services_catalog_bookings_path(booking.bookable_type, booking.bookable_id, :booking_date => booking.date, :anchor => 'calendar')) unless [Booking::STATUS[:deleted_by_supplier], Booking::STATUS[:related_confirmed]].include?(booking.status) %>
+		</div>
+		
+		<!-- MESSAGE Supplier -->
+		<% if booking.bookable.present? && !([Booking::STATUS[:deleted_by_supplier], Booking::STATUS[:related_confirmed]].include? booking.status) %>
+			<div>
+				<%= link_to "Conversar con proveedor", products_and_services_catalog_conversations_path(booking.bookable, :object_class => booking.bookable.class) %>
+			</div>
+		<% end %>
+		
+		<!-- DESTROY -->
+		<% unless booking.status == Booking::STATUS[:confirmed] %>
+			<div>
+				<%= link_to(t('delete'), bookings_update_booking_path(booking), confirm: t('are_you_sure'), :method => :post) %>
+			</div>
+		<% else %>
+			<div><%= link_to t('delete'), "#delete_booking_fancybox_#{booking.id}", :class => :attachednote_for_booking_fancybox %></div>
+
+			<div style="display:none">
+				<div id="delete_booking_fancybox_<%= booking.id %>" style="width:400px">
+					<% booking.build_attachednote unless booking.attachednote.present? %>
+					<%= nested_form_for booking, :url => bookings_update_booking_path(booking), :method => :post, html: { :class => "attachednote_form"} do |f| %>
+						<%= hidden_field :booking, :status, :value => Booking::STATUS[:deleted_by_user] %>
+						<div>
+							<div class="titulos">
+								<%= t'delete_booking'%>
+							</div>
+							<div class="help_tip">
+								Esta reserva ha sido confirmada. Por lo tanto, para eliminarla debes indicar una razón para que el proveedor se entere.
+							</div>
+							<div class="box100">
+								<%= f.fields_for :attachednote do |attachable| %>
+									<%= hidden_field :attachable, :attachable_type, :value => booking.class %>
+									<%= hidden_field :attachable, :attachable_id, :value => booking.id %>
+									<%= f.label :content, t('message') %><br/>
+									<%= attachable.text_area :message, :size => '50x20', :id => "attachable_textarea_#{booking.id}" %><br/>
+								<% end %>
+							</div><br/>
+							<div><%= f.submit t('send'), :class => :button %></div>
+						</div><br/>
+					<% end %>
+				</div>
+			</div>		  
+		<% end %>
+	</td>

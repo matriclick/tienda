@@ -1,0 +1,36 @@
+<script>
+	stocks_for_js = <%= @stocks_for_js %>
+</script>
+
+<div>
+	<b>Talla y cantidad</b>
+	<hr>
+	<br />
+	<table>
+		<tr>
+			<th>Talla</th>
+			<th>Cantidad</th>
+		</tr>
+		<tr>
+			<td>
+				<% @purchasable.dress_stock_sizes.each do |dress_stock_size| %>
+					<% if !dress_stock_size.stock.blank? %>
+						<% if dress_stock_size.stock > 0 %>
+							<%= f.radio_button(:size, dress_stock_size.size.name, :checked => dress_stock_size.first_with_stock?, :class => "buy_radio_button") %> <%= dress_stock_size.size.name %><br />
+						<% end %>
+					<% end %>
+				<% end %>
+			</td>
+			<td>
+				<% if @first_max.blank? %>
+					<%= f.select(:quantity, 1..5) %>
+				<% else %>
+					<%= f.select(:quantity, 1..@first_max) %>
+				<% end %>
+			</td>
+		</tr>
+		
+	</table>
+</div>
+
+

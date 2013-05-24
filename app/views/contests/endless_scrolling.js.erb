@@ -1,0 +1,23 @@
+ids = '<%=@contestant_ids%>'
+
+<% if @last_set %>
+	$('.loading').unbind('ajaxStart');
+<% end %>
+
+<% unless @contest_travelites.blank? %>		
+	<% @contest_travelites.each do |contest_travelite| %>
+		<% @contest_travelite = contest_travelite%>
+		var $box_<%=contest_travelite.id%> = $('<%= escape_javascript(render :partial => @box_partial_name)%>');
+        $box_<%=contest_travelite.id%>.css({ opacity: 0 });
+        $box_<%=contest_travelite.id%>.imagesLoaded(function() {
+        	$box_<%=contest_travelite.id%>.animate({ opacity: 1 });
+        	$('#albums_columns').append( $box_<%=contest_travelite.id%> ).masonry( 'appended', $box_<%=contest_travelite.id%>, true );
+        });
+<% end %>
+
+flag_up = false
+
+<% else %>
+	$('#infinite-scroll').detach();
+	$('.loading').hide();
+<% end %>

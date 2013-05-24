@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  matriclicker_id: 1
+  name: MyString
+  country_id: 1
+  webpage: MyString
+  description: MyText
+
+two:
+  matriclicker_id: 1
+  name: MyString
+  country_id: 1
+  webpage: MyString
+  description: MyText

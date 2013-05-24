@@ -1,0 +1,59 @@
+<h1>Listado de Leads</h1>
+
+<%= form_tag(leads_path, :method => "get") do %>
+	<%= text_field_tag(:q, @search_term) %>	<%= submit_tag("Buscar") %>
+	<i>| Nombre de Proveedor o Matriclicker | Dejar en blanco para ver todos |</i>
+<% end %>
+
+<br /><br />
+
+<table style="width:950px">
+
+  <tr>
+    <th style="width:60px">Matriclicker</th>
+    <th style="width:80px">Nombre Cuenta</th>
+	<th style="width:70px">Categoría</th>
+    <th>Descripción</th>
+    <th>Última actividad</th>
+	<th style="width:100px">Datos de contacto</th>
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Leads") %>
+    	<th>Editar | Eliminar</th>
+	<% end %>
+  </tr>
+
+<% @leads.each do |lead| %>
+  <tr>
+    <td><%= lead.matriclicker.name if !lead.matriclicker.nil? %></td>
+    <td><%= link_to lead.name, lead, :style => 'text-decoration:underline' %></td>
+  	<td><%= lead.industry_category.get_name if !lead.industry_category.nil? %></td>
+    <td><%= lead.description %></td>
+    <td>
+		<% if lead.challenges.count > 0 %>
+			<% if lead.challenges.last.challenge_activities.count > 0 %>			
+				<b><%= lead.challenges.last.challenge_activities.last.challenge_activity_type.name %></b>  
+				- <i><%= lead.challenges.last.challenge_activities.last.comments %></i>
+			<% end %>
+		<% end %>
+	</td>
+	<td>
+		<% if lead.lead_contacts.count > 0 %>
+			<b><%= lead.lead_contacts.last.name %></b><br />
+			<% if !lead.lead_contacts.last.cell_phone.blank? %>
+			- <i><%= lead.lead_contacts.last.cell_phone %></i>
+			<% elsif !lead.lead_contacts.last.phone.blank? %>
+			- <i><%= lead.lead_contacts.last.phone %></i>
+			<% else %>
+			- <i><%= lead.lead_contacts.last.email %></i>
+			<% end %>
+		<% end %>
+	</td>
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Leads") %>
+	<td>
+		<%= link_to 'Edit', edit_lead_path(lead) %> | <%= link_to 'Destroy', lead, confirm: 'Are you sure?', method: :delete %></td>
+	</td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+<br />
+<%= link_to 'Nuevo Lead', new_lead_path %> | <%= link_to 'Ver todos los Leads', leads_path %>

@@ -1,0 +1,62 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here:http://sass-lang.com/
+.supplier_product_list{
+	width:80%;
+	margin-left:20px;
+}
+
+.supplier_product_list .product_name{
+	color:#3F3F3F;
+	font-weight:bold;
+}
+
+.supplier_product_list .product_description{
+	color:gray;
+	font-weight:normal;
+	font-family:helvetica;
+}
+
+.supplier_product_list .product_type{
+	color:gray;
+	font-weight:normal;
+	font-family:helvetica;
+}
+
+.list_actions a{color:#177EAE;
+	font-weight:normal;
+	font-family:helvetica;
+	font-size:12px;
+	text-decoration:none;
+}
+.list_actions a:hover{
+	color:gray;
+	font-size:12px;
+	text-decoration:underline;
+}
+
+.supplier_product_list td tr{
+	border:none;
+}
+
+.supplier_product_list .list_item{
+	height:70px;
+	border:1px solid #D8D8D8;
+}
+
+.supplier_product_list .list_item .image_cell{
+	text-align:right;
+	border:none;
+}
+
+.supplier_product_list .list_item .image_cell .number_of_images {
+	font-weight:bold;
+	margin-left:10px;
+	position:relative;
+	bottom:10px;
+}
+
+#updated_product{
+	margin-left:20px;
+	padding-top:20px;
+}

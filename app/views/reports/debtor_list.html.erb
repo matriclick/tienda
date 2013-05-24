@@ -1,0 +1,41 @@
+<h1>Lista de Deudores</h1>
+<%= render 'date_range_selector' %>
+<br />
+<%= link_to 'Ver todo', reports_debtor_list_path %><br />
+<br />
+<table style="width:950px">
+	<tr>
+		<th style="width:200px">Lead</th>
+		<th colspan="2" style="width:100px">Cantidad de facturas no pagadas</th>
+		<th style="width:480px">Facturas no pagadas en rango</th>
+		<th colspan="2" style="width:170px">Deuda</th>
+	</tr>
+	<% @leads.each do |lead| %>
+		<% if lead.unpaid_invoices_by_date(@from, @to).size > 0 %></td>
+			<tr>
+				<td><%= link_to lead.name, lead %></td>
+				<td style="width:70px;text-align:right">
+					En rango: <br />
+					Totales: 
+				</td>
+				<td style="width:30px">
+					<%= lead.unpaid_invoices_by_date(@from, @to).size %><br />
+					<%= lead.unpaid_invoices.size %>
+				</td>
+				<td style="text-align:center">
+					<%= render 'unpaid_invoices_list', :lead => lead, :from => @from, :to => @to %>
+				</td>
+				<td style="width:70px;text-align:right">
+					En rango: <br />
+					Total: 
+				</td>
+				<td style="width:100px">
+					<%= number_to_currency lead.total_debt_by_date(@from, @to) %><br />
+					<%= number_to_currency lead.total_debt %>
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>
+<br />
+<%= link_to 'Reporte de cobranzas',  reports_collections_path %> | <%= link_to 'Administrador',  administration_index_path %>

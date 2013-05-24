@@ -1,0 +1,33 @@
+<%= render "budget_menu" %>
+<div class="box" style="padding-bottom:20px;">
+	<table class="invisible">
+		<tr>
+			<td>
+				<h3>La Configuración es clave</h3>
+				<p>Los cálculos de los totales se realizan a partir de la cantidad de invitados, tanto para novio, la novia y los padres de cada uno. Además, se considera tu elección de cómo se pagarán las cosas del presupuesto. Es importante <strong>revises la <%= link_to "configuración", budget_settings_path %></strong> para que esta herramienta te sea verdaderamente útil.</p>				
+			</td>
+			<td><%= image_tag("budget/budget_invitee_count_small.png") %></td>
+		</tr>
+		<tr>
+			<td><%= image_tag("budget/budget_prioritized_small.png") %></td>
+			<td>
+				<h3>Presupuestos te ayudará a elegir</h3>
+				<p>Hemos preparado una lista priorizada de las cosas que son importantes para tu matrimonio. Podrás ir agregando productos a esta lista y completando las cosas por hacer!</p>									
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<h3>Totales inteligentes</h3>
+				<p>Dependiendo de la configuración que hayas escogido, Presupuestos calculará los totales correspondientes considerando la cantidad de invitados y la <strong>forma en que se distribuirán los costos</strong>. Esto lo puedes determinar en <strong><%= link_to "configuración", budget_settings_path %></strong></p>					
+			</td>
+			<td><%= image_tag("budget/budget_totals_small.png") %></td>
+		</tr>
+		<tr>
+			<td><%= image_tag("budget/budget_add_small.png") %></td>
+			<td>
+				<h3>Agrega a tus presupuestos</h3>
+				<p>Puedes agregar cualquiera de nuestros productos/servicios a tu presupuesto. Intenta incorporar a todos los rubros para que las estimaciones sean más precisas.</p>					
+			</td>
+		</tr>
+	</table>
+</div>

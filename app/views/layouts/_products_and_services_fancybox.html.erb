@@ -1,0 +1,8 @@
+<div style="display:none;">
+	<div id="more_from_this_supplier">
+		<div class="title_fancy_budget_box product_in_name">
+			<%= @supplier.supplier_account.fantasy_name %>
+		</div>		
+		<%= render "suppliers_catalog/products_and_services", :locals => {:supplier => @supplier} %>
+	</div>
+</div>

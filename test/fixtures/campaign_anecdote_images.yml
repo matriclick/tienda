@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  anecdote_file_name: MyString
+  anecdote_file_size: 1
+  anecdote_content_type: MyString
+  anecdote_updated_at: 2012-01-25 15:00:40
+  campaign_anecdote_id: 1
+
+two:
+  anecdote_file_name: MyString
+  anecdote_file_size: 1
+  anecdote_content_type: MyString
+  anecdote_updated_at: 2012-01-25 15:00:40
+  campaign_anecdote_id: 1

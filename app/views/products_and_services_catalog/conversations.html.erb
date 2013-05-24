@@ -1,0 +1,60 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+  		$('#message_content').focus();
+	});
+</script>
+
+<%= content_for :products_and_services_page_in_content do %>
+	<% if @enable_conversation %>
+		<div class="conversation_main">
+			<% if @is_new %>
+				<div class="new_conversation_form">
+					<%= render 'products_and_services_catalog/new_conversation_form' %>	
+				</div>
+			<% else %>
+				<div id="message_history">
+					<%= render 'products_and_services_catalog/message_history' %>
+				</div>
+				<div class="content"><br/>
+					<%= nested_form_for @message,:html => { :multipart => true }, :url => conversations_create_message_path(:conversation_id => @conversation.id, :transmitter => @transmitter, :object_name => @object_name ), :remote => true, :validate => true do |f| %>
+						<div class="attached_box">				
+							<div class="message_area" style="width:560px;float:left;">
+								<%= f.text_area :content, :size => "10x5", :id => 'message_content' %> 
+							</div>
+							<div style="float:right;">
+								<% if current_user.user_account.has_enough_info %>
+									<%= f.submit 'Enviar Mensaje', :class => 'button' %> 
+									<%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+								<% else -%>
+									<%= render "layouts/no_enough_user_info", :word => t('send'), :link_class => 'button' %>
+								<% end -%>
+							</div>
+							<div class="clear"></div>
+							<%= f.fields_for :attached_files do |attached_file_form| %>
+								<div>
+									<%= attached_file_form.file_field :attached %> 
+									<%= attached_file_form.link_to_remove "✘", :title => t('remove') %>
+								</div>
+								<br>
+							<% end %>
+							<%= f.link_to_add t('add_attached_file'), :attached_files %>					
+						</div>
+						<% if @object.supplier_account.online_payment %>
+							<div>
+								<%= link_to 'Pagar ' + t(@object.class.to_s.downcase), buy_details_path(:purchasable_type => @object.class, :purchasable_id => @object.id), :class => 'red_button', :style => 'float:right' %>
+							</div>
+						<% end %>
+						<div class="clear"></div>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+	<% else %>
+		<div>
+			<div class="help_tip">
+				Este proveedor ya no es parte de nuestra exclusiva red, su sistema de conversaciones ha sido des-habilitado
+			</div>
+		</div>
+	<% end %>
+<% end %>
+<%= render "products_and_services_page" %>

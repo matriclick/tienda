@@ -1,0 +1,13 @@
+<% if params[:controller] == "products_and_services_catalog" %>
+<div style="font-size:11px; color:#666; float:right; width:auto; margin-right:50px;">
+	<% if ['chile'].include?(session[:country].url_path) %>
+		<% if @watch == "suppliers" %>
+			<i>* Revisa los <b>matri-descuentos</b> para Novios Matriclick ¡sólo por tiempo limitado!</i>
+		<% elsif @watch == "products_and_services" %>
+			<i>* Revisa los <b>matri-descuentos</b> para Novios Matriclick ¡sólo por tiempo limitado!</i>
+		<% elsif @watch == "IndustryCategory" %>
+			<i>* Revisa los <b>matri-descuentos</b> para Novios Matriclick ¡sólo por tiempo limitado!</i>
+		<% end %>
+	<% end %>
+</div>
+<% end %>

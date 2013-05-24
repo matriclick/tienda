@@ -1,0 +1,6 @@
+<%= f.file_field :contest_travelite_image, :class => 'upload_custom_image', :style => "display: none;", :onchange => "$('.custom_file_name').html($('.upload_custom_image').val());" %>
+<%= image_tag 'contests/btn_seleccionar.png', :style => "cursor:pointer;", :onclick => "$('.upload_custom_image').click()" %> <span class="custom_file_name"><%= @user_contest_travelite.contest_travelite_image_file_name %></span><br />
+
+<%= f.text_field :groom_name %> Nombre novio<br />
+<%= f.text_field :bride_name %> Nombre novia<br />
+<%= f.text_field :photo_name %> Nombre foto<br />

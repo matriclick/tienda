@@ -1,0 +1,18 @@
+<%= content_for :supplier_page_in_content do %>
+	<b>Descripción</b>
+	<hr>
+	<%= sanitize(@presentation.description.gsub(/\n/, '<br/>'), :tags => %W(br)) unless @presentation.description.blank? %>
+	<br /><br />
+	<% if !@trousseau %>
+		<b>Ubicación</b> - <%= @supplier.supplier_account.address.get_address_string if !@supplier.supplier_account.address.nil? %>
+		<hr>
+		<% if @show_map %>
+		<div id="map" style="width:550px; height:300px;"></div>
+		<% else %>
+			<div class="help_tip">Mapa no disponible</div>
+		<% end %>
+	<% end %>
+	<div class="clear"></div>
+<% end %>
+
+<%= render "supplier_page" %>

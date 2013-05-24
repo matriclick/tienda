@@ -1,0 +1,30 @@
+<%= f.fields_for :address_attributes do |a| %>
+<table class="invisible">
+	<tr>
+		<td><%= t('activerecord.attributes.address.street') %><br/>
+  		<%= a.text_field :street %></td>
+	</tr>
+	<tr>
+		<td><%= t('activerecord.attributes.address.number') %><br/>
+	  	<%= a.text_field :number %></td>
+	</tr>
+	<tr>	
+		<td>	 
+			<div>
+				<%= a.label :region_id, t('activerecord.attributes.address.region') %><br />
+    			<%= a.collection_select(:region_id, Region.order(:name), :id, :name, :prompt=>t('select')) %>
+			</div>
+			<br />
+    		<div>
+				<%= a.label :commune_id, t('activerecord.attributes.address.commune') %><br />
+    			<%= a.grouped_collection_select :commune_id, Region.order(:name), :communes, :name, :id, :name, :prompt=>t('select')%>
+			</div>
+  		</td>
+	</tr>
+</table>	
+<% end %>
+</div>
+
+
+
+

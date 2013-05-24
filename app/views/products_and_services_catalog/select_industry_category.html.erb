@@ -1,0 +1,16 @@
+<% for ic in @industry_categories %>
+	<% if !ic.hidden %>
+		<div class="box_industry_categories">
+			<div class="image_industry_categories shadow">
+				<%= link_to (image_tag "industry_category/#{ic.name.downcase.gsub(/\s/,"_").gsub(/[\u0080-\u00ff]/,"")}.jpg", :alt => ic.name.gsub("_"," ")), products_and_services_catalog_index_path(:industry_category_ids => ic.slug) %>
+				<% if ic.has_discount_for_country(session[:country]) %>
+				<div class="discount">
+					<%= link_to (image_tag "discounts/category.png", :alt => 'descuento	'), products_and_services_catalog_index_path(:industry_category_ids => ic.slug) %>
+				</div>
+				<% end %>
+			</div>			
+			<% # FGM: SupplierAccounts SPECIAL FILTER %>
+			<span class="gray"><%= "(#{ic.supplier_accounts.where(:country_id => session[:country].id).approved.count}) " %></span><%= link_to ic.get_name, products_and_services_catalog_index_path(:industry_category_ids => ic.slug) %>
+		</div>
+	<% end %>
+<% end %>

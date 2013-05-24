@@ -1,0 +1,48 @@
+<% if defined? from_post %>
+	<% case supplier_account.id %>
+		<% when 141 # Calabrese 141 %>
+			<div class="product_box">
+				<div class="product_image_container">
+					<div class="product_image">
+		<% when 784, 40 # Rinaldo Verdi Fotografía Profesional 784, TuMatriEsÚnico 40 %>
+			<div class="product_box_soty">
+				<div class="product_image_container">
+					<div class="product_image">
+	<% else %>
+		<div class="product_box_show">
+			<div class="product_image_container_show">
+				<div class="product_image_show">
+	<% end %>
+<% else %>
+	<% if [784, 40].include?(supplier_account.id) # Rinaldo Verdi Fotografía Profesional 784, TuMatriEsÚnico 40 %>
+		<div class="product_box_soty">
+	<% else %>
+		<div class="product_box">
+	<% end %>
+			<div class="product_image_container">
+				<div class="product_image">
+<% end %>
+
+<%= link_to (image_tag supplier_account.image.url(:smaller), :alt => supplier_account.image_name), supplier_products_and_services_path(:public_url => supplier_account.public_url), :title => t('show') %>
+		</div>
+		<% if supplier_account.has_discount %>
+			<div class="discount"><%= link_to (image_tag "discounts/category.png", :alt => 'descuento'), supplier_products_and_services_path(:public_url => supplier_account.public_url), :title => t('show') %></div>
+		<% end %>
+	</div>
+	
+	<% case supplier_account.id %>
+		<% when 141 # Calabrese 141 %>
+			<div class="logo_soty_small">
+				<%= link_to (image_tag "supplier_exclusive/se_80x80_01.png"), supplier_products_and_services_path(:public_url => supplier_account.public_url), :title => supplier_account.public_url %>
+			</div>
+		<% when 784, 40 # Rinaldo Verdi Fotografía Profesional 784, TuMatriEsÚnico 40 %>
+			<div class="logo_soty_small">
+				<%= link_to (image_tag "supplier_of_the_year/soty_small_03.png"), supplier_products_and_services_path(:public_url => supplier_account.public_url), :title => t('show') %>
+			</div>
+	<% end %>
+	<% if [784, 40].include?(supplier_account.id) # Rinaldo Verdi Fotografía Profesional 784, TuMatriEsÚnico 40 %>
+		<div class="product_name_soty"><%= link_to crop_if_longer(supplier_account.fantasy_name, 21), supplier_products_and_services_path(:public_url => supplier_account.public_url) %></div>
+	<% else %>
+		<div class="product_name"><%= link_to crop_if_longer(supplier_account.fantasy_name, 21), supplier_products_and_services_path(:public_url => supplier_account.public_url) %></div>
+	<% end %>
+</div>

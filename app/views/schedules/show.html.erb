@@ -1,0 +1,31 @@
+<div class="right_link">
+	<%= link_to t('edit'), edit_supplier_account_service_schedule_path(@schedule), :class => :button %>
+	<%= link_to t('back'), supplier_account_services_path(@schedule), :class => :button %>
+</div>
+<div class="titulos">
+	<%= t 'your_open_hour_details' %>
+</div>
+<div class="box">
+<table class="list">
+	<tr>
+		<th><%= t 'day' %></th>
+		<th><%= t 'activerecord.attributes.schedule_day.enabled' %></th>
+		<th><%= t 'activerecord.attributes.schedule_day.all_day' %></th>
+		<th><%= t 'activerecord.attributes.schedule_day.from' %></th>
+		<th><%= t 'activerecord.attributes.schedule_day.to' %></th>
+		<th><%= t 'activerecord.attributes.schedule_day.start_lunch_time' %></th>
+		<th><%= t 'activerecord.attributes.schedule_day.end_lunch_time' %></th>
+	</tr>
+	<% @schedule.schedule_days.each do |sd| %>
+	<tr class = "<%= sd.enabled == true ? '' : 'no_habilitado' %>">
+		<td><%= set_day_name_by_day_id(sd.day_id) %></td>
+		<td><%= sd.enabled == true ? "✔" : "✘" %></td>
+		<td><%= sd.all_day == true ? "✔" : "✘" %></td>
+		<td><%= sd.from.strftime('%H:%M') unless sd.from.nil?%></td>
+		<td><%= sd.to.strftime('%H:%M') unless sd.to.nil? %></td>
+		<td><%= sd.start_lunch_time.strftime('%H:%M') unless sd.start_lunch_time.nil? %></td>
+		<td><%= sd.end_lunch_time.strftime('%H:%M') unless sd.end_lunch_time.nil? %></td>
+	</tr>
+	<% end %>
+</table>
+</div>

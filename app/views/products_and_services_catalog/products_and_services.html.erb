@@ -1,0 +1,13 @@
+<%= render 'menu' %>
+
+<div class="clear"></div>
+
+<div id="products">
+	<%= render "products_and_services" %>
+	<div class="clear"></div>
+	<% if @objects.total_pages > 1 %>
+		<div class="apple_pagination">
+			<%= will_paginate @objects, :container => false %>
+		</div>		
+	<% end %>	
+</div>

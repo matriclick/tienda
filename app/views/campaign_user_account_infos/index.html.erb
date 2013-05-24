@@ -1,0 +1,28 @@
+<h1>Información Cuentas de usuarios</h1>
+
+<table>
+<% @campaign_user_account_infos.each do |campaign_user_account_info| %>
+	<tr>
+		<td>
+		<% unless campaign_user_account_info.campaign_user_image.blank? %>
+	    <%= image_tag campaign_user_account_info.campaign_user_image.url(:tiny) %>
+		<% end %>
+		</td>
+		<td>
+			<div><%= crop_if_longer campaign_user_account_info.description, 100 %></div>
+		</td>
+		<td>
+			<%= campaign_user_account_info.user_account.users.first.email unless campaign_user_account_info.user_account.users.first.blank? %>
+		</td>
+    <td class="list_actions">
+		  <div><%= link_to 'Show', user_story_path(campaign_user_account_info) unless campaign_user_account_info.approved_by_us %></div>
+		  <div><%= link_to 'Edit', edit_campaign_user_account_info_path(campaign_user_account_info) %></div>
+		  <div><%= link_to 'Destroy', campaign_user_account_info, confirm: 'Are you sure?', method: :delete %></div>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nuevo CUAI', new_campaign_user_account_info_path, :class => :button %>

@@ -1,0 +1,37 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Estimada Carolina,<br/><br/>
+					Se ingresó la siguiente <strong>solicitud de referencia</strong>:<br/><br/>
+					<p>Datos usuario:</p>
+					<p>Mail: <%= @reference_request.user.email%></p>
+					<p><%= @reference_request.user.user_account.get_wedding_lastname %></p>
+					<p>Proveedor: <%= @supplier.supplier_account.fantasy_name %></p>
+					<% if @reference_request.product_id.blank? and @reference_request.supplier_id.blank? %>
+						<p>Servicio: <%= @reference_request.service.name %></p>
+						<p>Rubro: <%=@reference_request.service.industry_category.get_name %></p>
+						<p>Direccion: <%=@reference_request.service.address %></p>
+						<p>Descripción: <%=@reference_request.service.description %></p>
+					<% elsif @reference_request.supplier_id.blank? and @reference_request.service_id.blank? %>
+						<p>Producto: <%= @reference_request.product.name %></p>
+						<p>Rubro: <%=@reference_request.product.industry_category.get_name %></p>
+						<p>Precio: <%=@reference_request.product.price %></p>
+						<p>Precio máximo: <%=@reference_request.product.top_price_range unless @reference_request.product.top_price_range == 0 %></p>
+						<p>Descripción: <%=@reference_request.product.description %></p>
+					<% elsif @reference_request.product_id.blank? and @reference_request.service_id.blank? %>
+						<p>Página web: <%=@reference_request.supplier.supplier_account.web_page %></p>
+						<p>Rut: <%=@reference_request.supplier.supplier_account.rut %></p>
+					<% else %>
+						<p>Error al cargar los datos.</p>
+					<% end %>
+					<p>Fecha: <%= (@reference_request.created_at).strftime('%d-%b-%Y') %></p>
+					<p>Mensaje: <%= @reference_request.content %></p>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

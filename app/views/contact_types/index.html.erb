@@ -1,0 +1,23 @@
+<div class="right_link">
+	<%= link_to t('new_contact_type'), new_contact_type_path, :class => :button %>
+</div>
+<div class="titulos">
+	<%= t('contacts_type') %>
+</div>
+<div class="box">
+	<table>
+		<tr>
+			<th><%= t('contact_type') %></th>
+			<th><%= t('options') %></th>
+		</tr>
+
+		<% @contact_types.each do |contact_type| %>
+
+		<tr>
+			<td><%= contact_type.name %></td>
+			<td><%= link_to t('edit'), edit_contact_type_path(contact_type) %> | <%= link_to t('destroy'), contact_type, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>
+

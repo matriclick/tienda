@@ -1,0 +1,23 @@
+Compra este espectacular vestido a solo <%= number_to_currency(@oc.tbk_monto.to_f, :delimiter => '.').to_s %> pesos!<br /> <br /> 
+Descripción:<br />
+
+Vestido negro brillante con un hombro.<br />
+Disponible en talla M.<br /><br />
+
+<%= image_tag 'webpay/vestido.jpg' %><br /><br />	
+
+<%= payment_service_for @oc.tbk_orden_compra, '',
+                                :amount => @oc.tbk_monto.to_f,
+                                :currency => 'CLP',
+                                :service => :webpay,
+                                :html => { :id => 'payment-form' } do |service| %>
+
+	<% service.return_url success_url %>
+	<% service.cancel_return_url failure_url %>
+	<% service.session @oc.tbk_id_sesion %>
+	 
+	<%= submit_tag 'Pagar' %><br /><br />
+	<%= image_tag 'webpay/logo_webpay_1.png' %><br />	
+	
+<% end %>
+

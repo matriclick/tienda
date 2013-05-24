@@ -1,0 +1,10 @@
+<b><%= t 'ceremony_days' %></b>
+<div class="field"><div class="help_div">collection select  con días de la semana en orden correlativo, donde la primera opción es lunes y la última es domingo</div>
+	<%= f.fields_for :ceremony_days do |ceremony_days_form| %>
+		<%= ceremony_days_form.collection_select :name, Day.all, :id, :day_number %>
+		<%= ceremony_days_form.link_to_remove t('remove_this_ceremony_day'), :class => 'small_button' %><br/>
+		<%= render 'ceremony_day_hour_fields', :ceremony_days_form => ceremony_days_form %>
+	<% end %>
+	<br/>
+	<%= f.link_to_add t('add_ceremony_day'), :ceremony_days, :class => 'small_button' %>
+</div>

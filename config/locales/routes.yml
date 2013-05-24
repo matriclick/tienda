@@ -1,0 +1,48 @@
+en:
+  routes:
+  # you can leave empty locales, for example the default one
+es:
+  routes:
+  #SEO: aca se define el alias para los recursos en las rutas
+    dresses: productos
+    dress: producto
+    opportunities: ofertas-matrimonios
+    products_and_services_catalog: servicios-para-tu-matrimonio
+    el_bazar: el-bazar
+    contact_elbazar: contacto-el-bazar
+    women_clothing_menu: ropa-de-mujer
+    campaign: concurso
+    purchases: compras
+    user_profile: perfil
+    blog: revista-de-matrimonio
+    posts: reportaje
+    wedding_dress_menu: menu-vestidos-de-novia
+    watch: ver
+    suppliers: destacados
+    products_and_services: productos-y-servicios
+    with_or_without_account: todos
+    wedding_dress_stores: tiendas-vestidos-novias
+    supplier_calendar: calendario
+    supplier_description: presentacion
+    supplier_contacts: contacto
+    supplier_products_and_services: productos-y-servicios
+    supplier_reviews: comentarios-y-referencias
+    conversations: mensajes
+    contacts: contacto
+    faqs: preguntas-y-respuestas
+    description: descripcion
+    Fiesta: vestidos-de-fiesta
+    Novia: vestidos-de-novia
+    company: sobre-la-empresa
+    como_nace: historia
+    press: prensa
+    work_with_us: ofertas-de-trabajo
+    faq: preguntas-frecuentes
+    terms: terminos-y-condiciones
+    user_conversations: compras-y-mensajes
+    show_for_user: ver-compra
+    view: ver
+    ceremonies: ceremonias-matrimonio
+    places: lugares
+    tips: datos
+        

@@ -1,0 +1,71 @@
+<%= content_for :box_content do %>
+
+	<div style="margin:10px 0px 0px 100px; width:750px;">
+		<!-- SIGN IN -->
+		<div style="margin:10px; color:black;  float:left; width:350px; border-right:1px solid black;">
+			<div>
+				<div style="font-size:16px;	color:#0071BC; margin-left:20px">
+					<b>¿Ya estás registrado?</b>
+				</div>
+				<div style="margin-top:20px">
+				<div style="margin-bottom:20px; margin-left:20px"><b>Ingresa</b> usando tu cuenta de Facebook o Google</div>
+				<%- if devise_mapping.omniauthable? %>
+					<%- devise_mapping.to.omniauth_providers.each do |provider| %>
+						<div style="margin-left:20px; display:inline">
+							<%= link_to image_tag('sign_in/sign_in_'+provider.to_s+'.png'), omniauth_authorize_path(resource_name, provider), :class => [provider.to_s.titleize, 'image_button'] %>
+						</div>
+					<% end -%>
+				<% end -%>
+				</div>
+			</div>
+			<div style="margin:20px 0px 20px 20px">
+				o <b>entra</b> con tu usuario y clave Matriclick:<br /><br />
+				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+					Correo <%= f.email_field :email, :placeholder => t('email'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
+					Clave <%= f.password_field :password, :placeholder => t('password'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
+					<%= f.submit 'Ingresar a Matriclick', :class => "sign_in_tab_button" %>			
+				<% end %>
+			</div>
+		</div>
+		<!-- EOF SIGN IN -->
+		
+		<!-- REGISTRO -->
+		<div style="margin:10px; color:black;  float:left; width:350px;">
+			<div>
+				<div style="font-size:16px; margin-left:20px">
+					¿No tienes tu cuenta creada?
+				</div>				
+				<div style="margin-top:20px">
+					<div style="margin-bottom:20px; margin-left:20px"><b>Regístrate</b> usando tu cuenta de Facebook o Google</div>
+				<%- if devise_mapping.omniauthable? %>
+					<%- devise_mapping.to.omniauth_providers.each do |provider| %>
+						<div style="margin-left:20px; display:inline">
+							<%= link_to image_tag('sign_in/sign_in_'+provider.to_s+'.png'), omniauth_authorize_path(resource_name, provider), :class => [provider.to_s.titleize, 'image_button'] %>
+						</div>
+					<% end -%>
+				<% end -%>
+				</div>
+			</div>
+			<div style="margin:20px 0px 20px 20px">
+				o <b>crea</b> un nuevo usuario y clave Matriclick:<br /><br />
+				<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+					Correo <%= f.email_field :email, :placeholder => t('email'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
+					Clave <%= f.password_field :password, :placeholder => t('password'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
+					<%= f.submit 'Crear una nueva cuenta en Matriclick', :class => "sign_in_tab_button" %>			
+				<% end %>
+			</div>
+		</div>
+		<!-- EOF REGISTRO -->	
+		<div class="clear"></div>	
+	</div>
+	
+	<div class="clear"></div>	
+	<br />
+	<br />
+	<div class="bottom_links">
+		<div class="box_nine_six_cero center">
+			<%= render :partial => "/users/shared/links" %>	
+		</div>
+	</div>
+<% end %>
+<%= render "layouts/login_layout" %>

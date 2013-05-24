@@ -1,0 +1,6 @@
+
+<%= form_for invitee_group, :remote => true do |f| %>
+	<% f.label :name, "Name" %>
+	<%= f.text_field :name %>
+	<%= f.submit :class => "small_button" %>
+<% end %>

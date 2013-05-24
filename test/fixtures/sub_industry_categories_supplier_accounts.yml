@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sub_industry_category_id: 1
+  supplier_account_id: 1
+
+two:
+  sub_industry_category_id: 1
+  supplier_account_id: 1

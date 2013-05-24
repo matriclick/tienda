@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  vote_count: 1
+  supplier_account_id: 1
+  matri_dream_ic_id: 1
+
+two:
+  vote_count: 1
+  supplier_account_id: 1
+  matri_dream_ic_id: 1

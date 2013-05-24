@@ -1,0 +1,32 @@
+<h1>Detalle de la actividad</h1>
+
+<%= '<b>Matriclicker:</b> '.html_safe+@matriclicker.name if defined? @matriclicker %>
+<br /><br />
+<b>Tipo de Actividad:</b> <%= @activity_type.name %>
+<br /><br />
+<b>Desde:</b> <%= @from.to_date.strftime("%d %B %Y") %>
+<br /><br />
+<b>Hasta:</b> <%= @to.to_date.strftime("%d %B %Y") %>
+<br /><br />
+
+<table style="width:900px">
+	<tr>
+		<th>Tipo de actividad</th>
+		<th>Matriclicker</th>
+		<th>Fecha</th>
+		<th>Lead</th>
+		<th>Comentarios</th>
+	</tr>
+	<% @challenge_activities.each do |activity| %>
+	<tr>
+		<td><%= activity.challenge_activity_type.name %></td>
+		<td><%= activity.matriclicker.name %></td>
+		<td><%= activity.created_at.strftime("%A %d %B %Y a las %H:%M:%S") %></td>
+		<td><%= link_to activity.challenge.lead.name, activity.challenge.lead, :style => 'text-decoration:underline' %></td>
+		<td><%= raw(activity.comments.gsub(/\n/, '<br/>')) %></td>
+	</tr>
+	<% end %>
+</table>
+
+<br /><br />
+<%= link_to 'Volver al reporte comercial', reports_salestool_path %>

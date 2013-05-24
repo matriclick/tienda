@@ -1,0 +1,83 @@
+<%= form_for @invitee, :remote=>true do |f| %>
+	<div id="error_explanation" style=display:none></div>
+
+<div style="width:450px; ">
+	
+</div>
+<div class="left_side">
+<table class="invisible">
+	<tr>
+		<td><%= f.label :name %><%= mark_required @invitee, :name %><br />
+		<%= f.text_field :name %></td>
+	</tr>
+	<tr>	
+		<td><%= f.label :lastname_p %><%= mark_required @invitee, :lastname_p %><br />
+		<%= f.text_field :lastname_p %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :lastname_m %><br />
+		<%= f.text_field :lastname_m %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :email %><br />
+	    <%= f.text_field :email %></td>
+	</tr>
+	<tr>	
+		<td><%= f.label :phone_number %><br />
+	    <%= f.text_field :phone_number,:size=>10 %></td>
+	</tr>
+</table>
+
+		<% if params[:action] == "new" || params[:action] == "create" %>
+			<%= render 'newform', :f=>f  %>
+		<% end %>
+	
+		<% if params[:action] == "edit" || params[:action] == "update" %>
+			<%= render "editform", :f=>f %>
+		<% end %>
+
+
+
+<div class="left_side check_box_padding left_border border_height">
+	<%= f.label :age_id %><br />
+	<%= f.collection_select(:age_id, Age.order(:id), :id, :range) %>
+<br />
+<br />
+	<%= f.label :gender_id %><br />
+	<%= f.collection_select(:gender_id, Gender.order(:id), :id, :gender) %>
+<br />
+<br />
+	<%= f.label :status_id %><br />
+	<%= f.collection_select(:status_id, Status.order(:id), :id, :status) %>
+<br />
+<br />
+	<%= f.label :couple_id %><br />
+	<%= f.collection_select(:couple_id, Couple.order(:id), :id, :name) %>
+<br />
+<br />
+	<%= f.label :invitee_group_id %> | <%= link_to_function t('edit_invitee_groups'),"$.fancybox.pos(1)", :class => :small %><br/>
+	<%= collection_select(:invitee, :invitee_group_id, @inviteegroup, :id, :name)%>
+<br />	
+<br />
+	<%= f.label :invitee_host_id%><br />
+	<%= f.collection_select(:invitee_host_id, InviteeHost.order(:id), :id, :name) %>
+<br />
+<br />
+	<%= f.label :invitee_role_id, t('activerecord.models.invitee_role') %><br />
+	<%= f.collection_select(:invitee_role_id, InviteeRole.order(:id), :id, :name, :prompt=>t('select')) %>
+	<br/>
+	
+<table class="invisible">
+	<tr>
+		<td><%= f.label :confirmed %>
+		<%= f.check_box :confirmed %></td>
+	</tr>
+</table>
+</div>
+
+<div class="holder clear margin-top">
+   	<%= f.submit :class => 'button' %>  <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+</div>
+<div class="clear"></div>
+<% end %>
+

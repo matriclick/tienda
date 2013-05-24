@@ -1,0 +1,33 @@
+<h1 style="text-transform:uppercase;"><%= type.name.gsub('-', ' ') %></h1>
+<h2><%= dress.introduction %></h2>
+
+<div style="margin:0px 0px 20px 10px">
+	<%= "#{number_to_currency dress.price}" %>
+	<% if dispatch_cost_apply(dress) %>
+		<%= ' + ' %>
+		<%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %>
+	<% end %>
+	<% if dress.has_stock? and dress.supplier_account.supplier_account_type.name != 'Tu Casa' %>
+		<br />
+		<br />
+		Tallas disponibles:<br />
+		<ul>
+			<% dress.dress_stock_sizes.each do |dress_stock_size| %>
+				<% if !dress_stock_size.stock.blank? %>
+					<% if dress_stock_size.stock > 0 %>
+						<li style="margin-left:10px;"><%= dress_stock_size.size.name %></li>
+					<% end %>
+				<% end %>
+			<% end %>
+		</ul>
+	<% end %>
+</div>
+<span class="selected" onclick="dress_menu('description','cares','returns',this)">
+	DETALLE
+</span>
+<span class="not_selected" style="margin-left:20px" onclick="dress_menu('cares','description','returns',this)">
+	CUIDADOS
+</span>
+<span class="not_selected" style="margin-left:20px" onclick="dress_menu('returns','description','cares',this)">
+	CAMBIOS, PRUEBAS & DEVOLUCIONES
+</span>

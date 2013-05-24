@@ -1,0 +1,13 @@
+<div class="right_link">
+	<%= link_to t('back'), tips_path(:ceremony_type_name => @tip.ceremony_type.name), :class => :button %>
+</div>
+<div class="titulos">
+	Edit tip
+</div>
+<div class="box">
+	<%= form_for @tip, :method => :put, :url => tip_path(:ceremony_type_id => @ceremony_type.id, :id => @tip.id) do |f| %>
+		<%= render 'edit_form' %>
+	<% end %>
+	<br />
+	<br />
+</div>

@@ -1,0 +1,57 @@
+<table width="650" align="center" style="font-size: 14px;" cellpadding="0" cellspacing="0">
+	<tr id="topshadow">
+		<td height="10" width="10" background="http://www.matriclick.com/images/emails/shadow_tl.gif" bgcolor="#ffffff"></td>
+		<td height="10" background="http://www.matriclick.com/images/emails/shadow_top.gif" bgcolor="#ffffff"> </td>
+		<td height="10" width="10" background="http://www.matriclick.com/images/emails/shadow_tr.gif" bgcolor="#ffffff"> </td>
+	</tr>
+	<tr id="header">
+		<td width="10" background="http://www.matriclick.com/images/emails/shadow_left.gif" bgcolor="#ffffff" rowspan="2"></td>
+		<td height="102" bgcolor="#ffffff" align="center">
+			<table width="95%"><tr>
+				<td align="left">
+					<img src="http://www.matriclick.com/images/emails/logo_matriclick_sin_caja.png" alt="Matriclick.com">
+				</td>
+			</tr></table>
+		</td>
+		<td width="10" background="http://www.matriclick.com/images/emails/shadow_right.gif" bgcolor="#ffffff" rowspan="2"> </td>
+	</tr>
+	<tr id="content">
+		<td bgcolor="#eee" align="center">
+			<table width="95%" cellpadding="30">
+				<tr>
+					<td align="left">
+						<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+							Hola <%= @supplier_account.fantasy_name || "Proveedor" %>,<br/><br/>
+							¡Has recibido un mensaje sobre <strong><%= @conversation.conversable.name %></strong>!<br/><br/>
+							<p style="color:#aaa;">
+								<%= @user.email %> dijo:
+							</p>
+							<i style="color:#999;">
+								<%= if (string = @message.content).length > (length = 140)
+									string[0..length-1]+"..."
+								else
+									string
+								end %>
+							</i><br/><br/>
+							<p style="color:#444;">Revisa tu <%= link_to "lista de mensajes", conversations_supplier_account_url(@supplier_account.supplier), :style => "color:#0071BC;text-decoration:none;" %>.</p><br/>
+							Saludos,<br>
+							- Equipo Matriclick<br/><br/>
+						</font>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr id="bottomshadow">
+		<td height="10" width="10" background="http://www.matriclick.com/images/emails/shadow_bl.gif" bgcolor="#ffffff"></td>
+		<td height="10" background="http://www.matriclick.com/images/emails/shadow_bottom.gif" bgcolor="#ffffff"> </td>
+		<td height="10" width="10" background="http://www.matriclick.com/images/emails/shadow_br.gif" bgcolor="#ffffff"> </td>
+	</tr>
+	<tr id="copyright">
+		<td></td>
+		<td align="right">
+			<span style="font-family: 'Lucida Grande', 'Segoe UI', Arial, Verdana, 'Lucida Sans Unicode', Tahoma, 'Sans Serif'; font-size: 11px; color: #888;">&copy;&nbsp;2011&nbsp;Matriclick</span>
+		</td>
+		<td></td>
+	</tr>
+</table>

@@ -1,0 +1,12 @@
+<% @posts.each do |post| %>
+	<div class="post">
+		<%= image_tag post.main_image.url(:thumb) if post.main_image.present?%>
+		
+		<h3><%= link_to post.title, post_path(post) %></h3>
+		
+		<span class="date"><%= l post.created_at.to_date %></span>
+		
+		<%= simple_format crop_if_longer(strip_tags(post.introduction), 120) %><%= link_to "Leer más", post_path(post) %>
+		
+	</div>
+<% end -%>

@@ -1,0 +1,52 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					<strong><%= @user_account.get_wedding_first_name %></strong><br/><br/>
+					Les deseamos lo mejor en esta etapa y les agradecemos haber confiado en nosotros.<br/>							
+					Su opinión es muy importante, y no hay mejor recomendación que la que viene de un novio, es por esto que les pedimos que nos dejen sus comentarios sobre los proveedores de su matrimonio para que otros novios pueda confiar en ellos.
+					<br/><br/>
+					Estos son los proveedores contratados por ustedes, ¡llego la hora de la verdad!
+					<table class="invisible">
+						<% @supplier_accounts.each do |supplier_account| %>
+							<tr>
+								<td><%= supplier_account.fantasy_name %></td>
+								<td>
+									<%= supplier_account.corporate_name %><br/>
+									<%= supplier_account.web_page %><br/>
+									<% if !@supplier_account.address.nil? %>
+										<% if !@supplier_account.address.street.blank? %>
+											<%= @supplier_account.address.street + (@supplier_account.address.number.blank? ? '' : ' ' + @supplier_account.address.number) %><br/>
+										<% end %>
+									<% end %>
+									<%= supplier_account.phone_number %>
+								</td>
+							</tr>
+						<% end %>
+					</table><br/>
+					
+					<p style="color:#444;">
+						
+						Para llenar el formulario de recomendaciones entra <%= link_to "aquí", reviews_index_url(:country_url_path => 'chile'), :style => "color:#0071BC;text-decoration:none;" %>.
+						<!--	AMK 2012-11-29: Al parecer after_wedding_email cayó en desuso, ya que no existe esta acción en "app/mailers/user_mailer.rb". Por esto puse 'chile' en bruto arriba.
+								En caso que se use nuevamente, se debe:
+						
+									1.-Borrar la línea de arriba (la con :country_url_path => 'chile')
+									2.-Descomentar la de abajo (la con :country_url_path => @country_url_path)
+									3.-Crear la acción after_wedding_email en "app/mailers/user_mailer.rb"
+									4.-Dar valor a @country_url_path en la acción creada en 3
+							
+								Para llenar el formulario de recomendaciones entra <%= # link_to "aquí", reviews_index_url(:country_url_path => @country_url_path), :style => "color:#0071BC;text-decoration:none;" %>.
+						-->
+					</p>
+					<br/>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

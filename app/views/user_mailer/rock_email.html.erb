@@ -1,0 +1,25 @@
+<% content_for :content do %>
+<table cellpading="0" cellspacing="0">
+	<tr>
+		<td colspan="2" style="padding:0;">
+			<img src="http://www.matriclick.com/images/emails/la_roca<%= @rock.gender.gender == "H" ? "1" : "_m" %>.png" alt="">
+		</td>
+	</tr>
+	<tr>
+		<td style="padding:0;"><img src="http://www.matriclick.com/images/emails/la_roca2.png" alt=""></td>
+		<td  style="font-size:11px;padding:0px 5px;background-color:#f4f4f4;background:url('http://www.matriclick.com/images/emails/background_mailing_roca.jpg');color:#444;">
+			<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+				Hola <strong><%= @rock.recipient_name %></strong><br/><br/>
+				Los rumores dicen que <%= @rock.gender.gender == "H" ? "ya es tiempo de soltar la roca" : "este año el ramo te llega a ti" %>!
+				<br/><br/>
+				Aprovecha ahora que <strong>Matriclick junto a Novios Paris</strong> te regalan un matrimonio.
+
+				Puedes ir a la campaña haciendo click <strong><%= link_to "aquí", campaign_winners_url(:country_url_path => @country_url_path) %></strong>.<br><br/>
+				Tu amigo, <strong><%= @rock.sender_name %></strong>.
+			</font>
+		</td>
+	</tr>
+</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

@@ -1,0 +1,136 @@
+<%= nested_form_for(@contract,:html => { :multipart => true }) do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.hidden_field :lead_id, :value => @lead.id %>
+  </div>
+  <b>Datos del contrato</b>
+ <hr>
+  <div class="field">
+    <%= f.label :matriclicker_id, 'Propietario del contrato' %>	<%= f.collection_select :matriclicker_id, Matriclicker.order('name ASC'), :id, :name, :prompt => "Select", :allow_blank => false %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :contract_type_id, 'Tipo de contrato' %> <%= f.collection_select :contract_type_id, ContractType.all, :id, :name, :prompt => "Select", :allow_blank => true %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :signature_date, 'Fecha de firma' %> <%= f.text_field :signature_date %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :start_contract_date, 'Fecha de inicio del contrato' %> 
+	<%= f.text_field :start_contract_date, :onchange =>"invoice_start(this.value);" %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :end_contract_date, 'Fecha de término del contrato' %> 
+<%= f.text_field :end_contract_date, :onchange =>"invoice_end(this.value);" %>
+  </div>
+	<br />
+  <div class="field">
+    <%= f.label :price, 'Precio (en U.F)' %> <%= f.text_field :price %>
+	<div class="help_tip">
+		Importante: separar la parte decimal con punto.
+	</div>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :commission, 'Comisión (%)' %> <%= f.text_field :commission %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :vat_free, '¿Factura excenta de IVA?' %> <%= f.check_box :vat_free %>
+	<div class="help_tip">
+		Por defecto todos los contratos <b>no son excentos</b> de IVA. <br />
+		Solo en casos excepcionales se puede no cobrar, como cuando realizamos una asesoría
+		 de imagen o gestión. Si un contrato es excento de IVA, debe tener la aprobación por escrito en un correo de Hans o Rodrigo.
+	</div>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :discount, 'Descuento (%)' %> <%= f.text_field :discount %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :discount_start, 'Descuento comienza el:' %> <%= f.text_field :discount_start %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :discount_end, 'Descuento termina el:' %> <%= f.text_field :discount_end %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :quotas, 'Cantidad de cuotas en las que se pagará el contrato:' %> <%= f.text_field :quotas %>
+	<div class="help_tip">
+		Aplica solo para la parte fija
+	</div>
+  </div>
+  <hr>
+  <br /> <br />
+  <b>Datos de facturación</b>
+ <hr>
+ <div class="field">
+    <%= f.label :contract_state_id, 'Estado del contrato' %> <%= f.collection_select :contract_state_id, ContractState.all, :id, :name, :prompt => "Select", :allow_blank => true %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :invoice_rut, 'RUT para facturar' %> <%= f.text_field :invoice_rut %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :invoice_from, 'Comenzar a facturar el:' %> <%= f.text_field :invoice_from %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :invoice_to, 'Facturar hasta el:' %> <%= f.text_field :invoice_to %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :invoice_mailing, 'Correos a los que se enviará la factura (separar por coma)' %><br />
+    <%= f.text_area :invoice_mailing, :size => '2x2' %>
+  </div>
+  <br /> <br />
+  <b>Archivos adjuntos:</b>
+  <hr>
+  <div class="field">
+		<%= f.fields_for :attached_files do |attached_file_form| %>
+		<div>
+			<%= attached_file_form.file_field :attached %> <%= attached_file_form.link_to_remove "✘", :title => t('remove') %>
+		</div>
+		<% end %>
+		<%= f.link_to_add 'Agregar contrato adjunto', :attached_files %>
+  </div>
+  <hr>
+  <br />  <br />
+  <div class="field">
+    <%= f.label :read_comments_before_invoice, '¿Revisar comentarios antes de facturar?' %> <%= f.check_box :read_comments_before_invoice %>
+	<div class="help_tip">
+		Solo marcar cuando es muy importante que se revisen antes de emitir una factura. Recordar que revisar esto quita tiempo y hace más 
+		lento el proceso de cobranzas.
+	</div>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :comments, 'Comentarios (poner todo el detalle extra que sea relevante)' %><br />
+    <%= f.text_area :comments %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :expiration_comment, 'Comentario de expiración (poner consideraciones sobre la expiración del contrato)' %><br />
+    <%= f.text_area :expiration_comment %>
+  </div>
+  <br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

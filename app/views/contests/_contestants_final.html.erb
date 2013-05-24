@@ -1,0 +1,17 @@
+<div class="contests_albums_photo albums_photo">
+	<%= image_tag(@contest_travelite.contest_travelite_image(:contest_travelite_big), :alt => @contest_travelite.photo_name) %>
+	<% if !@contest_travelite.photo_name.blank? %>
+		<div class="albums_text">
+			<div class="contests_albums_h1">
+				<%= @contest_travelite.photo_name.truncate(30) %><br/>						
+			</div>
+			<div class="contests_albums_h2">
+				<%= @contest_travelite.bride_name.truncate(30) %><br/>
+			</div>
+		</div>
+	<% end %>
+	</br>
+	<div class="cuenta_votos">
+		<%= pluralize(@contest_travelite.vote_count, "Voto") %> <br />
+	</div>
+</div>

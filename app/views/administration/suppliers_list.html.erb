@@ -1,0 +1,62 @@
+<div class="right_link">
+	<%= link_to 'Volver al menú', administration_index_path(), :class => :button  %>
+</div>
+
+<h1>Listado de cuentas de proveedores</h1>
+
+<table class="invisible">
+	<tr>
+	    <% if params[:filter] == "All" %>	
+			<td><%= link_to 'Ver todos', administration_suppliers_list_path(:filter => "All"), :class => 'red_button'  %></td>
+		<% else %>
+			<td><%= link_to 'Ver todos', administration_suppliers_list_path(:filter => "All"), :class => 'button' %></td>
+		<% end %>
+	    <% if params[:filter] == "Active" %>	
+			<td><%= link_to 'Ver activos', administration_suppliers_list_path(:filter => "Active"), :class => 'red_button' %></td>
+		<% else %>
+			<td><%= link_to 'Ver activos', administration_suppliers_list_path(:filter => "Active"), :class => 'button' %></td>
+		<% end %>
+		<% if params[:filter] == "Inactive" %>	
+			<td><%= link_to 'Ver inactivos', administration_suppliers_list_path(:filter => "Inactive"), :class => 'red_button' %></td>
+		<% else %>
+			<td><%= link_to 'Ver inactivos', administration_suppliers_list_path(:filter => "Inactive"), :class => 'button' %></td>
+		<% end %>
+	</tr>
+</table>
+<br />
+<%= form_tag(administration_suppliers_list_path, :method => "get") do %>
+	<%= text_field_tag(:q, @search_term, :style => 'width:200px') %> <%= submit_tag("Buscar") %> <i>| Nombre de Proveedor | Tipo de Proveedor |</i>
+<% end %>
+<br />
+<table style="width:950px">
+	<tr>
+		<th>Email</th>
+		<th>Nombre Cuenta</th>
+		<th>Tipo de Cuenta</th>
+		<th>¿Aprobado Proveedor?</th>
+		<th>¿Aprobado Matriclick?</th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</tr>
+	<% @suppliers.each do |supplier| %>
+		<tr>
+		    <% if params[:filter] == "Active" %>
+				<% if supplier.supplier_account.present? %>
+		    		<% if supplier.supplier_account.approved_by_us == true %>			
+						<%= render "admin_supplier", :supplier => supplier %>
+					<% end %>
+				<% end %>
+		    <% elsif params[:filter] == "Inactive" %>
+				<% if supplier.supplier_account.present? %>
+		    		<% if supplier.supplier_account.approved_by_us != true %>			
+						<%= render "admin_supplier", :supplier => supplier %>
+					<% end %>
+				<% end %>
+		    <% else %>
+				<%= render "admin_supplier", :supplier => supplier %>
+		    <% end %>
+		</tr>
+	<% end %>
+</table>

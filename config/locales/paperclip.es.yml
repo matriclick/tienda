@@ -1,0 +1,7 @@
+# translation in spanish for paperclip
+
+es:
+  paperclip:
+    errors:
+      attachment:
+        content_type: "inválido"

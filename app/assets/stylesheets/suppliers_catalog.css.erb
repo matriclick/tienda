@@ -1,0 +1,45 @@
+// Place all the styles related to the suppliers_catalog controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.share_product {
+	float:left;
+	margin:10px 0 0 0;
+}
+
+.line {
+	border-bottom:1px solid #ccc;
+}
+
+.supplier_page_star_rating{
+	float:right;
+}
+
+
+/* star rating system*/
+
+/* progress bar */
+
+.star-rating-wrap{
+    position: relative;
+}
+
+.star-rating-wrap, .star-rating-value, .star-rating-text {
+    /* The width and height of your image */
+    width: 130px; height: 30px;
+}
+
+.star-rating-wrap, .star-rating-value {
+    background:url(<%= asset_path("estrellas.png") %>) no-repeat;
+}
+            
+.star-rating-text {
+    position: absolute;
+    top:0; left:0;
+
+    padding-top: 5px;
+                
+    color: #fff;
+    text-align: center;
+    width: 100%;
+}

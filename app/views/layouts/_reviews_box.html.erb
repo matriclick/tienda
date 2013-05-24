@@ -1,0 +1,31 @@
+<div id="reviews_box">
+	<div style="text-align:right; margin-bottom:0px;">
+		<% if user_signed_in? and current_user.role_id != 3 %>
+			<%= link_to image_tag('dejatucomentario.jpg', :alt => 'comentarios'), reviews_index_path(id: supplier_account.id), :id => :form_inline_review %>				
+		<% else %>
+			<%= link_to image_tag('dejatucomentario.jpg', :alt => 'comentarios'), user_sign_up_path %>
+		<% end %>
+	</div>
+	<div style="border:1px solid #ccc; <%= "background:#eee;" if reviews.blank? %>">
+	<% unless reviews.blank? %>
+	  <% for review in reviews.reverse[0..4] %>
+	    <div class="review">
+	    	<div class="stars_wrap" style="">
+					<div class="stars" style="background-color: #FCDD3B;width: <%= review.star_rating.value * 100 / 5  if review.star_rating.present? %>%;"></div>
+					<div class="stars" style="background-color: #dedede; width: <%= (100 - (review.star_rating.value * 100 / 5))  if review.star_rating.present? %>%;"></div>
+					<span class="date"><%= l review.created_at.to_date %></span>
+				</div>
+				<p><%= link_to (sanitize crop_if_longer review.content, 400), supplier_reviews_path(reviews.first.reviewable.supplier, :public_url => reviews.first.reviewable.public_url) %></p>
+	    </div>
+	  <% end %>
+	<br />
+			<div class="review">
+				<p style="text-align:center;"><b><%= link_to "Ver todos los comentarios ("+reviews.first.reviewable.supplier.supplier_account.reviews.approved.count.to_s+")", supplier_reviews_path(reviews.first.reviewable.supplier, :public_url => reviews.first.reviewable.public_url) %> </b></p>
+			</div>			
+	<% else %>
+	  <div class="review">
+	  	<p style="margin:200px auto;text-align:center;">¿Has asistido a algún matrimonio en el que utilizaran este servicio?<br><br> ¿Estuvo en tu matrimonio?<br><br> ¡Cuéntanos tus comentarios y ayuda a los novios que vienen a hacer de su matrimonio perfecto!</p>
+	  </div>
+	<% end %>
+	</div>
+</div>

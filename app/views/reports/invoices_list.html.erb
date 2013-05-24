@@ -1,0 +1,48 @@
+<h1>Lista de Facturas</h1>
+<%= render 'date_range_selector' %>
+
+<table style="width:950px">
+  <tr>
+    <th>Lead</th>
+    <th>#Contrato</th>
+    <th>Fecha</th>
+    <th>#Factura</th>
+    <th>Precio Neto</th>
+    <th>IVA</th>
+    <th>Total</th>
+    <th>Correo enviado?</th>
+    <th>Fecha envío</th>
+    <th>Pagado?</th>
+    <th>Fecha pago</th>
+    <th></th>
+  </tr>
+
+<% @invoices.each do |invoice| %>
+	<% if !invoice.contract.nil? %>
+	  <tr>
+	    <td><%= link_to invoice.contract.lead.name, invoice.contract.lead %></td>
+	    <td style="text-align:center"><%= link_to invoice.contract_id, invoice.contract %></td>
+	    <td><%= invoice.issued_date.strftime("%d %b %Y") %></td>
+	    <td style="text-align:center"><%= invoice.number %></td>
+	    <td><%= number_to_currency invoice.net_price %></td>
+	    <td><%= number_to_currency invoice.vat %></td>
+	    <td><%= number_to_currency(invoice.vat + invoice.net_price) %></td>
+	    <td style="text-align:center"><%= invoice.collection_mail_sent ? "✔" : '✘' %></td>
+	    <td><%= invoice.date_collection_mail_sent.strftime("%d %b %Y") if !invoice.date_collection_mail_sent.nil? %></td>
+	    <td style="text-align:center"><%= invoice.paid ? "✔" : '✘' %></td>
+	    <td><%= invoice.pay_date.strftime("%d %b %Y") if !invoice.pay_date.nil? %></td>
+	    <td><%= link_to 'Show', invoice %></td>
+	  </tr>
+	<% else %>
+	<tr>
+		<td colspan="12">
+			Error - Factura <%= invoice.number %> no tiene contrato (id <%= invoice.id %>)
+		</td>
+	</tr>
+	<% end %>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Reporte de cobranzas',  reports_collections_path %> | <%= link_to 'Administrador',  administration_index_path %>

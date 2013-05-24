@@ -1,0 +1,12 @@
+$(function(){
+	$('#right_arrow').hover(
+			function(){
+				$(this).find('.explanation').fadeToggle();
+			}
+		);
+	$('.navigation_arrow').hover(
+			function(){
+				$(this).find('.grid').fadeToggle();
+			}
+		);
+});

@@ -1,0 +1,41 @@
+<div class="right_link">
+	<%= link_to 'Volver a ver todos los Reviews', administration_reviews_path(), :class => :button %>
+</div>
+
+<%= form_for @review, :url => administration_update_review_path(@review) do |f| %>
+
+	<div class="review_star_rating_system">
+		<h3>¿Cuánto te gustó?</h3>
+			<ul class="rating">
+				<% form_id = "#{@review.id}" %>
+				<%= f.fields_for :star_rating do |star| %>
+					<%= star.hidden_field :value, :value => @review.star_rating.value, :id => form_id + "_stars", :class => "rating_value" %>
+						<% (1..5).each do |i| %>
+							<li id="<%= form_id %>_<%= i %>" class="rating_star" data-stars= "<%= i %>" data-form-id="<%= form_id %>"></li>
+						<% end %>
+				<% end %>
+			</ul>
+	</div>
+	<div>
+		<%= f.check_box :approved_by_admin %>Aprobada?
+	</div>
+	<div class="review_form">
+		<h3>Por favor deja un comentario</h3>
+		<table class="invisible">
+			<tr>
+				<td>
+					<%= label_tag :tip, "Tips: ¿Te gustó? ¿Por qué? ¿Lo recomendarías?", :class => "help_tip" %>
+					<%= f.text_field :reviewable_type, :hidden => true, :value => "#{@supplier_account.class}"%>
+					<%= f.number_field :reviewable_id, :hidden => true, :value => "#{@supplier_account.id}"%>
+					<%= f.text_area :content, :size => "40x4" %>
+				</td>
+				<td style="width:23%;">
+					<%= f.submit t("send"), :class => :button %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="clear">
+		
+	</div>
+<% end -%>

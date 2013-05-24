@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  supplier_account_id: 1
+  industry_category_id: 1
+  visible: false
+
+two:
+  name: MyString
+  supplier_account_id: 1
+  industry_category_id: 1
+  visible: false

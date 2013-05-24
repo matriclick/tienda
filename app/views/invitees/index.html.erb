@@ -1,0 +1,44 @@
+<div id="invitees_table">
+	<div class="right_link">
+		<% if current_user.role_id == 3 -%>
+			<%= link_to t('new_invitee'), "#sign_in_fancybox" , :id => "fancybox_form", :class => "button" %>
+			<%= render "layouts/sign_in_fancybox" %>
+		<% else -%>
+			<%= link_to t('new_invitee'), new_invitee_path, :id=> 'fancybox_form_with_dropdowns', :class => :button, :link => true, :rel=>'inv' %>
+		<% end -%>
+		<%= link_to t('invitee_groups'), invitee_groups_path, :id=>'fancybox_form', :class=>:button%>
+		
+		
+		<%= link_to t('statistics'), statistics_invitees_path, :class => :button %>
+		
+		<!-- Invisible Link to display when used from fancybox -->
+		<%= link_to '', invitee_groups_path(:fancy=>true), :id=>'fancybox_form_gallery',:rel=>'inv'%>
+
+	</div>
+	<div class="titulos">
+		<%= t('listing_invitees') %>
+	</div>
+	<div class="box">
+		<%= form_tag invitees_path, :method => 'get', :id => "invitees_search" do %>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag t("search"), :name => nil %>
+		<% end %>
+		
+		<div style="float:right; margin:-15px 25px 0px 0px;">
+			<%= link_to t('import_invitees'), matrisheet_upload_path %> | 
+			<%= link_to t('export_invitees'), matrisheet_download_path, :target=>'_blank', :confirm=>t('confirm_export')%> | 
+			<%= link_to t('all_invitees'), invitees_path %>
+		</div>
+	<br />
+	<div id="invitees">
+		<%= render 'invitees' %>
+	</div>
+	</div>
+</div>
+
+<script>
+var previous_fancybox;
+var previous_string_values = new Array();
+var previous_id_values = new Array();
+var use_saved = false;
+</script>

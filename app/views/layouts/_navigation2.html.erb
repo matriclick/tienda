@@ -1,0 +1,163 @@
+<div class="navigation">
+	<div class="navigation_links">
+		<div class="nav_home"><%= session[:preview] == true ? (image_tag('home.png')) : (link_to image_tag('home.png'), root_country_path) %></div>
+		<% route = request.url %>
+		<% route_2 = route.gsub('http://','') %>
+		<% links = route_2.split('/') %>
+		<% links.delete_at(0) %>
+		<% total = ' ' %>
+
+		<% if route_2.include?('suppliers') and !route_2.include?('products_and_services_catalog') %>
+			<div class="nav_link_arrow"><%= t('suppliers_catalog') %></div>
+			<div class="nav_link_arrow"><%= links[0] %></div>
+		<% else %>
+
+			<% links.each_with_index do |link_chunk,index| %>
+				<% total += '/' + link_chunk.to_s %>
+
+		<!-- block  this if block provides easy breadcrumbs for invitees,budget and expenses modules instead of nesting resources-->
+				<% if link_chunk == 'invitees' %>
+						<div class="nav_link_arrow">
+							<%= link_to t('invitees_menu'), invitees_menu_path %>
+						</div>
+				<% elsif link_chunk.to_s == 'budget' %>
+					<div class="nav_link_arrow">
+							<%= link_to t('budget_menu'), budget_menu_path %>
+					</div>
+				<% elsif link_chunk.to_s == 'expenses' %>
+				  <div class="nav_link_arrow">
+							<%= link_to t('budget_menu'), budget_menu_path %>
+					</div>
+				<% end %>
+		<!-- end-->
+		
+		<!-- FGM: Format for bookings -->
+				<% if link_chunk.include?('.') && ["Product", "Service"].include?(link_chunk.split(".")[0]) %>
+					<% object = eval("#{link_chunk.split('.')[0]}.find(#{link_chunk.split('.')[1]})") %>
+					<% if object.industry_category.present? %>
+						<div class="nav_link_arrow"><%= session[:preview] == true ? (object.industry_category.get_name) : (link_to object.industry_category.get_name, '/products_and_services_catalog/index?industry_category_ids='+object.industry_category_id.to_s+'&watch=products_and_services') %></div>
+					<% end %>
+					<div class="nav_link_arrow">
+						<%= link_to crop_if_longer(object.name, 20), products_and_services_catalog_description_path(object, :object_class => object.class) %>
+					</div>
+					<div class="nav_link_arrow">
+						Reservas
+					</div>
+					<% break %>
+				<% end %>
+
+		<!--Formatting for products and services industry category-->
+				<% if link_chunk.include?('?') && link_chunk.include?('industry') %>
+					<div class="nav_link_arrow">
+						<%= IndustryCategory.find(link_chunk.split('=')[1].to_i).name unless IndustryCategory.find(link_chunk.split('=')[1].to_i).nil? %>
+					</div>
+					<% break %>
+				<% end %>
+		<!--end-->
+
+		<!--formatting for checklist edit and reminders-->
+				<% if link_chunk.include?('?') %>
+						<div class="nav_link_arrow">
+							<%= t(link_chunk.split('?')[0].to_s) %>
+						</div>
+						<% break %>
+				<% end %>
+		<!--end-->
+
+		<!--user_account edit other users-->
+			<% if link_chunk == 'users' %>
+				<div class="nav_link_arrow">
+					<%= t('edit_user') %>
+				</div>
+				<% break %>
+			<% end %>
+		<!--end-->
+
+		<!--user_account edit other users-->
+			<% if link_chunk == 'edit_user' %>
+				<div class="nav_link_arrow">
+					<%= t(link_chunk) %>
+				</div>
+				<% break %>
+			<% end %>
+		<!--end-->
+
+		<!--specific product and services catalog-->
+				<% if total.include?('service') && link_chunk.to_i>0  %>
+					<% if @object.class.to_s == "Product" -%>
+						<% o = Product.find(link_chunk) %>
+					<% elsif @object.class.to_s == "Service" -%>
+						<% o = Service.find(link_chunk) %>
+					<% end -%>
+					<% if o.present? %>
+						<div class="nav_link_arrow"><%= session[:preview] == true ? (t(o.industry_category.get_name)) : (link_to t(o.industry_category.get_name), '/products_and_services_catalog/index?industry_category_ids='+o.industry_category_id.to_s+'&watch=products_and_services') %></div>
+						<div class="nav_link_arrow"><%= crop_if_longer o.name, 20 %></div>						
+					<% end %>
+					<% break %>
+				<% end %>
+		<!--end-->
+		
+  	<!--Post browsing-->
+			<% if link_chunk.include?('post') %>
+					<div class="nav_link_arrow"><%= link_to 'Blog', blog_path  %></div>
+					<% if links.last.to_i > 0 %>
+						<div class="nav_link_arrow"><%= Post.find(links.last.to_i).title  %></div>
+					<% end %>
+					<% break %>
+			<% end %>
+		<!--end-->
+		
+		<!--Ceremony filtering-->
+			<% if current_user.blank? -%>
+				<% if link_chunk.include?('ceremon') %>
+					<% unless links[index+1].to_i == 0  %>
+						<div class="nav_link_arrow"><%= link_to t('ceremonies'), ceremonies_path  %></div>
+						<div class="nav_link_arrow"><%= CeremonyType.find(links[index+1].to_i).name %></div>
+						<% break %>
+					<% end %>
+					<div class="nav_link_arrow"><%= t('ceremonies') %></div>
+					<% break %>
+				<% end %>
+			<% else -%>
+				<% if link_chunk.include?('ceremon') and !current_user.admin? %>
+					<% unless links[index+1].to_i == 0  %>
+						<div class="nav_link_arrow"><%= link_to t('ceremonies'), ceremonies_path  %></div>
+						<div class="nav_link_arrow"><%= CeremonyType.find(links[index+1].to_i).name %></div>
+						<% break %>
+					<% end %>
+					<div class="nav_link_arrow"><%= t('ceremonies') %></div>
+					<% break %>
+				<% end %>
+			<% end -%>
+			
+		<!--end-->
+		
+		<!--Dresses browsing-->	
+			<% if link_chunk.include?('party_dress') %>
+					<div class="nav_link_arrow"><%= link_to t('dresses'), dresses_party_dress_menu_path  %></div>
+					<% break %>
+			<% end %>
+			<% if link_chunk.include?('wedding_dress') %>
+					<div class="nav_link_arrow"><%= link_to t('dresses'), dresses_wedding_dress_menu_path  %></div>
+					<% break %>
+			<% end %>
+		<!--end-->
+  	
+
+		<!--wether the text is a link or not-->
+			<div class="nav_link_arrow">
+				<% if index == links.length-1%> <!--Last one isn't a link-->
+					<%= t(link_chunk) %>
+				<% else %>
+					<%= session[:preview] == true ? label_tag(t(link_chunk)) : (link_to t(link_chunk), total) %>
+				<% end %>
+			</div>
+		<!--end-->
+
+		<% end %>
+
+	<% end %>
+	</div>		
+</div>
+
+<div class="clear"></div>

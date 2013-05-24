@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  matriclicker_id: 1
+  challenge_id: 1
+  activity_type_id: 1
+  comments: MyText
+
+two:
+  matriclicker_id: 1
+  challenge_id: 1
+  activity_type_id: 1
+  comments: MyText

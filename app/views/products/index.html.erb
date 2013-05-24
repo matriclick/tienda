@@ -1,0 +1,81 @@
+<div class="right_link">
+<% if @sellsproducts %>
+	<%= link_to t('new_product'), new_supplier_account_product_path(@supplier), :class => "button" %>
+<% end %>
+</div>
+<div class="titulos">
+	<%= t 'listing_products' %>
+</div>
+<div class="box">
+	<% if !@products.blank? %>
+			<table class="list">
+				<tr>
+					<th class="width5">
+						<%= t "place" %>
+					</th>
+					<th class="width20">
+						<%= t "images" %>
+					</th>
+					<th>
+						<%= t "details" %>
+					</th>
+					<th class="width15">
+						<%= t "options" %>
+					</th>
+				</tr>
+				<% @products.each do |product| %>	
+				<tr>	
+					<td>
+						<%= product.place.blank? ? 
+						"-" : 
+						product.place %>
+					</td>
+					<td>
+						<%= product.product_images.blank? ? 
+						content_tag(:b, t('no_images') ) : 
+						(image_tag(product.product_images.cover_first.first.image.url, :height => '30', :class => "thumbnail_image") + content_tag(:span, " + #{pluralize(product.product_images.count-1, t('images'))}", :class  => "number_of_images")) %>
+					</td>
+					<td>
+						<div class="floatLeft textAlignRight width25">
+							<%= t 'activerecord.attributes.product.name' %><br/>
+							<%= t 'activerecord.models.industry_category' %><br/>
+							<%= (product.top_price_range.blank?) ? t('activerecord.attributes.product.price') : t('price_range') %><br/>
+							<%= t 'activerecord.attributes.product.description' %><br/>
+						</div>
+						<div class="floatLeft textAlignLeft paddingLeft10 light width65">
+							<%= (product.name.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.product.name'), :class => 'profileBlankField') : content_tag(:span, product.name) %><br/>
+							
+							<%= (product.industry_category_id.blank?) ?
+							content_tag(:span, t('activerecord.models.industry_category'), :class => 'profileBlankField') : content_tag(:span, product.industry_category.get_name) %><br/>
+							
+							<%= (product.price.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.product.price'), :class => 'profileBlankField') : content_tag(:span, number_to_currency(product.price)) %> 
+					
+		          <% if product.top_price_range.blank? or product.top_price_range == 0 %>
+		            <%= " " %>
+		          <% else %>
+							  <%= " - " %><%= content_tag(:span, number_to_currency(product.top_price_range)) %> 
+							<% end %>
+							<%= (product.price_description.blank?) ? " " : content_tag(:span, (product.price_description[0..100].gsub(/\n/, '<br/>')).html_safe ) %><br/>
+							<%= (desc = product.description).blank? ? 
+							content_tag(:span, t('activerecord.attributes.product.description'), :class => 'profileBlankField') : content_tag(:span, (desc[0..100].gsub(/\n/, '<br/>')).html_safe + ("..." if desc.length > 100 ) ) %><br/>
+						</div>
+					</td>
+		
+					<td class="list_actions">
+						<div><%= link_to t('edit'), edit_supplier_account_product_path(@supplier, product) %></div>
+						<div><%= link_to t('destroy'), supplier_account_product_path(@supplier, product), confirm: t('are_you_sure'), method: :delete %></div>
+					</td>
+				</tr>
+				<% end %>
+			</table>
+
+	<% elsif !@sellsproducts %>
+			<%= render "layouts/you_dont_sell", :word => t('products') %>
+	<% else %>
+	 		<%= render "layouts/nothing_to_show", :word => t('products') %>
+	<% end %>
+</div>
+<br />
+<br />

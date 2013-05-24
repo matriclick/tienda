@@ -1,0 +1,32 @@
+<div class="right_link">
+<%= link_to t('edit_presentation'), edit_supplier_account_presentation_path(@supplier), :class => :button %>
+</div>
+
+<div class="titulos">
+	<%= t 'your_presentation_details'%>
+</div>
+<div class="help_tip">
+	<%= t 'helptip.supplier_account.presentation' %>
+</div>
+
+<div class="box">
+	<% unless @presentation.description.blank? and @presentation.presentation_images.blank? %>
+		<div class="gray_box small_font">
+			<div class="subtitulos"><%= t 'activerecord.attributes.presentation.description' %></div>
+			<br />
+			<%= sanitize(@presentation.description.gsub(/\n/, '<br/>'), :tags => %W(br)) unless @presentation.description.blank? %>
+		</div>
+		<br />
+		<div class="holder">
+			<% for presentation_image in @presentation.presentation_images %>
+			<div class="small_image_box">
+				<%= image_tag presentation_image.image.url(:small)%>
+			</div>
+			<% end %>
+		</div>
+		<div class="clear"></div>
+	<% else %>
+	  <%= render "layouts/nothing_to_show", :word => t('presentation') %>
+	<% end %>
+</div>
+<div class="clear"></div>

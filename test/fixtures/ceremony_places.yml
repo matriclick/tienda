@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  address_id: 1
+  phone_number: MyString
+  contact_email: MyString
+  contact_person: MyString
+  schedule: MyString
+  capacity: 1
+  additional_information: MyText
+  price: 9.99
+  top_price_range: 9.99
+
+two:
+  address_id: 1
+  phone_number: MyString
+  contact_email: MyString
+  contact_person: MyString
+  schedule: MyString
+  capacity: 1
+  additional_information: MyText
+  price: 9.99
+  top_price_range: 9.99

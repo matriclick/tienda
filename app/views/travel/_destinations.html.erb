@@ -1,0 +1,22 @@
+<% unless @objects.blank? %>
+	<% @objects.each do |element| %>
+		<div class="product_box">
+			<div class="product_image_container">
+				<div class="product_image">
+					<% if element.service_images.active.blank? %>
+						<%= link_to image_tag("/images/smaller/missing.png"), destino_path(:slug => element.slug), :title => t('show') %>
+					<% else %>
+					    <%= link_to (image_tag element.service_images.active.cover_first.first.image.url(:smaller), :alt => element.service_images.active.cover_first.first.name), destino_path(:slug => element.slug), :title => t('show') %>
+					<% end %>
+				</div>
+			</div>
+			<div class="product_name">
+				<% unless element.name.blank? %>
+					<%= link_to crop_if_longer(element.name, 20), destino_path(:slug => element.slug) %>			
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+<% else %>
+  <%= render "layouts/nothing_to_show", :objects => t("products_and_services"), :category => true %>
+<% end %>

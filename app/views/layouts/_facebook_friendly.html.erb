@@ -1,0 +1,36 @@
+<!-- Se comienza con head para completar el tag en application -->
+<% if controller_name == "posts" && action_name == "show" %>
+    <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+      <meta property="fb:app_id"      content="199668766763277" />
+      <meta property="og:type"        content="article" />
+      <meta property="og:url"         content= "<%= request.url %>" />
+      <meta property="og:title"       content= "<%= @post.title %>" />
+      <meta property="og:description" content= "<%= @post.content.blank? ? "-" : @post.content.to_s.truncate(40) %>" />
+      <% @post.post_images.each do |image| %>
+      	<meta property="og:image"       content= "<%= root_url(:country_url_path => nil)[0..root_url(:country_url_path => nil).size - 2] + image.photo.url %>" />
+      <% end %>
+
+
+
+<% elsif controller_name == "campaign" && action_name == "user_story"%>
+    <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+      <meta property="fb:app_id"      content="199668766763277" />
+      <meta property="og:type"        content="article" />
+      <meta property="og:url"         content= "<%= request.url %>" />
+      <meta property="og:title"       content= "<%= (@campaign_user_account.present? && @campaign_user_account.user_account.bride.name.present? && @campaign_user_account.user_account.groom.name.present?) ? "Propuesta de: "+ @campaign_user_account.user_account.bride.name+ " y "+ @campaign_user_account.user_account.groom.name : "-" %>" />
+      <meta property="og:description" content= "<%= (@campaign_user_account.present? && @campaign_user_account.description.present?) ? @campaign_user_account.description.to_s.truncate(40) : "-" %>" />
+      <meta property="og:image"       content= "<%= @campaign_user_account.campaign_user_image.present? ? root_url(:country_url_path => nil)[0..root_url(:country_url_path => nil).size - 2] + @campaign_user_account.campaign_user_image.url : "-" %>" />
+
+
+<% else %>
+    <head>
+    <meta property="og:type" content="website" />
+    <% if request.url.include? 'user_story' -%>
+        <meta property="og:url" content="<%= request.url %>/" />
+    <% end -%>
+    <meta property="og:title" content="Matriclick" />
+    <meta property="og:image" content="http://www.matriclick.com/images/emails/logo_matriclick_sin_caja.png" />
+    <meta property="og:site_name" content="Matriclick.com" />
+    <meta property="fb:app_id" content="199668766763277" />
+
+<% end %>

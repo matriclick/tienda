@@ -1,0 +1,25 @@
+<div id="campaign_logo">
+	<%= image_tag("campaign/after_contest/sello.png") %>
+</div>
+
+<div id="campaign_menu">
+	<%= link_to image_tag("campaign/after_contest/btn1.png"), campaign_wedding_of_the_year_path %> 
+	<%= link_to image_tag("campaign/after_contest/btn2.png"), campaign_d_day_path %> 
+	<%= link_to image_tag("campaign/after_contest/btn3.png"), campaign_gallery_path %> 
+	<%= link_to image_tag("campaign/after_contest/btn4_2.png"), campaign_suppliers_path %> 
+</div>
+
+<div id="suppliers_fondo">
+	<%= image_tag("campaign/after_contest/bla.png") %>
+</div>
+
+<div id="link_suppliers">
+	<div class="h1_suppliers">
+		<% @supplier_accounts.each do |supplier_account| %>
+			<%= link_to @supplier_account_number.to_s + ' - ' + supplier_account.fantasy_name, supplier_products_and_services_path(supplier_account.supplier_id, :public_url => supplier_account.public_url), :title => t('show') %><br />
+			<% @supplier_account_number = @supplier_account_number + 1 if supplier_account.public_url != 'mariasolita' %>
+		<% end %>
+	</div>
+</div>
+
+

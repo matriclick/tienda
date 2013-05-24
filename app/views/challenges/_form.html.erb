@@ -1,0 +1,32 @@
+<%= form_for(@challenge) do |f| %>
+  <% if @challenge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@challenge.errors.count, "error") %> prohibited this challenge from being saved:</h2>
+
+      <ul>
+      <% @challenge.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.hidden_field :matriclicker_id, :value => @matriclicker.id %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+<br />
+    <%= f.hidden_field :lead_id, :value => @lead.id %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

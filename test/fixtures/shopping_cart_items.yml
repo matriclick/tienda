@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shopping_cart_id: 1
+  purchasable_id: 1
+  purchasable_type: MyString
+
+two:
+  shopping_cart_id: 1
+  purchasable_id: 1
+  purchasable_type: MyString

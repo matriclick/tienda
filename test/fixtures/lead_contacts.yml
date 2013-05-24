@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  lead_id: 1
+  position: MyString
+  name: MyString
+  phone: MyString
+  email: MyString
+
+two:
+  lead_id: 1
+  position: MyString
+  name: MyString
+  phone: MyString
+  email: MyString

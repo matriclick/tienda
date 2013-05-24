@@ -1,0 +1,116 @@
+<div class="full_content center shadow">
+	<div class="position_button_tour">
+		<%= link_to (image_tag "tour/tour_virtual_button.png" ,:alt => "button"), tour_path %>
+	</div>
+	<div class="content_top center">
+		<div class="texto_izquierda">
+			<div class="h1"><span class="big_font bold">Es tu matrimonio,</span> <br />¡hazlo como quieras!</div><br>
+			<div class="bajada_titulo"><i>Todo lo que pienses para ese día es posible, es tu matrimonio, es tu sueño, ármalo a tu pinta.</i></div>			
+			<div class="texto_bajada">En Matriclick logramos que la agotadora tarea de organizar tu matrimonio perfecto sea algo <b>entretenido y 								
+				fácil</b>.<div style="text-align:center; padding-top:5px"><b>¡Es gratis y lo seguirá siendo!</b></div>
+				
+			</div>
+			<div id="botones_despues_bajada">
+				<%= link_to "¡Entra y conoce Matriclick sin registrarte!", products_and_services_catalog_select_industry_category_path, :class => 'big-button' %>
+				<%- if devise_mapping.omniauthable? %>
+					<div class="facebook_google_sign_in" style="padding-top:10px;">
+						<%= link_to t("sign_up"), new_user_registration_path %>
+				  		<%- devise_mapping.to.omniauth_providers.each do |provider| %>
+				    		<%= link_to t('devise.views.shared._links.omniauth_authorize') + " #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>
+				  		<% end -%>
+					</div>
+				<% end -%>
+			</div>
+			<div style="margin:0px 0px 0px 100px">
+				<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FMatriclickcom%2F272699936103994&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
+			</div><!-- 
+			<div class="share_home">
+				<div class="addthis_toolbox addthis_default_style ">
+				<div class="comparte_matriclick">
+					<%= image_tag "comparte_matriclick.png", :alt => "comparte_matriclick" %>
+				</div>
+				<a class="addthis_button_preferred_1"></a>
+				<a class="addthis_button_preferred_2"></a>
+				<a class="addthis_button_preferred_3"></a>
+				</div>
+				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4e84e1ad166567f6"></script>
+			</div>-->
+		</div>
+		<div class="slider right">
+			<div class="slider-item">
+			        <%= link_to (image_tag "foto_busca.jpg") %>
+			        <div class="caption"><b>Busca lo que necesitas</b><br />Navega por nuestra vitrina virtual de proveedores y busca todo lo que necesitas para tu matrimonio. Hay 100+ proveedores inscritos y todos los días se unen más.<br />
+
+					Cotiza, investiga, pregunta y crea el matrimonio que imaginas</div>
+			    </div>
+
+			    <div class="slider-item">
+			        <%= link_to (image_tag "foto_gastos.jpg"), budget_menu_path %>
+			        <div class="caption"><b>Controla todos tus gastos</b><br />Matriclick te permite crear y hacer seguimiento de tu presupuesto de una manera simple y efectiva. ¡Que el matrimonio no signifique la bancarrota!<br />
+
+					Visualiza tus estadísticas y diferentes escenarios de tu presupuesto</div>
+			    </div>
+
+			    <div class="slider-item">
+			        <%= link_to (image_tag "foto_reserva.jpg") %>
+			        <div class="caption"><b>Disponibilidad de lugares</b><br />Revisa la disponibilidad de Iglesias, centros de eventos, banqueteras y otros proveedores. No pierdas más tiempo llamando!<br />
+
+					Cuando encuentres la fecha en que todo coincide, reserva usando matriclick.com.</div>
+			    </div>
+			
+				<div class="slider-item">
+			        <%= link_to (image_tag "foto_invitados.jpg"), invitees_menu_path %>
+			        <div class="caption"><b>Organiza a tus invitados</b><br />Planifica tu lista de invitados, organiza las mesas, envía partes virtuales eligiendo entre diferentes diseños.<br />
+
+					¡haz que tus invitados sean parte de todo el proceso de tu matrimonio!</div>
+			    </div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="full_content center shadow">
+	<div class="banner_campana_home">
+		<%= link_to (image_tag "banner_campana_home_middle.png"), campaign_winners_path %>
+	</div>
+</div>
+<div class="full_content center shadow">
+	<div class="content_top center">
+		<div style="min-height:230px">
+			<div class="boxInfo border_right" style="min-height:230px">
+				<div style="font-size:15px; text-align:center; font-weight:bolder; color:#555;"> 
+					¡Revisa el video de Matriclick.com!
+				</div>
+				<div id="foto_video" style="padding-top:7px;">
+					<%= link_to image_tag("home/computador.png"), "#vimeo", :id => :form_inline, :class => :hideable %>
+					<%= link_to image_tag("home/computador_hover.png"), "#vimeo", :id => :form_inline, :class => :showable, :style => "display:none;" %>
+				</div>
+			</div>
+			<div class="boxInfo border_right" style="min-height:230px">
+				<div style="font-size:15px; text-align:center; font-weight:bolder; color:#555;"> 
+					¡Conoce lo que la Prensa comenta!
+				</div>
+				<div id="foto_video" style="padding-top:7px;">
+					<%= link_to image_tag("home/prensa.png"), press_path, :class => :hideable %>
+					<%= link_to image_tag("home/prensa_hover.png"), press_path, :class => :showable, :style => "display:none;" %>
+				</div>
+			</div>
+			<div class="boxInfo">
+				<div style="font-size:15px; text-align:center; font-weight:bolder; color:#555;"> 
+					¡Publica tus servicios!
+				</div>
+				<div id="foto_video" style="padding-top:7px;">
+					<%= link_to image_tag("home/publica.jpg"), new_supplier_registration_path, :class => :hideable %>
+					<%= link_to image_tag("home/publica_hover.jpg"), new_supplier_registration_path, :class => :showable, :style => "display:none;" %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<div style="display:none;">
+	<div id="vimeo">
+		<iframe src="http://player.vimeo.com/video/35330010?title=0&amp;byline=0&amp;portrait=0" width="601" height="338" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>		
+	</div>
+</div>

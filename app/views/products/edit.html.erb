@@ -1,0 +1,17 @@
+<%= javascript_include_tag 'views/products/_form'%>
+<div class="right_link">
+  <%= link_to t('cancel'), supplier_account_products_path(@supplier), :class => :button%>
+</div>
+<div class="titulos">
+	<%= t 'editing_product' %>
+</div>
+
+<div class="box_form">
+	<div class="help_tip">
+		<%= t'helptip.required' %>
+	</div>
+	
+	<%= render 'images_for_edit' %>
+	<%= render 'edit_form' %>
+</div>
+

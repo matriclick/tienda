@@ -1,0 +1,28 @@
+<%= content_for :products_and_services_page_in_content do %>
+	<% if @schedule.blank? %>
+		<%= render "layouts/nothing_to_show", :objects => t('activerecord.models.schedule').downcase, :small => true %>
+	<% else %>
+		<table class="small_schedules">
+			<tr>
+				<th><%= t 'day' %></th>
+				<th><%= t 'activerecord.attributes.schedule_day.enabled' %></th>
+				<th><%= t 'activerecord.attributes.schedule_day.all_day' %></th>
+				<th><%= t 'activerecord.attributes.schedule_day.from' %></th>
+				<th><%= t 'activerecord.attributes.schedule_day.to' %></th>
+			</tr>
+			<% @schedule.schedule_days.each do |sd| %>
+				<% if sd.enabled == true %>
+					<tr class = "<%= sd.enabled == true ? '' : 'no_habilitado' %>">
+						<td><%= set_day_name_by_day_id(sd.day_id) %></td>
+						<td><%= sd.enabled == true ? "✔" : "✘" %></td>
+						<td><%= sd.all_day == true ? "✔" : "✘" %></td>
+						<td><%= sd.from.strftime('%H:%M') unless sd.from.nil?%></td>
+						<td><%= sd.to.strftime('%H:%M') unless sd.to.nil? %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		</table>
+	<% end %>
+
+<% end %>
+<%= render "products_and_services_page" %>

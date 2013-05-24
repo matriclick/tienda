@@ -1,0 +1,974 @@
+# Español Perú
+
+esPE:
+
+  models:
+    industry_category:
+      argollas: "Aros"
+      ajuar: "Ajuar"
+      peinado_y_maquillaje: "Peinado y maquillaje"
+      salud_y_estetica: "Salud y estética"
+      tocados_y_accesorios_novia: "Tocados y accesorios novia"
+      vestidos_y_calzado_novia: "Vestidos y calzado novia"
+      trajes_y_accesorios_novio: "Trajes y accesorios novio"
+      partes_y_detalles: "Partes y detalles"
+      centro_de_eventos: "Centro de eventos"
+      banqueteras: "Catering"
+      coros: "Coros"
+      florerias: "Florerías"
+      dj_y_musica: "Música"
+      fotografia_y_video: "Fotografía y vídeo"
+      cotillon: "Hora loca"
+      entretencion_y_fiesta: "Entretención y fiesta"
+      vinos_y_licores: "Vinos y licores"
+      iluminacion_y_decoracion: "Iluminación y decoración"
+      carpas_y_baños: "Toldos y muebles"
+      hoteles: "Hoteles"
+      transporte: "Transporte"
+      carritos: "Carritos"
+      musica_en_vivo: "Música en vivo"
+      clases: "Clases"
+      vestidos_de_fiesta: "Vestidos de fiesta"
+      corredoras_e_inmobiliarias: "Corredoras e Inmobiliarias"
+      seguridad: "Seguridad"
+    sub_industry_category:
+      transporte_para_novios: "Transporte para Novios"
+      transporte_para_invitados_conductores: "Transporte para Invitados (conductores)"
+      vestidos_de_novia: "Vestidos de Novia"
+      zapatos_de_novia: "Zapatos de Novia"
+      banqueteras: "Catering"
+      tortas_y_cupcakes: "Tortas y Cupcakes"
+      ambientacion_y_decoracion: "Ambientación y Decoración"
+      centro_de_eventos: "Centro de eventos"
+      complementos: "Complementos (transporte invitados, primeros auxilios, guardias...)"
+      dj_productora: "Música - Productoras"
+      dj_independiente: "Música - Independientes"
+
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d de %b"
+      long: "%A %d de %B de %Y"
+      custom: "%d %b %Y"
+
+    day_names:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+
+    day_name_custom:
+      sunday: "Domingo"
+      moonday: "Lunes"
+      tuesday: "Martes"
+      wednesday: "Miercoles"
+      thursday: "Jueves"
+      friday: "Viernes"
+      saturday: "Sábado"
+
+    abbr_day_names:
+      - dom
+      - lun
+      - mar
+      - mié
+      - jue
+      - vie
+      - sáb
+
+    month_names:
+      - ~
+      - Enero
+      - Febrero
+      - Marzo
+      - Abril
+      - Mayo
+      - Junio
+      - Julio
+      - Agosto
+      - Septiembre
+      - Octubre
+      - Noviembre
+      - Diciembre
+    abbr_month_names:
+      - ~
+      - ene
+      - feb
+      - mar
+      - abr
+      - may
+      - jun
+      - jul
+      - ago
+      - sep
+      - oct
+      - nov
+      - dic
+    order:
+      - :day
+      - :month
+      - :year
+
+  time:
+    formats:
+      default: "%A, %d de %B de %Y %H:%M:%S %z"
+      short: "%d de %b "
+      long: "%A %d de %B de %Y %H:%M"
+      custom: "%d %b %Y"
+    am: "am"
+    pm: "pm"
+
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " y "
+      last_word_connector: ", y "
+
+    select:
+      prompt: "Seleccionar..."
+
+  number:
+    format:
+      separator: ","
+      delimiter: "."
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+
+    currency:
+      format:
+        format: "%u %n"
+        unit: "$"
+        separator: ","
+        delimiter: "."
+        precision: 0
+        significant: false
+        strip_insignificant_zeros: false
+
+    percentage:
+      format:
+        delimiter: ""
+
+    precision:
+      format:
+        delimiter: ""
+
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: "mil"
+          million: "millón"
+          billion: "mil millones"
+          trillion: "billón"
+          quadrillion: "mil billones"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "medio minuto"
+      less_than_x_seconds:
+        one:  "menos de 1 segundo"
+        other: "menos de %{count} segundos"
+      x_seconds:
+        one:  "1 segundo"
+        other: "%{count} segundos"
+      less_than_x_minutes:
+        one:  "menos de 1 minuto"
+        other: "menos de %{count} minutos"
+      x_minutes:
+        one:  "1 minuto"
+        other: "%{count} minutos"
+      about_x_hours:
+        one:  "alrededor de 1 hora"
+        other: "alrededor de %{count} horas"
+      x_days:
+        one:  "1 día"
+        other: "%{count} dí­as"
+      about_x_months:
+        one:  "alrededor de 1 mes"
+        other: "alrededor de %{count} meses"
+      x_months:
+        one:  "1 mes"
+        other: "%{count} meses"
+      about_x_years:
+        one:  "alrededor de 1 año"
+        other: "alrededor de %{count} años"
+      over_x_years:
+        one:  "más de 1 año"
+        other: "más de %{count} años"
+      almost_x_years:
+        one: "casi 1 año"
+        other: "casi %{count} años"
+    prompts:
+      year:   "Año"
+      month:  "Mes"
+      day:    "Día"
+      hour:   "Hora"
+      minute: "Minutos"
+      second: "Segundos"
+
+  helpers:
+    select:
+      prompt: "Seleccionar..."
+
+    submit:
+      create: 'Crear %{model}'
+      update: 'Actualizar %{model}'
+      submit: 'Guardar %{model}'
+
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion: "no está incluido en la lista"
+      exclusion: "está reservado"
+      invalid: "inválido"
+      confirmation: "no coincide con la confirmación"
+      accepted: "debe ser aceptado"
+      empty: "no puede estar vacío"
+      blank: "no puede estar en blanco"
+      too_long: "es demasiado largo (%{count} caracteres máximo)"
+      too_short: "es demasiado corto (%{count} caracteres mínimo)"
+      wrong_length: "no tiene la longitud correcta (%{count} caracteres exactos)"
+      not_a_number: "no es un número"
+      not_an_integer: "debe ser un entero"
+      greater_than: "debe ser mayor que %{count}"
+      greater_than_or_equal_to: "debe ser mayor que o igual a %{count}"
+      equal_to: "debe ser igual a %{count}"
+      less_than: "debe ser menor que %{count}"
+      less_than_or_equal_to: "debe ser menor que o igual a %{count}"
+      odd: "debe ser impar"
+      even: "debe ser par"
+      email: "No es una dirección de correo electrónico"
+      rut: "inválido"
+      phone_number: "inválido"
+      has_items: "No puedes eliminar un rubro si aún tienes productos o servicios asociados a él"
+
+  # FGM: Translation for navigation bar.
+  navigation:
+    controllers:
+      products_catalog: "Productos"
+      services_catalog: "Servicios"
+      matrichecklist:
+        add: "Agregar actividad"
+        ganttchart: "Carta Gantt"
+        name: "Checklist"
+        edit: "Editar actividad"
+        reminders: "Recordatorios"
+
+
+  activerecord:
+    models:
+      gender: "Género"
+      rock: "Roca"
+      campaign_user_account_info: "Información para campaña"
+      campaign_gallery_item: "Item galería"
+      campaign_anecdote: "Anécdota"
+      dress: "Vestido"
+      reference: "Referencia"
+      expense: "Gasto"
+      contact_type: "Tipo de contacto"
+      event: "Evento"      
+      important_date: "Fecha importante"
+      industry_category: "Rubro"
+      service: "Servicio"
+      show_service: "Servicio"
+      service_image: "Imagen de servicio"
+      presentation: "Presentación"
+      presentation_image: "Imagen de presentación"
+      product: "Producto"
+      product_image: "Imagen de producto"
+      product_type: "Tipo de producto"
+      rent_type: "Tipo de arriendo"
+      role: "Rol"
+      schedule: "Horario"
+      schedule_day: "Días de horario"
+      supplier: "Proveedor"
+      supplier_account: "Tu cuenta"
+      supplier_contact: "Contacto"
+      user: "Usuario"
+      groom: "Novio"
+      bride: "Novia"
+      user_account: "Tu usuario"
+      person: "Persona"
+      invitee: "Invitado"
+      invitee_group: "Grupo de Invitados"
+      address: "Dirección"
+      activity: "Actividad"
+      activity_reminder: "Recordatorio"
+      invitee_host: "Invitado por"
+      invitee_role: "Rol"
+      ceremony: "Ceremonia"
+      conversation: "Conversación"
+      message: "Mensaje"
+      review: "Reseña"
+      video: "Video"
+      trading_house: "Casa comercial"
+      
+    attributes:
+      name: "Nombre"
+      budget_invitee_count:
+        groom: "Novio"
+        bride: "Novia"
+        g_parents: "Padres del novio"
+        b_parents: "Padres de la novia"
+      rock:
+        gender_id: "Género"
+        sender_email: "Tu email"
+        recipient_email: "Email de tu amigo/a"
+      gender:
+        gender: "Género"
+      campaign_user_account_info:
+        description: "Descripción"
+      campaign_gallery_item:
+        tag: "Tag"
+        description: "Descripción"
+      campaign_anecdote:
+        title: "Título"
+        description: "Descripción"
+      budget:
+        price: "Precio"
+      dress:
+        price: "Precio"
+        description: "Descripción"
+        seller_name: "Nombre vendedora"
+        seller_email: "Email vendedora"
+        seller_phone_number: "Teléfono vendedora"
+        independent: "Independiente"
+      expense:
+        quantity: "Cantidad"
+        payed_percentage: "Pagado"
+        price_description: "Descripción del precio"
+        price: "Precio"
+      contact_type:
+        name: "Nombre"
+      event:
+        title: "Título"
+        date: "Fecha"
+        description: "Descripción"
+        booking_list: "Reservas"
+        booking_confirmed: "Reserva confirmada"
+        booking_pending: "Esperando confirmación"
+        expired: "Expirado"
+        email: "Email"
+      feedback:
+        name: "Nombre"
+        email: "Correo electrónico"
+        comment: "Comentario"
+      important_date:
+        date: "Fecha"
+        ends_date: "Fecha de término"
+        locked: "Bloqueado"
+        custom_message: "Mensaje personalizado"
+      industry_category:
+        name: "Nombre"
+      service:
+        name: "Nombre"
+        address: "Dirección"
+        contact_phone: "Teléfono de contacto"
+        commune: "Comuna"
+        latitude: "Latitud"
+        longitude: "Longitud"
+        max_bookings: "Máximo de reservas"
+        max_confirmed_bookings: "Máximo de reservas confirmadas"
+        booking_resources_consumed: "Recursos consumidos"
+        parking: "Estacionamiento"
+        color: "Color en tu calendario"
+        industry_category: "Rubro"
+        description: "Descripción"
+        price: "Precio"
+        top_price_range: "Precio máximo"
+        price_description: "Descripción del precio"
+      service_image:
+        image_file_name: "Nombre del archivo"
+        image_content_type: "Formato del archivo"
+        image_file_size: "Tamaño del archivo"
+      presentation:
+        description: "Descripción"
+      presentation_image:
+        image_file_name: "Nombre del archivo"
+        image_content_type: "Formato del archivo"
+        image_file_size: "Tamaño del archivo"
+      product:
+        price: "Precio"
+        name: "Nombre"
+        description: "Descripción"
+        top_price_range: "Precio máximo"
+        price_description: "Descripción del precio"
+        industry_category: "Rubro"
+      product_image:
+        image_file_name: "Nombre del archivo"
+        image_content_type: "Formato del archivo"
+        image_file_size: "Tamaño del archivo"
+      product_type:
+        name: "Nombre"
+      rent_type:
+        name: "Nombre"
+      role:
+        name: "Nombre"
+      schedule:
+      schedule_day:
+        from: "Desde"
+        to: "Hasta"
+        enabled: "Habilitado"
+        all_day: "Todo el día"
+        start_lunch_time: "Inicio hora de almuerzo"
+        end_lunch_time: "Fin hora de almuerzo"
+      supplier:
+        email: "Correo electrónico"
+      supplier_account:      
+        address: "Dirección"
+        corporate_name: "Razón social"
+        email: "Correo electrónico"
+        fantasy_name: "Nombre de fantasía"
+        industry_categories: "Rubros"
+        phone_number: "Número de teléfono"
+        public_url: "URL pública"
+        rut: "RUT"
+        web_page: "Página web"
+        facebook: "Facebook"
+        twiter: "Twiter"
+        image: "Imagen"
+        image_file_size: "Tamaño de imagen"
+        image_file_type: "Tipo de archivo"
+        bookable: "Reservable"
+      supplier_contact:
+        name: "Nombre"
+        email: "Correo electrónico"
+        phone_number: "Número de teléfono"
+        contact_type: "Tipo de contacto"
+      user:
+        email: "Correo electrónico"
+        password: "Contraseña"
+        password_confirmation: "Confirmar contraseña"
+        current_password: "Contraseña actual"
+      groom:
+        name: "Nombre"
+        lastname_p: "Apellido paterno"
+        lastname_m: "Apellido materno"
+        rut: "Rut"
+        born_date: "Fecha de nacimiento"
+        email: "Email"
+        city: "Ciudad"
+        commune: "Comuna"
+        country: "País"
+        phone: "Teléfono"
+        cell_phone: "Celular"
+        profession: "Profesión"
+      bride:
+        name: "Nombre"
+        lastname_p: "Apellido paterno"
+        lastname_m: "Apellido materno"
+        rut: "Rut"
+        born_date: "Fecha de nacimiento"
+        email: "Email"
+        city: "Ciudad"
+        commune: "Comuna"
+        country: "País"
+        phone: "Teléfono"
+        cell_phone: "Celular"
+        profession: "Profesión"
+      user_account:
+        wedding_tentative_date: "Fecha tentativa de matrimonio"
+        wedding_city: "Ciudad del matrimonio"
+        invitees_quantity: "Cantidad de invitados"
+        wedding: "Matrimonio"
+        tentative_budget: "Presupuesto tentativo"
+        receive_news: "Recibir noticias"
+        receive_supplier_promotions: "Recibir promociones de proveedores"
+        show_my_phones: "Mostrar mis teléfonos"
+      person:
+        name: "Nombre"
+        lastname_p: "Apellido paterno"
+        lastname_m: "Apellido materno"
+        rut: "Rut"
+        email: "Email"
+      invitee:
+        name: "Nombre"
+        lastname_p: "Apellido paterno"
+        lastname_m: "Apellido materno"
+        email: "Email"
+        phone_number: "Teléfono"
+        confirmed: "Confirmado"
+        gender_id: "Género"
+        age_id: "Edad"
+        status_id: "Invitado a"
+        address: "Dirección"
+        invitee_group_id: "Grupo"
+        couple_id: "Pareja"
+        invitee_host_id: "Invitado por"
+        invitee_role_id: "Rol"
+      address:
+        street: "Calle"
+        number: "Número"
+        region: "Región"
+        commune: "Comuna"
+      activity:
+        done_by_date: "Actividad debe estar lista"
+        name: "Nombre de la actividad"
+        description: "Descripción"
+        comments: "Comentarios adicionales"
+      activity_reminder:
+        name: "Nombre"
+        mail: "Email"
+        days_before: "Días de anticipación"
+      ceremony:
+        address: "Dirección"
+        phone_number: "Teléfono"
+        contact_email: "Email de contacto"
+        schedule: "Horario de atención"
+        capacity: "Capacidad"
+        additional_information: "Información adicional"
+        price: "Precio"
+        top_price_range: "Precio máximo"
+      conversation:
+        title: "Título"
+      message:
+        transmitter: "Transmisor"
+        content: "Contenido"
+      review:
+        content: "Contenido"
+      video:
+        url_code: "Link a vídeo (url)"
+      trading_house:
+        name: "Nombre"
+        
+    # Messages
+    successful:
+      messages:
+        created: "%{model} se ha creado exitosamente."
+        updated: "%{model} se ha actualizado exitosamente."
+    errors:
+      template:
+        header:
+          one:   "Al parecer hubo un error"
+          other: "Al parecer hubo algunos errores"
+        body:    "Se encontraron problemas con los siguientes campos:"
+      messages:
+        taken:          "ya está tomado"
+        record_invalid: "Error de validación: %{errors}"
+        <<: *errors_messages
+      full_messages:
+        format: "%{attribute} %{message}"
+
+  #Other Words
+  yes: "Sí"
+  no: "No"
+  hello: "Hola"
+  add: "Agregar"
+  save: "Guardar"
+  close: "Cerrar"
+  destroy: "Eliminar"
+  remove: "Remover"
+  update: "Actualizar"
+  enable: "habilitar"
+  edit: "Editar"
+  delete: "Eliminar"
+  show: "Ver"
+  new: "Nuevo"
+  are_you_sure: "¿Estás seguro?"
+  back: "Volver"
+  cancel: "Cancelar"
+  options: "Opciones"
+  place: "Ubicación"
+  visible: "Visible"
+  password: "Contraseña"
+  current_password: "Contraseña actual"
+  password_confirmation: "Confirme contraseña"
+  new_password: "Nueva contraseña"
+  confirm_new_password: "Confirme nueva contraseña"  
+  change_password: "Cambiar contraseña"
+  change_my_password: "Cambiar mi contraseña"
+  forgot_your_password: "¿Olvidó su contraseña?"
+  editing_supplier_info: "Editar información"
+  contacts: "Contactos"
+  add_a_contact: "Agregar contacto"
+  profile_info: "Información de perfil"
+  image: "Imagen"
+  images: "Imágenes"
+  no_images: "No hay imágenes"
+  remove_this_image: "Borrar esta imagen"
+  new_image: "Nueva imagen"
+  images_for: "Imágenes para"
+  add_image: "Añadir imagen"
+  remove_this_contact: "Borrar este contacto"
+  listing_products: "Productos"
+  new_product: "Nuevo producto"
+  product_type: "Tipo de producto"
+  no_product_type_selected: "No ha seleccionado un tipo de producto"
+  editing_product: "Editar producto"
+  your_presentation_details: "Detalles de tu presentación"
+  listing_services: "Servicios"
+  new_service: "Nuevo servicio"
+  new_album: "Nuevo album"
+  calendar: "Calendario"
+  schedule: "Horario"
+  open_hours: "Horario de atención"
+  rooms: "Salas"
+  editing_service: "Editar servicio"
+  your_schedule_details: "Detalles de tu horario"
+  your_open_hour_details: "Detalles de tu horario de atención"
+  important_dates: "Fechas importantes"
+  date_name: "Nombre de fecha"
+  day: "Dia"
+  add_date: "Añadir fecha"
+  editing_schedule: "Editar horario"
+  editing_open_hour: "Editar horario de atención"
+  new_important_date: "Nueva fecha importante"
+  edit_important_date: "Editar fecha importante"
+  new_event: "Nueva reserva"
+  back_to_calendar: "Volver al calendario"
+  rooms_of: "Salas de"
+  editing_room: "Editar sala"
+  profile: "Perfil"
+  my_profile: "Mi perfil"
+  our_profile: "Nuestro perfil"
+  edit_info: "Editar información"
+  logout: "Cerrar sesión"
+  albums: "Albums"
+  album: "Album"
+  products: "Productos"
+  product: "Producto"
+  presentation: "Presentación"
+  services: "Servicios"
+  service: "Servicio"
+  sign_in: "Ingresar"
+  sign_in_provider: "Ingreso de Proveedores"
+  sign_in_here: "Ingresa aquí"
+  sign_up: "Regístrate"
+  sign_up_provider: "Registro de Proveedores"
+  sign_up_here: "Regístrate aquí"
+  sign_in_with_facebook: "Ingresar con facebook"
+  sign_in_with_google: "Ingresar con google"
+  sign_in_no_registration_apply: "Ingresa sin registro"
+  welcome: "Bienvenido"
+  create_an_account: "Crear cuenta"
+  already_have_an_account: "¿Ya tienes una cuenta?"
+  supplier_home_page: "Página principal de proveedor"
+  administrate_suppliers: "Administrar proveedores"
+  remember_me: "Recordarme"
+  supplier_signed_in: "Ingreso de proveedor"
+  resend_confirmation_instructions: "Reenviar instrucciones de confirmación"
+  you_can_confirm_your_account_through_the_link_below: "Puedes confirmar tu cuenta a través del siguiente enlace"
+  confirm_my_account: "Confirmar mi cuenta"
+  someone_has_requested_a_link_to_change_your_password_and_you_can_do_this_through_the_link_below: "Alguien ha pedido un enlace para cambiar su contraseña, y usted puede hacerlo a través del siguiente enlace"
+  if_you_didnt_request_this_please_ignore_this_email: "Si usted no solicitó esto, por favor ignore este correo electrónico"
+  your_password_wont_change_until_you_access_the_link_above_and_create_a_new_one: "Su contraseña no va a cambiar hasta que acceda al enlace anterior y cree una nueva"
+  your_account_has_been_locked_due_to_an_excessive_amount_of_unsuccessful_sign_in_attempts: "Su cuenta ha sido bloqueada debido a una excesiva cantidad de intentos de acceso sin éxito"
+  click_the_link_below_to_unlock_your_account: "Haga click en el siguiente enlace para desbloquera su cuenta"
+  unlock_my_account: "Desbloquear mi cuenta"
+  send_me_reset_password_instructions: "Enviame instrucciones para reestablecer contraseña"
+  leave_blank_if_you_dont_want_to_change_it: "Déjala en blanco si no quieres cambiarla"
+  we_need_your_current_password_to_confirm_your_changes: "Necesitamos tu contraseña actual para confirmar los cambios"
+  cancel_my_account: "Cancelar mi cuenta"
+  unhappy: "¿Infeliz?"
+  didnt_receive_confirmation_instructions: "¿No recibió instrucciones de confirmación?"
+  didnt_receive_unlock_instructions: "¿No recibió instrucciones de desbloqueo?"
+  sign_in_with: "Ingresar con"
+  resend_unlock_instructions: "Reenviar instrucciones de desbloqueo"
+  select_product_type: "Seleccione tipo de producto"
+  editing_product_image: "Editar imagen de producto"
+  cover: "Cubierta"
+  active: "Activo"
+  active_images: "Imágenes activas"
+  inactive_images: "Imágenes inactivas"
+  activate: "Activar"
+  new_service_image: "Nueva Imagen de Servicio"
+  new_album_image: "Nueva Imagen de Album"
+  email: "Correo electrónico"
+  editing_service_image: "Editar Imagen de Servicio"
+  edit_presentation: "Editar Presentación"
+  editing_presentation: "Editar Presentación"
+  supplier_contacts: "Contactos"
+  see_profile: "ver perfil..."
+  contact: "Contacto"
+  all_rights_reserved: "Todos los Derechos Reservados"
+  new_contact: "Nuevo Contacto"
+  you_have: "Tienes"
+  you_dont_have: "No tienes"
+  you_dont_sell: "Los rubros que escogiste no están incluídos en la categoría de %{category}. Puedes modificarlo en tu configuración de 'Mi Perfil'"
+  details: "Detalles"
+  language: "Idioma"
+  industry_categories: "Rubros"
+  order: "Orden"
+  person: "Persona"
+  availabilities: "Disponibilidades"
+  finance: "Finanzas"
+  invitees_group: "Grupos para los invitados"  
+  group_name: "Nombre del grupo"
+  invitees: "Invitados"
+  checklist: "Checklist"
+  send: "Enviar"
+  help: "Ayuda"
+  loading: "Cargando"
+  price_range: "Rango de Precio"
+  preview: "Vista Previa"
+  close_preview: "Cerrar Vista Previa"
+  quotes: "Cotizaciones"
+  statistics: "Estadísticas"
+  terms_of_use: "Terminos de Uso"
+  como_nace: "Cómo Nace"
+  press: "Prensa"
+  work_with_us: "Trabaja en Matriclick"
+  leyend: "Leyenda"
+  today: "Hoy"
+  new_to_matriclick: "¿Nuevo en Matriclick?"
+  select_service: "Elige un servicio"
+  edit_contact: "Editar contacto"
+  charged_per: "Cobrado por"
+  your_site_in_mc: "Tu sitio en matriclick.com"
+  change_image: "Cambiar imagen"
+  validate_me: "¡Estoy listo, validarme!"
+  awaiting_for_matriclick_approval: "¡Sólo falta que el Equipo de Matriclick valide tu cuenta!"
+  your_account_status: "Estado de tu cuenta"
+  you_havent_approved_yourself_yet: "Todavía no te has validado"
+  you_are_ready: "Ya estás listo"
+  matriclick_approved: "El Equipo Matriclick ha aprobado tu cuenta!"
+  awaiting_matriclick_approval: "El Equipo Matriclick todavía no ha aprobado tu cuenta."
+  self_approval: "Validación propia"
+  matriclick_approval: "Validación Equipo Matriclick"
+  you_are_online: "¡Felicitaciones! ¡Tu cuenta está online!"
+  i_want_to_validate: "Quiero validar mi cuenta"
+  are_you_sure_you_want_to_validate: "¿Estás seguro que quieres validar tu cuenta? Esta operación no se puede deshacer."
+  wedding_info: "Datos Matrimonio"
+  servicios: "Servicios"
+  productos: "Productos"
+  servicios_a_domicilio: "Servicios a Domicilio"
+  coming_soon!: "¡Próximamente!"
+  select_industry_category: "Seleccione Rubro"
+  new_invitee: "Nuevo Invitado"
+  all: "Todos"
+  all_invitees: "Ver todos los invitados"
+  search: "Buscar"
+  filter_search: "Filtrar búsqueda"
+  editing_invitee: "Editando Invitado"
+  listing_invitees: "Listado de Invitados"
+  image_size_limit: "Límite: 1 MB"
+  see_more: "Ver más"
+  expenses: "Gastos"
+  expense: "Gasto"
+  budget: "Presupuesto"
+  add_to_budget: "Agregar a presupuesto"
+  add_to_econ_budget: "Agregar a presupuesto económico"
+  add_to_standard_budget: "Agregar a presupuesto estándar"
+  add_to_premium_budget: "Agregar a presupuesto premium"
+  company: "Quiénes Somos"
+  faq: "Preguntas Frecuentes"
+  terms_of_use: "Condiciones de Uso"
+  import: "Importar"
+  export: "Exportar"
+  upload: "Cargar"
+  budgets: "Presupuestos"
+  all_industry_categories: "Todos los rubros"
+  have_been_added: "El proveedor no ha agregado %{objects}."
+  about_us: "Quiénes somos"
+  duplicate_error: "Esa persona ya existe."
+  confirm_booking: "Confirmar Reserva"
+  unconfirm_booking: "Quitar confirmación"
+  reserved: "Reservado"
+  available: "Disponible"
+  few_reserve_left: "Pocos cupos disponibles"
+  add_reminder: "Matriclick.com enviará un correo a las personas que agregues cuando la actividad esté cerca de terminar" 
+  activity: "Actividad"
+  done: "Listo"
+  add_activity: "Agregar actividad"
+  edit_activity: "Editar actividad"
+  add_booking_text: "Solo puedes reservar 3 días por servicio"
+  reserve_this_date: "Reserva esta fecha"
+  add_booking: "Agregar"
+  delete_booking_text: "¿Realmente deseas eliminar esta reserva?"
+  add_booking_warning_message: "Advertencia, tus datos serán enviados al proveedor, ¿estás seguro que deseas continuar?"
+  total_price_range: "Rango de precios total"
+  total_budget: "Presupuesto total"
+  bookings: "Reservas"
+  booking: "Reserva"
+  this_booking_has_expired1: "Te informamos que tu reserva para"
+  this_booking_has_expired2: "ha sido expirada. Para mayor información te puedes contactar directamente con el proveedor o enviarnos un correo a"
+  all_the_products_catalog: "Todos los Productos"
+  all_the_services_catalog: "Todos los Servicios"
+  select_budget_type_service: "Elige a qué presupuesto quieres agregar este servicio"
+  select_budget_type_product: "Elige a qué presupuesto quieres agregar este producto"
+  totally_booked: "No quedan cupos"
+  status: "Estado"
+  ceremony: "Ceremonia"
+  theres_nothing_for_this_category: "No hay %{objects} para esta categoría"
+  booked: "Reservado"
+  reject: "Rechazar"
+  contact_type: "Tipo de contacto"
+  contacts_type: "Tipos de contacto"
+  new_contact_type: "Nuevo tipo de contacto"
+  question: "Pregunta"
+  answer: "Respuesta"
+  created_at: "Fecha creación"
+  booked_at: "Fecha reserva"
+  expire: "Expirar"
+  schedule_types: "Horarios tipo..."
+  confirmed_bookings: "Reservas confirmadas"
+  invitee_groups: "Grupos de invitados"
+  edit_invitee_groups: "Editar Grupos"
+  block_this_date: "Bloquear esta fecha para nuevas reservas"
+  locked: "Bloqueado"
+  is_locked: "Está bloqueado"
+  all_your_bookings: "Registro de todas las reservas"
+  comment: "Comentar"
+  commentary: "Comentario"
+  commentaries: "Comentarios"
+  manage_locks_for_this_date: "Administrar bloqueos para esta fecha"
+  full_booking_confirmed: "Reservas Confirmadas llenas"
+  message: "Mensaje"
+  more: "Más"
+  category: "Categoría"
+  categories: "Categorías"
+  news: "Noticias"
+  suppliers: "Proveedores"
+  service_conversations: "Conversaciones de servicios"
+  product_conversations: "Conversaciones de productos"
+  conversations: "Conversaciones"
+  reference_text: "Pide referencias de este proveedor"
+  new_expense: "Nuevo gasto"
+  edit_expense: "Editar gasto"
+  tendencies: "Matri-blog"
+  select_ceremonty_type: "Seleccione tipo de ceremonia"
+  ceremony_schedule: "Horario de la ceremonia"
+  new_tip: "Nuevo dato práctico"
+  tips: "Datos prácticos"
+  message_of: "Mensaje de"
+  by_service: "Por servicio"
+  by_product: "Por producto"
+  ask_reference: "Pedir referencia"
+  reference_request_created_title: "¡Listo, ya hemos recibido tu solicitud!"
+  reference_request_created: "¡Las novias y novios de Matriclick te ayudarán a decidir! (te enviaremos un email a la brevedad)"
+  add_user: "Agregar usuario"
+  owner: 'Dueño'
+  select: "Seleccione"
+  is_invited: 'Invitado de la cuenta'
+  is_owner: 'Dueño de la cuenta'
+  ceremony_days: 'Dias de ceremonia'
+  remove_this_ceremony_day: 'Remover este dia de ceremonia'
+  add_ceremony_day: 'Agregar dia de ceremonia'
+  ceremony_day_hours: 'Horario de dia de ceremonia'
+  remove_this_ceremony_day_hour: 'Remover este horario'
+  add_ceremony_day_hour: 'Agregar horario a este dia'
+  civil_official: 'Oficial civil'
+  parson: 'Párroco'
+  rabbi: 'Rabino'
+  pastor: 'Pastor'
+  contact_person: 'Persona de contacto'
+  operation_hours: 'Horario de atención'
+  add_booking_message_content: 'Si quieres, envía un comentario al proveedor'
+  unique_price: 'Precio único'
+  range_price: 'Rango de precio'
+  this_booking_has_related: 'Relacionada con una reserva confirmada'
+  notifications: 'Notificaciones'
+  no_notifications: 'No hay nuevas notificaciones'
+  wait: 'Esperar'
+  keep: 'Mantener'
+  related_confirm_warning: 'Al confirmar una reserva, las otras reservas del mismo novio para el mismo servicio serán eliminadas'
+  products_and_services: 'Productos y servicios'
+  unavailable: 'Inhabilitado'
+  import_error: 'El archivo subido no se pudo leer'
+  import_suggestion: 'Recuerda que debes subir un archivo .xls (excel 97-2003)'
+  import_invitees: 'Importar invitados'
+  export_invitees: 'Exportar invitados'
+  confirm_export: 'Esta acción descargará un archivo excel con la información de todos los invitados. ¿Desea continuar?'
+  user_profile: 'Perfil'
+  products_catalog: 'Productos'
+  services_catalog: 'Servicios'
+  matrichecklist: 'Checklist'
+  budget_menu: 'Finanzas'
+  wedding_tools: 'Matri Tools'
+  invitees_menu: 'Menú Invitados'
+  user_conversations: 'Conversaciones'
+  can_not_be_confirmed1: 'Te informamos que tu reserva para'
+  can_not_be_confirmed2: 'no pordrá ser confirmada debido a que el servicio ya ha copado su máximo de reservas confirmadas. Si deseas mantenerla de todas formas por si se abre un nuevo cupo puedes hacer click en “mantener”'
+  message: "Mensaje"
+  messages: "Mensajes"
+  is_confirmed1: '¡Felicitaciones! Te informamos que tu reserva ha sido confirmada. Ya cuentas con'
+  is_confirmed2: 'para el día de tu matrimonio, no olvides mantenerte siempre en contacto con ellos'
+  related_confirmed: 'Todas las reservas que tengas en este servicio se eliminarán automáticamente'
+  expired: 'Expirada'
+  confirmed: 'Confirmada'
+  unconfirmed: 'Desconfirmada'
+  will_be_erased: 'Se eliminará'
+  wont_be_confirmed: 'No podrá ser confirmada'
+  en: 'en'
+  unconfirmed_text1: 'Te informamos que tu reserva para'
+  unconfirmed_text2: 'ya no está confirmada. Para mayor información te puedes contactar directamente con el proveedor o enviarnos un correo a contacto@matriclick.com'
+  hide: 'Esconder'
+  edit_user: 'Editar'
+  instructions: 'Instrucciones'
+  suppliers_catalog: "Proveedores"
+  hour: "Hora"
+  dont_have_services: "Para crear una reserva debes tener al menos un servicio. Puedes crear nuevos en 'Servicios'"
+  suppliers_catalog: "Proveedores"
+  products_and_services_conversations: "Conversaciones de productos y servicios"
+  ceremonies: 'Ceremonias'
+  i_want_booking_system: "Quiero sistema de reservas"
+  edit_profile: "Editar mi perfil"
+  place_booking: "Reservar"
+  products_and_services: "Productos y servicios"
+  products_and_services_catalog: "Productos y servicios"
+  catalog: "Catálogo"
+  specials: "Especiales"
+  used_dresses: "¡Vestidos usados!"
+  dresses: "Vestidos"
+  enter: "Entrar"
+  sell_your_dress: "¡Vende tu vestido!"
+  new_dress: "Nuevo item"
+  edit_dress: "Editar item"
+  delete_booking: "Eliminar reserva"
+  deleted_booking: "Reserva eliminada"
+  going_to_be_deleted: "Cuando hagas click en el botón se eliminará la reserva"
+  show_motive: "Mostrar motivos"
+  supplier_has_no_bookings_system: "El proveedor no tiene sistemas de reservas"
+  mark_as_read: "Marcar como leido"
+  booking_is_ok: "No te preocupes, la reserva está registrada en el sistema del proveedor y todavia es vigente."
+  no_products_yet: "Todavía no has agregado productos/servicios a este presupuesto."
+  no_reviews_yet: "No tenemos comentarios sobre este proveedor todavía..."
+  please_leave_your_comments: "¡Ayúdanos a rankear a nuestros proveedores!"
+  your_comments: "Tus comentarios"
+  reviews: "Reseñas"
+  watch_products_and_services: "Ver todos los productos y servicios de "
+  here: "Acá"
+  less: "Menos"
+  url_code: "Código URL"
+  how_to_upload_video: "Cómo subir un vídeo"
+  trading_house: "Casa comercial"
+  trading_houses: "Casas comerciales"
+  trading_house_code: "Código casa comercial"
+  without_trading_house: "Sin casa comercial"
+  other: "Otro"
+  custom_message: "Mensaje personalizado"
+  attach_a_file: "Adguntar un archivo"
+  download: "Descargar"
+  votes: "Votos"
+  thanks_for_your_vote: "Gracias por votar!"
+  rate_x_out_of_y: "Votar %{x} de %{y}"
+  modify_rate_x_out_of_y: "Cambiar voto por %{x} de %{y}"
+  add_attached_file: "Añadir archivo adjunto"
+  user: "Usuario"
+  economic: "Económico"
+  standard: "Estándar"
+  econ: "Económico"
+  settings: "Configuración"
+  added: "Agregado"
+  matriclick_points: "Puntos Matriclick"
+  opportunities: "Matri-oportunidades"

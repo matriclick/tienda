@@ -1,0 +1,85 @@
+<div class="opportunity">
+	<div class="opportunity_title">
+		Riviera Maya y Nueva York
+	</div>
+
+	<div style="float:left;">
+	  	<div style="margin-bottom:5px">
+			<div class="supplier_page_in_image">
+			 	<%=  link_to image_tag(@supplier_account.image.url(:small)), @supplier_account.image.url(:original), :class => :fancybox %>
+				<% unless (imgs = @supplier_account.presentation.presentation_images).blank? %>
+					<div class="supplier_page_in_image_count">
+						<% imgs.each_with_index do |image, i| %>
+							<%= link_to image_tag(image.image.url(:tiny)), image.image.url(:original), :class => :fancybox, :rel => :gallery  %>
+						<% end %>
+					</div>
+				<% end %>	
+			</div>
+		</div>
+	</div>
+
+	<div class="opportunity_supplier_page_in_data">
+		<div class="opportunity_supplier_page_in_name">
+			<%= @supplier_account.fantasy_name %>
+		</div>	
+		<div class="opportunity_supplier_description">
+			Para una luna de miel ideal, la mejor opción es mezclar el descanso en una playa con la activa vida de una ciudad cosmopolita. El destino de esta semana es Riviera Maya y Nueva York, un viaje único y que no olvidarán jamás. 
+		</div>
+	</div>
+
+	<div class="clear"></div>
+
+	<div style="border-top:1px dotted grey; margin:10px 0px 10px 0px"></div>
+	<div style="border-top:1px dotted grey; margin:10px 0px 10px 0px"></div>
+
+	<div>
+		<div style="float:left; margin-right:20px;">
+		  <%= image_tag('specials/honeymoon_logo.jpeg', :width => '400px', :height => '600px') %>
+		</div>
+	
+		<div style="float:left; width:350px; margin:5px;">
+			<div class="opportunity_terms_title">PROGRAMA INCLUYE:</div>
+			<div class="opportunity_terms_description">
+			
+				• Vuelos en línea regular</br>
+				• 3 noches de alojamiento en Nueva York</br>
+				• 5 noches en Rivera Maya en el régimen all inclusive</br>
+				• Traslados en servicio regular</br>
+				• Visita panorámica regular del Alto y Bajo Manhattan en español</br>
+				• Seguro de viaje.</br></br>
+
+				ITINERARIO:</br></br>
+
+				• DÍA 1</br>
+				Nueva York</br></br>
+				Alojamiento. Dedicaremos la mañana a realizar la visita panorámica del Alto y Bajo Manhattan, durante la que recorreremos las principales zonas de interés como: Central Park, el Lincoln Center, Harlem, la famosa 5a Avenida, el Rockefeller Center, la zona Universitaria de Greenwich Village, el Soho, Chinatown, para terminar en la zona más al sur de la ciudad, Battery Park, desde donde podremos ver el principal símbolo de la ciudad: la Estatua de la Libertad o “Lady Liberty”, como la conocen los neoyorquinos.
+				</br></br>
+				• DÍA 2 Y 3</br>
+				Nueva York</br></br>
+				Alojamiento. Día libre a su disposición. No les será fácil decidir dónde dedicar su tiempo en esta ciudad, llena de actividad desde el amanecer hasta bien entrada la noche. Siempre hay algo que hacer o un sitio donde ir. Museos, compras, espectáculos de Broadway, restaurantes y tiendas, desde las más elegantes a las más sofisticadas, son sólo algunas de las ideas que les ofrecemos.
+				</br></br>
+				• DÍA 4</br>
+				Nueva York / Riviera Maya</br></br>
+				Traslado al aeropuerto para embarcar en vuelo con destino Cancún. A la llegada, traslado al hotel y alojamiento.
+				</br></br>
+				• DÍA 5 AL 9</br>
+				Riviera Maya</br></br>
+				Días libres a su disposición para disfrutar de uno de los iconos para relajarse y disfrutar tanto del descanso como de las actividades que ofrezca su alojamiento.
+				</br></br>
+				• DÍA 10</br>
+				Riviera Maya / Chile</br></br>
+				Traslado al aeropuerto de Cancún para embarcar en su vuelo de regreso a Chile. Fin del servicio.
+				Este programa es modificable a las necesidades y requerimientos de los novios.
+			
+			</div>
+			<div style="margin-top:50px; text-align:center; font-weight:bold;">
+				<%= link_to image_tag('cotiza_aca.png', :class => 'image_button'), "http://www.travelite.cl/nueva-york-y-rivera-maya/" %><br />
+			</div>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+
+	<div style="border-top:1px dotted grey; margin:10px 0px 10px 0px"></div>
+	<div style="border-top:1px dotted grey; margin:10px 0px 10px 0px"></div>
+</div>

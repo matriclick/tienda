@@ -1,0 +1,64 @@
+
+
+
+
+
+<div id="d_fondo_123_e2">
+
+	<%= image_tag("contests/final.gif") %> 		
+	<br />
+	<div class="slider_contest_travel">
+		<div class="slider-item" "contest-slider">
+			<%= link_to (image_tag("contests/1.png")), 'http://www.travelite.cl/', target: '_blank' %>
+				<div class="caption">
+					Tú puedes ser el <b>ganador</b> de una estadía 8 días 7 noches,<b> todo incluido</b> para 2 personas en el <b>Hotel Grand Riviera Princess</b> en Riviera Maya México<b> ¡Juégatela!</b>
+				</div>
+		</div>
+		<div class="slider-item" "contest-slider">
+			<%= link_to (image_tag("contests/2.png")), 'http://www.travelite.cl/', target: '_blank' %>
+			<div class="caption">
+					Tú puedes ser el <b>ganador</b> de una estadía 8 días 7 noches,<b> todo incluido</b> para 2 personas en el <b>Hotel Grand Riviera Princess</b> en Riviera Maya México<b> ¡Juégatela!</b>
+			</div>
+		</div>
+		<div class="slider-item" "contest-slider">
+			<%= link_to (image_tag("contests/3.png")), 'http://www.travelite.cl/', target: '_blank' %>
+			<div class="caption">
+					Tú puedes ser el <b>ganador</b> de una estadía 8 días 7 noches,<b> todo incluido</b> para 2 personas en el <b>Hotel Grand Riviera Princess</b> en Riviera Maya México<b> ¡Juégatela!</b>
+			</div>
+		</div>
+	</div>	
+</div>
+
+																					<!-- PINTEREST -->
+<div class="clear"></div>
+
+<div id="conoce_premio_travelite">
+<%= link_to image_tag("contests/conoce_tu_premio.gif",  :id => "conoce_tu_premio"), 'http://www.dreamsprincess.net/mexic/', target: '_blank' %>		
+
+<div class="bases_contest"><%= link_to '(Ver bases del concurso aquí!)', "travel/rules", :class => "bases_contest", :style => "font-family:Arial, Helvetica, sans-serif;color:#6E6E6E;" %></div>
+</div>
+
+<div id="albums_columns">
+	<% @contest_travelites.each do |contest_travelite| %>
+		<div class="contests_albums_photo albums_photo">
+			<%= link_to image_tag(contest_travelite.contest_travelite_image(:contest_travelite_size)), contests_travelite_image_path(:id => contest_travelite.id) %>
+			<% if !contest_travelite.groom_name.blank? and !contest_travelite.bride_name.blank? and !contest_travelite.photo_name.blank? %>
+				<div class="albums_text">
+					<div class="contests_albums_h1">
+						<b><%= contest_travelite.groom_name.truncate(22) %></b><br/>
+						<b><%= contest_travelite.bride_name.truncate(22) %></b><br/>
+					</div>
+					<div class="contests_albums_h2">
+						<%= contest_travelite.photo_name.truncate(30) %><br/>
+					</div>
+				</div>
+			<% end %>
+			</br>			
+		</div>
+	<% end %>
+	<div id="infinite-scroll"></div>
+</div>
+
+
+
+<div class="clear"></div>

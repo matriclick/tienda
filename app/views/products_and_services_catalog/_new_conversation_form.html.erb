@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+  		$('#message_content').focus();
+	});
+</script>
+
+<%= nested_form_for @conversation, :url => conversations_path(:id => @object, :transmitter => @transmitter, :object_class => @object.class) do |f| %>
+	<div class="subtitulos">
+		Pide una cotización dejándole un mensaje al proveedor
+	</div>
+	<div class="message_area">
+		<%= f.fields_for :messages do |message|%>
+			<%= message.text_area :content, :rows => 5, :id => 'message_content' %><br/>
+		<% end %>
+	</div>
+	<div class="holder">
+		<% if current_user.user_account.has_enough_info%>
+			<%= f.submit :class => 'button' %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+			<% if @object.supplier_account.online_payment %>
+				<div style="display:inline;">
+					<%= link_to 'Pagar ' + t(@object.class.to_s.downcase), buy_details_path(:purchasable_type => @object.class, :purchasable_id => @object.id), :class => 'red_button', :style => 'float:right' %>
+				</div>
+			<% end %>
+		<% else -%>
+			<%= render "layouts/no_enough_user_info", :word => t('send'), :link_class => 'button' %>
+		<% end -%>
+	</div>
+<% end %>

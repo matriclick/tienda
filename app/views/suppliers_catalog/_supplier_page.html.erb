@@ -1,0 +1,151 @@
+<%= render "layouts/reviews_box", reviews: @supplier.supplier_account.reviews.where(:approved_by_admin => true), supplier_account: @supplier.supplier_account %>
+
+<div class="supplier_page_in_image">
+ 	<%=  link_to image_tag(@supplier.supplier_account.image.url(:small), :alt => @supplier.supplier_account.image_name), @supplier.supplier_account.image.url(:original), :class => :fancybox %>
+	<% unless (imgs = @presentation.presentation_images).blank? %>
+		<div class="supplier_page_in_image_count">
+			<% imgs.each_with_index do |image, i| %>
+				<%= link_to image_tag(image.image.url(:tiny), :alt => image.image.name), image.image.url(:original), :class => :fancybox, :rel => :gallery  %>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+
+<div class="supplier_page_in_data">
+	<% case @supplier.supplier_account.id %>
+		<% when 141 # Calabrese 141 %>
+			<div class="logo_soty_medium">
+				<%= image_tag 'supplier_exclusive/se_120x120_01.png' %>
+			</div>
+		<% when 784, 40 # Rinaldo Verdi Fotografía Profesional 784, TuMatriEsÚnico 40 %>
+			<div class="logo_soty_medium">
+				<%= image_tag 'supplier_of_the_year/soty_medium_03.png' %>
+			</div>
+	<% end %>
+	<h1 class="supplier_page_in_name"><%= "#{crop_if_longer @supplier.supplier_account.fantasy_name, 47}" %></h1>	
+	<ul class="supplier_page_in_supplier">
+		<li class="supplier_data">
+			<%= "Rubros: " %>
+			<% if @supplier.supplier_account.industry_categories.blank? %>
+				<%= "N/A" %>
+			<% else %>
+				<% for ic in @supplier.supplier_account.industry_categories %>
+					<% if session[:preview] == true %>
+						<%= ic.get_name %><br/>
+					<% else -%>
+						<%= link_to ic.get_name, products_and_services_catalog_index_path(:industry_category_ids => ic.slug) %><br/>
+					<% end -%>
+				<% end %>
+			<% end %>
+		</li>
+		<% if current_user.nil? -%>
+			<li class="button_in_product">
+				<%= link_to raw("<div class='image'></div><div class='message'>"+t('ask_reference')+"</div>"), "#sign_in_fancybox" , :id => "reference_request_button", :class => 'action_button fancybox_message' %>
+				<%= link_to raw("<div class='image'></div><div class='message'>Pedir una cotización</div>"), "#sign_in_fancybox" , :id => "send_message_button", :class => 'action_button fancybox_message' %>
+				<% if @supplier.supplier_account.online_payment %>
+						<%= link_to image_tag('pago_online.png', :alt => 'Pago Online Activado'), '#pago_online_description', :class => [:fancybox_message, :image_button] %>
+				<% end %>
+			</li>
+			<%= render "layouts/sign_in_fancybox" %>
+		<% else -%>
+			<li class="button_in_product">
+				<%= render 'layouts/reference_request' %>
+				<%= link_to raw("<div class='image'></div><div class='message'>Pedir una cotización</div>"), '#select_service', :id => "send_message_button", :class => 'action_button fancybox_message' %>
+				<% if @supplier.supplier_account.online_payment %>
+						<%= link_to image_tag('pago_online.png', :alt => 'Pago Online Activado'), '#pago_online_description', :class => [:fancybox_message, :image_button] %>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
+	<div class="supplier_page_in_links"></div>
+</div>
+
+<% if params[:action] == 'supplier_products_and_services' %>
+	<div style="float:left; width:72%; margin:10px 0px -20px 0px;">
+		<div class="blog_share_show">
+			<div class="addthis_toolbox">
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+				<a class="addthis_button_tweet"></a>
+			</div>
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
+		</div>
+	</div>
+<% end %>
+
+<ul class="supplier_page_in_menu">
+	<li class="pestana <%= "pestana_on" if params[:action] == "supplier_products_and_services" %>">
+		<% text = t('products_and_services') %>
+		<% count = @supplier.supplier_account.services_and_products_count %>
+		<% if @vestido_boutique then text = 'Vestidos'; count = @supplier.supplier_account.dresses.count end %>
+		<% if @trousseau then text = 'Ajuar'; count = @supplier.supplier_account.dresses.count end %>
+		<%= link_to text, supplier_products_and_services_path(:public_url => @supplier.supplier_account.public_url) %> <%= "(#{count})" %>
+	</li>
+	<li class="pestana <%= "pestana_on" if params[:action] == "supplier_description" %>">
+		<% text = 'Descripción y ubicación' %>
+		<% if @vestido_boutique then text = 'Descripción y ubicación' end %>
+		<% if @trousseau then text = 'Descripción' end %>
+		<%= link_to text, supplier_description_path(:public_url => @supplier.supplier_account.public_url) %>
+	</li>
+	<% if !@vestido_boutique and !@trousseau %>
+		<li class="pestana <%= "pestana_on" if params[:action] == "supplier_calendar" %>">
+			<%= link_to "Calendario", supplier_calendar_path(:public_url => @supplier.supplier_account.public_url) %>
+		</li>
+	<% end %>
+	<% if !@trousseau %>
+		<li class="pestana <%= "pestana_on" if params[:action] == "supplier_contacts" %>">
+			<%= link_to "Contactos", supplier_contacts_path(:public_url => @supplier.supplier_account.public_url) %> <%= "(#{@supplier.supplier_account.supplier_contacts.count})" %>
+		</li>
+	<% end %>
+	
+	<% if !@vestido_boutique and !@trousseau %>
+		<li class="pestana <%= "pestana_on" if params[:action] == "supplier_reviews" %>">
+		<%= link_to "Comentarios  (#{@supplier.supplier_account.reviews.approved.count})", supplier_reviews_path(:public_url => @supplier.supplier_account.public_url) %>
+		</li>
+	<% end %>
+</ul>
+
+<% if !@vestido_boutique %>
+	<div class="supplier_page_in_content">
+<% else %>
+	<div class="supplier_page_in_content_dress">
+<% end %>
+		<%= yield :supplier_page_in_content %>
+	</div>
+	
+<div style="display:none"> <!-- fancy view -->
+	<div id="select_service" style="">
+		<%= render "products_and_services", :supplier => @supplier %>
+	</div>
+</div>
+
+<% if @supplier.supplier_account.online_payment %>
+	<div style="display:none"> <!-- fancy view -->
+		<div id="pago_online_description" style="width:950px;">
+			<div style="margin-bottom:10px; font-weight:bold; font-size:14px; text-align:center;">
+				¡Puedes reservar y pagar los servicios de de este proveedor Online!
+			</div>
+			<div style="margin-bottom:20px; text-align:center;">
+				Acumula puntos de tu tarjet de crédito | Podrás pagar en cuotas | Respaldo Matriclick.com
+			</div>
+			<div style="float:left">
+				<div style="margin-bottom:10px; font-weight:bold; font-size:14px; color:blue">Paso 1: Selecciona el servicio</div>
+				<div style="text-align:center">
+					<%= image_tag 'online_payment/selecciona_servicio.png', :alt => 'Selecciona el servicio' %>
+				</div>
+			</div>
+			<div style="float:right">
+				<div style="margin-bottom:10px; font-weight:bold; margin-left:20px; font-size:14px; color:blue">Paso 2: Coordina con el proveedor</div>
+				<div style="text-align:center">
+					<%= image_tag 'online_payment/selecciona_pagar_online.png', :alt => 'Coordina con el proveedor' %>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div style="text-align:center">
+				<div style="margin-bottom:10px; font-weight:bold; font-size:14px; color:blue">Paso 3: Paga el monto acordado con tus tarjetas</div>
+				<div style="text-align:center">
+					<%= image_tag 'online_payment/confirma_pago.png', :alt => 'Paga el monto acordado con tus tarjetas' %>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>

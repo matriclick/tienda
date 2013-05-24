@@ -1,0 +1,64 @@
+<div class="right_link">
+	<%= link_to t('back'), matrichecklist_index_path, :class => "button" %>
+</div>
+<div class="titulos">
+	Recordatorios
+</div>
+<div class="help_tip">
+	<%= t('add_reminder') %>
+</div>
+<div class="box">
+	<div>
+		<b><%= t('activity') %></b>: <%= @activity.name %><br><br>
+	</div>
+	<div>
+		<%= form_for @reminder, :url => matrichecklist_activate_reminder_path(:activity_id => @activity.id), :validate => true  do |f| %>
+		  	<table class="invisible">
+				<tr>
+					<td><%= f.label :name %><br />
+					<%= f.text_field :name %>
+					</td>
+				</tr>
+				<tr>
+					<td><%= f.label :mail %><br />
+					<%= f.text_field :mail %>
+					</td>
+				</tr>
+				<tr>
+					<td><%= f.label :days_before %><br />
+					<%= f.select :days_before, options_for_select(%w{1 5 10 15 20}, 10) %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+			    		<%= f.submit :class => "button" %>
+					</td>
+				</tr>
+			</table>
+		<% end %>
+	</div>
+	<% if @all_reminders.present? %>
+	<div class="holder">
+		Direcciones ya inscritas para todas las tareas (les llegará un correo cuando esta tarea esté cercana a terminar):
+		<br />
+	</div>	
+		<table class="list">	
+			<tr>
+				<th>Nombre</th>
+				<th>Correo</th>
+				<th>Días de anticipación</th>
+				<th>Opciones</th>
+			</tr>
+			<% @all_reminders.each do |act| %>
+			<tr>
+				<td><%= act.name %></td>
+				<td><%= act.mail %></td>
+				<td><%= act.days_before %></td>
+				<td><%= link_to t('destroy'), matrichecklist_delete_reminder_path(:id => act.id), :method => :delete, :confirm => t("are_you_sure") %></td>
+			</tr>
+			<% end %>
+		</table>
+	<% end %>
+<br />
+</div>
+<div class="clear"></div>

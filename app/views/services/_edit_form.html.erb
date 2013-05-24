@@ -1,0 +1,7 @@
+<%= nested_form_for [@supplier_account, @service], 
+# Had to create a new form for the :edit action because the route for updating is not the same as for creating
+:url => supplier_account_service_path(@supplier, @service), :validate => true, :html => {:id => "edit_service_form", :multipart => true} do |f| %>
+
+	<%= render "form_content", :f => f %>
+
+<% end %>

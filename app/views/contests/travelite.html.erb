@@ -1,0 +1,99 @@
+﻿<!-- para todas las vistas -->
+
+<div id="fondo_travelite">
+	<%= image_tag("contests/fondo_4_5_6.jpg") %> 
+</div>
+<div class="logo_travelite">
+	<%= image_tag("contests/logo.png") %> 
+</div>
+<div class="tipografia_travelite">
+	¡TE REGALA UNA ESTADÍA PARA DOS PERSONAS!
+</div>
+
+
+<!-- BEGIN Cuando el usuario está logueado y participando (pestaña que falta, pestaña 2 cambiar txt, lo que se ve pa playeros y viajeros) -->
+	<% if !!@user and !!@user_contest_travelite %> 
+		<div id="contenido_contest_travelite">
+			<div class="txt_step3">
+				<%= image_tag("contests/participando.png") %> 
+			</div>
+		</div>
+		<div id="parte_de_like_step2">
+			<div id="logo_like_step3">
+				<%= image_tag("contests/marcas.png") %> 
+			</div>
+			<div class="like_travelite">
+				<div class="fb-like" data-href="https://www.facebook.com/pages/Travelite/353713114643941" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+			</div>
+			<div class="like_matriclick">
+				<div class="fb-like" data-href="https://www.facebook.com/matriclick" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+			</div>
+		</div>
+		<br />
+<!-- solo si voto por playeros -->
+		<% if @show_like_playero %>
+
+		<div id="contenido_contest_travelite">	
+			<div class="foto_playero_step3">
+				<%= image_tag("contests/foto_playero_fbk.png") %> 
+     		</div>
+			<div id="fbk_playeros">
+				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Playeros-Matriclick-Travelite/309757422458550" data-width="299" data-show-faces="true" data-stream="false" data-header="false"></div>
+			</div>
+		</div>
+		<br />
+		<br />
+<!-- hasta aca solo si voto por playeros -->
+
+<!-- solo si voto por viajeros -->	
+		<% else %>
+			<div id="contenido_contest_travelite">
+				<div class="foto_viajero_step3">
+					<%= image_tag("contests/foto_viajero_fbk.png") %> 
+     			</div>
+     			<div id="fbk_viajero">
+					<div class="fb-like-box" data-href="https://www.facebook.com/pages/Viajeros-Matriclick-Travelite/336127006495202" data-width="299" data-show-faces="true" data-stream="false" data-header="false"></div>
+				</div>
+			</div>
+			<br />
+			<br />
+		<% end %>
+<!-- hasta aca solo si voto por viajeros -->
+		
+<!-- END Cuando el usuario está logueado y participando -->
+
+
+<!-- ACA pestaña 0 -->
+	<% else %>
+		<div id="contenido_contest_travelite">
+			<div class="foto_playero_step1">
+				<%= image_tag("contests/foto_playeros.png") %> 
+	     	</div>
+	    	<div class="vs_step1"> 
+	        	V/S
+	     	</div>
+			<div class="foto_viajero_step1">
+				<%= image_tag("contests/foto_viajeros.png") %> 
+	    	</div>
+		</div>
+		<div class="txt1">
+			<%= image_tag("contests/txt1.png") %> 
+	    </div>
+		<div id="btn_step1">
+			<%= link_to image_tag("contests/btn_participa.png"), contests_travelite_step1_path %> 
+		</div>
+	<% end %>
+<!-- hasta aca pestaña 0 -->
+
+
+
+<!-- btn bases -->
+<div id="frase_travelite">
+	<i>*Si quieres conocer otros planes y destinos visítanos en <%= link_to 'www.travelite.cl', 'http://www.travelite.cl', target: '_blank' %></i>
+</div>
+
+<div class="link_bases_travelite">
+	<i><%= link_to '*Aquí puedes conocer las bases del concurso', contests_travelite_rules_path%></i>
+</div>
+<!-- hasta aca btn bases -->
+

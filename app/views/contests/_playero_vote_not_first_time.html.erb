@@ -1,0 +1,43 @@
+<%= form_for @user_contest_travelite, :url => contests_update_image_path(:id => @user_contest_travelite.id), :method => "put" do |f| %>
+	<div id="d_cambiar_foto">
+		¡Tu foto ya está concursando!
+		<br />
+		<br />
+		<div class="d_titulo_foto">
+			<%= image_tag @user_contest_travelite.contest_travelite_image(:contest_travelite_size) %><br />
+			<% if !@user_contest_travelite.nil? %>
+				<% if !@user_contest_travelite.groom_name.blank? and !@user_contest_travelite.bride_name.blank? and !@user_contest_travelite.photo_name.blank? %>
+					<%= @user_contest_travelite.contest_travelite_image_file_name %><br />
+					<%= @user_contest_travelite.groom_name + ' & ' + @user_contest_travelite.bride_name + ' - ' + @user_contest_travelite.photo_name %><br />
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div id="d_formulario_cambiar_foto">	
+		<div class="a_continuacion">
+			A continuación puedes cambiar tu foto cuando quieras
+		</div>
+		<div class="formulario_seleccionar_foto">
+			<%= render 'travelite_form', :f => f %>
+			<br />
+			<%= image_submit_tag "contests/btn_act.png" %>
+		</div>
+	</div>
+	<br />
+	<div class="numero_votos">
+		<%= 'Tienes ' + @user_contest_travelite.vote_count.to_s + ' votos.' %><br />
+		<%= 'El que va ganando tiene ' + @most_voted.to_s + ' votos.' %><br />
+	</div>
+	<div id="d_link_votar">
+		<div class="d_diles">
+			<b>Diles a tus amigos que voten por tu foto en:</b>
+		</div>
+		<br />
+		<div id="d_link">
+			<%= link_to contests_travelite_image_url(:id => @user_contest_travelite.id), contests_travelite_image_url(:id => @user_contest_travelite.id) %>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<br />
+	<br />
+<% end %>

@@ -1,0 +1,21 @@
+<%= form_for(@industry_category) do |f| %>
+<% if @industry_category.errors.any? %>
+<div id="error_explanation">
+	<h2><%= @industry_category.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+
+	<ul>
+		<% @industry_category.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<div class="field">
+	<%= f.label :name %><br />
+	<%= f.text_field :name %>
+</div>
+<div class="actions">
+	<%= f.submit %>
+</div>
+<% end %>

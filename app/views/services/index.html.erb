@@ -1,0 +1,106 @@
+<div class="right_link">
+<% if @sellsservices %>
+	<%= link_to t('new_service'), new_supplier_account_service_path(@supplier), :class => :button %>
+<% end %>
+</div>
+<div class="titulos">
+	<%= t 'listing_services' %>
+</div>
+
+<div class="help_tip">
+	<%= t 'helptip.supplier_account.services' %>
+</div>
+<div class="box">
+	<% if !@services.blank? %>
+		<table class="list">
+			<tr>
+				<th class="width5">
+					<%= t "place" %>
+				</th>
+				<th class="width20">
+					<%= t "images" %>
+				</th>
+				<th>
+					<%= t "details" %>
+				</th>
+				<th class="width15">
+					<%= t "options" %>
+				</th>
+			</tr>
+			<% @services.each do |service| %>
+			<tr>
+				<td>
+					<%= service.place.blank? ? 
+					"-" : 
+					service.place %>
+				</td>
+				<td>
+					<%= service.service_images.blank? ? 
+					content_tag(:b, t('no_images') ) : 
+					(image_tag(service.service_images.first.image.url, :height => '30', :class => "thumbnail_image") + content_tag(:span, " + #{pluralize(service.service_images.count-1, t('images') )}", :class => "number_of_images")) %>
+				</td>
+				<td>
+					<div class="floatLeft textAlignRight width41">
+						<%= t 'activerecord.attributes.service.name' %><br/>
+						<%= t 'activerecord.attributes.service.industry_category' %><br/>
+						<% unless service.deliverable %>
+							<%= t 'activerecord.attributes.service.address' %><br/>
+							<%= t 'activerecord.attributes.service.commune' %><br/>	
+							<%= t 'activerecord.attributes.service.parking' %><br/>
+						<% end %>
+						<%= (service.top_price_range.blank?) ? t('activerecord.attributes.product.price') : t('price_range') %><br/>
+						<%= t 'activerecord.attributes.service.contact_phone' %><br/>
+						<% if service.supplier_account.bookable %>
+							<%= t 'activerecord.attributes.service.booking_resources_consumed' %><br/>														
+						<% end %>
+						<%= t 'activerecord.attributes.service.description' %>
+					</div>
+					<div class="floatLeft textAlignLeft paddingLeft10 light width56">
+						<%= (service.name.blank?) ? 
+						content_tag(:span, t('activerecord.attributes.service.name'), :class => 'profileBlankField') : content_tag(:span, service.name) %><br/>
+						<%= (service.industry_category.blank?) ? 
+						content_tag(:span, t('activerecord.attributes.service.industry_category'), :class => 'profileBlankField') : content_tag(:span, service.industry_category.get_name) %><br/>
+						<% unless service.deliverable %>
+							<%= (service.address.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.service.address'), :class => 'profileBlankField') : content_tag(:span, service.address) %><br/>
+							<%= (service.commune.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.service.commune'), :class => 'profileBlankField') : content_tag(:span, service.commune) %><br/>							
+							<%= (service.parking.blank?) ? 
+							content_tag(:span, "-", :class => 'profileBlankField') : content_tag(:span, service.parking) %><br/>
+						<% end %>
+							<%= (service.price.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.product.price'), :class => 'profileBlankField') : content_tag(:span, number_to_currency(service.price)) %> 
+					
+		          <% if service.top_price_range.blank? or service.top_price_range == 0 %>
+		            <%= " " %>
+		          <% else %>
+							  <%= " - " %><%= content_tag(:span, number_to_currency(service.top_price_range)) %> 
+							<% end %>
+							<%= (service.price_description.blank?) ? " " : content_tag(:span, (service.price_description[0..100].gsub(/\n/, '<br/>')).html_safe ) %><br/>
+							
+						<%= (service.contact_phone.blank?) ? 
+						content_tag(:span, t('activerecord.attributes.service.contact_phone'), :class => 'profileBlankField') : content_tag(:span, service.contact_phone) %><br/>
+						<% if service.supplier_account.bookable %>
+							<%= (service.booking_resources_consumed.blank?) ? 
+							content_tag(:span, t('activerecord.attributes.service.booking_resources_consumed'), :class => 'profileBlankField') : content_tag(:span, service.booking_resources_consumed) %><br/>														
+						<% end %>
+						<%= (desc = service.description).blank? ? 
+						content_tag(:span, t('activerecord.attributes.service.description'), :class => 'profileBlankField') : content_tag(:span, (desc[0..100].gsub(/\n/, '<br/>')).html_safe + ("..." if desc.length > 100) ) %>
+
+					</div>
+				</td>
+				<td class="list_actions">
+					<div><%= link_to t('edit'), edit_supplier_account_service_path(@supplier, service) %></div>	    	
+					<div><%= link_to t('open_hours'), supplier_account_service_schedule_path(@supplier, service, service.schedule ) unless service.schedule.nil? %></div>
+					<div><%= link_to t('destroy'), supplier_account_service_path(@supplier, service), confirm: t('are_you_sure'), method: :delete %></div>
+				</td>
+			</tr>
+			<% end %>
+		</table>
+	<%elsif !@sellsservices %>
+			<%= render "layouts/you_dont_sell", :word => t('services') %>
+	<% else %>
+	  <%= render "layouts/nothing_to_show", :word => t('services') %>
+	<% end %>
+</div>
+

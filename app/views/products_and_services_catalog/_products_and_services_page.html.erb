@@ -1,0 +1,86 @@
+<%= render "layouts/navigation_arrows", :object => @object %>
+
+<%= render "layouts/reviews_box", reviews: @object.supplier_account.reviews.approved, supplier_account: @object.supplier_account %>
+
+<div class="arrows_image_data_wrapper">
+	
+	<%= yield :left_arrow %>
+	
+	<div class="supplier_page_in_image <%= "margin_left_30" if @has_navigation_arrows %>">
+		<% if eval("@object.#{@object.class.to_s.downcase}_images.active").blank? %>
+			<%= image_tag "/images/small/missing.png" %>
+		<% else %>
+	  	<%= link_to image_tag( eval("@object.#{@object.class.to_s.downcase}_images.active.cover_first.first.image.url(:small)"), :alt => eval("@object.#{@object.class.to_s.downcase}_images.active.cover_first.first.image.name")), eval("@object.#{@object.class.to_s.downcase}_images.active.cover_first.first.image.url(:original)"), :class => :fancybox %>
+		<% end %>
+		
+		<% unless (imgs = eval("@object.#{@object.class.to_s.downcase}_images.active.without_cover")).blank? %>
+			<div class="supplier_page_in_image_count">
+				<% imgs.each_with_index do |image, i| %>
+					<%= link_to image_tag(image.image.url(:tiny), :alt => image.image.name), image.image.url(:original), :class => :fancybox, :rel => :gallery  %>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+	<div class="product_in_data">
+		<h1 class="product_in_name">
+		<% if @object.discount > 0 %><span style="color:red">-<%= @object.discount %>% </span> <% end %>
+		<%= "#{crop_if_longer @object.name.humanize, 50}" %></h1>
+		<ul class="supplier_page_in_supplier">
+		  <li class="supplier_data"><%= "Proveedor " %><%= link_to @supplier.supplier_account.fantasy_name, supplier_products_and_services_path(:public_url => @supplier.supplier_account.public_url) %></li>
+			<div class="dottedLine"></div>
+			<li class="product_in_price"><%= "Precios: #{number_to_currency(@object.price)} #{" - " + number_to_currency(@object.top_price_range) unless @object.top_price_range == 0} #{"/ " + @object.price_description unless @object.price_description.blank?}" %></li>
+			<div class="help_tip_iva"> <%= t'helptip.iva_included' %></div>
+
+				<li class="button_in_product">
+					<% unless session[:preview] == true %>
+						<% if current_user.nil? -%>
+							<%= link_to raw("<div class='image'></div><div class='message'>"+t('ask_reference')+"</div>"), "#sign_in_fancybox" , :id => "reference_request_button", :class => 'action_button fancybox_message' %>
+							<%= link_to raw("<div class='image'></div><div class='message'>Pedir una cotización</div>"), "#sign_in_fancybox" , :id => "send_message_button", :class => 'action_button fancybox_message' %>
+							<%= render "layouts/sign_in_fancybox" %>
+						<% else -%>
+							<% if current_user.user_account.has_enough_info == true %>
+								<%= render 'layouts/reference_request', :ask_reference => params[:ask_reference] %>
+								<%= link_to raw("<div class='image'></div><div class='message'>Pedir una cotización</div>"),
+							 	products_and_services_catalog_conversations_path(:slug => @object.slug), 
+								:id => "send_message_button", :class => 'action_button' %>
+								<% else -%>
+								<%= render "layouts/no_enough_user_info", :word => t('add_to_budget'), :link_class => 'button' %>
+							<% end -%>
+						<% end -%>
+					<% end -%>
+				</li>
+			</ul>
+		<br>
+	</div>
+
+	<%= yield :right_arrow %>
+</div>
+
+<ul class="supplier_page_in_menu">
+	<li class="pestana <%= "pestana_on" if params[:action] == 'description' %>"><%= link_to "Descripción", products_and_services_catalog_description_path(:slug => @object.slug) %></li>
+	
+	<li class="pestana <%= "pestana_on" if params[:action] == 'faqs' %>"><%= link_to "Preguntas Frecuentes", products_and_services_catalog_faqs_path(:slug => @object.slug) %> <%= "(" + eval("@object.#{@object.class.to_s.downcase}_faqs").count.to_s + ")" %></li>
+	<li class="pestana <%= "pestana_on" if params[:action] == "conversations" %>">
+		<% if  session[:preview] == true %>
+			<%= "Mensajes con el proveedor" %>
+		<% else -%>
+			<% if user_signed_in? %>
+				<% if current_user.role_id == 3 -%>
+					<%= link_to "Mensajes con el proveedor", "#sign_in_fancybox" , :id => "fancybox_form" %>
+					<%= render "layouts/sign_in_fancybox" %>
+				<% else -%>
+					<%= link_to "Mensajes con el proveedor", products_and_services_catalog_conversations_path(:slug => @object.slug) %>
+				<% end -%>								
+			<% else %>
+			  <%= link_to "Mensajes con el proveedor", products_and_services_catalog_conversations_path(:slug => @object.slug) %>
+			<% end %>
+		<% end -%>
+	</li>
+	<li class="pestana <%= "pestana_on" if params[:action] == "contacts" %>"><%= link_to "Contactos (#{@object.supplier_account.supplier_contacts.count})", products_and_services_catalog_contacts_path(:slug => @object.slug) %></li>
+</ul>
+<div class="supplier_page_in_content">
+	<%= yield :products_and_services_page_in_content %>
+</div>
+
+<%= render "layouts/products_and_services_fancybox", :locals => {:supplier => @supplier} %>
+

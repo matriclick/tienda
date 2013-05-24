@@ -1,0 +1,23 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola,<br/><br/>
+					¡Has recibido una petición de <%= @sender_name %> para que le compres un regalo y su mensaje es el siguiente:<br/><br/>
+					<i><%= @message %></i><br/><br/>
+					El regalo que quiere es este:<br/>
+					<a target="_blank" href="<%= @dress_url %>">
+						<img src="<%= @dress_image_url %>">
+					</a><br/>
+					<br/>
+					<%= link_to 'Ir a comprar regalo', @dress_url %>
+					<br/>
+					Cómpralo on-line y será despachado al domicilio que tú elijas en menos de 4 días.<br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

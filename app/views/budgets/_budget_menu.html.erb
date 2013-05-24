@@ -1,0 +1,12 @@
+<div class="titulos">
+	<%= t('budget') %>
+</div>
+<ul class="nav_menu_with_container">
+	<li class="pestana <%= "pestana_on" if params[:action] == "instructions" %>"><%= link_to "Instrucciones", budget_instructions_path %></li>
+	<li class="pestana <%= "pestana_on" if params[:action] == "settings" %>"><%= link_to "Configuración", budget_settings_path %></li>
+	<li class="pestana <%= "pestana_on" if params[:action] == "standard" %>"><%= link_to t("budget"), standard_budget_path %></li>
+	<% # FGM: Disabled other budgets... %>
+	<!-- <li class="pestana <%= "pestana_on" if params[:action] == "econ" %>"><%= link_to t("economic"), econ_budget_path %></li>
+	<li class="pestana <%= "pestana_on" if params[:action] == "premium" %>"><%= link_to "Premium", premium_budget_path %></li> -->
+</ul>
+<div class="clear"></div>

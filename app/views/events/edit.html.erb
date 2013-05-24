@@ -1,0 +1,10 @@
+<%= javascript_include_tag 'views/events/edit'%>
+<div class="right_link">
+  <%= link_to t('cancel'), calendar_supplier_account_path(@suppler), :class => :button %>
+</div>
+<div class="titulos">
+  <%= t('edit_event') %>
+</div>
+<div class="box_form">
+	<%= render 'edit_form' %>
+</div>

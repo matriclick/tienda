@@ -1,0 +1,113 @@
+<%= nested_form_for @dress, :validate => true, :html => {:multipart => true} do |f| %>
+	<% if @dress.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@dress.errors.count, "error") %> prohibited this dress from being saved:</h2>
+			<ul>
+				<% @dress.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<% if defined? @supplier_accounts %>
+		<div style="margin-bottom:20px">
+			<%= f.label :supplier_account_id, 'Proveedor' %><%= mark_required @dress, :supplier_account_id %>
+		  	<%= f.collection_select :supplier_account_id, @supplier_accounts, :id, :fantasy_name, :prompt => true, :allow_blank => false %>
+		</div>
+	<% end %>
+	<%= render 'image_fields', :f => f %>
+	<table class="invisible">
+		<tr>
+			<td>
+				<%= f.label :price, 'Precio' %><%= mark_required @dress, :price %> CLP $<%= f.number_field :price %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :dress_type, 'Tipo de producto' %><%= mark_required @dress, :dress_type_id %>
+				<% DressType.get_options(@supplier_account).each do |dt| %>
+			  		<div style="margin-top:5px">
+						<%= check_box_tag("dress[dress_type_ids][]", dt.id, (@dress.dress_types.include? dt)) %> 
+						<span style="color:#555"><%= dt.name.gsub('-', ' ').capitalize %></span>
+					</div>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :dress_status_id, 'Estado del item' %><%= mark_required @dress, :dress_status_id %>
+	  			<%= f.collection_select :dress_status_id, DressStatus.all, :id, :name, :prompt => true, :allow_blank => false %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :color, 'Color' %><%= mark_required @dress, :color_id %>
+			  	<%= f.collection_select :color_id, Color.all, :id, :name, :prompt => true, :allow_blank => false %>			
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					Este campo define la posición en que aparecerá, 1 es lo más arriba, 999 lo más abajo.
+				</div>
+				<%= f.label :position, 'Posición en la página' %><%= mark_required @dress, :position %> <%= f.number_field :position %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					Este texto se mostrará cuando la persona revisa todos los items, poner máximo 30 caracteres.
+				</div>
+				<%= f.label :introduction, 'Introducción' %><%= mark_required @dress, :introduction %><br />
+		    	<%= f.text_area :introduction, :size => '8x3' %>		
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					Este texto se mostrará cuando la persona revisa el detalle del item.<br />
+					Agregar toda la información relevante como:<br />
+					- Tela<br />
+					- Tallas disponibles
+				</div>
+				<%= f.label :description, 'Descripción' %><%= mark_required @dress, :description %><br />
+		    	<%= f.text_area :description, :size => '8x10' %>		
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					Describe los cuidados especiales que haya que tener con el item. Por ejemplo lavar a mano u otros.
+				</div>
+				<%= f.label :care, 'Cuidados' %><%= mark_required @dress, :care %><br />
+		    	<%= f.text_area :care, :size => '8x10' %>		
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					Política de devolución (días que se acepta, cómo funciona, etc.)
+				</div>
+				<%= f.label :refund, 'Política de devolución' %><%= mark_required @dress, :refund %><br />
+		    	<%= f.text_area :refund, :size => '8x10' %>		
+			</td>
+		</tr>
+	</table>
+	<% if defined? @supplier_account %>
+		<% if !@supplier_account.supplier_account_type.nil? and @supplier_account.supplier_account_type.name == 'Vestidos de Novia Usados' %>
+			<br />
+			<b>Información del vendedor</b>
+			<hr>
+				<%= f.label :seller_name, 'Nombre del vendedor' %><%= mark_required @dress, :seller_name %> <%= f.text_field :seller_name %><br /><br />
+				<%= f.label :seller_email, 'Correo del vendedor' %><%= mark_required @dress, :seller_email %> <%= f.text_field :seller_email %><br /><br />
+				<%= f.label :seller_phone_number, 'Teléfono del vendedor' %><%= mark_required @dress, :seller_phone_number %> <%= f.text_field :seller_phone_number %>
+			<hr>
+		<% end %>
+		<% if !defined? @supplier_accounts %>
+			<%= f.hidden_field :supplier_account_id, :value => @supplier_account.id %>
+		<% end %>
+	<% end %>
+	<div class="holder">
+		<%= f.submit 'Guardar y definir stock', :class => "button" %>
+	</div>
+<% end %>

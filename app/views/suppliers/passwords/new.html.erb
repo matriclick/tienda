@@ -1,0 +1,32 @@
+<%= content_for :box_content do %>
+<div class="sign_boxes center">
+	<div class="h2 bold text_center"><%= t 'devise.views.passwords.new.title' %></div>
+</div>
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+	<div class="sign_boxes center">
+		<table class="invisible">
+			<tr>
+				<td><%= f.text_field :email, :placeholder => t("email"), :required => true, size: 25, :class => 'input_wrapper' %></td>
+			</tr>
+			<tr>
+				<td><%= f.submit t("send"), :class => "button_sign_in bold span_to_center" %></td>
+			</tr>
+		</table>		
+</div>
+<% end %>
+<br />
+<br />
+
+<% # FGM: Flag to differentiate different login layouts/funcitionalities %>
+<% @supplier_login_footer = true %>
+
+<div class="bottom_links">
+	<div class="box_nine_six_cero center">
+		<%= render :partial => "/users/shared/links" %>	
+	</div>
+</div>
+<% end %>
+
+<%= render "layouts/vimeo_tab" %>
+
+<%= render "layouts/login_layout" %>

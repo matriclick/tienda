@@ -1,0 +1,26 @@
+<% unless @purchases.blank? %>
+	<div style="font-size:16px; margin:0px 0px 10px 10px; width:300px">
+		Compras en Matriclick
+	</div>
+	<div class="box">
+		<%= render 'purchases_list', :purchases => @purchases %>
+	</div>
+	<br/>
+<% else -%>
+	<div class="box">
+		<%= render "layouts/nothing_to_show", :word => 'compras en matriclick ¿¡Qué esperas!?', :small => true %>
+	</div>
+<% end -%>
+<% unless @conversations.blank? %>
+	<div style="font-size:16px; margin:10px 0px 10px 10px">
+		Conversaciones con proveedores Matriclick
+	</div>
+	<div class="box">
+		<%= render 'conversations_list', :conversations => @conversations %>
+	</div>
+	<br/>
+<% else -%>
+	<div class="box">
+		<%= render "layouts/nothing_to_show", :word => t('products_and_services_conversations') %>
+	</div>
+<% end -%>

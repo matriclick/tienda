@@ -1,0 +1,20 @@
+<div class="post_container" style="width:760px">
+	<div style="margin:10px">
+		<div style="position:relative">
+		<% if !post.main_image_file_name.nil? %>
+			<%= link_to image_tag(post.main_image.url(:original), :alt => post.main_image_name, :class => ['main_post_image', 'image_button']), post_path(post) %>
+		<% else %>
+			<%= link_to image_tag('posts/matriclick_main.png', :class => ['main_post_image', 'image_button']), post_path(post) %>
+		<% end %>
+			<div style="background:#FFF; position:absolute; left:0px; bottom:0px; width:740px">
+				<div class="blog_titulos">
+					<%= link_to post.title, post_path(post) %>
+				</div>
+				<div class="blog_texto">
+					<%=(desc = strip_tags(post.introduction)).blank? ? 
+					'Próximamente en Matriclick.com' : content_tag(:span, (desc[0..300].gsub(/\n/, '<br/>')).html_safe + ("..." if desc.length > 150) ) %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

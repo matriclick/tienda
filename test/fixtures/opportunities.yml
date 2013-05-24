@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  introduction: MyText
+  description: MyText
+  main_image_file_name: MyString
+  main_image_content_type: MyString
+  main_image_file_size: MyString
+  main_image_updated_at: MyString
+
+two:
+  title: MyString
+  introduction: MyText
+  description: MyText
+  main_image_file_name: MyString
+  main_image_content_type: MyString
+  main_image_file_size: MyString
+  main_image_updated_at: MyString

@@ -1,0 +1,64 @@
+<% if notice %>
+	<div class="alert"><%= notice %></div>	
+<% end %>
+
+<% if admin? %>
+	<div style="float:right;">
+		<%= link_to "Ver rocas enviadas", rocks_path, :class => 'button' %>
+	</div>	
+<% end %>
+
+<div class="campaign_titles">
+	<h1>Envía una postal a tus amigos que estén por casarse para que participen por el matrimonio Gratis!</h1>
+</div>
+<div class="clear"></div>
+<div class="box relative">
+	<%= form_for(@rock, :url => create_rock_path, :validate => true) do |f| %>
+	  <% if @rock.errors.any? %>
+			<div id="error_explanation">
+				<h2><%= @rock.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+				<ul>
+					<% @rock.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>	  	
+	  <% end %>
+
+		<table class="invisible">
+			<tr>
+				<td><%= f.label :sender_name, "Tu nombre" %><br />
+			    <%= f.text_field :sender_name %></td>
+				<td><%= f.label :recipient_name, "Nombre de tu amigo/a" %><br />
+			    <%= f.text_field :recipient_name %></td>						
+			</tr>
+			<tr>
+				<td><%= f.label :sender_email, "Tu email" %><br />
+			    <%= user_signed_in? ? raw("<span style='color:#aaa;'>#{current_user.email}</span>") : f.email_field(:sender_email) %></td>					
+				<td><%= f.label :recipient_email, "Email de tu amigo/a" %><br />
+			    <%= f.email_field :recipient_email %></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<% @genders.each do |g| %>
+						<%= f.radio_button :gender_id, g.id, :checked => g.gender == "H" %> 
+						<% if g.gender == "H" %>
+							Para él...
+						<% else %>
+						  Para ella...
+						<% end %>
+					<% end %>
+				</td>
+			</tr>
+		</table>
+		
+		<div class="rock_image shadow">
+			<%= image_tag 'la_roca.jpg', :id => 'H' %>
+			<%= image_tag 'la_roca_m.jpg', :id => 'M', :style => 'display:none;' %>
+		</div>
+		<div class="clear"></div>
+		<div class="holder">
+			<%= f.submit t('send'), :class => :button %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+		</div>
+	<% end %>
+</div>

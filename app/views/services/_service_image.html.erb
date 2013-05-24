@@ -1,0 +1,19 @@
+<div class="image_for_edit">
+	<div class="image_box"><%= image_tag service_image.image.url(:smaller) %></div>
+	<div class="name_and_actions">
+		<div class="name"><%=crop_if_longer(service_image.image_file_name, 10) %></div>
+		<div class="actions_images">
+			<%= link_to (service_image.active ? t('active') : t('activate')), toggle_active_supplier_account_service_service_image_path(@supplier, @service, service_image), { method: :put, :class => ("active" if service_image.active), :remote => true } %> |
+			<%= link_to t('edit'), new_supplier_account_service_service_image_path(@supplier,@service) %> |
+			<%= link_to t('remove'), supplier_account_service_service_image_path(@supplier, @service, service_image), :confirm => "Are you sure?", method: :delete %>
+		</div>
+		<% if service_image.active && @service.service_images.active.count > 1 %>
+		<div class="actions_images_order">
+			<%= t('order') %>
+			<% (@service.service_images.active.count).times do |i| %>
+			<%= link_to "#{i+1}", set_image_index_supplier_account_service_service_image_path(@supplier, @service, service_image, :image_index => "#{i+1}"), { method: :put, :class => (service_image.image_index == i+1 ? "bold" : "gray"), :remote => true } %>
+			<% end %>
+		</div>	
+		<% end %>		
+	</div>
+</div>

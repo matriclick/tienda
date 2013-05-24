@@ -1,0 +1,24 @@
+<div class="left_menu">
+	<div class="sidebarmenu bold">
+		<ul id="sidebarmenu1">
+			<li>
+				<div class="<%= "hover_style" if action_name == "index" %>">
+					<%= link_to 'Matriclick Viajes', travel_path, :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if action_name == "paquetes" %>">
+					<%= link_to 'Paquetes', paquetes_path, :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if %w[user_conversations buy purchases gift_cards].include?(controller_name) %>">
+					<%= link_to 'Ver Compras', user_conversations_index_path(), :class => "left_link" %>
+				</div>
+				<% if (@user_conversations_unread_count || 0 ) > 0 %>
+					<div class="notification_counter<%= "_selected" if params[:controller] == "bookings" %> "><%= @user_conversations_unread_count.to_s %></div>
+				<% end %>	
+			</li>
+		</ul>
+	</div>
+</div>

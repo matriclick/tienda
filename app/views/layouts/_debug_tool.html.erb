@@ -1,0 +1,46 @@
+<div style="margin:auto;width:985px;">
+	<table style="text-align:center;width:985px;">
+		<tr>
+			<th><%= 'controller_name' %></th>
+			<th><%= 'action_name' %></th>
+			<th><%= 'I18n.locale.to_s' %></th>
+			<th><%= 'session[:country].url_path' %></th>
+			<th><%= 'params[:country_url_path]' %></th>
+		</tr>
+		<tr>
+			<td><b><%= controller_name %></b></td>
+			<td><b><%= action_name %></b></td>
+			<td><b><%= I18n.locale.to_s %></b></td>
+			<td><b><%= session[:country].url_path %></b></td>
+			<td><b><%= params[:country_url_path].to_s %></b></td>
+		</tr>
+		<tr>
+			<th><%= 'Title' %></th>
+			<th><%= 'Meta Description' %></th>
+			<th><%= 'Post Image Path to Facebook' %></th>
+			<th><%= 'session[:matriclick_last_url]' %></th>
+			<th><%= 'params[:type]' %></th>
+		</tr>
+		<tr>
+			<td><b><%= @title_content %></b></td>
+			<td><%= @meta_description_content %></td>
+			<td><b><%= @og_image %></b></td>
+			<td><b><%= session[:matriclick_last_url] %></b></td>
+			<td><b><%= params[:type].to_s %></b></td>
+		</tr>
+		<tr>
+			<th><%= 'session[:matriclick_top_menu]' %></th>
+			<th><%= '@first_max' %></th>
+			<th><%= 'Date.today' %></th>
+			<th><%= 'Rails.env' %></th>
+			<th><%= '@stocks_for_js' %></th>
+		</tr>
+		<tr>
+			<td><b><%= session[:matriclick_top_menu] %></b></td>
+			<td><b><%= @first_max %></b></td>
+			<td><b><%= Date.today %></b></td>
+			<td><b><%= Rails.env %></b></td>
+			<td><b><%= @stocks_for_js %></b></td>
+		</tr>	
+	</table>
+</div>

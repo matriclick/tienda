@@ -1,0 +1,80 @@
+<%= nested_form_for(@ceremony) do |f| %>
+  <% if @ceremony.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ceremony.errors.count, "error") %> prohibited this ceremony from being saved:</h2>
+
+      <ul>
+      <% @ceremony.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+	<% end %>
+	<div class="field">
+  		<%= f.collection_select(:ceremony_type_id, @ceremony_types, :id, :name, {:prompt => t('select_ceremonty_type')}, {:disabled => (@ceremony_types.blank? ? true : false)} ) %>
+	</div>
+	<div class="holder">
+		<table class="invisible">
+			<tr>
+				<td><% if params[:action] == "new" or "create" %>
+					<%= render 'image_fields', :f => f %>
+					<% end %>
+				</td>
+			</tr>	
+		</table>	
+	</div>
+	<div class="field">
+  	<%= f.label :name %><br />
+  	<%= f.text_field :name %>
+	</div><br />
+	<div class="holder">
+		<%= f.fields_for :address do |address| %>
+			<%= render 'address_fields', :address => address %>
+		<% end %>		
+	</div><br />
+	<div class="field">
+  		<%= f.label :capacity %><br />
+  		<%= f.text_field :capacity %>
+	</div>
+	<br />
+	<div class="holder">
+		<div class="field">
+				<%= f.label :contact_person %><br />
+				<%= f.text_field :contact_person %>
+		</div>
+		<br />
+		<div class="field">
+				<%= f.label :contact_email %><br />
+				<%= f.text_field :contact_email %>
+		</div>
+		<br />
+		<div class="field">
+				<%= f.label :phone_number %><br />
+				<%= f.number_field :phone_number %>
+		</div>
+		<br />
+	</div>
+	<div class="field">
+  		<%= f.label :schedule, 'Horario de Atención' %><br />
+  		<%= f.text_field :schedule %>
+	</div>
+	<br />
+	<div class="holder">
+		<table class="invisible">
+			<tr>
+				<td><%= render 'ceremony_day_fields', :f => f %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="field">
+  		<%= f.label :additional_information %><br />
+  		<%= f.text_field :additional_information %>
+	</div>
+	<br />
+	<div class="holder">
+		<div class="actions">
+		  <%= f.submit :class => "button" %>
+		</div>
+	</div>
+<div class="clear"></div>
+<% end %>

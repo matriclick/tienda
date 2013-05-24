@@ -1,0 +1,20 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Estimada Carolina,<br/><br/>
+					Se ingresó la siguiente solicitud través del <strong>formulario de Contactos</strong>.<br/><br/>
+					<p style="color:#aaa;">Nombre: <%= @contact.name %></p>
+					<p style="color:#aaa;">Compañía: <%= @contact.company %></p>
+					<p style="color:#aaa;">Email: <%= @contact.email %></p>
+					<p style="color:#aaa;">Comentarios: <%= @contact.comment %></p><br/><br/><br/>
+					Saludos,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

@@ -1,0 +1,47 @@
+<h1>
+	<% case params[:status] %>
+		<% when 'all' %>
+			Intentos de compra (finalizados y no finalizados)
+		<% when 'finalizado' %>
+			Compras realizadas exitosamente
+		<% else %>
+			Compras realizadas exitosamente
+	<% end %>
+</h1>
+
+<table style="width:950px;">
+  <tr>
+    <th>Fecha compra</th>
+    <th>Tienda</th>
+    <th>Producto</th>
+    <th>Tipo</th>
+    <th>Usuario</th>
+    <th>Despacho</th>
+    <th style="width:100px">Precio</th>
+    <th>Moneda</th>
+    <th>Forma Pago</th>
+    <th>Estado</th>
+  </tr>
+
+<% @purchases.each do |purchase| %>
+  <tr>
+	<td><%= purchase.created_at.strftime("%d %b %Y") %></td>
+	<% if purchase.purchasable.nil? %>
+		<td>purchase.purchasable es nil!</td>
+		<td>purchase.purchasable es nil!</td>
+	<% else %>
+		<td><%= purchase.purchasable.supplier_account.fantasy_name if !purchase.purchasable.supplier_account.nil? %></td>
+		<td><%= link_to image_tag(purchase.purchasable.small_image), purchase %></td>
+	<% end %>
+    <td><%= purchase.purchasable_type %></td>
+    <td><%= purchase.user.email %> <%= raw '<br />('+purchase.delivery_info.name+')' if !purchase.delivery_info.nil? %></td>
+    <td><%= link_to(purchase.delivery_info.get_address_string, purchase.delivery_info) if !purchase.delivery_info.nil? %></td>
+    <td><%= number_to_currency purchase.price %></td>
+    <td><%= purchase.currency %></td>
+	<td><%= purchase.transfer_type %></td>
+    <td><%= purchase.status %></td>
+  </tr>
+<% end %>
+</table>
+<br /><br />
+<%= link_to 'Historial de compras',  reports_purchases_path %> | <%= link_to 'Administrador',  administration_index_path %>

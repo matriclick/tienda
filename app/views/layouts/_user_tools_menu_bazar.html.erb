@@ -1,0 +1,69 @@
+<div class="left_menu">
+	<div class="sidebarmenu bold">
+		<ul id="sidebarmenu1">
+			<li>
+				<div class="<%= "hover_style" if action_name == "bazar" %>">
+					<%= link_to 'El Bazar', bazar_path, :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if %w[vestidos-fiesta].include?(params[:type]) %>">
+					<%= link_to 'Vestidos de Fiesta', dresses_ver_path(:type => "vestidos-fiesta"), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if %w[zapatos].include?(params[:type]) %>">
+					<%= link_to 'Zapatos', dresses_ver_path(:type => "zapatos"), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if @type_param.include?('ropa-de-mujer') %>">
+					<%= link_to 'Ropa de Mujer', dresses_ver_path(:type => "ropa-de-mujer"), :class => "left_link" %>
+				</div>
+				<ul>
+					<li><%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops"), :class => "left_link" %></li>
+					<li><%= link_to 'Chalecos y Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados"), :class => "left_link" %></li>
+					<li><%= link_to 'Chaquetas', dresses_ver_path(:type => "ropa-de-mujer-chaquetas"), :class => "left_link" %></li>
+					<li><%= link_to 'Pantalones y Leggins', dresses_ver_path(:type => "ropa-de-mujer-pantalones"), :class => "left_link" %></li>
+					<li><%= link_to 'Polleras', dresses_ver_path(:type => "ropa-de-mujer-polleras"), :class => "left_link" %></li>
+				</ul>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if params[:action] == 'accessories_menu' or @type_param.include?('accesorios') %>">
+					<%= link_to 'Accesorios', dresses_accessories_menu_path, :class => "left_link" %>
+				</div>
+				<ul>
+					<li><%= link_to 'Aros', dresses_ver_path(:type => "accesorios-aros"), :class => "left_link" %></li>
+					<li><%= link_to 'Anillos', dresses_ver_path(:type => "accesorios-anillos"), :class => "left_link" %></li>
+					<li><%= link_to 'Collares', dresses_ver_path(:type => "accesorios-collares"), :class => "left_link" %></li>
+					<li><%= link_to 'Pulseras', dresses_ver_path(:type => "accesorios-pulseras"), :class => "left_link" %></li>
+					<li><%= link_to 'Carteras / Bolsos', dresses_ver_path(:type => "accesorios-carteras"), :class => "left_link" %></li>
+					<li><%= link_to 'Sombreros', dresses_ver_path(:type => "accesorios-sombreros"), :class => "left_link" %></li>
+				</ul>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if %w[ajuar].include?(params[:type]) %>">
+					<%= link_to 'Ropa Interior', dresses_ver_path(:type => "ajuar"), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if action_name == "faq_elbazar" %>">
+					<%= link_to 'Preguntas Frecuentes', faq_elbazar_path, :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if action_name == "contact_elbazar" %>">
+					<%= link_to 'Contacto', contact_elbazar_path, :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if %w[user_conversations buy purchases gift_cards].include?(controller_name) %>">
+					<%= link_to 'Ver Compras', user_conversations_index_path(), :class => "left_link" %>
+				</div>
+				<% if (@user_conversations_unread_count || 0 ) > 0 %>
+					<div class="notification_counter<%= "_selected" if params[:controller] == "bookings" %> "><%= @user_conversations_unread_count.to_s %></div>
+				<% end %>	
+			</li>
+		</ul>
+	</div>
+</div>

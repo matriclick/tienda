@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  price: 1
+  value: 1
+  supplier_account_id: 1
+  min_price: 1
+  max_price: 1
+  stock: 1
+  status_id: 1
+
+two:
+  price: 1
+  value: 1
+  supplier_account_id: 1
+  min_price: 1
+  max_price: 1
+  stock: 1
+  status_id: 1

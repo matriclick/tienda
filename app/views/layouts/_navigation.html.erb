@@ -1,0 +1,12 @@
+<div class="navigation">
+	<div class="navigation_links">
+		<div class="nav_home">
+			<%= session[:preview] == true ? (image_tag('home.png')) : (link_to image_tag('home.png'), root_country_path) %>
+			<span style="margin-left: 5px;">
+				<%= render_breadcrumbs %>
+			</span>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>

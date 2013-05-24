@@ -1,0 +1,66 @@
+.expired {
+	left: 150px;
+  position: relative;
+  top: 20px;
+}
+.booking_confirmed {
+	color:#339900;
+}
+.booking_pending {
+	color: #FF6600;
+}
+.especial_bold{
+	font-size:18px;
+	font-style: italic;
+	left: 80px;
+	bottom: 15px;
+  position: relative;
+}
+.day_counter{
+	left: 70px;
+	top: 10px;
+  position: relative;
+}
+.half_40 {
+	float:left;
+	width:40%;
+}
+.half_15 {
+	float:left;
+	width:15%;
+}
+
+/* progress bar */
+
+.meter-wrap{
+    position: relative;
+}
+
+.meter-wrap, .meter-value, .meter-text {
+    /* The width and height of your image */
+    width: 100px; height: 20px;
+}
+
+.meter-wrap, .meter-value {
+    background: #fff;
+}
+.meter-wrap {
+    border:1px solid #ccc;
+}           
+.meter-text {
+    position: absolute;
+    top:0; left:0;
+
+    padding-top: 5px;
+                
+    color: #fff;
+    text-align: center;
+    width: 100%;
+}
+.limit_count {
+	font-size:10px;
+	margin:5px auto;
+}
+#limit_count {
+	font-weight:700;
+}

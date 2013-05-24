@@ -1,0 +1,128 @@
+<div class="clear"></div>
+<% if @industry_categories.count == @selections_confirmed %>
+	<div class="contests_result_image">
+		<%= image_tag 'contests/Grande.jpg' %>
+		<div class="contests_result_points">
+			<%= get_user_points(@user).to_s %>
+		</div>
+		<div class="contests_result_ranking">
+			<%= get_user_ranking(@user).to_s %>
+		</div>
+	</div>
+<% else %>
+	<div class="contests_banner">
+		<%= image_tag 'contests/banner.jpg' %>
+	</div>
+<% end %>
+<br />
+<br />
+<br />
+<div class="clear"></div>
+
+<% @industry_categories.each do |industry_category| %>
+	<% done = false %>
+	<% @selections.each do |selection| %>
+		<% if selection.matri_dream_ic_id == industry_category.id %>
+			<div class="box_industry_categories">
+				<div class="contests_supplier_selected shadow">
+					<div class="contest_supplier_image">
+						<%= link_to (image_tag selection.supplier_account.image.url(:smaller)), supplier_products_and_services_path(selection.supplier_account.supplier_id, :public_url => selection.supplier_account.public_url, :matridream_ic => selection.matri_dream_ic_id), :title => t('show') %>
+					</div>
+				</div>
+				<div class="product_name"><%= link_to(industry_category.get_name, products_and_services_catalog_index_path(:industry_category_ids => industry_category.id)) + ': ' + crop_if_longer(selection.supplier_account.fantasy_name, 21) %></div>
+			</div>
+			<% done = true %>
+			<% break %>
+		<% end %>
+	<% end %>
+	<% if !done %>
+		<div class="box_industry_categories">
+			<div class="image_industry_categories shadow">
+				<%= link_to (image_tag "industry_category/#{industry_category.name.downcase.gsub(/\s/,"_").gsub(/[\u0080-\u00ff]/,"")}.jpg"), products_and_services_catalog_index_path(:industry_category_ids => industry_category.id) %>
+			</div>
+			<span class="gray"><%= "(#{industry_category.supplier_accounts.where(:country_id => session[:country].id).approved.count}) " %></span><%= link_to industry_category.get_name, products_and_services_catalog_index_path(:industry_category_ids => industry_category.id) %>
+		</div>
+	<% end %>
+<% end %>
+
+<div class="clear"></div>
+
+<% if @industry_categories.count == @selections_confirmed %>
+	Ya estás participando!!!<br />
+<% elsif @industry_categories.count == @selections.count %>
+	<%= link_to('Confirmar y participar!!!', contests_confirm_selections_path) %>
+<% else %>
+	Elige un proveedor en cada rubro del concurso y podrás confirmar tu selección y participar!!!
+<% end %>
+<br/>
+<br/>
+<%= link_to('Bases', contests_matridream_rules_path) %>
+<div class="clear"></div>
+<br/>
+<br/>
+
+<% if !current_user.blank? %>
+	<% if current_user.role_id == 1 %>
+		____________________<br/>
+		____________________<br/>
+		Usuarios en competencia:<br/><br/>
+		<table>
+			<tr>
+				<th>Usuario</th>
+				<th>Puntaje</th>
+				<th>Ranking</th>
+			</tr>
+			<% @users_in_contest.each do |user_in_contest| %>
+				<tr class="<%= cycle("contests_table_first_style", "contests_table_second_style") %>">
+					<td><%= user_in_contest.email %></td>
+					<td><%= get_user_points(user_in_contest).to_s %></td>
+					<td><%= get_user_ranking(user_in_contest).to_s %></td>
+				</tr>
+			<% end %>
+		</table>
+
+		<div class="clear"></div>
+		<br/>
+		<br/>
+		Proveedores votados:<br/><br/>
+		<table>
+			<tr>
+				<th>Proveedor</th>
+				<th>Rubro</th>
+				<th>Votos</th>
+			</tr>
+			<% style = 'contests_table_first_style' %>	
+			<% last_ic = 0 %>	
+			<% @contest_vote_counts.each do |contest_vote_count| %>
+				<% if last_ic.to_s != contest_vote_count.matri_dream_ic_id.to_s %>
+					<% if style == 'contests_table_first_style' %>
+						<% style = 'contests_table_second_style' %>
+					<% else %>
+						<% style = 'contests_table_first_style' %>
+					<% end %>
+				<% end %>
+				<tr class="<%= style %>">
+					<% if supplier_winning_in_category(contest_vote_count.supplier_account_id, contest_vote_count.matri_dream_ic_id) %>
+						<td><b><%= contest_vote_count.supplier_account.fantasy_name %></b></td>
+						<td><b><%= get_industry_name(contest_vote_count.matri_dream_ic_id) %></b></td>
+						<td><b><%= contest_vote_count.vote_count %></b></td>
+					<% else %>
+						<td><%= contest_vote_count.supplier_account.fantasy_name %></td>
+						<td><%= get_industry_name(contest_vote_count.matri_dream_ic_id) %></td>
+						<td><%= contest_vote_count.vote_count %></td>
+					<% end %>
+					<% last_ic = contest_vote_count.matri_dream_ic_id %>
+				</tr>
+			<% end %>
+		</table>
+		<br/>
+		<br/>
+		Suma de Votos en Tabla de Votos: <%= @number_of_contest_vote_counts %><br/><br/>
+		Registros de Votos Confirmados en Tabla de Selección de Usuarios: <%= @all_confirmed_selections.count %> (Sí, debe ser igual al número de arriba, si no, Alvi sé equivocó en algo)<br/><br/>
+	<% end %>
+<% end %>
+
+
+
+
+

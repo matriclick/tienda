@@ -1,0 +1,59 @@
+.invitation {
+	background-image: url(invitations/template1.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width: 790px;
+	height: 464px;
+	color:#555;
+	font-family:Helvetica, sans-serif;
+	font-size:15px;
+	font-style:italic;
+	font-weight:lighter;
+	overflow: auto;
+}
+.top_text {
+	float:left;
+	width:660px;
+	margin-left:60px;	
+}
+#upper_left{
+	text-align:left;
+	float:left;
+}
+#upper_right{
+	text-align:right;	
+	float:right;
+	margin-right:0;
+}
+.upper_invitation_text {
+	margin-top:115px;
+	max-height: 115px; 
+}
+.mid_text {
+	position:relative;
+	clear:both;
+	width:710px;
+	text-align:center;
+	padding-top:40px;
+	max-height:200px;
+	margin-left: 40px;
+	overflow: auto;
+}
+#mid_1 {
+	margin:0 auto;
+}
+#mid_2 {
+	position:relative;
+	margin:0 auto;
+	padding-top:20px;
+}
+.lower_invitation_text {
+	width:200px;
+	max-height: 200px;
+	padding-top:20px;
+	margin-left:40px;
+	text-align:center;
+	font-size:13px;	
+}
+
+

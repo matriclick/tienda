@@ -1,0 +1,17 @@
+<%= content_for :supplier_page_in_content do %>
+	<% unless @reviews.blank? -%>		
+	<div class="titulos">
+		¡Lee lo que han dicho otros novios!
+	</div>
+	<br>
+		<table class="invisible">
+			<% @reviews.each do |review| %>		
+				<%= render "review_content", :review => review %>
+			<% end %>
+		</table>
+	<% else %>
+		<%= render "layouts/nothing_to_show", :small => true, :message => "no_reviews_yet" %>
+	<% end %>
+<% end %>
+
+<%= render "supplier_page" %>

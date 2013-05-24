@@ -1,0 +1,8 @@
+<h2><%= @invitee_group.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+<ul>
+	<% @invitee_group.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>        
+	<% end %>
+</ul>
+    
+

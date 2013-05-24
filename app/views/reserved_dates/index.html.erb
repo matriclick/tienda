@@ -1,0 +1,27 @@
+<h1>Listing reserved_dates</h1>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Supplier account</th>
+    <th>Comment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reserved_dates.each do |reserved_date| %>
+  <tr>
+    <td><%= reserved_date.date %></td>
+    <td><%= reserved_date.supplier_account_id %></td>
+    <td><%= reserved_date.comment %></td>
+    <td><%= link_to 'Show', reserved_date %></td>
+    <td><%= link_to 'Edit', edit_reserved_date_path(reserved_date) %></td>
+    <td><%= link_to 'Destroy', reserved_date, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Reserved date', new_reserved_date_path %>

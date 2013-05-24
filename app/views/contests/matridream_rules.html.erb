@@ -1,0 +1,29 @@
+<div class="clear"></div>
+<div class="contests_banner">
+	<%= image_tag 'contests/banner.jpg' %>
+</div>
+<br />
+<br />
+Estas son las reglas...<br /><br />
+
+Hay <%= @categories_in_contest %> rubros involucrados en este concurso.<br />
+Debes elegir una opción de nuestro Catálogo en cada rubro.<br />
+Una vez que hayas elegido una opción en cada rubro aparecerá un botón para que confirmes tu selección y participes.<br />
+Antes de confirmar tu selección, puedes cambiar tu opción en cada rubro cuantas veces quieras.<br />
+Al confirmar tu selección, ocurrirá lo siguiente:<br /><br />
+
+1.-Estarás participando en el concurso<br />
+2.-No podrás hacer más cambios en tu selección<br />
+3.-Cada una de tus selecciones en los rubros ganará un voto<br />
+4.-Si alguna de tus selecciones concuerda con la más votada para ese rubro, ganas un punto por esa selección. Con esto el puntaje máximo al que puedes llegar es uno por rubro en concurso (<%= @categories_in_contest %>)<br />
+5.-Se desplegará en pantalla los puntos que tienes y la posición que tienes en el ranking<br /><br />
+
+Los votos son para las selecciones en los rubros y el puntaje es para los participantes.<br />
+Tu puntaje y ranking puede subir o bajar de acuerdo a los nuevos votos que confirmen nuevos participantes (la selección más votada en un rubro hoy, no necesariamente será la más votada mañana), por lo que puedes revisar como va cambiando tu puntaje y ranking.
+<br />
+<br />
+El concurso termina el ......., por lo que en ese momento se cerrarán las votaciones y el ganador será el que tenga más puntos (Ranking 1).<br />
+Puede haber más de un ganador en caso de empate en puntaje.
+<br />
+<br />
+<%= link_to('Volver', contests_matridream_path) %>

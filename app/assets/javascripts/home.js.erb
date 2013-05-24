@@ -1,0 +1,89 @@
+$(function(){
+	$("div#foto_video").hover(function(){
+		$(this).find(".showable").show();
+		$(this).find(".hideable").hide();
+
+	}, function(){
+		$(this).find(".hideable").show();
+		$(this).find(".showable").hide();
+	});
+});
+
+// http://codecanyon.net/item/advanced-slider-jquery-xml-slider/132618
+
+$(document).ready(function(){
+	
+    $('.slider').advancedSlider({
+			timerRadius: '5',
+			shadow: false,
+			slideshowControls: true,
+			navigationButtons: false,
+			skin: 'round',
+			width: 930,
+			height: 300,
+			captionSize: 500/6,
+			captionBackgroundColor: '#ffffff',
+			captionBackgroundOpacity: 0.8,
+			captionShowEffectDuration: 4000,
+			slideshowDelay: 10000
+	});
+    $('.slider_campaign').advancedSlider({
+			timerRadius: '5',
+			shadow: false,
+			slideshowControls: true,
+			navigationButtons: false,
+			skin: 'round',
+			width: 700
+	});
+    $('.slider_campaign_ending').advancedSlider({
+			timerRadius: '5',
+			shadow: false,
+			slideshowControls: true,
+			navigationButtons: false,
+			skin: 'round',
+			width: 567,
+			height: 378
+	});
+	$('.slider_blog').advancedSlider({
+			timerRadius: '5',
+			shadow: false,
+			slideshowControls: true,
+			navigationButtons: false,
+			skin: 'round',
+			width: 800,
+			captionSize: 500/6,
+			captionBackgroundColor: '#ffffff',
+			captionBackgroundOpacity: 0.8,
+			captionShowEffectDuration: 4000,
+			slideshowDelay: 10000
+				});
+	$('.slider_travel').advancedSlider({
+			timerRadius: '5',
+			shadow: false,
+			slideshowControls: true,
+			navigationButtons: false,
+			skin: 'round',
+			width: 400,
+			height: 300,
+			captionSize: 500/6,
+			captionBackgroundColor: '#ffffff',
+			captionBackgroundOpacity: 0.8,
+			captionShowEffectDuration: 4000,
+			slideshowDelay: 4000
+				});
+	$('.slider_contest_travel').advancedSlider({
+			timerRadius: '5',
+			shadow: false,
+			slideshowControls: true,
+			navigationButtons: false,
+			skin: 'round',
+			width: 610,
+			height: 180,
+			captionSize: 300/5,
+			captionBackgroundColor: '#ffffff',
+			captionBackgroundOpacity: 0.8,
+			captionShowEffectDuration: 6000,
+			slideshowDelay: 10000
+				});
+
+});

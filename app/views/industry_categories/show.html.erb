@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @industry_category.get_name %>
+</p>
+
+<br/>
+<div class="bottom_buttons">
+	<%= link_to 'Edit', edit_industry_category_path(@industry_category), :class => :button %>
+	<%= link_to 'Back', industry_categories_path, :class => :button %>
+</div>
+<br />

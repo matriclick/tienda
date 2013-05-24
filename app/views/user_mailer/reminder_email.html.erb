@@ -1,0 +1,25 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					<strong><%= "Hola" %></strong><br/><br/>
+					Recuerda que agregaste este recordatorio:<br>
+					"<%= @activity_reminder.name %>"<br><br>
+					
+					Está relacionado a la actividad:<br>
+					"<%= sanitize @activity_reminder.activity.name.gsub(/\n/,"<br>"), :tags => %w(br) %>", que ha de ser realizada antes de <%= @activity_reminder.activity.done_by_date %>.
+					
+					<p style="color:#444;">
+						Revisa tu checklist <%= link_to "aquí", matrichecklist_index_url(:country_url_path => @country_url_path), :style => "color:#0071BC;text-decoration:none;" %>.
+                    </p>
+					<br/>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

@@ -1,0 +1,16 @@
+$("#error_explanation").hide();
+
+$("#new_invitee_group").find('#invitee_group_name').attr("value","");
+$("#new_invitee_group_form").fadeToggle();
+
+$("#invitee_groups").html("<%= escape_javascript(render('invitee_groups')) %>");
+
+
+<% if @invitee_group.errors.any? %>
+ $("#error_explanation").html("<%= escape_javascript(render 'errors', :@invitee_group => @invitee_group) %>");
+ $("#error_explanation").fadeIn("slow");
+<% end %>
+
+
+
+

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  attachable_type: MyString
+  attachable_id: 1
+  message: MyText
+
+two:
+  attachable_type: MyString
+  attachable_id: 1
+  message: MyText

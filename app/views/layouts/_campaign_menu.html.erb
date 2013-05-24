@@ -1,0 +1,105 @@
+<div class="left_menu">
+	<ul class="menu bold">
+		<li class="menu_li">
+				<%= link_to (image_tag "home.png", :class => "image_home_center")+" Matriclick", user_signed_in? ? products_and_services_catalog_select_industry_category_path : root_country_path, :class => "left_link" %>
+		</li>
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "winners" %>">
+				<%= link_to "Mejor propuesta 2012", campaign_winners_path, :class => "left_link" %>
+			</div>
+		</li>			
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "ending" %>">
+				<%= link_to "Gran final", campaign_ending_path, :class => "left_link" %>
+			</div>
+		</li>			
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "finalists" %>">
+				<%= link_to "Propuestas finalistas", campaign_finalists_path, :class => "left_link" %>
+			</div>
+		</li>			
+		<li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "thanks" %>">
+				<%= link_to "Agradecimientos", campaign_thanks_path, :class => "left_link" %>
+			</div>
+		</li>			
+		<li class="menu_li">
+			<div class="<%= "hover_style" if ["how_to_win", "user_story"].include? params[:action]  %>">
+				<%= link_to "Todas las propuestas", campaign_how_to_win_path, :class => "left_link" %>
+			</div>
+		</li>
+		<% # Disabled for de moment %>
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "wedding_of_the_year" %>" style="<%= "background-color:lightyellow;" unless params[:action] == "wedding_of_the_year" %>">
+				<%= link_to "Qué es", campaign_wedding_of_the_year_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "anecdotes" %>">
+				<%= link_to "Anécdotas", anecdotes_path, :class => "left_link" %>
+			</div>
+		</li> -->
+		<!--<li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "supplier_gallery" %>">
+				<%= link_to "Galería", supplier_gallery_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if ["give_it_away", "create_rock"].include? params[:action] or ["rocks"].include? params[:controller] %>">
+				<%= link_to "Postales", campaign_give_it_away_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "bases" %>">
+				<%= link_to "Bases concurso", campaign_bases_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "suggested_wedding" %>">
+				<%= link_to "Matrimonio sugerido", campaign_suggested_wedding_path, :class => "left_link" %>
+			</div>
+		</li>-->			
+		<!-- <li class="menu_li separador_menu">
+				<%= "DESTACADOS" %>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "noviosparis" %>">
+				<%= link_to "Novios Paris", campaign_noviosparis_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "lasadrianas" %>">
+				<%= link_to "Vestidos Novia", campaign_lasadrianas_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "marialuisagarcia" %>">
+				<%= link_to "Maquillaje", campaign_marialuisagarcia_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "alejandrasanchez" %>">
+				<%= link_to "Tocados", campaign_alejandrasanchez_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "studiosnaps" %>">
+				<%= link_to "Entretención", campaign_studiosnaps_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "rimon" %>">
+				<%= link_to "Fotografía", campaign_rimon_path, :class => "left_link" %>
+			</div>
+		</li>-->
+		<!-- <li class="menu_li">
+			<div class="<%= "hover_style" if params[:action] == "micapricho" %>">
+				<%= link_to "Barras", campaign_micapricho_path, :class => "left_link" %>
+			</div>
+		</li>-->
+	
+		<!-- <li class="menu_li separador_menu">-->
+			
+		</li>
+	</ul>
+</div>		

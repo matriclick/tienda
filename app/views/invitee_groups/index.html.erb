@@ -1,0 +1,28 @@
+<div id="error_explanation" style=display:none></div>
+<br />
+<div class="right_link">
+	<% if user_signed_in? -%>
+		<% unless current_user.role_id == 3 -%>
+			<%= link_to_function(t('new'),'toggle_object("new_invitee_group_form")', :class => 'button') %>	
+		<% end -%>
+	<% else -%>
+		<%= link_to_function(t('new'),'toggle_object("new_invitee_group_form")', :class => 'button') %>	
+	<% end -%>
+	
+</div>
+<div id="new_invitee_group_form", style=display:none>
+	<%= render 'form', :invitee_group => InviteeGroup.new %>
+</div>
+
+<div id="invitee_groups">
+	<%= render :partial =>'invitee_groups' %>
+</div>
+
+<div class="holder" style="padding:10px 0; overflow:hidden;">
+	<% if params[:fancy] %>
+	<%= link_to_function t('back'), "$.fancybox.pos(parent.previous_fancybox);", :class => :button %>
+	<% else %>
+	<%= link_to_function t('back'), "$.fancybox.close()", :class => :button %>
+	<% end %>
+</div>
+

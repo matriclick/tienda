@@ -1,0 +1,121 @@
+<% # FGM: ALERT!!! Validations on expenses.js (works same way than an expense form)%>
+
+<%= form_for(@budget) do |f| %>
+  <% if @budget.errors.any? %>
+    <div id="error_explanation">
+			<h2><%= @budget.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+			<ul>
+				<% @budget.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+  <% end %>
+
+<% unless @budget.budgetable %>
+	<table class="invisible form_section">
+		<tr class="title">
+			<td>
+				<%= "1. " + t('forms.expenses.select_category_and_supplier_account') %>
+			</td>
+		</tr>
+		<%= hidden_field :budget, :budget_type_id %>
+		<%= hidden_field :budget, :budget_slot_id %>
+		<tr class="content">
+			<% if @custom_industry_category.present? %>
+				<td>
+					<%= @custom_industry_category.get_name %>
+					<%= hidden_field_tag 'budget[industry_category_id]', @custom_industry_category.id %>
+				</td>
+			<% else %>
+				<td>
+					<%= f.collection_select :industry_category_id, IndustryCategory.joins(:countries).where("countries.id = ?", session[:country].id).order(:name), :id, :get_name, :prompt => t("category"), :include_blank => "Otra..." %>
+					<%= image_tag "loading.gif", :class => :select_loading, :style => "display:none" %>
+				</td>
+				<td style="<%= "display:none" if f.object.industry_category_name.blank? %>">
+					<%= f.label :industry_category_name, "Otra categoría" %><span class="required">*</span><br />
+					<%= f.text_field :industry_category_name %>
+				</td>
+			<% end %>
+		</tr>
+		<tr class="content">
+			<% if @custom_industry_category.present? %>
+				<td>
+					<%= f.label :supplier_account_fantasy_name, t("activerecord.models.supplier") %><span class="required">*</span><br />
+					<%= f.text_field :supplier_account_fantasy_name %>
+				</td>
+			<% else %>
+			<td style="<%= "display:none" if f.object.supplier_account_id.blank? %>">
+				<%= f.collection_select :supplier_account_id, SupplierAccount.where(:country_id => session[:country].id).approved.order(:fantasy_name), :id, :fantasy_name, :prompt => t("activerecord.models.supplier"), :include_blank => "Otro...", :disabled => true  %>
+			</td>
+			<td style="<%= "display:none" if f.object.supplier_account_fantasy_name.blank? %>">
+				<%= f.label :supplier_account_fantasy_name, t("activerecord.models.supplier") %><span class="required">*</span><br />
+				<%= f.text_field :supplier_account_fantasy_name %>
+			</td>
+			<% end %>
+		</tr>
+	</table>
+	<table class="invisible form_section">
+		<tr class="title">
+			<td colspan="2">
+				<%= "2. " + t('forms.budgets.determine_price') %>
+			</td>
+		</tr>
+		<tr class="content">
+			<td>
+		    <%= f.label :price %><%= mark_required @budget, :price %><br/>
+		    $ <%= f.number_field :price, :size => 10 %>			
+			</td>
+			<td>
+				<%= f.collection_select :budget_invitation_type_id, BudgetInvitationType.all, :id, :name, :prompt => "Corresponde a ..." %>
+			</td>
+		</tr>
+	</table>
+<% else %>
+<div class="product_image center floatLeft" style="margin-right:20px;">
+	<% if eval("@budget.budgetable.#{@budget.budgetable.class.to_s.downcase}_images.active").blank? %>
+		<%= link_to (image_tag "/images/smaller/missing.png"), products_and_services_catalog_description_path(@budget.budgetable.id, :object_class => @budget.budgetable.class), :title => t('show') %>
+	<% else %>
+		<%= link_to (image_tag eval("@budget.budgetable.#{@budget.budgetable.class.to_s.downcase}_images.active.cover_first.first.image.url(:smaller)")), products_and_services_catalog_description_path(@budget.budgetable.id, :object_class => @budget.budgetable.class), :title => t('show') %>
+	<% end %>
+</div>
+<div class="floatLeft">
+	<div class="supplier_page_in_name"><%= link_to crop_if_longer(@budget.budgetable.supplier_account.fantasy_name, 21) , supplier_description_path(@budget.budgetable.supplier_account.supplier, :public_url => @budget.budgetable.supplier_account.public_url) %></div>
+	<div class="supplier_page_in_name"><%= crop_if_longer(@budget.budgetable.name, 20) %></div>	
+</div>
+<div class="clear">
+	
+</div>
+<table class="invisible form_section">
+	<tr class="title">
+		<td colspan="2">
+			<%= t('forms.budgets.determine_price') %>
+		</td>
+	</tr>
+	<tr class="content">
+		<% if @budget.price %>
+			<td>
+		    <%= f.label :price %><%= mark_required @budget, :price %><br/>
+		    $ <%= f.number_field :price, :size => 10 %>			
+			</td>
+		<% else %>
+			<td>
+				Precio:<br>
+				<%= number_to_currency((@budget.budgetable.present? ? @budget.budgetable.price : @budget.price)) %>
+				<% if @budget.budgetable.present? %>
+					<%= (" - #{number_to_currency(@budget.budgetable.top_price_range)}" if @budget.budgetable.top_price_range > 0) %>						
+				<% end %>
+			</td>
+		<% end %>
+		<td>
+			<%= f.collection_select :budget_invitation_type_id, BudgetInvitationType.all, :id, :name, :prompt => "Corresponde a ..." %>
+		</td>
+	</tr>
+</table>
+<div class="clear"></div>
+<br>
+<% end %>
+<div class="holder">
+  <%= f.submit t('save'), :class => :button %>
+</div>
+<% end %>

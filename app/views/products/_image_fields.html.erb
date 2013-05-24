@@ -1,0 +1,15 @@
+<b><%= t 'images' %></b><%= mark_required @product, :product_images %>
+<div class="help_tip"><%= t('image_size_limit') %></div>
+<div class="field">
+	<%= f.fields_for :product_images do |product_images_form| %>
+		<% if params[:controller] == "administration" %>
+			<div class="old_image">
+				<%= image_tag product_images_form.object.image.url(:tiny) %>
+			</div>
+		<% end %>
+		<%= product_images_form.file_field :image %>
+		<%= product_images_form.link_to_remove t('remove_this_image'), :class => 'small_button' %>
+	<% end %>
+	<br/>
+	<%= f.link_to_add t('add_image'), :product_images, :class => 'small_button' %>
+</div>

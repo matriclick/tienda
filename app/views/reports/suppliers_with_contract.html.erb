@@ -1,0 +1,45 @@
+<h1>Reporte Conversaciones de Socios con Contrato </h1>
+<%= render 'date_range_selector' %>
+
+<table style="width:950px">
+	<tr style="">
+		<th></th>
+		<th>Lead</th>
+		<th>Perfil</th>
+		<th>Contrato</th>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<th><%= @init.strftime("%d %b %Y") %></th>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<th><b>Total</b> (acumulado)</th>
+	</tr>
+<% count = 1 %>
+<% @leads.each do |lead| %>
+	<tr style="">
+		<td>#<%= count %></td>
+		<td><%= link_to lead.name, lead %></td>
+		<td><%= !lead.supplier_account.nil? ? 
+				link_to(lead.supplier_account.fantasy_name, supplier_products_and_services_path(lead.supplier_account.supplier_id, 
+							:public_url => lead.supplier_account.public_url)) : '' %></td>
+		<td><%= link_to lead.contracts.last.contract_type.name, lead.contracts.last %></td>
+		<% @init = @from %>
+		<% while @init < @to %>
+			<td style="text-align:center">
+				<%= !lead.supplier_account.nil? ? 
+						count_link_conversations_supplier_account(lead.supplier_account, @init, @init + 1.day) : '' %>
+			</td>
+		<% @init = @init + 1.day %>
+		<% end %>
+		<td style="text-align:center">
+			<b><%= !lead.supplier_account.nil? ? 
+					count_link_conversations_supplier_account(lead.supplier_account, @from, @to) : '' %></b>
+			(<%= !lead.supplier_account.nil? ? 
+					count_link_conversations_supplier_account(lead.supplier_account, DateTime.new(2010,01,01), @to) : '' %>)
+		</td>
+	<tr>
+<% count += 1 %>
+<% end %>
+</table>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

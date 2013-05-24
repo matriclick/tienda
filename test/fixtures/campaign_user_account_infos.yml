@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: MyText
+  campaign_user_image_file_name: MyString
+  campaign_user_image_file_size: 1
+  campaign_user_image_content_type: MyString
+  campaign_user_image_updated_at: 2012-01-31 09:20:38
+
+two:
+  description: MyText
+  campaign_user_image_file_name: MyString
+  campaign_user_image_file_size: 1
+  campaign_user_image_content_type: MyString
+  campaign_user_image_updated_at: 2012-01-31 09:20:38

@@ -1,0 +1,58 @@
+<%= form_for(@slider_image) do |f| %>
+  <% if @slider_image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@slider_image.errors.count, "error") %> prohibited this slider_image from being saved:</h2>
+
+      <ul>
+      <% @slider_image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :slider_image_type_id %><br />
+	<%= f.collection_select :slider_image_type_id, SliderImageType.all, :id, :name, :prompt => "Select", :allow_blank => false %>
+  </div>
+<br />
+  <div class="field">
+    <%= f.label :slider_image_position %><br />
+	<%= f.number_field :position, :size => 5 %>
+  </div>
+<br />
+	<div class="field">
+		<div class="help_tip">
+			<b>Tamaños de las imágenes requeridos</b>: <br />
+			- Inicio: 500px de ancho x 300px de largo <br />
+			- Matri-revista: 800px de ancho x 300px de largo
+		</div>
+		<%= f.label :slider_image, "Imagen" %><br />
+		<%= f.file_field :slider_image %>
+	</div>
+<br />
+  <div class="field">
+		<div class="help_tip">
+			<b>Si el título y el contenido se dejan en blanco, aparecerá solo la imagen</b>
+		</div>
+    <%= f.label :title, 'Título' %><br />
+    <%= f.text_field :title, :size => '100x1' %>
+  </div>
+  <div class="field">
+    <%= f.label :content, 'Contenido' %><br />
+    <%= f.tinymce :content %>
+  </div>
+	<br />
+  <div class="field">
+    <%= f.label :link %><br />
+    <%= f.text_field :link, :size => '100x1' %>
+  </div>
+	<br />
+  <div class="field">
+   	<%= f.check_box :target, :checked => true %> <%= f.label :target, '¿Al hacer click se mantiene en la página?' %>
+  </div>
+	<br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

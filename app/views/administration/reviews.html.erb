@@ -1,0 +1,29 @@
+<div class="right_link">
+	<%= link_to 'Volver al menú', administration_index_path(), :class => :button  %>
+</div>
+<div class="right_link" style="margin-right:20px">
+	<%= link_to 'Ver proveedores', administration_suppliers_list_path(), :class => :button  %>
+</div>
+
+<% @reviews.each do |review| %>
+	<% if SupplierAccount.exists?(review.reviewable_id) %>
+	<table class="invisible">
+		<tr>
+			<td><%= render "suppliers_catalog/review_content", :review => review unless review.blank? %></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div style="float:left;">
+					<b><%= SupplierAccount.find(review.reviewable_id).fantasy_name %></b> | Aprobado: <%= review.approved_by_admin? ? 'Sí' : 'No' %> | Enviado por: <%= if !review.user_id.blank? and User.exists?(review.user_id) then User.find(review.user_id).email else 'No disponble' end %>
+				</div>
+				<div style="float:right;">
+					<%= link_to 'Nuevo review para este proveedor', administration_new_review_path(review.reviewable_id) %> | 
+					<%= link_to t('edit'), administration_edit_review_path(review)  %> | 
+					<%= link_to t('delete'), administration_destroy_review_path(review), confirm: t('are_you_sure'), method: :delete %>
+				<div>
+			</td>
+		</tr>
+	</table>
+	<div style="border-bottom:1px dotted #000"></div>
+	<% end %>
+<% end %>

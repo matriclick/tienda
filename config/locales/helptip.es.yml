@@ -1,0 +1,66 @@
+# HelpTip en español
+
+es:
+  helptip:
+    would_you_like_to_use_this: "¿Te gustaría utilizar esta funcionalidad?"
+    we_need_some_more_info: "¡Necesitamos más información sobre ti! Puedes empezar completando el formulario de tu perfil."
+    required: "Los campos con (*) son obligatorios"
+    reference: "Pide una referencia a los novios que ya hayan probado este producto/servicio. Nosotros manejaremos esta petición y dentro de los próximos días recibirás un email con la información pertinente. Si tienes alguna duda, agrégala abajo."
+    iva_included: "Precios incluyen IVA"
+    soft_booking: "Para eliminar esta reserva debes escribir un motivo válido de porqué la estás eliminando (ej: 'los novios no te confirmaron dentro del plazo que tu les diste') . Este mensaje se le enviará a los novios que han hecho esta reserva."
+    soft_delete: "Un proveedor ha eliminado una de tus reservas, el motivo es el siguiente:"
+    matrichecklist: "Te entregamos una guía completa con todas las actividades que debes hacer hasta el día de tu matrimonio, además las sincronizamos con la fecha estimada de tu fiesta para que nada se te olvide y puedas activar recordatorios que llegarán como mensajes en tu correo personal. Puedes agregar nuevas actividades, o bien editar las existentes."
+    important_date:
+      general: "Una fecha importante bloqueará nuevas reservas para todos tus servicios. La idea es que registres tus vacaciones, etc. con el fin de evitar que novios realicen reservas en tales fechas."
+    calendar:
+      locked: "Servicios (según color) a los que has bloqueado nuevas reservas."
+      unlocked: "No hay servicios bloqueados."
+      dot: "Reserva confirmada"
+      empty_dot: "Reserva por confirmar"
+    supplier_account:
+      public_url: "Esta será la URL para tu página pública. Por ejemplo 'flores_lindas'"
+      valid: "Luego de completada la información del formulario te contactaremos para activar tu cuenta.<br />Si no conoces los planes y tarifas, contáctanos a socios@matriclick.com."
+      presentation: "Esta Presentación representa lo que los usuarios verán sobre tu empresa. Puedes agregar imágenes y una descripción."
+      industry_categories: "Selecciona las categorías en las que tienes productos y/o servicios"
+      image: "Agrega una imágen que representará a tu empresa. Un logo es una buena idea. (Formato JPG o PNG y no excedas 800 x 600 píxeles ni 1 MB)"
+      corporate_name: "Razón Social de tu empresa. Es el nombre legal, por ejemplo: 'Florería Margaritas Limitada'"
+      fantasy_name: "Nombre que tendrá tu empresa en el portal de novios. Es un nombre corto para no mostrar el nombre legal, por ejemplo: 'Florería Flores'"
+      email: "E-mail para que los novios contacten a tu empresa o a alguien a cargo"
+      web_page: "Página web. Si no tienes no importa"
+      facebook: "Facebook. Si no tienes no importa"
+      twiter: "Twiter. Si no tienes no importa"
+      you_have_no_service: "Todavía no has creado un Servicio."
+      places_explanation_for_important_dates: "Las fechas importantes son para determinar cuándo un lugar no está habilitado por alguna razón particular. Primero tendrás que crear un lugar para continuar."
+      important_dates: "Las Fechas Importantes son para listar aquellos días en que algún servicio no esté disponible."
+      services: "Los servicios sirven para registrar la información sobre el servicio que prestas, o sobre tus tiendas, centros de eventos, etc. Podrás manejar el Horario de Atención, relacionar Eventos y revisar las reservas que han hecho novios."
+      rooms: "Las Salas sirven para almacenar la información de arriendo de tus lugares. Podrás tener más de una sala por lugar y manejarlas separadamente."
+      contacts: "Los Contactos son personas que quieres que sean contactadas cuando sea necesario comunicarse con tu empresa. Puedes especificar qué tipo de contacto es."
+      calendar: "El Calendario almacenará todos los Eventos (tanto personales como los relacionados a Lugares), guardando también las reservas hechas por los novios."
+      block_bookings: "Puedes bloquear nuevas reservas en esta fecha para un servicio determinado."
+      bookable: "El sistema de reservas es la forma en que los novios suscribirán reservas para los servicios que publiques."
+      bookable_info: "Tu cuenta no permite reservas de los novios, puedes cambiar esta opción editando tu cuenta. De todas maneras se muestra el calendario por si ya tienes reservas anteriores."
+    product:
+      images: "Puedes agregar varias imágenes para este producto. (Formato JPG o PNG y no excedas 800 x 600 píxeles ni 1 MB)"
+      product_type: "Selecciona un tipo de producto o servicio"
+      name: "Nombre de tu producto o servicio"
+      description: "Descripción de tu producto o servicio"
+      price_description: "Descripción del precio o rango de precios que ingresaste. Por ejemplo 'por persona', 'unitario', o 'por volumen'."
+      price_range: "Si quieres poner un precio único, completa sólo el campo 'Precio'. Si no tienes un precio fijo, puedes entregarnos un rango utilizando los campos 'Precio'-'Precio máximo'. De cualquier forma, puedes agregar una descripción."
+    room:
+      images: "Puedes agregar varias imágenes para esta sala. (Formato JPG o PNG y no excedas 800 x 600 píxeles ni 1 MB)"
+      rent_type: "El cobro de la sala será por..."
+      max_capacity: "La cantidad de personas que caben, por ejemplo '320'"
+    service:
+      images: "Puedes agregar varias imágenes para este servicio. (Formato JPG o PNG y no excedas 800 x 600 píxeles ni 1 MB)"
+      color: "Color que representará a los eventos de este servicio en tu calendario"
+      max_bookings: "Esto corresponde al tamaño de la lista de espera para esta este servicio, es decir, la cantidad de novios que estén esperando una respuesta luego de haber cotizado. Por ejemplo, un valor de 10 significaría que para una fecha determinada podrían haber hasta 10 novios cotizando este servicio (sin haber confirmado la reserva todavía)."
+      max_confirmed_bookings: "Ésta es la cantidad de matrimonios simultaneos que puedes atender como proveedor para una misma fecha. Por ejemplo, un valor de 3 significaría que para una fecha determinada podrían haber un máximo de 3 reservas confirmadas."
+      parking: "Puedes dar algunas indicaciones aquí"
+      bookings_system_disabled: "Tu sistema de reservas está deshabilitado. Esto quiere decir que los novios no podrán hacer reservas para este servicio. Puedes activarlo"
+      bookings_system_disabled_index: "Tu sistema de reservas está deshabilitado. Esto quiere decir que los novios no podrán hacer reservas para tus servicios. Puedes activarlo"
+    event:
+      no_services: "Puedes asociar el Evento a algún Servicio, pero todavía no has creado ninguno. Intenta creando nuevos Servicios."
+      service: "Puedes relacionar este evento a alguno de tus servicios"
+      personal_event: "En caso de no estar relacionado a un servicio, márcalo como personal"
+    expenses:
+      statistics: "Compárate con otros novios. Elige el presupuesto promedio que más se asemeje al tuyo."

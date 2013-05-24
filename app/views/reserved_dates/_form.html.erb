@@ -1,0 +1,20 @@
+<%= form_for(@reserved_date) do |f| %>
+  <div class="field">
+    <%= f.hidden_field :date, :value => @date %>
+    <%= f.hidden_field :supplier_account_id, :value => @supplier.supplier_account.id %>
+  </div>
+  <div class="field">
+    <%= f.label :comment, 'Comentarios sobre la reserva' %><br />
+	<div class="help_tip">
+		Agrega todos los datos que consideres importantes como nombre del novio, de la novia, datos de contacto, pagos realizados, etc.
+	</div>
+    <%= f.text_area :comment %>
+	<div class="help_tip">
+		Una vez hayas escrito todo lo relevante, haz click en "guardar reserva" y ese día se mostrará como reservado a los novios.
+	</div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Guardar Reserva' %>
+  </div>
+<% end %>

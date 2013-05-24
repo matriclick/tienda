@@ -1,0 +1,29 @@
+<div class="titulo_style">
+	<h1><%= t 'service' %></h1>
+</div>
+
+<div class="createNew">
+	<%= link_to t('edit'), edit_supplier_account_service_path(@supplier, @service), :class => :button %>
+</div>
+<br />
+
+<p id="notice"><%= notice %></p>
+
+<div class="in_content_box center">
+	<p>
+	  <b><%= t 'activerecord.attributes.service.address' %>:</b>
+	  <%= @service.address %>
+	  <br />
+	  <b><%= t 'activerecord.attributes.service.contact_phone' %>:</b>
+	  <%= @service.contact_phone %>
+	</p>
+	
+	<div id='gmapdiv'>
+	</div>
+</div>	
+
+<br />
+<div class="bottom_buttons">
+	<%= link_to t('back'), supplier_account_services_path(@supplier), :class => :button %>
+</div>
+<br />

@@ -1,0 +1,11 @@
+<% unless supplier_accounts.blank? %>
+	<% supplier_accounts.each do |supplier_account| %>
+		<% if defined? dress_provider %>
+			<%= render "layouts/supplier_box", :supplier_account => supplier_account, :dress_provider => dress_provider %>
+		<% else %>
+			<%= render "layouts/supplier_box", :supplier_account => supplier_account %>
+		<% end %>			
+	<% end %>	
+<% else %>
+  <%= render "layouts/nothing_to_show", :objects => t("suppliers"), :category => true %>
+<% end %>

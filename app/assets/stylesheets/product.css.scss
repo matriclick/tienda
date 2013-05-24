@@ -1,0 +1,50 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* ------------------------ Product In CSS ------------------------ */
+.product_in_image {
+	width:200px;
+	height:150px;
+	float:left;
+	margin-right:20px;
+}
+.product_in_data {
+	float:left;
+	width:55%;
+	height:150px;
+}
+.product_in_name {
+	color:#444;
+	font-size:25px;
+	font-weight:bolder;
+}	
+.product_in_supplier {
+	color:#444;
+	font-size:12px;
+}
+.product_in_price	{
+	font-size:13px;
+	color:#444;
+	margin-top:20px;
+}
+.button_in_product {
+	position:relative;
+	padding:8px 0 0px 0;
+}
+.product_in_menu {
+	float:left;
+	width:100%;
+	font-size:12px;
+	margin-top:20px;
+}
+.product_in_content {
+	float:left;
+	width:95%;
+	padding:20px;
+	border:solid 1px #ccc;
+	margin-top:-1px;
+	background:#FFF;
+}
+.more_stuff {
+	float:left;
+}

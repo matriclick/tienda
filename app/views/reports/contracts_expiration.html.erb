@@ -1,0 +1,26 @@
+<h1>Reporte Vencimiento Contratos</h1>
+<%= render 'date_range_selector' %>
+
+<br /><br />
+<table>
+	<tr>
+		<th>Lead</th>
+		<th>Fecha inicio contrato</th>
+		<th>Fecha vencimiento contrato</th>
+		<th>Comentario expiración</th>
+	</tr>
+	<% @contracts.each do |contract| %>
+		<tr>
+			<td><%= link_to contract.lead.name, lead_path(:id => contract.lead.id) %></td>
+			<td><%= contract.start_contract_date %></td>
+			<td><%= contract.end_contract_date %></td>
+			<% if !contract.expiration_comment.blank? %>
+				<td><%= link_to contract.expiration_comment, edit_contract_path(:id => contract.id) %></td>
+			<% else %>
+			<td><%= link_to '(Agrega un comentario)', edit_contract_path(:id => contract.id) %></td>
+			<% end %>
+		</tr>
+	<% end %>
+</table>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

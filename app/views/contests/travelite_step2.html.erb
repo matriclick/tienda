@@ -1,0 +1,54 @@
+﻿<div id="fondo_travelite">
+	<%= image_tag("contests/fondo_4_5_6.jpg") %> 
+</div>
+<div class="logo_travelite">
+	<%= image_tag("contests/logo.png") %> 
+</div>
+<div class="tipografia_travelite">
+	¡TE REGALA UNA ESTADÍA PARA DOS PERSONAS!
+</div>
+<div class="apoya_txt_step2">
+	<%= image_tag("contests/apoyafbk.png") %> 
+</div>
+
+<% if @show_like_playero %>
+	<div id="contenido_contest_travelite">	
+		<div class="foto_playero_step3">
+			<%= image_tag("contests/foto_playero_fbk.png") %> 
+		</div>
+		<div id="fbk_playeros">
+			<div class="fb-like-box" data-href="https://www.facebook.com/pages/Playeros-Matriclick-Travelite/309757422458550?fref=ts" data-width="299" data-show-faces="true" data-stream="false" data-header="false"></div>
+		</div>
+	</div>
+<% else %>
+	<div id="contenido_contest_travelite">
+		<div class="foto_viajero_step3">
+			<%= image_tag("contests/foto_viajero_fbk.png") %> 
+		</div>
+		<div id="fbk_viajero">
+			<div class="fb-like-box" data-href="https://www.facebook.com/pages/Viajeros-Matriclick-Travelite/336127006495202?fref=ts" data-width="299" data-show-faces="true" data-stream="false" data-header="false"></div>
+		</div>
+	</div>
+<% end %>
+<br />
+<br />
+<div id="contenido_contest_travelite">
+	<div class="btn_listo">
+		<%= link_to image_tag("contests/btn_listo.png"), contests_travelite_path %> 
+	</div>
+</div>
+<div id="parte_de_like_step2">
+	<div id="logo_like_step3">
+		<%= image_tag("contests/marcas.png") %> 
+	</div>
+	<div class="like_travelite">
+		<div class="fb-like" data-href="https://www.facebook.com/pages/Travelite/353713114643941" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+	</div>
+	<div class="like_matriclick">
+		<div class="fb-like" data-href="https://www.facebook.com/matriclick" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+	</div>
+</div>
+<div id="frase_travelite">
+	<i>*Si quieres conocer otros planes y destinos visítanos en <%= link_to 'www.travelite.cl', 'http://www.travelite.cl', target: '_blank' %></i>
+</div>
+

@@ -1,0 +1,28 @@
+<h1>Anécdotas</h1>
+
+<table>
+<% @campaign_anecdotes.each do |campaign_anecdote| %>
+  <tr>
+		<td>
+		<% unless campaign_anecdote.campaign_anecdote_images.blank? %>	
+		  <% for img in campaign_anecdote.campaign_anecdote_images %>
+		    <%= image_tag img.anecdote.url(:tiny) %>
+		  <% end %>									  
+		<% end %>
+		</td>
+		<td>
+			<div><strong><%= campaign_anecdote.title %></strong></div>
+			<div><%= crop_if_longer campaign_anecdote.description, 100 %></div>
+		</td>
+    <td class="list_actions">
+			<div><%= link_to 'Show', anecdotes_path(campaign_anecdote) %></div>
+			<div><%= link_to 'Edit', edit_campaign_anecdote_path(campaign_anecdote) %></div>
+			<div><%= link_to 'Destroy', campaign_anecdote, confirm: 'Are you sure?', method: :delete %></div>
+		</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nueva anécdota', new_campaign_anecdote_path, :class => :button %>

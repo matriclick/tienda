@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  count: 1
+  budget_type_id: 1
+  user_account_id: 1
+
+two:
+  count: 1
+  budget_type_id: 1
+  user_account_id: 1

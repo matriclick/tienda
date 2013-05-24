@@ -1,0 +1,80 @@
+<h1>Contrato de <%= link_to @contract.lead.name, @contract.lead, :style => 'color:blue' %></h1>
+<p id="notice"><%= notice %></p>
+<br />
+ <b>Datos del contrato</b>
+<hr>
+<b>Lead:</b> <%= link_to @contract.lead.name, @contract.lead, :style => 'color:blue' %>
+<br /><br />
+  <b>Nombre del propietario:</b> <%= @contract.matriclicker.name if !@contract.matriclicker.nil? %>
+<br /><br />
+<b>Tipo de contrato:</b> <%= @contract.contract_type.name %> | <b>Estado:</b> <%= @contract.contract_state.name %>
+<br /><br />
+  <b>Fecha de firma:</b> <%= @contract.signature_date.strftime("%d %B %Y") if !@contract.signature_date.nil? %>
+<br /><br />
+  <b>Fecha de inicio:</b> <%= @contract.start_contract_date.strftime("%d %B %Y")  if !@contract.start_contract_date.nil? %>
+<br /><br />
+  <b>Fecha de término:</b> <%= @contract.end_contract_date.strftime("%d %B %Y")  if !@contract.end_contract_date.nil? %>
+<br /><br /><br />
+ <b>Datos de facturación</b>
+<hr>
+  <b>RUT para facturar:</b> <%= @contract.invoice_rut %>
+<br /><br />
+  <b>Precio:</b> <%= @contract.price %> U.F <%= @contract.vat_free ? 'IVA incluído' : '+ IVA' %>
+<br /><br />
+  <b>Comisión:</b> <%= @contract.commission %> %
+<br /><br />
+  <b>Facturar a partir del:</b> <%= @contract.invoice_from.strftime("%d %B %Y") if !@contract.invoice_from.nil? %>
+<br /><br />
+  <b>Facturar hasta el:</b> <%= @contract.invoice_to.strftime("%d %B %Y")   if !@contract.invoice_to.nil? %>
+<br /><br />
+  <b>Se paga en:</b> <%= @contract.quotas %> cuotas y 
+	<b><%= @contract.read_comments_before_invoice ? 'sí' : 'no' %></b> es necesario revisar los comentarios antes de facturar
+<br /><br />
+  <b>Correos a los que se le envía la factura:</b> <%= @contract.invoice_mailing %>
+<br /><br />
+<b>Facturas</b> (<%= link_to '+', new_invoice_path(contract_id: @contract.id) %>)
+<div style="margin-left:10px; margin-top:5px;">
+	<% @contract.invoices.each do |invoice| %>
+		- <%= link_to 'Número de factura: '+invoice.number.to_s+' (emitida el '+invoice.issued_date.strftime("%d %B %Y")+')', invoice %>
+		<br /> <span class="lucida small"> |
+		<% invoice.invoice_months.each do |im| %>
+			<%= Date::MONTHNAMES[im.month] %> <%= im.year %> |
+		<% end %>
+		</span>
+		<br /><br />
+	<% end %>
+</div>
+
+<br /><br />
+<% unless @contract.comments.blank? %>
+	<b>Comentarios:</b><br />
+	<div style="margin-left:10px;">
+		<%= raw @contract.comments.gsub(/\n/, '<br/>') %>
+	</div>
+	<br /><br />
+<% end %>
+<% unless @contract.expiration_comment.blank? %>
+	<b>Comentario de expiración:</b><br />
+	<div style="margin-left:10px;">
+		<%= raw @contract.expiration_comment.gsub(/\n/, '<br/>') %>
+	</div>
+	<br /><br />
+<% end %>
+<% unless @contract.attached_files.blank? %>
+	<b>Archivos adjuntos:</b>
+	<br /><br />
+	<div class="attached_files">
+		<% @contract.attached_files.each do |file|%>
+			<%=	link_to ((image_tag ("clip.gif"))+" "+file.attached_file_name.to_s), contracts_download_file_path(file) %><br/><br/>
+		<% end -%>
+	</div>
+<% end %>
+<br /><br />
+<%= link_to 'Nueva factura', new_invoice_path(contract_id: @contract.id) %> | <%= link_to 'Edit', edit_contract_path(@contract) %> | <%= link_to 'Volver', @contract.lead %> 
+<% if current_user.matriclicker.privileges.include? Privilege.find_by_name("Tecnologia") %>
+	| <%= link_to 'Destroy', @contract, confirm: 'Are you sure?', method: :delete %>
+<% end %>
+<% if current_user.matriclicker.privileges.include? Privilege.find_by_name("Finanzas") %>
+ | <%= link_to 'Reporte de contratos para cobrar', reports_collections_path() %>
+ | <%= link_to 'Reporte de envío de correos para cobrar',  reports_collections_email_path %>
+<% end %>

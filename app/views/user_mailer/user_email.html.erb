@@ -1,0 +1,24 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola Usuario,<br/><br/>
+					<strong><%=@user.user_account.get_wedding_first_name%></strong> quieren que los ayudes en la organización de su matrimonio. Para esto te han agregado a sus cuentas en Matriclick.<br/><br/>
+					<p style="color:#aaa;">
+						Tus datos para ingresar son:
+					</p>
+					<i style="color:#999;">
+						Nombre de Usuario:&nbsp; </i> <%= @user.email %><br/>
+						<i style="color:#999;">Contraseña:&nbsp; </i> <%= @password %>								
+					<br/><br/>
+					<p style="color:#444;">Para acceder a la cuenta haz click <%= link_to "aquí", 'www.matriclick.com', :style => "color:#0071BC;text-decoration:none;" %>.</p><br/>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

@@ -1,0 +1,60 @@
+<div class="product_box" style="width:540px">
+	
+	<div style="float:left">
+		<div class="product_image_container">
+			<div class="product_image">
+			<% if element.service_images.active.blank? %>
+				<%= link_to image_tag("/images/smaller/missing.png"), products_and_services_catalog_description_path(:slug => element.slug), :title => t('show') %>
+			<% else %>
+			<div style="cursor:pointer">
+				<%= image_tag element.service_images.active.cover_first.first.image.url(:smaller), :alt => element.service_images.active.cover_first.first.name, :onclick => "$('#image_gallery"+element.id.to_s+"').fancybox().trigger('click');" %>
+			</div>
+			<% end %>
+			</div>
+			<% if element.discount > 0 %>
+				<div class="discount">
+					<%= link_to (image_tag "discounts/category.png", :alt => 'descuento'), products_and_services_catalog_description_path(:slug => element.slug), :title => t('show') %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+	<div style="float:left; margin-left:10px; text-align:left; color:#222; width:280px;">
+		<% unless element.name.blank? %>
+			<b><% if element.discount > 0 %><span style="color:red">¡-<%= element.discount %>%! </span> <% end %>
+			<%= link_to crop_if_longer(element.name, 30), products_and_services_catalog_description_path(:slug => element.slug) %></b>
+			<br><br>
+		<% end %>
+		<% unless element.description.blank? %>
+			<%= crop_if_longer(element.description, 200) %><br><br>
+			<% unless element.service_images.active.cover_first.first.nil? %>
+			<span style="text-decoration:underline;"><%= link_to 'Ver imágenes', eval("element.#{element.class.to_s.downcase}_images.active.cover_first.first.image.url(:original)"), :class => :fancybox, :id => "image_gallery"+element.id.to_s %></span> | 
+			<% end %>
+			<span style="text-decoration:underline;"><%= link_to 'Ver detalle', products_and_services_catalog_description_path(:slug => element.slug) %></span>
+			
+		<% end %>
+	</div>
+	
+	<div style="float:right; margin-right:0px; text-decoration:underline;">
+		<% if  session[:preview] == true %>
+			<%= "¡Cotiza acá!" %>
+		<% else -%>
+			<% if current_user.nil? -%>
+				<%= link_to (image_tag "cotiza_aca.png"), "#sign_in_fancybox" , :id => "fancybox_form", class: "image_button" %>
+				<%= render "layouts/sign_in_fancybox" %>
+			<% else -%>
+				<%= link_to (image_tag "cotiza_aca.png"), products_and_services_catalog_conversations_path(:slug => element.slug), class: "image_button" %>
+			<% end -%>								
+		<% end -%>
+	</div>
+	
+</div>
+<!-- Imágenes del proveedor -->
+<div style="display:none">
+<% unless (imgs = eval("element.#{element.class.to_s.downcase}_images.active.without_cover")).blank? %>
+	<div class="supplier_page_in_image_count">
+		<% imgs.each_with_index do |image, i| %>
+			<%= link_to image_tag(image.image.url(:tiny), :alt => image.image.name), image.image.url(:original), :class => :fancybox, :rel => :gallery  %>
+		<% end %>
+	</div>
+<% end %>
+</div>

@@ -1,0 +1,11 @@
+$("#error_explanation").hide();
+
+<% if @activity.errors.any? %>
+	$("#error_explanation").html("<%= escape_javascript(render 'errors', :@activity => @activity) %>");
+	$("#error_explanation").fadeIn("slow");
+<% else %>
+	$("#activities").html("<%=escape_javascript(render 'activities', :@user_account => current_user.user_account) %>");
+	reload_fancyboxes();
+	$.fancybox.close();
+	$(".checklist_descripcion").hide();
+<% end %>

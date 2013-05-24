@@ -1,0 +1,36 @@
+<!-- Mostrar productos de un proveedor -->
+<div class="right_link">
+	<%= link_to 'Ver todos los proveedores', administration_suppliers_list_path(), :class => :button  %>
+</div>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>supplier account id</th>
+		<th>Id Tipo de producto</th>
+		<th>Nombre</th>
+		<th>Descripción</th>
+		<th>Precio</th>
+		<th>Descripción del Precio</th>
+		<th>Precio máximo</th>
+		<th>Id Rubro</th>
+		<th></th>
+		<th></th>
+	</tr>
+	
+	<% @products.each do |product| %>
+		<tr>
+			<td><%= product.id %></td>
+			<td><%= product.supplier_account_id %></td>
+			<td><%= product.product_type_id %></td>
+			<td><%= product.name %></td>
+			<td><%= product.description %></td>
+			<td><%= product.price %></td>
+			<td><%= product.price_description %></td>
+			<td><%= product.top_price_range %></td>
+			<td><%= product.industry_category_id%></td>
+			<td><%= link_to t('edit'), administration_edit_supplier_product_path(product)  %></td>
+			<td><%= link_to t('destroy'), administration_destroy_supplier_product_path(product), :method => :delete, confirm: t('are_you_sure') %></td>
+		</tr>
+	<% end %>
+</table>

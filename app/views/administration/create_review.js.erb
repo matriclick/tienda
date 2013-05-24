@@ -1,0 +1,19 @@
+<% if @review.errors.any? %>
+	validate_presence($("#review_<%= @review.reviewable.id %>").find('textarea'));
+	$('.select_loading').hide();
+<% else %>
+	$("#review_<%= @review.reviewable.id %>").html("<%= escape_javascript(render 'reviews/review_info', :review => @review) %>");
+	$("#review_<%= @review.reviewable.id %>").removeClass("review_box");
+	$("#review_<%= @review.reviewable.id %>").addClass("reviewed_box");
+
+	// FGM: fill up stars
+	var stars = <%= @review.star_rating.value %>
+	for(i=1; i <= 5; i++){
+		if(i <= stars){
+			$('#review_' + <%=@review.id %> + '_' + i).addClass("on");
+		} else {
+			$('#review_' + <%=@review.id %> + '_' + i).removeClass("on");
+		}
+	}
+	$('.select_loading').hide();
+<% end %>

@@ -1,0 +1,5 @@
+$(function(){ 
+	$('.loading_link').bind('ajax:beforeSend', function(){
+		$(this).after('<%= image_tag("loading.gif", :size => "15x15", :class => :left_loading) %>');
+	});
+});

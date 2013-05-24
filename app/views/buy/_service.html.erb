@@ -1,0 +1,37 @@
+<b>Pagar Servicio</b>
+<hr>
+<div style="float:left;">
+	<div class="image" style="float:left">
+		<%= image_tag(@purchasable.main_image) %>
+	</div>
+	<div style="float:left; margin-left:10px;">
+		<table style="width:500px">
+			<tr>
+				<th style="min-width:500px">Descripción</th>
+			</tr>
+			<tr>
+				<td><%= raw @purchasable.description.gsub(/\n/, '<br/>') %></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="clear"></div>
+<br />
+<b>Valor y fecha</b>
+<hr>
+<div style="margin-left:10px">
+	<div>Valor a pagar: <%= f.text_field :price %> <div class="help_tip" style="display:inline">Agrega el valor sin puntos ni comas</div></div>
+	<div style="margin-top:10px">Fecha del Matrimonio: <%= f.text_field :delivery_date %> <div class="help_tip" style="display:inline">Fecha en la que te casarás y utilizarás el servicio/producto</div></div>
+</div>
+<div class="field">
+	<%= f.hidden_field :purchasable_id, :value => @purchasable.id %>
+</div>
+<div class="field">
+	<%= f.hidden_field :purchasable_type, :value => @purchasable.class %>
+</div>
+<div class="field">
+	<%= f.hidden_field :user_id, :value => @user.id %>
+</div>
+<div class="field">
+	<%= f.hidden_field :currency, :value => 'CLP' %>
+</div>

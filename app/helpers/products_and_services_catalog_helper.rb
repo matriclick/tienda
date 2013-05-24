@@ -1,0 +1,2 @@
+module ProductsAndServicesCatalogHelper
+end

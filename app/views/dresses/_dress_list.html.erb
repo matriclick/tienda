@@ -1,0 +1,39 @@
+<% if defined? dresses_array %>
+<div id="albums_columns" style="width:820px; margin-left:0px">
+<% dresses_array.each do |dress| %>
+	
+	<% if @trousseau %>
+		<div class="dresses_album_box trousseau_index_box left dresses_index_box_regular first_set_dress">
+	<% else %>
+		<div class="dresses_album_box dresses_index_box left <%= %w[Aros Anillos Collares Pulseras Carteras Sombreros].include?(params[:type]) ? 'dresses_index_box_small' : 'dresses_index_box_regular' %> first_set_dress">
+	<% end %>
+			<% if @enable_edit %>
+				<div style="background:black; padding:2px; text-align:center;">
+					<%= link_to 'Editar', edit_supplier_account_dress_path(@supplier, dress), :class => 'edit_dress_link' %>
+				</div>
+			<% end %>
+			<% unless dress.dress_images.blank? %>
+				<% if dress.dress_status.name == 'Vendido' %>
+					<div style="position:absolute;right:5px;">
+						<%= image_tag 'dresses_icons/sold.png' %>
+					</div>
+				<% end %>
+				
+					<% if %w[Aros Anillos Collares Pulseras Carteras Sombreros].include?(params[:type]) %>
+						<%= link_to image_tag(dress.dress_images.first.dress.url(:index_accesory)), dress %>
+					<% else %>
+						<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress)), dress %>
+					<% end %>
+				
+			<% end %>
+			<div style="text-align:left; width:127px; padding-left:15px;">
+				<span id="dress_intro"> <%= j(dress.introduction[0..30]) %></span><br />
+				<span id="dress_price"> <%= "#{number_to_currency dress.price}" %></span>
+				<br />
+			</div>
+		</div>
+	
+<% end %>
+<div id="infinite-scroll"></div>
+</div>
+<% end %>

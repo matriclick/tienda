@@ -1,0 +1,16 @@
+<div class="right_link">
+  <%= link_to t('cancel'), supplier_account_path(@supplier), :class => :button%>
+</div>
+<div class="titulos">
+	<%= t 'editing_supplier_info' %>
+</div>
+
+<div class="box_form">
+	<% if @supplier_account.rut.blank? %>
+			<div  class="help_tip"><%= t('helptip.supplier_account.valid').html_safe %></div>
+	<% end %>
+	<div class="help_tip">
+		<%= t'helptip.required' %>
+	</div>
+	<%= render 'form' %>	
+</div>

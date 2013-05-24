@@ -1,0 +1,18 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola <%= @supplier_account.fantasy_name %>,<br/><br/>
+					<strong><%= @bookable.name %></strong> ha sido reservado para el <strong><%= l @booking.date %></strong><br/>
+					<p style="color:#444;">
+						La puedes revisar en tu <%= link_to "calendario de reservas", calendar_supplier_account_url(:country_url_path => @country_url_path, :supplier_id => @supplier_account.supplier.id), :style => "color:#0071BC;text-decoration:none;" %>. No olvides ponerte en contacto con los novios!</p><br/>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

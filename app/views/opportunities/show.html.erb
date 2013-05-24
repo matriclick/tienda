@@ -1,0 +1,68 @@
+<div class="opportunity">
+<div class="opportunity_title">
+	<%= @opportunity.title %>
+</div>
+<div class="opportunity_validity">
+	Oportunidad válida hasta el <%= @opportunity.valid_until.strftime("%d-%b-%Y") %>
+</div>
+
+<div>
+	<div style="float:left; margin-right:20px;">
+	  <%= image_tag @opportunity.side_image(:regular), :alt => @opportunity.title %>
+	</div>
+	
+	<div style="float:left; width:350px; margin:5px;">
+		<div class="opportunity_terms_title">Detalle de la Oportunidad</div>
+		<div class="opportunity_terms_description">
+		<%= (desc = @opportunity.description).blank? ? 
+		'Próximamente en Matriclick.com' : content_tag(:span, (desc.gsub(/\n/, '<br/>')).html_safe) %>
+		</div>
+		<div style="margin-top:50px; text-align:center; font-weight:bold;">
+		<% if user_signed_in? %>
+			<% if current_user.role_id == 3 -%>
+				<%= link_to image_tag('cotiza_aca.png', :class => 'image_button'), "#sign_in_fancybox" , :id => "fancybox_form" %><br />
+				<%= link_to '¡Contacta a '+@opportunity.supplier_account.fantasy_name+'!', "#sign_in_fancybox" , :id => "fancybox_form" %>
+				<%= render "layouts/sign_in_fancybox" %>
+			<% else -%>
+				<%= link_to image_tag('cotiza_aca.png', :class => 'image_button'), products_and_services_catalog_conversations_path(@object, :object_class => @object.class) %><br />
+				<%= link_to '¡Contacta a '+@opportunity.supplier_account.fantasy_name+'!', products_and_services_catalog_conversations_path(@object, :object_class => @object.class) %>
+			<% end -%>								
+		<% else %>
+		  	<%= link_to image_tag('cotiza_aca.png', :class => 'image_button'), products_and_services_catalog_conversations_path(@object, :object_class => @object.class) %><br />
+			<%= link_to '¡Contacta a '+@opportunity.supplier_account.fantasy_name+'!', products_and_services_catalog_conversations_path(@object, :object_class => @object.class) %>
+		<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+<div style="border-top:1px dotted grey; margin:10px 0px 10px 0px"></div>
+
+<% @opportunity.opportunity_images.each do |image| %>
+	<div style="float:left; margin-right:10px;">
+  		<%= link_to image_tag(image.opportunity_image(:small)), image.opportunity_image(:original), :class => [:fancybox, :image_button], :rel => :gallery %>
+	</div>
+<% end %>
+
+<div class="clear"></div>
+
+<div class="blog_share_show">
+	<div class="addthis_toolbox addthis_default_style ">
+		<a class="addthis_button_tweet"></a>
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+		<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+	</div>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
+</div>
+
+<div style="border-top:1px dotted grey; margin:10px 0px 10px 0px"></div>
+
+<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="4" data-width="800"></div>
+
+<% if user_signed_in? and current_user.role_id == 1 -%>
+	<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
+	<%= link_to 'Back', opportunities_path %>
+<% end %>
+
+</div>

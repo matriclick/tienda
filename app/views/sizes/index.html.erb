@@ -1,0 +1,30 @@
+<%= form_tag update_multiple_sizes_path, :method => "put" do %>
+	<h1>Listing sizes</h1>
+	<br /><br />
+	<div class="clear"></div>
+	<table>
+		<tr>
+			<th>Talla</th>
+			<th>Tipo al que Aplica</th>
+		</tr>
+		<% @sizes.each do |size| %>
+			<tr>
+				<%= fields_for "sizes[]", size do |f| %>
+					<td><%= f.text_field :name, :size => 10, :style => "font-size:40px;" %></td>
+					<td>
+						<% @dress_types.each do |dress_type| %>
+	      					<%= check_box_tag "sizes[#{size.id}][dress_type_ids][]", dress_type.id, size.dress_types.include?(dress_type) %> <%= dress_type.name %><br />
+						<% end %>
+					</td>
+				<% end %>
+				<td><%= link_to 'Destroy', size, confirm: 'Are you sure?', method: :delete %></td>
+			</tr>
+		<% end %>
+	</table>
+	<br /><br />
+	<div class="clear"></div>
+	<br /><br />
+	<%= submit_tag "Actualizar Tallas" %>
+<% end %>
+<br />
+<%= link_to 'New Size', new_size_path %> | <%= link_to 'Administrador', administration_index_path %>

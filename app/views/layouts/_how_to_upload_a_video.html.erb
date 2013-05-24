@@ -1,0 +1,35 @@
+<div class="signo_pregunta_with_text">
+	<%= image_tag('signo_pregunta.png') %> <%= link_to t('how_to_upload_video'), "#upload_video_tutorial", :class => 'fancybox' %>	
+</div>
+<div style="display:none"> <!-- fancy view -->
+	<div id="upload_video_tutorial" style="padding:20px;width:760px;">	
+		<h1>Cómo subir un video</h1><br/>
+		<div class="step">
+				<%= image_tag "upload_video_tutorial/foto1.png", :class => "step_image" %>
+				<div id="step_text">
+				<h3><span>Paso 1</span> Ingresa a YouTube</h3>
+				<p>Ingresa a www.youtube.com y busca tu video con el buscador.  Una vez que te aparezca, pínchalo.</p>					
+				</div>
+				<div class="clear"></div>
+		</div>
+		<div class="step">
+			<%= image_tag "upload_video_tutorial/foto2.png", :class => "image_left" %>
+			<h3><span>Paso 2</span> Comparte el Video e Insértalo</h3><br/>
+			<p>Debajo del video, aparecerá un botón “compartir” o “share,”  pínchalo.</p>
+			<div class="clear"></div>
+		</div>
+		<div class="step">
+			<%= image_tag "upload_video_tutorial/foto3.png", :class => "image_left" %>
+			<h3><span>Paso 3</span> Copia el código</h3><br/>
+			<p>Luego de seleccionar todas las opciones que te entrega el video, copia el link.</p>
+			<div class="clear"></div>
+		</div>
+		<div class="step">
+			<%= image_tag "upload_video_tutorial/foto4.png", :class => "image_left" %>
+			<h3><span>Paso 4</span> Pega el Link en tu Producto/Servicio</h3>
+			<p>Entra al producto o servicio que quieras agregarle el video.  Pega el link en el campo 'Código URL'.</p>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>

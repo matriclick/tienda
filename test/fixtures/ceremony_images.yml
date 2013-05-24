@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ceremony_id: 1
+  image_file_name: MyString
+  image_content_type: MyString
+  image_file_size: 1
+  image_updated_at: 2011-12-01 16:32:10
+
+two:
+  ceremony_id: 1
+  image_file_name: MyString
+  image_content_type: MyString
+  image_file_size: 1
+  image_updated_at: 2011-12-01 16:32:10

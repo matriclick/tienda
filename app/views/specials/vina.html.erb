@@ -1,0 +1,84 @@
+<div class="clear"></div>
+<div>
+	<%= image_tag 'specials/vina_banner.jpg' %>
+</div>
+<br />
+<% unless @supplier_accounts.blank? %>
+<div style="float:left; width:600px; margin-left:10px;">
+	<div id="suppliers">
+		<% @industry_categories.each do |industry_category| %>
+			<% if should_show_industry?(industry_category) %>
+				<div class="specials_left_half">
+					<div id="specials_suppliers" style="margin-top:10px">
+						<div class="specials_title" style="border-bottom:2px solid grey; width:550px; padding-bottom:5px;">
+							<%= industry_category.get_name + ' TOP' %>
+						</div>
+						<% @supplier_accounts.each do |supplier_account| %>
+							<% if supplier_account.industry_categories.include?(industry_category) and !supplier_in_sub?(supplier_account, industry_category)%>
+								<%= render "layouts/supplier_box", :supplier_account => supplier_account %>
+								<div style="width:500px; margin:20px; color:grey;">
+									<%= raw supplier_account.presentation.description[0..300].gsub(/\n/, '<br/>') %>...<%= link_to 'ver más', supplier_description_path(supplier_account.supplier, :public_url => supplier_account.public_url), :style => 'color:blue' %>
+								</div>
+							<% end %>
+							<div class="clear"></div>
+						<% end %>	
+						<div class="clear"></div>
+					</div>
+				</div>
+			<% end %>
+
+			<% industry_category.sub_industry_categories.each do |sub_industry_category| %>
+				<% if should_show_sub_industry?(sub_industry_category) %>
+					<div class="specials_left_half">
+						<div id="specials_suppliers" style="margin-top:10px">
+							<div class="specials_title" style="border-bottom:2px solid grey; width:550px; padding-bottom:5px;">
+								<%= sub_industry_category.get_name + ' TOP' %>
+							</div>
+							<% @supplier_accounts.each do |supplier_account| %>
+								<% if supplier_account.sub_industry_categories.include?(sub_industry_category) %>
+									<%= render "layouts/supplier_box", :supplier_account => supplier_account %>
+									<div style="width:500px; margin:20px; color:grey;">
+										<%= raw supplier_account.presentation.description[0..300].gsub(/\n/, '<br/>') %>...<%= link_to 'ver más', supplier_description_path(supplier_account.supplier, :public_url => supplier_account.public_url), :style => 'color:blue' %>
+									</div>
+								<% end %>
+								<div class="clear"></div>
+							<% end %>	
+							<div class="clear"></div>
+						</div>
+					</div>
+				<% end %>	
+			<% end %>
+		<% end %>
+	</div>
+</div>
+<% else %>
+<div style="float:right; width:400px; margin-top:10px">
+	<%= render "layouts/nothing_to_show", :objects => t("suppliers"), :category => true %>
+</div>
+<% end %>
+<div style="float:left">
+	<%= image_tag 'specials/fotobyn.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/fotocolor.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/logo_novios.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/fotobyn.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/fotocolor.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/logo_novios.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />	
+	<%= image_tag 'specials/fotobyn.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/fotocolor.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/logo_novios.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/fotobyn.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/fotocolor.jpg', :alt => 'Novios Paris' %>
+	<br />	<br />
+	<%= image_tag 'specials/logo_novios.jpg', :alt => 'Novios Paris' %>
+</div>
+<div class="clear"></div>

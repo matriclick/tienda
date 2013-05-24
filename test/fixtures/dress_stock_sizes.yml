@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  dress_id: 1
+  size_id: 1
+  stock: 1
+
+two:
+  dress_id: 1
+  size_id: 1
+  stock: 1

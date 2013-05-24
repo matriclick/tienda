@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  max_capacity: 1
+  address: MyString
+  contact_phone: MyString
+  rent_cost: 9.99
+
+two:
+  max_capacity: 1
+  address: MyString
+  contact_phone: MyString
+  rent_cost: 9.99

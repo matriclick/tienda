@@ -1,0 +1,23 @@
+<div class="subtitulos">
+	<%= t('faq') %>
+</div>
+<div>
+<%= f.fields_for :service_faqs do |service_faq| %>
+<table class="invisible">
+	<tr>
+		<td><%= service_faq.label :question, t('question')%><br />
+		<%= service_faq.text_field :question %>
+		</td>
+		<td><%= service_faq.label :answer, t('answer')%><br />
+		<%= service_faq.text_field :answer %>
+		</td>
+		<td><%= service_faq.hidden_field :_destroy %>
+		<%= service_faq.link_to_remove t('remove'), :class => "small_button " %>
+		</td>		
+	</tr>	
+</table>
+<% end %>
+
+<%= f.link_to_add t('add'), :service_faqs %>
+</div>
+<br />

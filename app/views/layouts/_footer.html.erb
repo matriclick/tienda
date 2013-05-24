@@ -1,0 +1,53 @@
+<div class="sombra_footer">
+</div>
+<div class="footer">
+	<div class="box_nine_eight_cero center">
+	<div class="footer_box left">
+		<ul class="footer_links">
+			<li class="h4 bold">INFO</li>
+			<li><%= link_to 'Suscribirse', subscription_path, :class => 'subscription_popup' %></li>
+			<li><%= link_to t('about_us'), company_path %></li>
+			<li><%= link_to t('work_with_us'), work_with_us_path %></li>
+			<li><%= link_to t('press'), press_path %></li>
+		</ul>	
+	</div>
+	<div class="footer_box left">
+		<ul class="footer_links">
+			<li class="h4 bold">AYUDA</li>
+			<li><%= link_to t('Preguntas Frecuentes'), faq_path %></li>
+			<li><%= link_to t('contact'), new_contact_path %></li>
+			<li><%= link_to t('terms_of_use'), terms_path %></li>
+		</ul>	
+	</div>
+	
+	<div class="footer_box left">
+		<ul class="footer_links">
+			<li class="h4 bold">SÍGUENOS</li>
+			<% if session[:country].url_path == 'peru' %>
+				<li><%= link_to t('Facebook'), 'http://www.facebook.com/pages/Matriclick-Perú/344996538911153', :target => '_blank' %></li>
+			<% else %>
+				<li><%= link_to t('Facebook'), 'https://www.facebook.com/matriclick', :target => '_blank' %></li>
+			<% end %>
+			<li><%= link_to t('Twitter'), 'https://twitter.com/matriclick', :target => '_blank' %></li>
+			<li><%= link_to t('LinkedIn'), 'http://www.linkedin.com/company/matriclick-com', :target => '_blank' %></li>
+		</ul>
+	</div>
+	<div class="footer_box right">
+		<ul class="footer_links">
+			<li class="h4 bold">MATRICLICK EMPRESAS</li>
+			<li><%= supplier_signed_in? ? (link_to "Mi Página", supplier_home_path, :rel => 'nofollow' ) : (link_to 'Ingresar como Empresa', new_supplier_session_path, :rel => 'nofollow') %></li>
+			<li><%= link_to "Vídeo Tutorial para Empresas", "http://www.youtube.com/watch?v=sSbEF3aQJHc&amp;feature=player_embedded&amp;hd=1", :id => :tutorial_video %></li>
+			<li><%= link_to 'Contacto Empresas', new_contact_path %></li>
+		</ul>
+	</div>
+	<% if !current_user.nil? and current_user.role_id == 1 %>
+	<div class="footer_box right">
+		<ul class="footer_links">
+			<li class="h4 bold">ADMINISTRACIÓN</li>
+			<li><%= link_to t('Administrador'), administration_index_path, :rel => 'nofollow' %></li>
+		</ul>
+	</div>
+	<% end %>
+	<div class="clear"></div>
+	</div>
+</div>

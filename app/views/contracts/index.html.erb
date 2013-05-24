@@ -1,0 +1,40 @@
+<div style="float:right">
+    <%= link_to 'Administrador', administration_index_path, :class => :button %>
+</div>
+
+<h1>Contratos</h1>
+
+<table>
+  <tr>
+    <th>Supplier account</th>
+    <th>Propietario</th>
+    <th>Contract type</th>
+    <th>Signature date</th>
+    <th>Invoice rut</th>
+    <th>Price (U.F)</th>
+    <th>Commission (%)</th>
+    <th>Not invoice until</th>
+    <th>Comments</th>
+  </tr>
+<% @contracts.each do |contract| %>
+  <tr>
+    <td><%= contract.lead.name if !contract.lead.nil? %></td>
+    <td><%= contract.matriclicker.name if !contract.matriclicker.nil? %></td>
+    <td><%= contract.contract_type.name if !contract.contract_type.nil? %></td>
+    <td><%= contract.signature_date %></td>
+    <td><%= contract.invoice_rut %></td>
+    <td><%= contract.price %></td>
+    <td><%= contract.commision %></td>
+    <td><%= contract.not_invoice_until %></td>
+    <td><%= contract.comments %></td>
+    <td><%= link_to 'Show', contract %></td>
+    <td><%= link_to 'Invoice', new_invoice_path(contract_id: contract.id) %></td>
+    <td><%= link_to 'Edit', edit_contract_path(contract) %></td>
+    <td><%= link_to 'Destroy', contract, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Contract', new_contract_path %>

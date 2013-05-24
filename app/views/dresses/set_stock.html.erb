@@ -1,0 +1,12 @@
+Definición de stock por tallas:<br />
+<br />
+<%= nested_form_for @dress, :html => {:multipart => true}, :validate => true do |f| %>
+	<%= f.fields_for :dress_stock_sizes do |dress_stock_size_builder| %>
+		<%= dress_stock_size_builder.number_field :stock %> <%= dress_stock_size_builder.object.size.name %>
+	<% end %>
+	<br/>	
+	<div class="holder">
+    	<%= f.submit 'Guardar stock', :class => "button" %>
+	</div>
+  
+<% end %>

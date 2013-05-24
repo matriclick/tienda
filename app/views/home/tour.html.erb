@@ -1,0 +1,92 @@
+<div class="full_content center shadow">
+	<div class="tour_titulo">
+		<%= image_tag "tour/titulo.jpg", :alt => "Matriclick.com en 6 pasos"%>
+	</div>
+	<div class="dottedLine clear center" style="width:90%;"></div>
+	
+	<div class="dos_columnas center">
+		<div class="columna_imagen left shadow">
+			<%= image_tag 'tour/form.jpg', :alt => 'form' %>
+		</div>
+		<div class="columna_texto right">
+			<h2 class="titulo">Arma tu perfil</h2>
+			<p class="texto">Todos los datos que nos entregues le darán mayor valor a nuestras herramientas; podrás personalizar tu checklist, recibir promociones y orientación de nuestro equipo de expertos en novios.</p>
+			<p class="texto">
+				<b><br><%= link_to "¡Comienza creando una cuenta!", user_sign_up_path %></b>
+			</p>
+		</div>
+	</div>
+	
+	<div class="dottedLine clear center" style="width:90%;"></div>
+	
+	<div class="dos_columnas center">
+		<div class="columna_imagen right shadow">
+			<%= image_tag 'tour/servicios.jpg', :alt => 'servicios' %>
+		</div>
+		<div class="columna_texto left">
+			<h2 class="titulo textAlignRight">Recorre nuestra Vitrina online</h2>
+			<p class="texto textAlignRight">Todo lo que estás buscando lo puedes encontrar en Matriclick, hasta el más mínimo detalle importa ese día, por lo que contamos con una variada vitrina de proveedores que han sido previamente evaluados en los diferentes rubros ¡e incluso aquellos que no conocías!</p>
+			<p class="texto textAlignRight">
+				<b><br><%= link_to "¡Revisa el catálogo de proveedores!", products_and_services_catalog_select_industry_category_path %></b>
+			</p>
+		</div>
+	</div>
+	
+	<div class="dottedLine clear center" style="width:90%;"></div>
+	
+	<div class="dos_columnas center">
+		<div class="columna_imagen left shadow">
+			<%= image_tag 'tour/bookings.jpg', :alt => 'reservas' %>
+		</div>
+		<div class="columna_texto right">
+			<h2 class="titulo">Elige tú fecha y reserva en línea</h2>
+			<p class="texto">Si ya encontraste a tu proveedor y quieres saber si está disponible en la fecha que buscas, con Matriclick lo puedes hacer y no sólo eso, ¡también puedes hacer una reserva y el proveedor se pondrá en contacto contigo!</p>
+				<p class="texto">
+					<b><br><%= link_to "¡Recorre los productos y reserva una fecha!", products_and_services_catalog_select_industry_category_path %></b>
+				</p>
+		</div>
+	</div>
+	
+	<div class="dottedLine clear center" style="width:90%;"></div>
+	
+	<div class="dos_columnas center">
+		<div class="columna_imagen right shadow">
+			<%= image_tag 'tour/budgets.jpg', :alt => 'presupuestos' %>
+		</div>
+		<div class="columna_texto left">
+			<h2 class="titulo textAlignRight">No quedes en la bancarrota</h2>
+			<p class="texto textAlignRight">Puedes agregar productos o servicios a los diferentes presupuestos y luego elegir lo más conveniente. Lleva el registro de tus gastos finales, ¿quién paga?, ¿cuánto falta por pagar?, ¿cuánto gastan los novios por lo general en cada ítem?</p>
+			<p class="texto textAlignRight">
+				<b><br><%= link_to "¡Arma el matrimonio que quieres!", products_and_services_catalog_select_industry_category_path %></b>
+			</p>
+		</div>
+		
+	</div>
+	
+	<div class="dottedLine clear center" style="width:90%;"></div>
+	
+	<div class="dos_columnas center">
+		<div class="columna_imagen left shadow">
+			<%= image_tag 'tour/invitees.jpg', :alt => 'invitados' %>
+		</div>
+		<div class="columna_texto right">
+			<h2 class="titulo">Organiza a todos tus invitados </h2>
+			<p class="texto">¡Organiza, invita, confirma y crea tus mesas!<br /><br />
+			Puedes armar tu lista de invitados y asignarle un grupo a cada uno, así los podrás manejar mejor, por ejemplo; “los más amigos”, “los de la pega” y todos los que quieras. De esta forma armar las mesas ahora es simple y entretenido.
+			</p>
+				<p class="texto">
+					<b><br><%= link_to "¡Haz parte de esta fiesta a los invitados!", products_and_services_catalog_select_industry_category_path %></b>
+				</p>
+		</div>
+	</div>
+	<div class="dottedLine clear center" style="width:90%;"></div>
+		
+	<div class="dos_columnas center">
+		<div style="text-align:center; font-size:18px">
+			<b><%= link_to "¡Entra y comienza a soñar tu futuro con Matriclick!", products_and_services_catalog_select_industry_category_path %></b>
+		</div>
+	</div>
+
+	
+	<div class="clear"></div>
+</div>

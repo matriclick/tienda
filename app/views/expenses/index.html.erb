@@ -1,0 +1,79 @@
+<div class="right_link">
+	<%= link_to t('new_expense'), new_expense_path, :class => 'button expense_fancybox', "data-type" => "expense" %>
+	<%= link_to t('statistics'), statistics_expenses_path, :class => :button %>
+</div>
+<div class="titulos">
+	<%= t('expenses') %>
+</div>
+<div class="box">
+	<% unless @expenses.blank? %>
+	<table class="list">
+		<tr class="expenses_total">
+			<td>
+				<span class="row_big_font">Total</span><br/>
+				<span class="cell_caption">Todos tus gastos</span>
+			</td>
+			<td class="cell_with_caption">
+				<div class="cell_caption">valor</div>
+				<div class="row_big_font"><%= number_to_currency @expense_total_price %></div>
+			</td>
+			<td class="cell_with_caption">
+				<div class="cell_caption">pagado</div>
+				<div class="row_big_font"><%= number_to_percentage @expense_total_payed_percentage, :precision => 0 %></div>
+				<div class="cell_caption"><%= number_to_currency @expense_total_payed_price %></div>
+			</td>
+			<td class="cell_with_caption">
+				<div class="cell_caption">por pagar</div>
+				<div class="row_big_font"><%= number_to_currency @expense_total_remaining_price %></div>
+			</td>
+			<td>
+				<% @payer_types_totals.each do |k, v| %>
+					<% if v > 0 %>
+						<div class="row_small_font"><%= k %>: <%= number_to_percentage v, :precision => 0 %></div>
+					<% end %>
+				<% end %>
+			</td>
+		</tr>
+		<tr class="expenses_separator"><td colspan="6"></td></tr>
+
+		<% @expenses.each do |expense| %>
+		<tr class="<%= cycle("cl_light_gray", "") %>">
+			<td>
+				<span class="row_big_font"><%= expense.supplier_account_id.blank? ? expense.supplier_account_fantasy_name : expense.supplier_account.fantasy_name %></span><br/>
+				<span class="row_small_font"><%= expense.industry_category_id.blank? ? expense.industry_category_name : expense.industry_category.get_name %></span>
+			</td>
+			<td class="cell_with_caption">
+				<div class="cell_caption">valor</div>
+				<div class="row_big_font"><%= number_to_currency expense.total_price %></div>
+				<% unless expense.quantity < 2 %>
+					<div class="row_small_font"><%= expense.quantity %>x <%= number_to_currency expense.price %></div>	
+				<% end %>
+			</td>
+			<td class="cell_with_caption">
+				<div class="cell_caption">pagado</div>
+				<div class="row_big_font"><%= number_to_percentage expense.payed_percentage, :precision => 0 %></div>
+				<div class="row_small_font"><%= number_to_currency expense.payed_price %></div>
+			</td>
+			<td class="cell_with_caption">
+				<div class="cell_caption">por pagar</div>
+				<div class="row_big_font"><%= number_to_currency expense.remaining_price %></div>					
+			</td>
+			<td>
+				<% expense.payers.each do |payer| %>
+					<% if (payer.percentage || 0) > 0 %>
+						<div class="row_small_font"><%= payer.payer_type.name %>: <%= number_to_percentage payer.percentage, :precision => 0 %></div>						
+					<% end %>
+				<% end %>
+			</td>
+			<td class="list_actions">
+				<div><%= link_to t('edit'), edit_expense_path(expense), :class => 'expense_fancybox' %></div>
+				<div><%= link_to t('destroy'), expense, confirm: t('are_you_sure'), method: :delete %></div>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+	<% else %>
+		<%= render "layouts/nothing_to_show", :word => t('expenses') %>
+	<% end %>	
+</div>
+

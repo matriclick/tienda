@@ -1,0 +1,23 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola <%= @booking.user_account.get_wedding_first_name || nil %>!,<br/><br/>
+					Te informamos que el proveedor <strong><%= @supplier_account.fantasy_name%></strong> ha quitado la confirmación de reserva para el sevicio <strong><%= @bookable.name %></strong> en la fecha <srtrong><%= l @booking.date %></strong>. 
+					
+					<% if @booking.attachednote.present? %>
+						La razón que el proveedor dió es:<br>					
+						<p style="color:#444;"><%= sanitize @booking.attachednote.message, :tags => %w(br) %></p>
+					<% end %>
+
+					<br><br>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

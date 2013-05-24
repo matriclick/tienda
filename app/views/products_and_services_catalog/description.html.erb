@@ -1,0 +1,26 @@
+<%= content_for :products_and_services_page_in_content do %>
+
+	<% unless @description.blank? %>
+	<div>
+		<%= sanitize @description.gsub(/\n/, '<br/>'), :tags => %W(br) %>
+	</div>
+	<% else %>
+		<div class="help_tip">
+			El proveedor no ha definido una descripción.
+		</div>
+	<% end %>
+	
+	<% unless @object.videos.blank? -%>
+		<h3>Multimedia</h3>
+		<% @object.videos.each do |v| %>
+			<% if v.url_code.include? "vimeo.com"%>
+			<iframe src="http://player.vimeo.com/video/<%= v.url_code[v.url_code.index('vimeo.com')+10 , v.url_code.length] %>?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="287" height="200" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			<% else %>
+			<iframe width="287" height="200" src="http://www.youtube.com/embed/<%= v.url_code %>" frameborder="0" allowfullscreen></iframe>
+			<% end %>
+		<% end %>
+	<% end %>
+	
+<% end %>
+
+<%= render "products_and_services_page" %>

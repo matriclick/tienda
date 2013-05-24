@@ -1,0 +1,27 @@
+<td><%= supplier.email %></td>
+<% if supplier.supplier_account.present? -%>
+  <td><%= supplier.supplier_account.fantasy_name %></td>
+  <td>
+	<% if !supplier.supplier_account.supplier_account_type.nil? %>
+		<%= supplier.supplier_account.supplier_account_type.name %>
+	<% else %>
+		No asignada
+	<% end %>
+  </td>
+  <td style="text-align:center"><%= supplier.supplier_account.approved_by_supplier ? "✔" : '✘' %></td>
+  <td style="text-align:center"><%= supplier.supplier_account.approved_by_us ? "✔" : '✘' %></td>
+<% else -%>
+  <td>N/A</td>
+  <td>N/A</td>
+  <td>N/A</td>
+  <td>N/A</td>
+  <td>N/A</td>
+<% end -%>
+<% unless supplier.supplier_account.blank? %>
+	<td><%= link_to 'Nuevo review', administration_new_review_path(supplier.supplier_account.id) %> </td>
+	<td><%= link_to 'Productos', administration_show_supplier_products_path(supplier.supplier_account)  %><br /><hr>
+	<%= link_to 'Servicios', administration_show_supplier_services_path(supplier.supplier_account)  %></td>
+	<td><%= link_to 'Detalle', administration_show_supplier_account_path(supplier.supplier_account)  %></br><hr>
+	<%= link_to 'Ingresar', supplier_account_path(supplier) %></td>
+<% end %>
+<td><%= link_to t('destroy'), administration_destroy_supplier_path(supplier), :method => :delete, confirm: t('are_you_sure') %></td>

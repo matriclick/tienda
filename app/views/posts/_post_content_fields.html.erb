@@ -1,0 +1,11 @@
+<div class="to_hide">
+	<div class="field">
+		<%= f.label :content, "Parrafo " %>
+		(<%= link_to_remove_post "Eliminar", f %>)<br />
+		<%= f.tinymce :content, :rows => 10 %>
+	</div>
+	<%= f.fields_for :post_images do |builder| %>
+		<%= render 'post_image_fields', :f => builder %>
+	<% end %>
+	<%= link_to_add_fields_post "Nueva imagen", f, :post_images %>
+</div>

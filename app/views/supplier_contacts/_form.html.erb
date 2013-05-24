@@ -1,0 +1,34 @@
+<%= form_for [@supplier_account, @supplier_contact], :validate => true do |f| %>
+	<% if @supplier_contact.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= @supplier_contact.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+
+		<ul>
+			<% @supplier_contact.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+<table class="invisible span-500">
+	<tr>
+		<td><%= f.label :name %><%= mark_required @supplier_contact, :name %><br />
+		<%= f.text_field :name %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :email %><%= mark_required @supplier_contact, :email %><br />
+		<%= f.text_field :email %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :phone_number %><%= mark_required @supplier_contact, :phone_number %><br />
+		<%= f.number_field :phone_number %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :contact_type %><%= mark_required @supplier_contact, :contact_type %><br />
+		<%= f.collection_select(:contact_type_id, ContactType.all, :id, :name) %></td>
+	</tr>
+</table>		
+<div class="holder">
+	<%= f.submit :class => "button" %>
+</div>
+<% end %>

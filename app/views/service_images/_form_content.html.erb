@@ -1,0 +1,36 @@
+<% if @service.errors.any? %>
+<div id="error_explanation">
+	<h2><%= @service.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+
+	<ul>
+		<% @service.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+  <div>
+	<div class="help_tip"><%= t('image_size_limit') %></div>
+	  <div class="field">
+	    <% @aux = true %>
+	    <% @countaux = 0 %>
+		  <%= f.fields_for :service_images do |service_images_form| %>
+		    <% @countaux >= @service.service_images.count ? (@aux = false) : @aux = true %>
+        <div class="old_image">
+					<%= image_tag service_images_form.object.image.url(:tiny) %>
+				</div>
+				<div class="image_field">
+					<%= service_images_form.label :image, @aux ? t('change_image') : t('new_image') %><br />
+					<%= service_images_form.file_field :image %>
+					<%= service_images_form.link_to_remove t('remove_this_image'), :class => "small_button" %>
+				</div>
+				<div class="clear"></div>
+		    <% @countaux = @countaux+1 %>
+		  <% end %>
+			<%= f.link_to_add t('add_image'), :service_images, :onclick => @aux = false, :class => "small_button" %>
+	  </div>		
+  </div>
+<div class="holder">
+	<%= f.submit :class => :button %>
+</div>
+

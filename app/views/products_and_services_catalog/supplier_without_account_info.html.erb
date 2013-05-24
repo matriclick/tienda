@@ -1,0 +1,15 @@
+<div style="width:700px; margin:20px;">
+	<div style="float:left">
+		<%= image_tag(@supplier.image.url(:small)) %>
+	</div>
+	<div style="float:left; width:400px; margin:10px 0px 0px 20px;">
+		<p><b><%= @supplier.fantasy_name %></b></p>
+		<br />
+		<p><%= @supplier.web_page %><br />
+		<%= 'Teléfono: '+@supplier.phone_number unless @supplier.phone_number.blank? %><br />
+		<%= 'Dirección: '+@supplier.address unless @supplier.address.blank?  %><br />
+		</p>
+		<br />
+		<%= @supplier.description.html_safe %><br />
+	</div>
+</div>

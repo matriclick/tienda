@@ -1,0 +1,2 @@
+module PackPromotionsHelper
+end

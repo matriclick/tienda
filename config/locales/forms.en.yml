@@ -1,0 +1,8 @@
+en:
+  forms:
+    expenses:
+      select_category_and_supplier_account: "Choose a Category and a Supplier"
+      determine_price_quantity_payed_percentage: "Determine price, quantity and % you payed"
+      determine_expense_distribution: "How much did they pay (must sum 100%)?"      
+    budgets:
+      determine_price: "Determine price and it's corresponding classification"

@@ -1,0 +1,35 @@
+<div class="titulo_style">
+	<h1><%= t "Listing service_images" %></h1>
+</div>
+
+<table>
+  <tr>
+    <th>service</th>
+    <th>Image file name</th>
+    <th>Image content type</th>
+    <th>Image file size</th>
+    <th>Image updated at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service_images.each do |service_image| %>
+  <tr>
+    <td><%= service_image.service_id %></td>
+    <td><%= service_image.image_file_name %></td>
+    <td><%= service_image.image_content_type %></td>
+    <td><%= service_image.image_file_size %></td>
+    <td><%= service_image.image_updated_at %></td>
+    <td><%= link_to 'Show', service_image %> |
+    <%= link_to 'Edit', edit_service_image_path(service_image) %> |
+    <%= link_to 'Destroy', service_image, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<div class="bottom_buttons">
+	<%= link_to 'New service image', new_service_image_path, :class => :button %>
+</div>
+<br />

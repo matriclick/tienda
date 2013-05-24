@@ -1,0 +1,28 @@
+<h1>Galería de Proveedores</h1>
+
+<table>
+<% @campaign_gallery_items.each do |item| %>
+  <tr>
+		<td>
+		<% unless item.campaign_gallery_item_images.blank? %>
+		  <% for img in item.campaign_gallery_item_images %>
+		    <%= image_tag img.gallery_item.url(:tiny) %>
+		  <% end %>				
+		<% end %>
+		</td>		  
+		<td>
+			<div><strong><%= item.tag %></strong></div>
+			<div><%= crop_if_longer item.description, 100 %></div>
+		</td>
+    <td class="list_actions">
+			<div><%= link_to 'Show', supplier_gallery_path(item) %></div>
+			<div><%= link_to 'Edit', edit_campaign_gallery_item_path(item) %></div>
+			<div><%= link_to 'Destroy', item, confirm: 'Are you sure?', method: :delete %></div>
+		</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nuevo Item Galería', new_campaign_gallery_item_path, :class => :button %>

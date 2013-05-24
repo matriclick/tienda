@@ -1,0 +1,22 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					¡Felicitaciones! Haz realizado una compra en Matriclick<br /><br />
+					<%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br /><br />
+					Precio <b><%= number_to_currency @purchase.price %> <%= number_to_currency @purchase.currency %></b><br /><br />
+					Método de pago: <%= @purchase.transfer_type %><br /><br />
+					Link: <%= link_to 'Link', @purchasable.full_link_to_view(@country_url_path, @purchase.id) %><br /><br />
+					<% if !@purchase.delivery_info.nil? %>
+						<b>Despacho</b>: 
+						<%= @purchase.delivery_info.street %> <%= @purchase.delivery_info.number %><%= ', depto/casa '+@purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.nil? %>, <%= @purchase.delivery_info.commune.name if !@purchase.delivery_info.commune.nil? %><br /><br />
+					<% end %>
+					<i>Si tienes dudas, escríbenos a vestidos@matriclick.com.</i>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

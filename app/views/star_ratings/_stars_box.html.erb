@@ -1,0 +1,26 @@
+<div class="stars" id="stars_<%= object.class %>_<%= object.id %>">
+	<ul>
+		<% (1..5).each do |i| %>
+			<%= form_tag rate_path(object.class, object), method: :post, remote: :true do |f| -%>
+				<li 
+					<% if user_signed_in? %>
+						title="<%= object.voted_by_user?(current_user) ? t('modify_rate_x_out_of_y', x: i, y: 5) : t('rate_x_out_of_y', x: i, y: 5) %>" 					
+					<% else %>
+					  title="<%= t('rate_x_out_of_y', x: i, y: 5) %>"
+					<% end %>
+				
+					class="rate_star <%= "rate_star_full" if 0.8 < (object.rating_average - i + 1) %> <%= "rate_star_half" if ( 0.2 < (object.rating_average - i + 1) and (object.rating_average - i + 1) < 0.8) %>" 
+					data-star-index="<%= i %>">
+					<%= hidden_field_tag :star_value, i %>
+					<%= hidden_field_tag :user_id, current_user.id if user_signed_in? %>
+				</li>
+			<% end %>								
+		<% end -%>
+	</ul>
+	<div class="count">
+		<%= "#{object.star_ratings.count} " + t('votes') %> 
+		<% if user_signed_in? %>
+			<span class="thanks"><%= t('thanks_for_your_vote') if object.voted_by_user?(current_user) %></span>			
+		<% end %>
+	</div>
+</div>

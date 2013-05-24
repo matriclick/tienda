@@ -1,0 +1,33 @@
+<%= content_for :supplier_page_in_content do %>
+
+	<% if !@supplier.supplier_account.nil? %>
+		<% if !@supplier.supplier_account.address.nil? %>
+			Dirección: <b><%= @supplier.supplier_account.address.get_address_string %></b>
+		<% end %>
+	<% end %>
+	<br />
+	<br />
+	<%= t 'activerecord.attributes.supplier_account.web_page' %>: <b><%= "#{(page = @supplier.supplier_account.web_page).blank? ? 'N/A' : page}" %></b>
+	<br />
+	<%= t 'activerecord.attributes.supplier_account.facebook' %>: <b><%= "#{(facebook = @supplier.supplier_account.facebook).blank? ? 'N/A' : facebook}" %></b>
+	<br />
+	<%= t 'activerecord.attributes.supplier_account.twiter' %>: <b><%= "#{(twiter = @supplier.supplier_account.twiter).blank? ? 'N/A' : twiter}" %></b>
+	<br /><br />
+	<b>Contactos:</b>
+	<br />
+	<% unless @supplier_contacts.blank? %>
+			<table class="list invisible">
+				<% for contact in @supplier_contacts %>
+					<tr><td><%= contact.name %><br><span class="small gray"><%= contact.contact_type.name %></span></td><td><%= contact.phone_number %></td><td><%= contact.email %></td></tr>
+				<% end %>
+			</table>			
+	<% else %>
+		<%= render "layouts/nothing_to_show", :objects => t("contacts").downcase, :small => true %>	  
+	<% end %>
+<% end %>
+
+
+
+
+<%= render "supplier_page" %>
+

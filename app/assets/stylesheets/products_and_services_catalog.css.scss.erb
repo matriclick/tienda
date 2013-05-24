@@ -1,0 +1,229 @@
+.green {
+	background-color:#E7FDE0 !important;
+}
+
+.yellow {
+	background-color:#FDFDE0 !important;
+}
+
+.red {
+	background-color:#FDE0E0 !important;
+}
+
+.add_booking_warning_message{
+	clear:both;
+	font-size: 11px;
+	text-align: center;
+	color: red;
+	padding:0px 0 15px 0;
+}
+
+.small_schedules th{
+	font-size: 11px;
+	padding:5px;
+}
+
+.small_schedules td{
+	font-size: 11px;
+	width: 12%;
+	padding:5px;
+}
+.action_button {
+	-webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+	float:left;
+	margin-right:5px;
+	height:65px;
+	width:70px;
+	background:#eee;
+	border:2px solid #bbb;
+	text-align:center;
+	position:relative;
+	text-decoration:none;
+	color:#555;
+	.image {
+		height:30px;
+		width:30px;
+		margin:3px auto 6px;
+	}
+	a.cancel_action {
+		background-color:#bbb;
+		border:solid 1px #bababa;
+    color:white;
+    font-weight: 700;
+    height: 11px;
+    line-height: 11px;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 11px;
+		display:none;
+	}
+	a.cancel_action:hover {
+		color:#0082FF;
+		background-color:#ccc;
+	}
+}
+.action_button:hover {
+	border:2px solid #555;
+	cursor:pointer;
+	color:black;
+	text-decoration:none;
+	.cancel_action {
+		display:block;
+	}
+}
+.centered_video{
+	text-align: center;
+}
+#add_to_budget_button {
+	.image { background:url(<%= asset_path('agregar_a_presupuesto_30.png') %>) no-repeat scroll -2px 0px; } 
+}
+#added_to_budget_button {
+	.image { background:url(<%= asset_path('agregar_a_presupuesto_black_30.png') %>) no-repeat scroll -2px 0px; } 
+}
+#reference_request_button {
+	.image { background:url(<%= asset_path('pedir_referencia_30.png') %>) no-repeat; }
+}
+#add_booking_button {
+	.image { background:url(<%= asset_path('calendar.png') %>) no-repeat; height:30px;width:30px;}
+}
+#send_message_button {
+	.image { background:url(<%= asset_path('cotizar.png') %>) no-repeat; height:30px;width:30px;}
+}
+/*-------------------- Industry Category BLOG --------------------*/
+div#industry_category_blog {
+	float:right;
+	width:29%;
+	#title {
+		font-size:14px;
+		font-weight:400;
+		color:#888;
+		border-bottom:1px solid #ccc;
+	}
+	.post {
+		display:block;
+		clear:both;
+		h3 {
+			padding-top:10px;
+			margin:0px;
+			font-size:12px;
+			a {
+				color:black;
+			}
+		}
+		p { 
+			margin:0px 0px 9px; 
+			font-size:11px; 
+			line-height:12px;
+			text-align:left;
+		}
+		img {
+			padding-top:10px;
+			padding-right:3px;
+			float:left;
+			text-align:center;
+			width:35%;
+		}
+		a {
+			font-size:11px;
+			color:#08C;
+		}
+		span.date {
+			color:gray;
+			font-size:10px;
+			font-family:lucida grande;
+		}
+	}
+}
+/*------------------ END Industry Category BLOG ------------------*/
+/*------------------ Albums ------------------*/
+.albums_h1{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+}
+.albums_h2{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:11px;
+	font-weight:lighter;
+	}
+.albums_h3{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:12px;
+	font-weight:200;	
+}
+#albums_columns {
+	  width:745px;
+  margin-left: 20px;
+
+}
+ 
+.albums_photo {
+  width:220px;
+  float:left;
+  display: table;
+  margin: 4px 4px 4px 4px;
+  padding: 10px 5px 10px 5px;
+  border: 1px solid #FAFAFA;
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  background: #e1e1e1;
+}
+.albums_text {
+	background-color:#FFF;
+	border:#FFF solid;
+}
+
+.loading{
+text-align:center;
+display:none;
+}
+
+/*------------------ END Albums ------------------*/
+
+div#reviews_box {
+	width:178px;
+	float:right;
+	position:relative;
+	left:10px;
+ 	// background:#EBFFFF;
+	.title {
+		color:#444;
+		background:#dedede;
+		border-bottom:solid 1px #ccc;
+		line-height:14px;
+		font-size:11px;
+		padding:3px;
+
+	}
+	.review {
+		margin-top:5px;
+		padding:0px 3px 0px;
+		.stars_wrap {
+			position:relative;
+			width:65px;
+			float:left;
+			margin:0 3px 0 0;
+			.stars {
+				background:url(<%= asset_path('estrellas_15.png') %>);
+				height:15px;
+				cursor:default;
+				float:left;
+			}
+		}
+		span.date {
+			font-family:lucida-grande, helvetica;
+			font-size:10px;
+			color:#aaa;
+			margin-left:2px;
+		}
+		p {
+			margin-top:0px;
+			font-size:11px;
+			line-height:11px;
+			text-align:left;
+			color:#555;
+		}
+	}
+}

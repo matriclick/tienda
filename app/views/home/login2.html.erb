@@ -1,0 +1,89 @@
+<div class="full_content center shadow">
+	<div class="position_button_tour">
+		<%= link_to (image_tag "tour/tour_virtual_button.png" ,:alt => "button"), tour_path %>
+	</div>
+	<div class="main_content_home">
+		<div class="share_home center">
+			<!-- AddThis Button BEGIN -->
+			<div class="addthis_toolbox addthis_default_style ">
+			<div class="comparte_matriclick">
+				<%= image_tag "comparte_matriclick.png", :alt => "comparte_matriclick" %>
+			</div>
+			<a class="addthis_button_preferred_1"></a>
+			<a class="addthis_button_preferred_2"></a>
+			<a class="addthis_button_preferred_3"></a>
+			</div>
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4e84e1ad166567f6"></script>
+			<!-- AddThis Button END -->
+		</div>
+		
+		<div class="content_top center">
+			<div class="texto_izquierda">
+				<div class="h1"><span class="big_font bold">Es tu matrimonio,</span> <br />¡hazlo como quieras!</div><br>
+				<div class="bajada_titulo"><i>Todo lo que pienses para ese día es posible, es tu matrimonio, es tu sueño, ármalo a tu pinta.</i></div>			
+				<div class="texto_bajada">En Matriclick logramos que la agotadora tarea de organizar tu matrimonio perfecto sea algo <b>entretenido y fácil</b>. ¿Cómo lo hicimos? con una <b>inteligente herramienta que apoya a los novios</b> durante todo el proceso de organización del matrimonio.
+				</div>
+				<div class="img_inscribete"></div>
+			</div>
+			<div class="foto_derecha">
+				<%= link_to image_tag("computador.png"), "#vimeo", :id => :form_inline, :class => :hideable %>
+				<%= link_to image_tag("computador_hover.png"), "#vimeo", :id => :form_inline, :class => :showable, :style => "display:none;" %>
+			</div>
+		</div>
+		
+		<div class="content_middle">
+			<%= render 'user_sign_up_form' %>
+			<%- if devise_mapping.omniauthable? %>
+				<%- devise_mapping.to.omniauth_providers.each do |provider| %>
+					<div class="facebook_google_sign_in">
+				    	<%= link_to t('devise.views.shared._links.omniauth_authorize') + " #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>
+					</div>
+				<% end -%>
+			<% end -%>
+			<div class="no_register_sign_in">
+				<%= link_to t("sign_in_no_registration_apply"), blog_path %> 
+			</div>	
+		</div>
+		
+		<div class="content_bottom center">
+			<div class="boxInfo">
+				<div class="boxInfo_img">
+					<%= image_tag('lupa.png', :alt => "lupa") %>
+				</div>
+				<div class="boxInfo_titulo">Busca lo que necesitas</div>
+				<div class="boxInfo_p">Navega por nuestra <b>vitrina virtual de proveedores</b> y busca todo lo que necesitas para tu matrimonio. Hay 100+ proveedores inscritos y todos los días se unen más. <br><br>Cotiza, investiga, pregunta y crea el matrimonio que imaginas<br /><br />  
+				<b><%= link_to '¡Entra y conoce Matriclick!', products_and_services_catalog_select_industry_category_path, :class => 'link_home' %></b></div>
+			</div>
+			
+			<div class="boxInfo">
+				<div class="boxInfo_img">
+					<%= image_tag('disponible.png', :alt => 'disponibilidad') %>
+				</div>
+				<div class="boxInfo_titulo">Disponibilidad de lugares</div>
+				<div class="boxInfo_p">Revisa la disponibilidad de Iglesias, centros de eventos, banqueteras y otros proveedores. <b>No pierdas más tiempo llamando</b>. <br><br>Cuando encuentres la fecha en que todo coincide, podrás reservar usando matriclick.com</div>
+			</div>
+			
+			<div class="boxInfo">
+				<div class="boxInfo_img">
+					<%= image_tag('calculadora.png', :alt => 'finanzas') %>
+				</div>
+				<div class="boxInfo_titulo">Controla todos tus gastos</div>
+				<div class="boxInfo_p">Matriclick  te permite <b>crear y hacer seguimiento de tu presupuesto</b> de una manera simple y efectiva. ¡Que el matrimonio no signifique la bancarrota! <br><br>Visualiza las estadísticas y diferentes escenarios para hacer rendir de la mejor forma tu presupuesto</div>
+			</div>
+			
+			<div class="boxInfo">
+				<div class="boxInfo_img">
+					<%= image_tag('personas.png', :alt => 'Invitados') %>
+				</div>
+				<div class="boxInfo_titulo">Organiza a tus invitados</div>
+				<div class="boxInfo_p">Planifica tu lista de invitados, organiza las mesas, envía partes virtuales eligiendo entre diferentes diseños. <br><br>¡haz que <b>tus invitados sean parte</b> de todo el proceso de tu matrimonio!</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div style="display:none;">
+	<div id="vimeo">
+		<iframe src="http://player.vimeo.com/video/35330010?title=0&amp;byline=0&amp;portrait=0" width="601" height="338" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>		
+	</div>
+</div>

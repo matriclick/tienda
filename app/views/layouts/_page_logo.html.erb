@@ -1,0 +1,10 @@
+<% logo = check_top_menu %>
+<% if logo == 'El Bazar' %>
+	<%= link_to (image_tag 'el_bazar/bazar-bcochile.png', :alt => "el-bazar de matriclick.com"), bazar_path %>
+<% elsif logo == 'Bebe' %>
+	<%= link_to (image_tag 'logo_aguclick01.png', :alt => "ropa de bebe de matriclick.com"), mibebe_menu_path %>
+<% elsif logo == 'Tu Casa' %>
+	<%= link_to (image_tag 'logo-tu-casa.png', :alt => "tu casa en matriclick.com"), tu_casa_path %>
+<% else %>
+	<%= link_to (image_tag 'logo_matriclick_sin_caja.png', :alt => "Novios matriclick.com"), root_country_path %>
+<% end %>

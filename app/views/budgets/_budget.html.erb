@@ -1,0 +1,13 @@
+<%= render "budget_menu" %>
+
+<div class="box">
+	<%= render "budget_totals" %>
+	
+	<div class="clear"></div>
+
+	<% unless @budget_slots.blank? %>
+		<%= render "budget_list", :items => @budget_slots %>		
+	<% else %>
+		<%= render "layouts/nothing_to_show", :message => "no_products_yet" %>
+	<% end %>
+</div>

@@ -1,0 +1,90 @@
+<p id="notice"><%= notice %></p>
+<h1>Gift Card</h1>
+<br />
+<b>Proveedor:</b> <%= @gift_card.supplier_account.fantasy_name %>
+<br /><br />
+<b>Paga</b> <%= number_to_currency @gift_card.price %> por <%= number_to_currency @gift_card.value %>
+<br /><br />
+Aplica para vestidos desde <b><%= number_to_currency @gift_card.min_price %></b> hasta <b><%= number_to_currency @gift_card.max_price %></b>
+<br /><br />
+Canje válido desde el <b><%= @gift_card.valid_from.strftime("%d %B %Y") %></b> hasta el <b><%= @gift_card.valid_to.strftime("%d %B %Y") %></b>
+<br /><br />
+<b>Stock de códigos:</b> <%= @gift_card.stock %>
+<br /><br />
+<b>Códigos vendidos:</b> <%= @gift_card.gift_card_codes.where('bought = true').count %> / <%= @gift_card.stock %> 
+<% unless @is_supplier %>
+	<%= link_to '(ver códigos)', gift_cards_gift_card_codes_path(:id => @gift_card.id), :style => 'color:blue;' %>
+<% end %>
+<br /><br />
+<b>Estado:</b> <%= @gift_card.gift_card_status.name %>
+<br /><br />
+<div>
+<b>Vestidos que aplican por rango de precio</b>
+<hr>
+<% if @dresses_from_price_range.count > 0 %>
+	<% @dresses_from_price_range.each do |dress| %>
+	<div class="dresses_index_box left">
+		<% unless dress.dress_images.blank? %>
+			<% if dress.dress_status.name == 'Vendido' %>
+			<div style="position:absolute;right:5px;">
+				<%= image_tag 'dresses_icons/sold.png' %>
+			</div>
+			<% end %>
+			<div>
+				<%= link_to image_tag(dress.dress_images.first.dress.url(:index)), dress %>
+			</div>
+		<% end %>
+		<div style="text-align:left; width:127px;">
+			<%= raw dress.introduction[0..30] if !dress.introduction.nil? %>
+			<br />
+			<%= "#{number_to_currency dress.price}" %>
+		</div>
+	</div>
+	<% end %>
+<% else %>
+	<div class="dresses_index_box left">
+		No hay vestidos en ese rango de precios
+	</div>
+<% end %>
+</div>
+<div class="clear"></div>
+<div>
+<b>Vestidos seleccionados manualmente</b> 
+<% unless @is_supplier %>
+	<%= link_to '(agregar o eliminar)', gift_cards_add_dresses_path(:id => @gift_card), :style => 'color:blue;' %>
+<% end %>
+<hr>
+<% if @gift_card.dresses.count > 0 %>
+	<% @gift_card.dresses.each do |dress| %>
+	<div class="dresses_index_box left">
+		<% unless dress.dress_images.blank? %>
+			<% if dress.dress_status.name == 'Vendido' %>
+			<div style="position:absolute;right:5px;">
+				<%= image_tag 'dresses_icons/sold.png' %>
+			</div>
+			<% end %>
+			<div>
+				<%= link_to image_tag(dress.dress_images.first.dress.url(:index)), dress %>
+			</div>
+		<% end %>
+		<div style="text-align:left; width:127px;">
+			<%= raw dress.introduction[0..30] if !dress.introduction.nil? %>
+			<br />
+			<%= "#{number_to_currency dress.price}" %>
+		</div>
+	</div>
+	<% end %>
+<% else %>
+	<div class="dresses_index_box left">
+		No se han seleccionado vestidos manualmente
+	</div>
+<% end %>
+</div>
+<div class="clear"></div>
+<% unless @is_supplier %>
+	<br /><br />
+	<%= link_to 'Editar', edit_gift_card_path(@gift_card) %> |
+	<%= link_to 'Volver a lista de GiftCards', gift_cards_path %>
+<% else %>
+	<%= link_to 'Volver a lista de GiftCards', supplier_account_gift_cards_path(@supplier) %>
+<% end %>

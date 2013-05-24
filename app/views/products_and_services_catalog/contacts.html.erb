@@ -1,0 +1,16 @@
+<%= content_for :products_and_services_page_in_content do %>
+	<% unless @supplier_contacts.blank? %>
+			<table class="list invisible">
+				<% for contact in @supplier_contacts %>
+					<tr><td><%= contact.name %><br><span class="small gray"><%= contact.contact_type.name %></span></td><td><%= contact.phone_number %></td><td><%= contact.email %></td></tr>
+				<% end %>
+			</table>			
+	<% else %>
+		<%= render "layouts/nothing_to_show", :objects => t("contacts").downcase, :small => true %>	  
+	<% end %>
+
+
+<% end %>
+
+<%= render "products_and_services_page" %>
+

@@ -1,0 +1,27 @@
+<div class="right_link">
+	<%= link_to t('back'), ceremonies_menu_path, :class => :button %>
+	<%= link_to t('tips'), tips_path(@ceremony_type.name), :class => :button %>
+</div>
+<div class="titulos">
+	<%= t('ceremonies') %> <%= @ceremony_type.name %>
+</div>
+<br/>
+<% @ceremonies.each do |c| %>
+	<div class="box_industry_categories">
+		<div class="image_industry_categories shadow">	
+			<% if c.ceremony_images.blank? %>
+				<%= link_to (image_tag "/images/smaller/missing.png", :alt => c.name, :size => '120x100'), "#ceremony_#{c.id}", :class => 'fancybox_message' %>
+			<% else %>
+				<%= link_to (image_tag c.ceremony_images.first.image.url(), :size => '120x100', :alt => c.name), "#ceremony_#{c.id}", :class => 'fancybox_message' %>
+			<% end %>
+		</div>
+		<%= c.name %>
+	</div>
+	<%= render "ceremony_detail", :c => c %>
+<% end %>
+
+<% if @ceremonies.count > 10 %>
+	<div class="apple_pagination">
+		<%= will_paginate @ceremonies, :container => false %>
+	</div>
+<% end %>

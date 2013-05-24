@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  lastname_p: MyString
+  lastname_m: MyString
+  gender: 
+  confirmed: false
+
+two:
+  name: MyString
+  lastname_p: MyString
+  lastname_m: MyString
+  gender: 
+  confirmed: false

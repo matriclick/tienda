@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date:</b>
+  <%= @reserved_date.date %>
+</p>
+
+<p>
+  <b>Supplier account:</b>
+  <%= @reserved_date.supplier_account_id %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @reserved_date.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_reserved_date_path(@reserved_date) %> |
+<%= link_to 'Back', reserved_dates_path %>

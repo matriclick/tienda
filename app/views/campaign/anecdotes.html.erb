@@ -1,0 +1,93 @@
+<% if user_signed_in? %>
+	<% if current_user.admin? %>
+		<div style="float:right;">
+			<%= link_to "Administrar Anecdotas", campaign_anecdotes_path, :class => 'button' %>
+		</div>
+	<% end %>
+<% end %>
+
+<div class="campaign_titles">
+	<h1>¡Vota por tu anécdota favorita!</h1>
+	<h2>Nuestros proveedores quisieron compartir sus mejores anécdotas, vota por la que más te guste!</h2>	
+</div>
+<div class="box relative">
+	<table class="invisible">
+		<tr>
+			<td style="width:5%; text-align:right;">
+				<div id="left_arrow_box">
+					<%= link_to_cycle @anecdote, :prev, css_class: "arrow", target: "anecdotes_path" %>
+				</div>			
+			</td>
+			
+			<td style="width:90%;">
+				<div class="anecdote_box">
+					<div class="images_box">
+						<div class="image">
+							<% unless (imgs = @anecdote.campaign_anecdote_images).blank? %>
+								<%= link_to image_tag(imgs.first.anecdote.url(:normal)), imgs.first.anecdote.url(:original), :class => :fancybox %>
+							<% else %>
+								"No hay imágenes"
+							<% end %>
+						</div>
+						<% unless (imgs = @anecdote.campaign_anecdote_images.without_cover).blank? %>
+						<div class="images">
+							<% for image in imgs %>
+								<%= link_to image_tag(image.anecdote.url(:tiny)), image.anecdote.url(:original), :class => :fancybox, :rel => :gallery  %>
+							<% end %>
+						</div>								
+						<% end %>						
+					</div>
+					
+					<div class="title">
+						<%= @anecdote.title unless @anecdote.title.blank? %>
+					</div>
+					<div class="description">
+						<%= sanitize @anecdote.description.gsub(/\n/, '<br/>'), :tags => %W(br) unless @anecdote.description.blank? %>
+					</div>
+					<!-- AddThis Button BEGIN -->
+					<div class="addthis_toolbox addthis_default_style ">
+						<a class="addthis_button_preferred_1"></a>
+						<a class="addthis_button_preferred_2"></a>
+						<a class="addthis_button_preferred_3"></a>
+					</div>
+					<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4e84e1ad166567f6"></script>
+					<!-- AddThis Button END -->
+
+					<div class="anecdote_stars" id="star_ratings_<%= @anecdote.class %>_<%= @anecdote.id %>">
+						<%= render "star_ratings/stars_box", object: @anecdote %>
+					</div>
+					
+					<div class="clear"></div>
+					<div class="counter">
+						<%= "#{@i} / #{@count}" %>
+					</div>
+				</div>
+			</td>
+			
+			<td style="width:5%; text-align:left;">
+				<div id="right_arrow_box">
+					<%= link_to_cycle @anecdote, :next, css_class: "arrow", target: "anecdotes_path" %>		
+				</div>				
+			</td>
+		</tr>
+	</table>
+	
+	<!-- <div class="help_tip"> 
+		<strong>¿Cómo participar?</strong><br>
+
+		Para participar hay que enviar una historia e imagen para que sea publicada.
+
+		Los novios votarán por la anécdota más divertida.
+
+		<br><br>
+		<strong>Premios para el ganador:</strong><br>
+
+		La anécdota aparecerá en junio y julio en página inicial de Matriclick.
+
+		Se enviará un correo a todos los novios presentando al proveedor y anécdota.
+
+		Será anunciado cuando se avise el ganador del matrimonio de la campaña Matriclick.
+	</div> -->
+	<div class="clear"></div>
+	
+</div>

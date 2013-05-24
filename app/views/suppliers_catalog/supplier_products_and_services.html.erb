@@ -1,0 +1,9 @@
+<%= content_for :supplier_page_in_content do %>
+	<% if @vestido_boutique or @trousseau %>
+		<%= render 'dresses/dress_list', :dresses_array => @dresses_array %>
+	<% else %>
+		<%= render "products_and_services" %>
+	<% end %>
+<% end %>
+
+<%= render "supplier_page" %>

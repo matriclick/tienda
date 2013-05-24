@@ -1,0 +1,35 @@
+<div style="float:right">
+    <%= link_to 'Administrador', administration_index_path, :class => :button %>
+</div>
+
+<h1>Listing matriclickers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>User</th>
+    <th>Role</th>
+	<th>Estado</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @matriclickers.each do |matriclicker| %>
+  <tr>
+    <td><%= matriclicker.name %></td>
+    <td><%= if !matriclicker.user.nil? then matriclicker.user.email else 'No Definido' end %></td>
+    <td><%= matriclicker.role %></td>
+	<td><%= matriclicker.matriclicker_status.name if !matriclicker.matriclicker_status.nil? %></td>
+    <td><%= matriclicker.description %></td>
+    <td><%= link_to 'Show', matriclicker %></td>
+    <td><%= link_to 'Edit', edit_matriclicker_path(matriclicker) %></td>
+    <td><%= link_to 'Destroy', matriclicker, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Agregar a un nuevo Matriclicker', new_matriclicker_path %>

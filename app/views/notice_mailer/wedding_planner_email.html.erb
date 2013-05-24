@@ -1,0 +1,25 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola!<br/><br/>
+					<%= @action %> cotización de wedding planner.<br/><br/>
+					<b>Nombre novia:</b> <%= @wedding_planner_quote.nombre_novia %> | <%= @wedding_planner_quote.fono_novia %> 
+					| <%= @wedding_planner_quote.email_novia %>
+					<br /><br />
+					<b>Nombre novio:</b> <%= @wedding_planner_quote.nombre_novio %> | <%= @wedding_planner_quote.fono_novio %> 
+					| <%= @wedding_planner_quote.email_novio %>
+					<br /><br />
+					<b>Fecha del matrimonio:</b> <%= l(@wedding_planner_quote.fecha_del_matrimonio, :format => :custom) %>
+					<br /><br />
+					<b>Cantidad de invitados:</b> <%= @wedding_planner_quote.cantidad_de_invitados %>
+					<br /><br />
+					Presupuesto total: <%= number_to_currency @wedding_planner_quote.total_budget %>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

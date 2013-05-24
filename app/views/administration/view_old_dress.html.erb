@@ -1,0 +1,46 @@
+<div class="dress_box left">
+	<div>
+		<%= link_to 'Eliminar', administration_destroy_old_dress_path(id: @dress.id), confirm: '¿Estás seguro?', method: :delete %>
+	</div>
+	<div class="image">
+		<%= image_tag(@dress.dress_images.first.dress.url(:original), :width => '265px', :height => '385px', :class => 'main') %>
+	</div>
+	<% unless (imgs = @dress.dress_images.without_cover).blank? %>
+	<div style="margin-bottom:5px;"><%= image_tag 'dresses_icons/viewer.png' %></div>
+	<div class="images">
+		<% for image in imgs %>
+			<%= image_tag(image.dress.url(:original), :width => '64px', :height => '93px', :class => 'side', :onclick => 'switch_image(this)') %>
+		<% end %>
+	</div>								
+	<% end %>
+</div>
+<div class="dress_info left">
+	<div style="font-size:20px; font-weight:bold; text-transform:uppercase;">
+		<% case @dress.dress_type.name %>
+			<% when 'Novia' %>
+				Vestido de Novia
+			<% when 'Fiesta' %>
+				Vestido de Fiesta
+			<% when 'Madrina' %>
+				Vestido de Madrina
+			<% when 'Civil' %>
+				Vestido de Matrimonio Civil
+			<% else %>
+				<%= @dress.dress_type.name %>
+		<% end %>
+	</div>
+	<div style="margin:0px 0px 20px 10px">CLP $ <%= "#{number_to_currency @dress.price}" %></div>
+	<span class="selected" onclick="dress_menu('description','cares','returns',this)">DETALLE</span>
+	<hr>
+	<div class="info_content" id="description">
+		<%= raw @dress.description.gsub(/\n/, '<br/>') %>
+	</div>
+</div>
+<div class="clear"></div>
+<br />
+<br />
+<div>
+	<b>IMAGEN ORIGINAL</b>
+	<br />
+	<%= image_tag(@dress.dress_images.first.dress.url(:original), :class => 'main') %>
+</div>

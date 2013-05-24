@@ -1,0 +1,68 @@
+<%= render "layouts/reviews_box", reviews: @object.supplier_account.reviews.approved, supplier_account: @object.supplier_account %>
+
+<div class="arrows_image_data_wrapper">
+	<div class="supplier_page_in_image <%= "margin_left_30" if @has_navigation_arrows %>">
+		<% if eval("@object.#{@object.class.to_s.downcase}_images.active").blank? %>
+			<%= image_tag "/images/small/missing.png" %>
+		<% else %>
+	  	<%= link_to image_tag( eval("@object.#{@object.class.to_s.downcase}_images.active.cover_first.first.image.url(:small)"), :alt => eval("@object.#{@object.class.to_s.downcase}_images.active.cover_first.first.image.name")), eval("@object.#{@object.class.to_s.downcase}_images.active.cover_first.first.image.url(:original)"), :class => :fancybox %>
+		<% end %>
+		
+		<% unless (imgs = eval("@object.#{@object.class.to_s.downcase}_images.active.without_cover")).blank? %>
+			<div class="supplier_page_in_image_count">
+				<% imgs.each_with_index do |image, i| %>
+					<%= link_to image_tag(image.image.url(:tiny), :alt => image.image.name), image.image.url(:original), :class => :fancybox, :rel => :gallery  %>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+	<div class="product_in_data">
+		<h1 class="product_in_name">
+		<% if @object.discount > 0 %><span style="color:red">-<%= @object.discount %>% </span> <% end %>
+		<%= "#{crop_if_longer @object.name.humanize, 50}" %></h1>
+		<ul class="supplier_page_in_supplier">
+		  	<li class="supplier_data">
+				<%= link_to 'Viajes Matriclick', paquetes_path %>
+			</li>
+			<br /><div class="dottedLine"></div>
+			<li class="product_in_price"><%= "Precios: #{number_to_currency(@object.price)} #{" - " + number_to_currency(@object.top_price_range) unless @object.top_price_range == 0} #{"/ " + @object.price_description unless @object.price_description.blank?}" %></li>
+			<div class="help_tip_iva"> <%= t'helptip.iva_included' %></div>
+		</ul>
+	</div>
+</div>
+
+<ul class="supplier_page_in_menu">
+	<li class="pestana <%= "pestana_on" if params[:action] == 'description' %>">
+		<%= link_to "Descripción", destino_path(:slug => @object.slug) %>
+	</li>
+	<li class="pestana <%= "pestana_on" if params[:action] == 'faqs' %>">
+		<%= link_to "Preguntas Frecuentes", destino_path(:slug => @object.slug) %> <%= "(" + eval("@object.#{@object.class.to_s.downcase}_faqs").count.to_s + ")" %>
+	</li>
+	<li class="pestana <%= "pestana_on" if params[:action] == "contacts" %>">
+		<%= link_to "Contactos (#{@object.supplier_account.supplier_contacts.count})", products_and_services_catalog_contacts_path(:slug => @object.slug) %>
+	</li>
+</ul>
+<div class="supplier_page_in_content">
+	<% unless @description.blank? %>
+	<div>
+		<%= sanitize @description.gsub(/\n/, '<br/>'), :tags => %W(br) %>
+	</div>
+	<% else %>
+		<div class="help_tip">
+			El proveedor no ha definido una descripción.
+		</div>
+	<% end %>
+	
+	<% unless @object.videos.blank? -%>
+		<h3>Multimedia</h3>
+		<% @object.videos.each do |v| %>
+			<% if v.url_code.include? "vimeo.com"%>
+			<iframe src="http://player.vimeo.com/video/<%= v.url_code[v.url_code.index('vimeo.com')+10 , v.url_code.length] %>?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="287" height="200" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			<% else %>
+			<iframe width="287" height="200" src="http://www.youtube.com/embed/<%= v.url_code %>" frameborder="0" allowfullscreen></iframe>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>
+
+<%= render "layouts/products_and_services_fancybox", :locals => {:supplier => @supplier} %>

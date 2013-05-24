@@ -1,0 +1,953 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+
+# English
+
+en:
+
+  models:
+    industry_category:
+      argollas: "Argollas"
+      ajuar: "Ajuar"
+      peinado_y_maquillaje: "Peinado y maquillaje"
+      salud_y_estetica: "Salud y estética"
+      tocados_y_accesorios_novia: "Tocados y accesorios novia"
+      vestidos_y_calzado_novia: "Vestidos y calzado novia"
+      trajes_y_accesorios_novio: "Trajes y accesorios novio"
+      partes_y_detalles: "Partes y detalles"
+      centro_de_eventos: "Centro de eventos"
+      banqueteras: "Banqueteras"
+      coros: "Coros"
+      florerias: "Florerías"
+      dj_y_musica: "DJ y música"
+      fotografia_y_video: "Fotografía y vídeo"
+      cotillon: "Cotillón"
+      entretencion_y_fiesta: "Entretención y fiesta"
+      vinos_y_licores: "Vinos y licores"
+      iluminacion_y_decoracion: "Iluminación y decoración"
+      carpas_y_baños: "Carpas y baños"
+      hoteles: "Hoteles"
+      transporte: "Transporte"
+      carritos: "Carritos"
+      musica_en_vivo: "Música en vivo"
+      clases: "Clases"
+      vestidos_de_fiesta: "Vestidos de fiesta"
+      corredoras_e_inmobiliarias: "Corredoras e Inmobiliarias"
+      seguridad: "Security"
+      viajes: "Travel"
+    sub_industry_category:
+      transporte_para_novios: "Transporte para Novios"
+      transporte_para_invitados_conductores: "Transporte para Invitados (conductores)"
+      vestidos_de_novia: "Vestidos de Novia"
+      zapatos_de_novia: "Zapatos de Novia"
+      banqueteras: "Banqueteras"
+      tortas_y_cupcakes: "Tortas y Cupcakes"
+      ambientacion_y_decoracion: "Ambientación y Decoración"
+      centro_de_eventos: "Centro de eventos"
+      complementos: "Complementos"
+      dj_productora: "DJ - Productoras"
+      dj_independiente: "DJ - Independientes"
+
+  date:
+    formats:
+      default: "%m-%d-%Y"
+      short:   "%b %d"
+      long:    "%B %d, %Y"
+      custom:  "%b %d %Y"
+
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+
+    day_name_custom:
+      sunday: "Sunday"
+      moonday: "Moonday"
+      tuesday: "Tuesday"
+      wednesday: "Wednesday"
+      thursday: "Thursday"
+      friday: "Friday"
+      saturday: "Saturday"
+
+    abbr_day_names:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+
+    month_names:
+      - ~
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    abbr_month_names:
+      - ~
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    order:
+      - :year
+      - :month
+      - :day
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short:   "%d %b "
+      long:    "%B %d, %Y %H:%M"
+      custom:  "%b %d %Y"
+    am: "am"
+    pm: "pm"
+
+  support:
+    array:
+      words_connector:     ", "
+      two_words_connector: " and "
+      last_word_connector: ", and "
+
+    select:
+      prompt: "Select..."
+
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+
+    currency:
+      format:
+        format:    "%u%n"
+        unit:      "$"
+        separator: "."
+        delimiter: ","
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+
+    percentage:
+      format:
+        delimiter: ""
+
+    precision:
+      format:
+        delimiter: ""
+
+    human:
+      format:
+        delimiter: ""
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: Thousand
+          million: Million
+          billion: Billion
+          trillion: Trillion
+          quadrillion: Quadrillion
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "half a minute"
+      less_than_x_seconds:
+        one:   "less than 1 second"
+        other: "less than %{count} seconds"
+      x_seconds:
+        one:   "1 second"
+        other: "%{count} seconds"
+      less_than_x_minutes:
+        one:   "less than a minute"
+        other: "less than %{count} minutes"
+      x_minutes:
+        one:   "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one:   "about 1 hour"
+        other: "about %{count} hours"
+      x_days:
+        one:   "1 day"
+        other: "%{count} days"
+      about_x_months:
+        one:   "about 1 month"
+        other: "about %{count} months"
+      x_months:
+        one:   "1 month"
+        other: "%{count} months"
+      about_x_years:
+        one:   "about 1 year"
+        other: "about %{count} years"
+      over_x_years:
+        one:   "over 1 year"
+        other: "over %{count} years"
+      almost_x_years:
+        one:   "almost 1 year"
+        other: "almost %{count} years"
+    prompts:
+      year:   "Year"
+      month:  "Month"
+      day:    "Day"
+      hour:   "Hour"
+      minute: "Minute"
+      second: "Seconds"
+
+  helpers:
+    select:
+      prompt: "Select..."
+
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+      submit: "Save %{model}"
+
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion:                "is not included in the list"
+      exclusion:                "is reserved"
+      invalid:                  "is invalid"
+      confirmation:             "doesn't match confirmation"
+      accepted:                 "must be accepted"
+      empty:                    "can't be empty"
+      blank:                    "can't be blank"
+      too_long:                 "is too long (maximum is %{count} characters)"
+      too_short:                "is too short (minimum is %{count} characters)"
+      wrong_length:             "is the wrong length (should be %{count} characters)"
+      not_a_number:             "is not a number"
+      not_an_integer:           "must be an integer"
+      greater_than:             "must be greater than %{count}"
+      greater_than_or_equal_to: "must be greater than or equal to %{count}"
+      equal_to:                 "must be equal to %{count}"
+      less_than:                "must be less than %{count}"
+      less_than_or_equal_to:    "must be less than or equal to %{count}"
+      odd:                      "must be odd"
+      even:                     "must be even"
+      email: "Not an email address"
+      rut: "Not a valid Rut"
+      phone_number: "Not a valid phone number"
+      has_items: "You can't delete an industry category if you still have products or services related to it."
+
+  navigation:
+    controllers:
+      products_catalog: "Products"
+      services_catalog: "Services"
+      matrichecklist:
+          add: "Add activity"
+          name: "Checklist"
+          ganttchart: "Gantt chart"
+          edit: "Edit activity"
+          reminders: "Reminders"
+
+    
+  activerecord:
+    # Models
+    models:
+      campaign_user_account_info: "Campaign information"
+      campaign_gallery_item: "Gallery item"
+      campaign_anecdote: "Anecdote"
+      dress: "Dress"
+      reference: "Reference"
+      expense: "Expense"
+      contact_type: "Contact type"
+      event: "Event"
+      important_date: "Important date"
+      industry_category: "Industry category"
+      service: "Service"
+      show_service: "Show service"
+      service_image: "Service image"
+      presentation: "Presentation"
+      presentation_image: "Presentation image"
+      product: "Product"
+      product_image: "Product image"
+      product_type: "Product type"
+      rent_type: "Rent type"
+      role: "Role"
+      schedule: "Schedule"
+      schedule_day: "Schedule day"
+      supplier: "Supplier"
+      supplier_account: "Supplier account"
+      supplier_contact: "Contact"
+      user: "User"
+      groom: "Groom"
+      bride: "Bride"
+      user_account: "User account"
+      person: "Person"
+      invitee: "Invitee"
+      invitee_group: "Invitee Group"
+      edit_invitee_groups: "Edit Groups"
+      address: "Address"
+      activity: "Activity"
+      activity_reminder: "Reminder"
+      invitee_host: "Invited by"
+      invitee_role: "Role"
+      ceremony: "Ceremony"
+      conversation: "Conversation"
+      message: "Message"
+      review: "Review"
+      video: "Video"
+      trading_house: "Trading house"
+
+    # Attributes of Model  
+    attributes:
+      name: "Name"
+      budget_invitee_count:
+        groom: "Groom"
+        bride: "Bride"
+        g_parents: "Groom's parents"
+        b_parents: "Bride's parents"
+      campaign_user_account_info:
+        description: "Description"
+        campaign_user_image: "Image"
+      campaign_gallery_item:
+        tag: "Tag"
+        description: "Description"
+      campaign_anecdote:
+        title: "Title"
+        description: "Description"
+      budget:
+        price: "Price"
+      dress:
+        price: "Price"
+        description: "Description"
+      expense:
+        quantity: "Quantity"
+        payed_percentage: "Payed"
+        price_description: "Price description"
+        price: "Price"
+      contact_type:
+        name: "Name"
+      event:
+        title: "Title"
+        date: "Date"
+        description: "Description"
+        booking_list: "Booking list"
+        booking_confirmed: "Booking Confirmed"
+        booking_pending: "Confirmation pending"
+        expired: "Expired"
+        email: "Email"
+      feedback:
+        name: "Name"
+        email: "Email"
+        comment: "Comment"
+      important_date:
+        date: "Date"
+        ends_date: "Ends date"
+        locked: "locked"
+        custom_message: "Custom message"
+      industry_category:
+        name: "Name"
+      service:
+        name: "Name"
+        address: "Address"
+        contact_phone: "Contact Phone"
+        commune: "Commune"
+        latitude: "Latitude"
+        longitude: "Longitude"
+        max_bookings: "Max Bookings"
+        max_confirmed_bookings: "Max Confirmed Bookings"
+        parking: "Parking"
+        color: "Color in your calendar"
+        industry_category: "Industry Category"
+        description: "Description"
+        price: "Price"
+        top_price_range: "Top Price Range"
+        price_description: "Price Description"
+      service_image:
+        image_file_name: "Image File Name"
+        image_content_type: "ImageContent Type"
+        image_file_size: "Image File Size"
+      presentation:
+        description: "Description"
+      presentation_image:
+        image_file_name: "Image File Type"
+        image_content_type: "Image Content Type"
+        image_file_size: "Image File Size"
+      product:
+        price: "Price"
+        name: "Name"
+        description: "Description"
+        top_price_range: "Top Price Range"
+        price_description: "Price Description"
+        industry_category: "Industry Category"
+      product_image:
+        image_file_name: "Image File Name"
+        image_content_type: "Image Content Type"
+        image_file_size: "Image File Size"
+      product_type:
+        name: "Name"
+      rent_type:
+        name: "Name"
+      role:
+        name: "Name"
+      schedule:
+      schedule_day:
+        from: "From"
+        to: "To"
+        enabled: "Enabled"
+        all_day: "All Day"
+        start_lunch_time: "Start lunch time"
+        end_lunch_time: "End lunch time"
+      supplier:
+        email: "Email"
+      supplier_account:      
+        address: "Addres"
+        corporate_name: "Corporate Name"
+        email: "Email"
+        fantasy_name: "Fantasy Name"
+        industry_categories: "Industry Categories"
+        phone_number: "Phone Number"      
+        public_url: "Public URL"
+        rut: "RUT"
+        web_page: "Web Page"
+        facebook: "Facebook"
+        twiter: "Twiter"
+        bookable: "Bookable"
+      supplier_contact:
+        name: "Name"
+        email: "Email"
+        phone_number: "Phone Number"
+        contact_type: "Contact Type"
+      user:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        current_password: "Current password"
+        groom: "Groom"
+        name: "Name"
+        lastname_p: "Lastname"
+        lastname_m: "Second Lastname"
+        rut: "Rut"
+        born_date: "Date of Birth"
+        email: "Email"
+        city: "City"
+        commune: "Commune"
+        country: "Country"
+        phone: "Phone"
+        cell_phone: "Cellphone"
+        profession: "Profession"
+      bride:
+        name: "Name"
+        lastname_p: "Lastname"
+        lastname_m: "Second Lastname"
+        rut: "Rut"
+        born_date: "Date of Birth"
+        email: "Email"
+        city: "City"
+        commune: "Commune"
+        country: "Country"
+        phone: "Phone"
+        cell_phone: "Cellphone"
+        profession: "Profession"
+      user_account:
+        wedding_tentative_date: "Wedding tentative date"
+        wedding_city: "Wedding city"
+        invitees_quantity: "Invitees quantity"
+        wedding: "Wedding"
+        tentative_budget: "Tentative budget"
+        receive_news: "Receive news"
+        receive_supplier_promotions: "Receive supplier promotions"
+        show_my_phones: "Show my phones"
+      person:
+        name: "Name"
+        lastname_p: "Lastname"
+        lastname_m: "Second Lastname"
+        rut: "Rut"
+        email: "Email"
+      invitee:
+        name: "Name"
+        lastname_p: "Lastname"
+        lastname_m: "Second Lastname"
+        email: "Email"
+        phone_number: "Phone"
+        confirmed: "Confirmed"
+        gender_id: "Gender"
+        age_id: "Age"
+        status_id: "Invited to"
+        address: "Address"
+        invitee_group_id: "Group"
+        couple_id: "Couple"
+        invitee_host_id: "Invited by"
+        invitee_role_id: "Role"
+      address:
+        street: "Street"
+        number: "Number"
+        region: "Region"
+        commune: "Commune"
+      activity:
+        done_by_date: "Activity done by"
+        name: "Activity name"
+        description: "Description"
+        comments: "Additional comments"
+      activity_reminder:
+        name: "Name"
+        mail: "Email"
+        days_before: "Days of anticipation"
+      ceremony:
+        address: "Address"
+        phone_number: "Phone number"
+        contact_email: "Contact email"
+        schedule: "Schedule"
+        capacity: "Capacity"
+        additional_information: "Additional information"
+        price: "Price"
+        top_price_range: "Top price range"
+      conversation:
+        title: "Title"
+      message:
+        transmitter: "Transmitter"
+        content: "Content"
+      review:
+        content: "Content"
+      video:
+        url_code: "URL code"
+      trading_house:
+        name: "Name"
+
+    # Messages
+    successful:
+      messages:
+        created: "%{model} was successfully created."
+        updated: "%{model} was successfully updated."
+    errors:
+      template:
+        header:
+          one:   "1 error no permitió guardar %{model}"
+          other: "%{count} prohibited this %{model} from being saved "
+        body:    "There's a problem with the following fields:"
+      messages:
+        taken:          "already taken"
+        record_invalid: "Validation Error: %{errors}"
+        <<: *errors_messages
+      full_messages:
+        format: "%{attribute} %{message}"
+  
+  #Another Words        
+  hello: "Hello"
+  add: "Add"
+  save: "Save"
+  close: "Close"
+  destroy: "Destroy"
+  remove: "Remove"
+  update: "Update"
+  enable: "habilitar"
+  edit: "Edit"
+  delete: "Delete"
+  show: "Show"
+  new: "New"
+  are_you_sure: "Are you sure?"
+  back: "Back"
+  cancel: "Cancel"
+  options: "Options"
+  place: "Place"
+  visible: "Visible"
+  password: "Password"
+  current_password: "Current password"
+  password_confirmation: "Password confirmation"
+  new_password: "New password"
+  confirm_new_password: "Confirm new Password"  
+  change_password: "Change Password"
+  change_my_password: "Change my Password"
+  forgot_your_password: "Forgot your Password?"
+  editing_supplier_info: "Edit Info"
+  contacts: "Contacts"
+  industry_categories: "Industry Categories"
+  add_a_contact: "Add a Contact"
+  profile_info: "Profile Info"
+  image: "Image"
+  images: "Images"
+  no_images: "No Images"
+  remove_this_image: "Remove this Image"
+  new_image: "New Image"
+  images_for: "Images for"
+  add_image: "Add Image"
+  remove_this_contact: "Remove this Contact"
+  listing_products: "Products"
+  new_product: "New Product"
+  product_type: "Product Type"
+  no_product_type_selected: "No product type selected"
+  editing_product: "Edit Product"
+  your_presentation_details: "Details of your presentation"
+  listing_services: "Services"
+  new_service: "New Service"
+  new_album: "New Album"
+  calendar: "Calendar"
+  schedule: "Schedule"
+  open_hours: "Horario de Atención"
+  rooms: "Rooms"
+  editing_service: "Edit Service"
+  your_schedule_details: "Your Schedule Details"
+  your_open_hour_details: "Your Open Hour Details"
+  important_dates: "Important Dates"
+  date_name: "Date Name"
+  day: "Day"
+  add_date: "Add Date"
+  editing_schedule: "Edit Schedule"
+  editing_open_hour: "Edit Open Hour"
+  new_important_date: "New Important Date"
+  edit_important_date: "Edit Important Date"
+  new_event: "New booking"
+  back_to_calendar: "Back to Calendar"
+  rooms_of: "Rooms of"
+  editing_room: "Edit Room"
+  profile: "Profile"
+  my_profile: "My profile"
+  our_profile: "Our Profile"
+  edit_info: "Edit Info"
+  logout: "Logout"
+  albums: "Albums"
+  album: "Album"
+  products: "Products"
+  product: "Product"
+  presentation: "Presentation"
+  services: "Services"
+  service: "Service"
+  sign_in: "Sign in"
+  sign_in_here: "Sign in here"
+  sign_up: "Sign up"
+  sign_up_here: "Sign up here"
+  sign_in_with_facebook: "Sign in with Facebook"
+  sign_in_with_google: "Sign in with Google"
+  sign_in_no_registration_apply: "Sign in without registration"
+  welcome: "Welcome"
+  create_an_account: "Create an Account"
+  already_have_an_account: "Already have an account?"
+  supplier_home_page: "Supplier home page"
+  administrate_suppliers: "Administrate Suppliers"
+  remember_me: "Remember Me"
+  supplier_signed_in: "Supplier Signed In"
+  resend_confirmation_instructions: "Resend confirmation instructions"
+  you_can_confirm_your_account_through_the_link_below: "You can confirm your account through the link below"
+  confirm_my_account: "Confirm my account"
+  someone_has_requested_a_link_to_change_your_password_and_you_can_do_this_through_the_link_below: "Someone has requested a link to change your password and you can do this through the link below"
+  if_you_didnt_request_this_please_ignore_this_email: "If you didn't request this please ignore this email"
+  your_password_wont_change_until_you_access_the_link_above_and_create_a_new_one: "Your password wont change until you access the link above and create a new one"
+  your_account_has_been_locked_due_to_an_excessive_amount_of_unsuccessful_sign_in_attempts: "Your account has been locked due to an excessive amount of unsucessful sign in attempts"
+  click_the_link_below_to_unlock_your_account: "click the link below to unlock your account"
+  unlock_my_account: "Unlock my account"
+  send_me_reset_password_instructions: "Send me reset password instructions"
+  leave_blank_if_you_dont_want_to_change_it: "Leave blank if you don't want to change it"
+  we_need_your_current_password_to_confirm_your_changes: "We need you current password to confirm your changes"
+  cancel_my_account: "Cancel my account"
+  unhappy: "Unhappy?"
+  didnt_receive_confirmation_instructions: "Didn't receive confirmation instructions?"
+  didnt_receive_unlock_instructions: "Didn't receive unlock instructions?"
+  sign_in_with: "Sign in with"
+  resend_unlock_instructions: "Resend unlock instructions"
+  select_product_type: "Select product type"
+  editing_product_image: "Edit product image"
+  cover: "Cover"
+  active: "Active"
+  active_images: "Active images"
+  inactive_images: "Inactive images"
+  activate: "Activate"
+  new_service_image: "New Service Image"
+  new_album_image: "New Album Image"
+  email: "Email"
+  editing_service_image: "Edit Service Image"
+  edit_presentation: "Edit Presentation"
+  editing_presentation: "Edit Presentation"
+  new_contact: "New Contact"
+  supplier_contacts: "Contacts"
+  see_profile: "watch profile..."
+  contact: "Contact"
+  all_rights_reserved: "All Rights Reserved"
+  you_have: "You have"
+  you_dont_have: "You don't have any"
+  you_dont_sell: "You don't sell this, to do so change your profile configuration."
+  details: "Details"
+  yes: "Yes"
+  no: "No"
+  language: "Language"
+  industry_categories: "Industry categories"
+  order: "Order"
+  person: "Person"
+  availabilities: "Available services"
+  finance: "Finance"
+  invitees_group: "Invitees Group"
+  group_name: "Group name"
+  invitees: "Invitees"
+  checklist: "Checklist"
+  send: "Send"
+  help: "Help"
+  loading: "Loading"
+  price_range: "Price Range"
+  preview: "Preview"
+  close_preview: "Close Preview"
+  quotes: "Quotes"
+  statistics: "Statistics"
+  terms_of_use: "Terms of Use"
+  como_nace: "How does it born?"
+  press: "Press"
+  work_with_us: "Work with us"
+  leyend: "Leyend"
+  today: "Today"
+  new_to_matriclick: "New to Matriclick?"
+  select_service: "Select service"
+  edit_contact: "Edit contact"
+  charged_per: "Charged per"
+  your_site_in_mc: "Your site in matriclick.com"
+  change_image: "Change image"
+  validate_me: "Validate me"
+  awaiting_for_matriclick_approval: "Awaiting for Matriclick's Team approval"
+  your_account_status: "Your account status"
+  you_havent_approved_yourself_yet: "You haven't approved yourself yet"
+  you_are_ready: "You are ready"
+  matriclick_approved: "The Matriclick Team has approved your account!"
+  awaiting_matriclick_approval: "Awaiting Matriclick Team approval"
+  self_approval: "Self approval"
+  matriclick_approval: "Matriclick Team approval"
+  you_are_online: "Congratulations! Your account is currently online!"
+  i_want_to_validate: "I want to validate my account"
+  are_you_sure_you_want_to_validate: "Are you sure you want to validate your account? This operation can't be undone"
+  wedding_info: "Wedding info"
+  servicios: "Services"
+  productos: "Products"
+  servicios_a_domicilio: "Delivery Services"
+  coming_soon!: "Coming Soon!"
+  select_industry_category: "Select Industry Category"
+  new_invitee: "New Invitee"
+  all: "All"
+  all_invitees: "All invitees"
+  search: "Search"
+  filter_search: "Filter search"
+  editing_invitee: "Editing Invitee"
+  listing_invitees: "Listing Invitees"
+  image_size_limit: "Limit: 1 MB"
+  see_more: "See more"
+  expenses: "Expenses"
+  expense: "expense"
+  budget: "Budget"
+  add_to_budget: "Add to budget"
+  add_to_econ_budget: "Add to economic budget"
+  add_to_standard_budget: "Add to standard budget"
+  add_to_premium_budget: "Add to premium budget"
+  import: "Import"
+  export: "Export"
+  upload: "Upload"
+  budgets: "Budgets"
+  all_industry_categories: "All industry categories"
+  have_been_added: "No %{objects} have been added by the supplier."
+  faq: "FAQ"
+  about_us: "About us"
+  duplicate_error: "That person already exists."
+  confirm_booking: "Confirm booking"
+  unconfirm_booking: "Unconfirm booking"
+  reserved: "Reserved"
+  available: "Disponible"
+  few_reserve_left: "Pocos cupos disponibles"  
+  add_reminder: "Matriclick.com will send an email to the persons you add once the activity is near to its end" 
+  activity: "Activity"
+  done: "Done"
+  add_activity: "Add activity"
+  edit_activity: "Edit activity"
+  add_booking_text: "You can only add 3 bookings for each service"
+  reserve_this_date: "Reserva esta fecha"
+  add_booking: "agregar"  
+  delete_booking_text: "Are you sure?"
+  add_booking_warning_message: "Warning. your data will be send to the supplier, are you sure that you want to continue?"
+  total_price_range: "Total price range"
+  total_budget: "Total Budget"
+  bookings: "Bookings"
+  booking: "Booking"
+  this_booking_has_expired1: "We inform you that your booking for"
+  this_booking_has_expired2: "has been expired. For more information you can contact right with the supplier or send us an email to "
+  all_the_products_catalog: "All Products"
+  all_the_services_catalog: "All Services"
+  select_budget_type_service: "Choose what budget you want to add to this service"
+  select_budget_type_product: "Choose what budget you want to add to this product"
+  totally_booked: "Not available"
+  status: "Status"
+  ceremony: "Ceremony"
+  theres_nothing_for_this_category: "There's no %{objects} for this category"
+  booked: "Booked"
+  reject: "Reject"
+  contact_type: "Contact type"
+  contacts_type: "Contacts type"
+  new_contact_type: "New contact type"
+  question: "Question"
+  answer: "Answer"
+  created_at: "Created at"
+  booked_at: "Booked at"
+  expire: "Expire"
+  schedule_types: "Schedule types..."
+  confirmed_bookings: "Confirmed bookings"
+  invitee_groups: "Invitee groups"
+  block_this_date: "Block this date for future bookings"
+  locked: "Locked"
+  is_locked: "Is locked"
+  all_your_bookings: "All your bookings"
+  comment: "Comment"
+  commentary: "Commentary"
+  commentaries: "Commentaries"
+  manage_locks_for_this_date: "Manage locks for this date"
+  full_booking_confirmed: "Full booking confirmed"
+  message: "Message"
+  more: "More"
+  category: "Category"
+  categories: "Categories"
+  news: "News"
+  suppliers: "Suppliers"
+  service_conversations: "Service conversations"
+  product_conversations: "Product conversations"
+  conversations: "Conversations"
+  reference_text: "Ask for references for this supplier"
+  new_expense: "New expense"
+  edit_expense: "Edit expense"
+  tendencies: "Matri-blog"
+  select_ceremonty_type: "Select ceremony type"
+  ceremony_schedule: "Ceremony schedule"
+  new_tip: "New tip"
+  tips: "Tips"
+  message_of: "Message of"
+  by_service: "By service"
+  by_product: "By product"
+  ask_reference: "Ask reference"
+  reference_request_created_title: "Done, we've recieved your request!"
+  reference_request_created: "Others in Matriclick will help you decide! (we'll send you an email soon)"
+  add_user: "Add user"
+  owner: 'Owner'
+  select: "Select"
+  is_invited: 'Account invited'
+  is_owner: 'Account owner'
+  ceremony_days: 'Ceremony days'
+  remove_this_ceremony_day: 'Remove this ceremony day'
+  add_ceremony_day: 'Add ceremony day'
+  ceremony_day_hours: 'Ceremony day hours'
+  remove_this_ceremony_day_hour: 'Remove this ceremony day hour'
+  add_ceremony_day_hour: 'Add ceremony day hour'
+  civil_official: 'Civil official'
+  parson: 'Parson'
+  rabbi: 'Rabbi'
+  pastor: 'Pastor'
+  contact_person: 'Contact Person'
+  operation_hours: 'Operation Hours'
+  add_booking_message_content: 'If you want, send a comment to the supplier'
+  unique_price: 'Unique price'
+  range_price: 'Range price'
+  this_booking_has_related: 'Related to a confirm booking'
+  notifications: 'Notifications'
+  no_notifications: 'There are not new notifications'
+  wait: 'Wait'
+  keep: 'Keep'
+  related_confirm_warning: 'If you confirm a booking, the other bookings from the same groom/bride for the same service are going tp be erased'
+  products_and_services: 'Products and services'
+  unaviable: 'Unavailable'
+  import_error: 'The file uploaded could not be read'
+  import_suggestion: 'Remember to upload a .xls file (excel 97-2003)'
+  import_invitees: 'Import invitees'
+  export_invitees: 'Export invitados'
+  confirm_export: 'This action will download an excel file with all the invitees information. Do you want to continue?'
+  user_profile: 'Profile'
+  products_catalog: 'Products'
+  services_catalog: 'Services'
+  matrichecklist: 'Checklist'
+  budget_menu: 'Finances'
+  wedding_tools: 'Wedding Tools'
+  invitees_menu: 'Invitees Menu'
+  user_conversations: 'Conversations'
+  can_not_be_confirmed1: 'We inform you that your booking for'
+  can_not_be_confirmed2: 'it wont be confirmed because the service has been filled his max confirm bookings. If you want to keep it anyway you can click in “keep”'
+  message: "Message"
+  messages: "Messages"
+  is_confirmed1: '¡Congratulations! Your booking has been confirmed. Now you can count with'
+  is_confirmed2: 'for your wedding, do not forget to keep in contact with them'
+  related_confirmed: 'All bookings that you have from this services will be erased'
+  expired: 'Expired'
+  confirmed: 'Confirmed'
+  unconfirmed: 'Unconfirmed'
+  will_be_erased: 'It will be erased'
+  wont_be_confirmed: 'It wont be confirmed'
+  en: 'in'
+  unconfirmed_text1: 'We inform you that your booking for'
+  unconfirmed_text2: 'is no longer confirmed. For more information you can contact directly with the supplier or send us a email to contacto@matriclick.com'
+  hide: 'Hide'
+  edit_user: 'Edit User'
+  instructions: 'Instructions'
+  suppliers_catalog: "Suppliers"
+  hour: "Hour"
+  dont_have_services: "To create a booking you need to have at least one service, if you want to create it go to 'Services'"
+  suppliers_catalog: "Suppliers"
+  products_and_services_conversations: "Products and services conversations"
+  ceremonies: 'Ceremonies'
+  i_want_booking_system: "I want booking system"
+  edit_profile: "Edit my profile"
+  place_booking: "Place booking"
+  products_and_services: "Products and services"
+  catalog: "Catalog"
+  used_dresses: "Used dresses!"
+  dresses: "Dresses"
+  enter: "Enter"
+  sell_your_dress: "¡Sell your dress!"
+  new_dress: "New item"
+  edit_dress: "Edit item"
+  delete_booking: "Delete booking"
+  deleted_booking: "Deleted booking"
+  going_to_be_deleted: "When you click this button, the booking is going to be deleted"
+  show_motive: "Show motive"
+  supplier_has_no_bookings_system: "Supplier has no booking aviable"
+  mark_as_read: "Mark as read"
+  booking_is_ok: "Don't worry, your booking is registred in the supplier's system and is still valid "
+  no_products_yet: "You haven't added any products/services to this budget yet."
+  no_reviews_yet: "We don't have any reviews yet..."
+  please_leave_your_comments: "Please help us rate our providers!"
+  your_comments: "Your comments"
+  reviews: "Reviews"
+  watch_products_and_services: "View all products and services of "
+  here: "Here"
+  less: "Less"
+  url_code: "URL code"
+  how_to_upload_video: "How to upload a video"
+  trading_house: "Trading house"
+  trading_houses: "Trading houses"
+  trading_house_code: "Trading house code"
+  without_trading_house: "Without trading house"
+  other: "Other"
+  custom_message: "Custom message"
+  attach_a_file: "Attach a file"
+  download: "Download"
+  votes: "Votes"
+  thanks_for_your_vote: "Thanks for voting!"
+  rate_x_out_of_y: "Rate %{x} out of %{y}"
+  modify_rate_x_out_of_y: "Change vote to %{x} out of %{y}"
+  add_attached_file: "Add attached file"
+  user: "User"

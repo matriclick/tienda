@@ -1,0 +1,24 @@
+<b><%= t 'images' %><%= mark_required @dress, :dress_images %></b>
+<br />
+<div class="help_tip">
+	<br />
+	IMPORTANTE:<br />
+	<br />
+	- <b>950px x 1400px</b> es el tamaño ideal de las imágenes<br />
+	- Siempre preferir <b>fondo blanco</b><br />
+	- Si el tamaño de la imagen no permite esas dimensiones, completar con fondo blanco<br />
+	- Cada imagen por sí sola NO DEBE SUPERAR los <b><%= number_to_human_size(DressImage.validators.select {|i| i.to_s.include?('#<ActiveModel::Validations::InclusionValidator') }.first.options[:in].to_s.split('..').last.to_i) %></b><br />
+	- La primera imagen que se sube será la principal<br />
+</div>
+<br />
+<div class="field" style="margin-top:-10px;">
+	<%= f.fields_for :dress_images do |di_form| %>
+		<%= di_form.hidden_field :id %>
+		<%= image_tag di_form.object.dress.url(:tiny) %>
+		<%= di_form.file_field :dress %>
+		<%= di_form.link_to_remove t('remove_this_image'), :class => 'small_button' %>
+	<% end %>
+	<br/>
+	<br/>
+	<%= f.link_to_add t('add_image'), :dress_images, :class => 'small_button' %>
+</div>

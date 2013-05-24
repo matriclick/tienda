@@ -1,0 +1,34 @@
+<div class="right_link">
+	<% if current_user.role_id == 3 %>
+		<%= link_to 'Nueva actividad', "#sign_in_fancybox" , :id => "fancybox_form", :class => "button" %>
+		<%= render "layouts/sign_in_fancybox" %>
+	<% else %>
+		<%= link_to 'Nueva actividad', matrichecklist_add_path, :id => "fancybox_form", :class => "button" %>
+	<% end %>
+	<%= link_to 'Ver carta gantt', matrichecklist_ganttchart_path, :class => "button" %>
+</div>
+<div class="titulos">
+	Matrichecklist
+</div>
+<div class="help_tip">
+	<%= t 'helptip.matrichecklist' %>
+</div>
+
+<div class="box">
+	<div class="box_checklist">
+		<div class="checklist_header">
+			<div class="checklist_check">
+				Listo
+			</div>
+			<div class="checklist_titulo">
+				Actividad
+			</div>
+			<div class="checklist_see_more_titulo">
+			</div>
+		</div>
+		<div id="activities">
+			<%= render 'matrichecklist/activities' %>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,52 @@
+<div>
+	<b>Comprar Cupón de Descuento</b>
+	<hr>
+	<div style="float:left;">
+		<div class="image" style="float:left">
+			<%= image_tag(@purchasable.main_image) %>
+		</div>
+		<div style="float:left; margin-left:10px;">
+			<table>
+				<tr>
+					<th style="min-width:300px">Descripción</th>
+					<th style="width:100px">Precio</th>
+				</tr>
+				<tr>
+					<td>
+						<b>Paga</b> <%= number_to_currency @purchasable.gift_card.price %> por 
+						<%= number_to_currency @purchasable.gift_card.value %> 
+						en <%= @purchasable.gift_card.supplier_account.fantasy_name %>
+						<br /><br />
+						Canje válido desde el <b><%= @purchasable.gift_card.valid_from.strftime("%d %B %Y") %></b> <br />
+						hasta el <b><%= @purchasable.gift_card.valid_to.strftime("%d %B %Y") %></b>
+					</td>
+					<td><%= "#{number_to_currency @purchasable.price}" %></td>
+				</tr>
+				<% if current_user.check_if_has_credits %>
+				<tr style="background:grey;">
+					<td colspan="2" style="color:white">Tienes <%= number_to_currency current_user.credit_amount %> en créditos</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="font-weight:bold">Precio final: <%= number_to_currency(@price) %>
+					</td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="field">
+	<%= f.hidden_field :purchasable_id, :value => @purchasable.id %>
+</div>
+<div class="field">
+	<%= f.hidden_field :purchasable_type, :value => @purchasable.class %>
+</div>
+<div class="field">
+	<%= f.hidden_field :user_id, :value => @user.id %>
+</div>
+<div class="field">
+	<%= f.hidden_field :price, :value => @price %>
+</div>
+<div class="field">
+	<%= f.hidden_field :currency, :value => 'CLP' %>
+</div>

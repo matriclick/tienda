@@ -1,0 +1,31 @@
+<div>
+	<b>Datos de Despacho</b>
+	<hr>
+	<div style="color:#545454; margin-left:20px;">
+		<% @user.delivery_infos.each do |di| %>
+			<% if @user.delivery_infos.first == di then checked = true else checked = false end %>
+			<div>
+				<%= f.radio_button(:delivery_info_id, di.id, :checked => checked) %>
+				<b>
+					<%= di.street %>
+					<%= di.number %>
+					<%= ', depto/casa ' + di.apartment if !di.apartment.blank? %>
+
+					<% if !di.commune.nil? %>
+						<%= ', ' + di.commune.name %>
+						<%= ', ' + di.commune.region.name if !di.commune.region.nil? %>
+					<% end %>
+				</b> 
+				<%= link_to '(editar)', edit_delivery_info_path(di, :purchasable_type => @purchasable.class, :purchasable_id => @purchasable.id), :id => 'form_inline' %>
+				<%= link_to '(-)', delivery_info_path(di, :purchasable_type => @purchasable.class, :purchasable_id => @purchasable.id), confirm: 'Estás seguro que quieres elminar esta dirección?', method: :delete %>
+			</div> 
+			<div style="margin:2px 0px 15px 25px; font-size:10px">
+				<%= di.name %> | <%= di.rut %> | <%= di.contact_phone %><br />
+				<% if !di.commune.nil? %>
+					<%= link_to('Costo de despacho: ' + number_to_currency(di.commune.dispatch_cost), display_dispatch_costs_path, :id => 'form_inline') %>
+				<% end %>
+			</div>
+		<% end %>
+		<%= link_to "(+) Haz click acá para agregar tu dirección de despacho", new_delivery_info_path(:purchasable_type => @purchasable.class, :purchasable_id => @purchasable.id), :id => 'form_inline', :class => 'blue' %>
+	</div>
+</div>

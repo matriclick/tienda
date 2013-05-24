@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  videoable_type: MyString
+  videoable_id: 1
+  url_code: MyString
+
+two:
+  videoable_type: MyString
+  videoable_id: 1
+  url_code: MyString

@@ -1,0 +1,37 @@
+div.file_field {
+    position: relative;
+		font-family: helvetica, arial, sans-serif;
+		font-size:12px;
+}
+div.file_field .file_url {
+}
+div.file_field input {
+}
+div.file_field a {
+	margin-left:10px;
+}
+div.file_field .wrapper {
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+div.file_field .wrapper input,div.file_field .wrapper a {
+	position:relative;
+	bottom:3px;
+}
+
+div.file_field .wrapper:hover {
+    opacity: 0.8;
+}
+div.file_field button { 
+    background-color: #ccc;
+    border: none;
+    color: #666;
+    padding: 3px 5px;
+    border-radius: 5px;
+    position: relative;
+    top: 0;
+    z-index: 1;
+}

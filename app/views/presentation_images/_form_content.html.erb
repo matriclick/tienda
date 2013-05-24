@@ -1,0 +1,30 @@
+<% if @presentation_image.errors.any? %>
+<div id="error_explanation">
+	<h2><%= @presentation_image.errors.count > 1 ? t("activerecord.errors.template.header.other") : t("activerecord.errors.template.header.one") %>:</h2>
+
+	<ul>
+		<% @presentation_image.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<div class="gray_box">
+	<div class="field">
+		<div class="help_tip"><%= t('image_size_limit') %></div>
+  	<%= f.label :image %><br/>
+    <div id="images_form_div">
+      <div class="file_url">
+        <%= f.text_field :image_file_name%>
+      </div>
+      <div class ="wrapper">
+		    <%= f.file_field :image %>
+	    </div>
+    </div>
+	</div>
+</div>
+<div class="actions">
+	<%= f.submit :class => :submit_button %>
+</div>
+
+

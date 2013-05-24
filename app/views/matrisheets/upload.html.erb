@@ -1,0 +1,40 @@
+<div class="right_link">
+<%= link_to t('back'), invitees_path, :class=>:button %>	
+</div>
+<div class="titulos">
+	<%= t('import_invitees') %>
+</div>
+
+<div class="box">
+<% if flash[:notice]%>		
+	<div id="error_explanation">
+		<h2><%= t("activerecord.errors.template.header.one") %>:</h2>
+		<ul>
+			<li><%= notice %></li>
+		  <li><%= t('import_suggestion') %></li>
+		</ul>
+	</div>	
+<br/>
+<% end %>
+
+<%= form_for :matrisheet,:action => :upload, :html => {:multipart => true} do |f| %>
+  <%= f.file_field :data %>
+  <%= f.submit t('upload'), :class => "small_button" %>
+<% end %>
+<br/>    
+	<%= link_to 'Descargar archivo ejemplo', matrisheet_send_base_file_path, :target=>'_blank' %><br/>
+</div>
+<br/>
+
+<div class="box"><br /><br />
+<p><b>Instrucciones:<br /><br />
+Para poder armar tu lista de invitados, puedes hacerlo en la planilla excel propuesta.</b>  <br/>
+1. Puedes descargar la planilla <%= link_to 'AQUI', matrisheet_send_base_file_path, :target=>'_blank' %>  y guardarla en tu computador   <br/>
+2. Para empezar a armar tu lista debes completar los campos propuestos, mientras más información entregues de tus invitados, más fácil será organizarlos posteriormente.  <br/>
+3. Hay campos obligatorios, que sin ellos el sistema no podrá reconocer a esos invitados; Nombre y apellido paterno.  <br/>
+4. Para los campos; Región, comuna, confirmado, género, edad,  invitado a, pareja, invitado por, rol. Te recomendamos usar sólo los datos de la lista despegable, ya que si escribes un nuevo datos cuando quieras importar esta lista a Matriclick, estos no serán válidos y el sistema no lo reconocerá.  <br/>
+5. El campo Grupo se refiere a la categorización que se le quiere dar a cada invitados. Ej; existen los amigos de colegio, universidad, oficina, liga etc. La importancia de completar este campo se verá reflejada al armar las mesas, mientras más específicos sean los grupos, el sistema podrá entregar una propuesta de mesas basada en cada grupo.  <br/>
+6. En la lista desplegable se ofrecen algunos grupos predeterminados que se pueden elegir. En caso que se quiera crear un nuevo grupo, éste debe ser escrito sobre el campo todas las veces que sea necesario. Ej1. Se quiere crear un grupo personalizado que se llame "Amigas de Voleibol", para lo cual no se debe utilizar la lista despegable si no escribirlo y repetirlo cada vez que un invitado pertenezca a él. Es importante que siempre este escrito de la misma forma, Ej2. "amigas de voleibol",  "Amigas de Voleibol" y "Amigas de Volleyball", contarán como 3 grupos diferentes siendo que el significado es el mismo.</p>
+</div>
+
+

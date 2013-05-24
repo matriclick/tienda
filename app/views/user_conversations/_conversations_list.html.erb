@@ -1,0 +1,13 @@
+<% conversations.each do |conversation| %>
+	<div class="conversation_box <%= "unread" if conversation.count_of_user_unread_messages > 0 %>">
+		<div class="time_in_words">		
+			<%= distance_of_time_in_words(Time.now, conversation.messages.last.created_at) %>
+		</div>
+		<div class="wedding_couple_message">
+				<%= link_to content_tag(:b, crop_if_longer(conversation.conversable.name, 30))  + " :: " + conversation.conversable.supplier_account.fantasy_name, products_and_services_catalog_conversations_path(:slug => conversation.conversable.slug)  %>
+		</div>
+		<div class="conversation_last_content">	
+			<%= crop_if_longer(conversation.messages.last.content, 100) %>	
+		</div>				
+	</div>
+<% end %>

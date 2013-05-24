@@ -1,0 +1,27 @@
+<div class="product_box">
+	<div class="product_image_container">
+		<div class="product_image">
+			<% if element.service_images.active.blank? %>
+				<%= link_to image_tag("/images/smaller/missing.png"), products_and_services_catalog_description_path(:slug => element.slug), :title => t('show') %>
+			<% else %>
+			    <%= link_to (image_tag element.service_images.active.cover_first.first.image.url(:smaller), :alt => element.service_images.active.cover_first.first.name), products_and_services_catalog_description_path(:slug => element.slug), :title => t('show') %>
+			<% end %>
+		</div>
+		<% if element.discount > 0 %>
+			<div class="discount">
+				<%= link_to (image_tag "discounts/category.png", :alt => 'descuento'), products_and_services_catalog_description_path(:slug => element.slug), :title => t('show') %>
+			</div>
+		<% end %>
+	</div>
+
+	<div class="product_name">
+		<% unless element.name.blank? %>
+			<%= crop_if_longer(element.name, 20) %>			
+		<% end %>
+	</div>
+	
+	<div class="product_supplier"><%= link_to crop_if_longer(element.supplier_account.fantasy_name, 21) , supplier_description_path(:public_url => element.supplier_account.public_url), :class => "link_proveedor" %></div>
+	<!--<div class="product_stars"><br /></div>
+	<div class="product_links">
+	</div>-->
+</div>

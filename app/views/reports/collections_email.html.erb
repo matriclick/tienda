@@ -1,0 +1,62 @@
+<h1><%= @h1_title %></h1>
+
+<%= form_tag(request.fullpath, :method => "get") do %>
+	<div style="margin:0px 0px 10px 5px">
+		<b>Desde:</b><%= text_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
+	</div>
+	<div style="margin:0px 0px 10px 5px">
+		<b>Hasta:</b><%= text_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
+	</div>
+	<%= hidden_field_tag :order, @order %>
+	<%= submit_tag("Actualizar Fechas") %>
+<% end %>
+
+<table style="width:950px">
+  <tr>
+    <th>Lead</th>
+    <th>Contrato</th>
+    <th>Email<br/>contrato</th>
+    <th>Número<br/>factura</th>
+    <th style="min-width:80px">Deuda<br />factura</th>
+    <th style="min-width:80px">Deuda<br />total Lead</th>
+    <th>Correo<br/>enviado?</th>
+    <th>Fecha<br/>envío</th>
+    <th>Pagado?</th>
+    <th>Fecha<br/>pago</th>
+    <th>Comentarios<br/>contrato</th>
+  </tr>
+
+<% @invoices.each do |invoice| %>
+	<% if !invoice.contract.nil? %>
+	  <tr>
+	    <td><%= link_to invoice.contract.lead.name, invoice.contract.lead, :style => 'color:blue' %></td>
+	    <td style="text-align:center"><%= link_to invoice.contract.id, invoice.contract, :style => 'color:blue' %></td>
+	    <td><%= raw invoice.contract.invoice_mailing.gsub(',', '<br />') if !invoice.contract.invoice_mailing.nil? %></td>
+	    <td style="text-align:center"><%= link_to invoice.number, invoice, :style => 'color:blue' %> 
+			<%= link_to '(editar)', edit_invoice_path(invoice), :style => 'color:blue' %></td>
+	    <td><%= number_to_currency(invoice.vat + invoice.net_price) %></td>
+	    <td>
+			<%= number_to_currency(invoice.lead.total_debt) %><br />
+			<% invoice.lead.unpaid_invoices.each do |inv| %>
+				<span class="lucida small">(<%= link_to inv.number, inv %>) </span>
+			<% end %>
+		</td>
+	    <td style="text-align:center"><%= invoice.collection_mail_sent ? "✓" : '✘' %></td>
+	    <td><%= invoice.date_collection_mail_sent.strftime("%d %b %Y") if !invoice.date_collection_mail_sent.nil? %></td>
+	    <td style="text-align:center"><%= invoice.paid ? "✓" : '✘' %></td>
+	    <td><%= invoice.pay_date.strftime("%d %b %Y") if !invoice.pay_date.nil? %></td>
+	    <td><%= sanitize invoice.contract.comments.gsub(/\n/, '<br/>') %></td>
+	  </tr>
+	<% else %>
+	<tr>
+		<td colspan="11">
+			Error - Factura <%= invoice.number %> no tiene contrato (id <%= invoice.id %>)
+		</td>
+	</tr>
+	<% end %>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Reporte de cobranzas',  reports_collections_path %> | <%= link_to 'Administrador',  administration_index_path %>

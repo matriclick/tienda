@@ -1,0 +1,75 @@
+<div style="float:right;">
+	<%= session[:preview] == true ? (link_to t('back'), "#", :class => :button, :onclick => "return false;") : (link_to t('back'),  campaign_how_to_win_path, :class => :button) %>
+</div>
+
+<div class="campaign_titles">
+	<h1>La mejor propuesta de matrimonio</h1>
+</div>
+<div class="clear"></div>
+<div class="box relative">
+	<table class="invisible">
+		<tr>
+			<td style="width:5%; text-align:right;">
+				<div id="left_arrow_box">
+					<%= link_to_cycle @campaign_user_account, :prev, css_class: "arrow", target: "user_story_path" %>
+				</div>			
+			</td>
+			
+			<td style="width:90%;">
+				<div class="anecdote_box">
+					<div class="images_box">
+						<div class="image">
+							<% unless (has_image = (@campaign_user_account.campaign_user_image.blank? or @campaign_user_account.campaign_user_image.url.include? "missing")) %>
+								<%= image_tag @campaign_user_account.campaign_user_image.url(:big) %>
+							<% end %>
+						</div>	
+					</div>
+
+					<div class="description">
+						<span style="font-size:32px;">“</span>
+						<%= sanitize @campaign_user_account.description.gsub(/\n/, '<br/>'), :tags => %W(br) unless @campaign_user_account.description.blank? %>
+					</div>
+					
+					<div class="clear"></div>
+						<!-- "Simple" Voting System -->
+                  <div class="cua_vote">
+
+                    <% if user_signed_in? %>
+                        <% if @campaign_user_account.cua_votes.where(user_id:current_user.id).present? %>
+                            <%= link_to "", "#", :class => 'vote_inactive', :title => "Ya has votado por esta historia" %>
+                            <% else %>
+                            <%= link_to "", campaign_vote_up_path(@campaign_user_account), :class => 'vote_active', :title => "Está buena!" %>
+                            <% end %>
+                        <% else %>
+                        <% if cookies[:cua_voted].blank? %>
+                            <%= link_to "", campaign_vote_up_path(@campaign_user_account), :class => 'vote_active', :title => "Está buena!" %>
+                            <% elsif cookies[:cua_voted].split(",").include? @campaign_user_account.id.to_s %>
+                            <%= link_to "", "#", :class => 'vote_inactive', :title => "Ya has votado por esta historia" %>
+                            <% else %>
+                            <%= link_to "", campaign_vote_up_path(@campaign_user_account), :class => 'vote_active', :title => "Está buena!" %>
+                            <% end %>
+                        <% end %>
+                    <span class="vote_count">(<%= @campaign_user_account.cua_votes.count %>)</span>
+                    </div>
+<!--
+                  <div class="fb-like" data-href="<%= request.url %>/" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></div>
+				</div>
+-->
+			</td>
+
+			<td style="width:5%; text-align:left;">
+				<div id="right_arrow_box">
+					<%= link_to_cycle @campaign_user_account, :next, css_class: "arrow", target: "user_story_path" %>
+				</div>				
+			</td>
+		</tr>
+	</table>
+		<div style="text-align:center">
+			<b><%= link_to "¿Haz pensado qué quieres para TU gran día?", products_and_services_catalog_select_industry_category_path %></b>
+		</div>
+		<br>
+	<!-- Facebook COMMENTS -->
+	<div style="text-align:center">
+		<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="2" data-width="470"></div>
+	</div>
+</div>

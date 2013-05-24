@@ -1,0 +1,25 @@
+<div class="subtitulos">
+	<%= @conversation.title %>
+</div>
+	<% @conversation.messages.each do |message| %>
+	<div class="holder">
+		<div class="time_in_words">
+			<%= distance_of_time_in_words(Time.now, message.created_at) %>
+		</div>
+		<br />
+		<div class="transmitter">
+			<%= message.transmitter %>:
+		</div>
+		<br />
+		<div class="<%= message.is_supplier == true ? 'transmitter_supplier_account' : 'transmitter_user_account' %>">
+		<span style="font-size:11px; line-height:15px;"><%= sanitize message.content.gsub(/\n/, "<br>") %></span>
+		</div>
+			<% unless message.attached_files.blank? %>
+				<div class="attached_files"><br/>
+					<% message.attached_files.each do |file|%>
+							<%=link_to ((image_tag ("clip.gif"))+" "+file.attached_file_name.to_s), products_and_services_catalog_download_file_path(@object.id, file) %><br/>
+					<% end %>
+				</div>
+			<% end %>
+	</div>
+<% end %>

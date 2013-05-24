@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  industry_category_id: 1
+  budget_distribution_type_id: 1
+
+two:
+  industry_category_id: 1
+  budget_distribution_type_id: 1

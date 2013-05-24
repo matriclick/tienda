@@ -1,0 +1,21 @@
+<div class="subtitulos">
+	<%= t('faq') %>
+</div>
+<div>
+	<%= f.fields_for :product_faqs do |product_faq| %>
+		<table class="invisible">
+			<tr>
+				<td><%= product_faq.label :question, t('question')%><br />
+				<%= product_faq.text_field :question %>
+				</td>
+				<td><%= product_faq.label :answer, t('answer')%><br />
+				<%= product_faq.text_field :answer %>
+				</td>
+				<td><%= product_faq.hidden_field :_destroy %>
+				<%= product_faq.link_to_remove t('remove'), :class => "small_button " %>
+				</td>		
+			</tr>	
+		</table>
+	<% end %>
+	<%= f.link_to_add t('add'), :product_faqs %>
+</div>

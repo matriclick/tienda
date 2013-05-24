@@ -1,0 +1,72 @@
+
+<% if(@dresses_array.size >= @scrolling_set) %>
+	<script>		
+		flag_up = false	
+		ids = '<%= @dresses_array_ids %>'
+		type = '<%= params[:type] %>'		
+		edit = '<%= @enable_edit %>'
+		supp = '<%=  @supplier ? @supplier.id : 0 %>'
+
+
+ 		$(document).ready(function(){
+ 		$('#albums_columns').masonry();
+ 		load_album_endless_scrolling(next_dress_scroll_feed)
+ 		});
+
+	</script>
+
+<% end %>
+
+<% if !@enable_edit %>
+	<% case @type %>
+		<% when 'Novia' %>
+			<div class="right_link_in_catalog_page">
+				<%= link_to t('back'), dresses_wedding_dress_stores_path(), :class => :button %>
+			</div>
+			<div style="margin-bottom:20px; font-size:20px; font-weight:bold;">
+				<%= @supplier_account.fantasy_name %>
+			</div>
+		<% when 'Vestidos Boutique' %>
+			<div class="right_link_in_catalog_page">
+				<%= link_to t('back'), dresses_party_dress_boutique_path(), :class => :button %>
+			</div>
+			<div style="margin-bottom:20px; font-size:20px; font-weight:bold;">
+				<%= @supplier_account.fantasy_name %>
+			</div>
+		<% when /Bebe/, 'Fiesta' %>
+			<%= form_tag(dresses_path(:type => @type), :method => "put") do %>
+				<% @dress_type.sizes.each do |size| %>
+					<% if !@selected_sizes.blank? %>
+						<%= check_box_tag("selected_sizes[]", size.id, @selected_sizes.include?(size)) %> <%= size.name %>
+					<% else %>
+						<%= check_box_tag("selected_sizes[]", size.id, true) %> <%= size.name %>
+					<% end %>
+				<% end %>
+				<%= submit_tag("Filtrar Resultados", :class => :button_filter_pink) %>
+			<% end %>
+	<% end %>
+<% end %>
+
+<% if !@enable_edit %>
+	<% if @soldable %>
+	<div class="right_link_in_catalog_page">
+		<%= link_to t('sell_your_dress'), "#sell_dress", :id => 'form_inline', :class => 'button' %> 
+	</div>
+	<% end %>
+<% else %>
+	<div class="right_link">
+		<%= link_to 'Agregar un nuevo item', new_supplier_account_dress_path(@supplier), :class => 'button' %>
+	</div>
+	<div class="clear"></div>
+	<div style="margin-bottom:10px;"></div>
+<% end %>
+
+
+<%= render 'dresses/dress_list', :dresses_array => @dresses_array %>
+
+
+<% if(@dresses_array.size >= @scrolling_set) %>
+	<div class="loading"><%=image_tag "campaign/after_contest/1/loading.gif", :size =>'50x22' %></div>
+<% end %>
+
+<%= render 'sell_your_dress_message' %>

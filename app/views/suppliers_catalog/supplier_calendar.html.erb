@@ -1,0 +1,48 @@
+<%= content_for :supplier_page_in_content do %>
+	<% if @reserved_dates.count > 0 %>
+	<div class="clear"></div>
+
+	<div style="text-align:center; margin-bottom:10px; font-size:14px;">
+		<%= link_to "<", :year => (@date_selector - 1.year).strftime("%d-%b-%Y"), :anchor => 'calendar' %>
+		<span style="color:#BBB">
+			<%=h @date_selector.strftime("%Y") %>
+		</span>
+		<%= link_to ">", :year => (@date_selector + 1.year).strftime("%d-%b-%Y"), :anchor => 'calendar' %>
+	</div>
+
+	<div>
+		<% aux_month = 1 %>
+		<% 12.times do %>
+		<div style="float:left; height:150px; margin:5px;">
+			<div id="small_calendar">
+				<div style="text-align:center; margin-bottom:3px; color:#AAA">
+					<%= t("date.month_names")[aux_month] %> - <%=h @date_selector.strftime("%Y") %>
+				</div>
+				<%= calendar_for @reserved_dates, :year => @date_selector.year, :month => aux_month do |calendar| %>
+					<%= calendar.head('D', 'L','M','W','J','V','S')  %>
+					<% calendar.day(:day_method => :date) do |date, reserved_dates| %>
+						<% if date.month == aux_month %>
+							<% if reserved_dates.count > 0 %>
+							<div class="reserved">
+								<%= date.day %>
+							</div>
+							<% else %>
+							<div class="available">
+								<%= date.day %>
+							</div>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+		<% aux_month += 1 %>
+		</div>
+		<% end %>
+	</div>
+
+	<% else %>
+		<div>El proveedor aún no ha activado el calendario</div>
+	<% end %>
+<% end %>
+
+<%= render "supplier_page" %>

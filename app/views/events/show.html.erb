@@ -1,0 +1,58 @@
+<div class="right_link">
+	<%= link_to t('edit'), edit_supplier_account_event_path(@supplier, @event), :class => :button %>
+	<%= link_to t('delete'), supplier_account_event_path(@event.service_id, @event.id), confirm: t('are_you_sure'), method: :delete, :class => :button %>
+	<%= link_to t('confirm_booking'), update_booking_confirmed_supplier_account_path(@supplier,@event, :confirm => true), confirm: t('are_you_sure'), method: :put, :class => :button %>
+</div>
+<div class="titulos">
+	Evento
+</div>
+  <div class="box">
+	<table class="invisible">
+		<tr>
+			<td><b><%= t('activerecord.attributes.event.title') %>:</b><br />
+			<%= @event.title %></td>
+		</tr>
+		<tr>
+			<td><b><%= t('activerecord.attributes.event.email') %>:</b><br />
+			<%= @event.email %></td>
+		</tr>
+		<tr>
+			<td class="span-115"><b><%= t('activerecord.attributes.event.date') %>:</b><br />
+			<%= l(@event.date) unless @event.date.blank? %></td>
+		</tr>
+		<tr>
+			<td class="span-115"><b><%= t('service') %>:</td>
+			<%= @event.service.address unless @event.service_id.nil?%></b><br />
+		</tr>
+	</table>
+	<table class="invisible">	
+		<tr>
+			<td><b><%= t('activerecord.attributes.event.description') %>:</b><br />
+				<%= @event.description %>
+			</td>
+		</tr>	
+	</table>
+	<table class="invisible">
+	<% unless @event.service.blank? %>
+		<tr>
+			<td class="span-115"><b><%= t('service') %>:</b><br/>
+				<%= @event.service.name%>
+			</td>
+		</tr>		
+	<% end %>
+	<% unless @event.booking_confirmed.blank? %>
+		<tr>
+			<td class="span-115"><b><%= t('activerecord.attributes.event.booking_confirmed') %>:</b><br/>
+				<%= @event.booking_confirmed == true ? "✔" : "✘" %>
+			</td>
+		</tr>		
+	<% end %>
+	<% unless @event.expired.blank? %>
+		<tr>
+			<td class="span-115"><b><%= t('activerecord.attributes.event.expired') %>:</b><br/>
+				<%= @event.expired == true ? "✔" : "✘" %>
+			</td>
+		</tr>		
+	<% end %>
+	</table>
+</div>

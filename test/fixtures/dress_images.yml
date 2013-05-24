@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  dress_file_name: MyString
+  dress_content_type: MyString
+  dress_file_size: 1
+  dress_updated_at: 2012-01-07 16:52:55
+
+two:
+  dress_file_name: MyString
+  dress_content_type: MyString
+  dress_file_size: 1
+  dress_updated_at: 2012-01-07 16:52:55

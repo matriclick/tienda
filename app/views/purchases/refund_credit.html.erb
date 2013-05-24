@@ -1,0 +1,6 @@
+Vas a devolver <%= number_to_currency @purchase.price %> a <%= @purchase.user.email %>
+
+<br /><br />
+<%= link_to '> Generar devolución de créditos <', 
+	purchases_generate_refund_credit_path(id: @purchase.id), :method => :post, :confirm => "¿Estás seguro?" %>
+

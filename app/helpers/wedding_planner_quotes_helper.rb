@@ -1,0 +1,2 @@
+module WeddingPlannerQuotesHelper
+end

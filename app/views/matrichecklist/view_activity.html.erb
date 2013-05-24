@@ -1,0 +1,7 @@
+<div class="span-500">
+	<span class="bold"><%= @activity.done_by_date.strftime("%d-%b-%Y") %>: <%= @activity.name %></span>
+	<br /><br />
+	<i><%= @activity.description %></i>
+	<br /><br />
+	<%= @activity.comments %>
+</div>

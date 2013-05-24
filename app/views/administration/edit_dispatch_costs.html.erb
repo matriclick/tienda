@@ -1,0 +1,58 @@
+<div class="right_link">
+	<%= link_to 'Volver al menú de Administrador', administration_index_path, :class => :button  %>
+</div>
+
+<h1>Administrador de costos por comuna</h1>
+
+<% total_sets = 4 %>
+<% current_set = 0 %>
+
+<%= form_tag administration_update_dispatch_costs_path, :method => "put" do %>
+	<% @regions.each do |region| %>
+		<% case region.name %>
+			<% when 'RM - Metropolitana' %>
+				<br /><br />
+				<%= region.name %><br />
+				<br />
+				<table>
+					<tr>
+						<th>Comuna</th>
+						<th>Costo de despacho</th>
+						<th>Comuna</th>
+						<th>Costo de despacho</th>
+						<th>Comuna</th>
+						<th>Costo de despacho</th>
+						<th>Comuna</th>
+						<th>Costo de despacho</th>
+					</tr>
+				<% region.communes.each do |commune| %>
+					<% if current_set == total_sets %>
+						<tr>
+					<% end %>	
+						<td><%= commune.name %></td>
+						<%= fields_for "communes[]", commune do |f| %>
+							<td><%= f.number_field :dispatch_cost, :size => 6 %></td>
+						<% end %>
+						<% current_set = current_set + 1 %>
+						
+					<% if current_set == total_sets %>
+						</tr>
+						<% current_set = 0 %>
+					<% end %>
+				<% end %>
+				</table>
+				<br /><br />
+			<% else %>
+				<div style="float:left;width:180px;height:30px;border:solid 1px;margin:2px;padding:2px;">
+					<%= fields_for "regions[]", region do |f| %>
+						<div style="float:left;width:100px;"><%= region.name %>: </div>
+						<div style="float:right;width:80px;"><%= f.number_field :dispatch_cost, :size => 6 %></div>
+					<% end %>
+				</div>		    
+		<% end %>
+	<% end %>
+	<div class="clear"></div>
+	<br /><br />
+	<%= submit_tag "Actualizar Costos" %>
+<% end %>
+

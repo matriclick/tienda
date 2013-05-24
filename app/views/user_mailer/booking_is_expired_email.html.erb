@@ -1,0 +1,24 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Hola <%= @user.user_account.get_wedding_first_name || nil %>,<br/><br/>
+					Te informamos que tu reserva para <strong><%= @bookable.name %></strong> en la fecha <srtrong><%= l @booking.date %></strong> ha expirado.<strong><br/><br/>
+					<p style="color:#444;">
+						Para cualquier duda o comentario te puedes comunicar directamente con ellos <%= link_to "aquí", bookings_booking_list_url(:country_url_path => @country_url_path), :style => "color:#0071BC;text-decoration:none;" %> o envíanos un email a novios@matriclick.com
+					</p>
+					<br/>
+					<p style="color:#444;">
+						Revisa tu <%= link_to "lista de reservas", bookings_booking_list_url, :style => "color:#0071BC;text-decoration:none;" %>.
+					</p>
+					<br/>
+					Saludos cordiales,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

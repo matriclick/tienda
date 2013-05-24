@@ -1,0 +1,23 @@
+<p style="font-family: Helvetica, sans-serif; font-size: 10pt;">Estimad@s <%= @activity_reminder.name %>,</p>
+
+<p style="font-family: Helvetica, sans-serif; font-size: 10pt;">Según nos pediste, este correo es para recordarte que la tarea <b><%= @activity_reminder.name %></b> esta próxima a su fecha de término.</p>
+
+<p style="font-family: Helvetica, sans-serif; font-size: 10pt;">La tarea la deberías completar para el día <b><%= @activity_reminder.activity.done_by_date %></b>.</p>
+
+<p style="font-family: Helvetica, sans-serif; font-size: 10pt;"><b>Descripción de la tarea:</b> <%= @activity_reminder.activity.description %></p>
+
+<p style="font-family: Helvetica, sans-serif; font-size: 10pt;"><b>Comentarios:</b> <%= @activity_reminder.activity.comments %></p>
+
+<p style="font-family: Helvetica, sans-serif; font-size: 10pt;">Para cualquier inquietud o comentario, por favor no dudes en contactarme.</p>
+
+<p style="font-family: Helvetica, sans-serif; font-size: 10pt;">Se despide atentamente,</p>
+
+<p style="font-family: Helvetica, sans-serif; font-size: 10pt;">Carolina Gaete</p>
+
+<%= image_tag attachments['firma_matriclick.jpg'].url, alt: 'Logo Matriclick.com', style: "align:center;" %>
+
+<p style="font-family: Helvetica, sans-serif; font-size: 9pt; color: #777;align:center;">Av. La Dehesa 1201, Torre Oriente, of. 210
+<br>
+Lo Barnechea, Santiago, Chile</p>
+
+<i><p style="font-family: Helvetica, sans-serif; font-size: 8pt; color: #777;">Este mensaje podría contener información confidencial o privilegiada. Si usted no es el receptor esperado de este correo electrónico no debe divulgarlo, usarlo para cualquier fin o tomar cualquier acción basada en la información contenida en éste. Si usted ha recibido este mensaje por error, por favor, notifique inmediatamente al emisor y bórrelo. Muchas Gracias.</p></i>

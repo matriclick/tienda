@@ -1,0 +1,123 @@
+
+<p id="notice"><%= notice %></p>
+<div class="full_content center shadow">
+	<div class="content_top center">
+		<div class="slider">
+			<% @slider_images.each do |slider| %>
+				<div class="slider-item">
+					<% if !slider.link.nil? %>
+			       		<%= link_to (image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name), slider.link, 
+							:target => slider.target ? '_self' : '_blank' %>
+					<% else %>
+						<%= image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name %>
+					<% end %>
+					<% unless slider.title.blank? %>
+			       	<div class="caption"><b><%= slider.title %></b><br /> 
+						<% unless slider.content.blank? %>
+							<%= slider.content.html_safe %>
+						<% end %>
+					</div>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
+
+<div class="full_content shadow center" style="margin-top:10px">
+	<div class="left_content_inside_box">
+		<h1><%= link_to 'Tienda online de productos de moda', bazar_path %></h1>
+		<h2>Compra desde tu casa; vestidos de fiesta, accesorios, zapatos, ropa de mujer y muchas cosas más en El Bazar, la <%= link_to 'vitrina online', bazar_path %> de productos de moda de Matriclick</h2>
+		<p>Tu historia en Matriclick comienza cuando tus amigas se empiezan a casar, ese momento en donde necesitas usar miles de <%= link_to 'vestidos de fiesta', dresses_ver_path(:type => "vestidos-fiesta") %>, y no puedes repetirlos siempre. El Bazar soluciona tu problema, con una vitrina online de Vestidos de ¡alto impacto! que puedes comprar Online con despacho al lugar que quieras en menos de 4 días.</p>
+		<p>Pero la historia no termina ahí, porque sabemos lo que quieres y seguimos tendencias, también puedes encontrar <%= link_to 'blusas', dresses_ver_path(:type => "ropa-de-mujer-tops") %>, <%= link_to 'polleras', dresses_ver_path(:type => "ropa-de-mujer-polleras") %>, <%= link_to 'chalecos', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %>, <%= link_to 'chaquetas', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %>, <%= link_to 'collares', dresses_ver_path(:type => "accesorios-collares") %> y muchas cosas más para que nunca te repitas.</p>
+		<% @dresses.each do |dress| %>
+			<div style="float:left; margin-left:10px;">
+				<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
+					dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+				<div style="text-align:left; width:127px; padding-left:15px;">
+					<span id="dress_intro"> <%= link_to((j(dress.introduction[0..30]) unless dress.introduction.nil?), 
+											dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug)) %></span><br />
+					<span id="dress_price"> <%= "#{number_to_currency dress.price}" %></span>
+				</div>
+			</div>
+		<% end %>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="full_content shadow center" style="margin-top:10px">
+	<div class="left_content_inside_box">
+		<h1><%= link_to 'Casonas y centros de evento para tu matrimonio', casonas_matriclick_path %></h1>
+		<h2>Reserva tu <%= link_to 'casona en santiago', casonas_matriclick_path %> y alrededores junto con todos los servicios que necesitarás en <%= link_to 'el catálogo de novios', products_and_services_catalog_select_industry_category_path %></h2>
+		<p>¡La historia continúa cuando tú te casas! Ahora el centro de atención eres tú, con tu <%= link_to 'vestido de novia', dresses_wedding_dress_menu_path %> en un matrimonio estilo campestre, vintage, formal o lo que tu quieras para ese día. Conversa con nuestras <%= link_to 'banqueteras', products_and_services_catalog_album_path(:industry_category_ids => 'banqueteras') %> elige el <%= link_to 'DJ y la música', '#' %>, selecciona el <%= link_to 'fotógrafo' , products_and_services_catalog_album_path(:industry_category_ids => 'fotografia-y-video') %> que más se ajuste a tu estilo y todo lo que necesitas para el gran momento en el <%= link_to 'catálogo para Novios', products_and_services_catalog_select_industry_category_path %>.</p>
+		<% @casonas.each do |casona| %>
+			<div style="float:left; margin:0px 0px 10px 10px;">
+				<div style="text-align:left; width:300px;">
+					<span id="dress_intro"> <%= link_to( (j(casona.title) unless casona.title.nil?), casona) %></span>
+				</div>
+				<%= link_to image_tag(casona.main_image.url(:regular), :alt => casona.title, :width => '300px'), casona %>
+			</div>
+		<% end %>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div class="full_content shadow center" style="margin-top:10px">
+	<div class="left_content_inside_box">
+		<h1><%= link_to 'Lunas de miel y destinos para viajes románticos', lunas_de_miel_path %></h1>
+		<h2>Te invitamos a conocer diferentes <%= link_to 'destinos para tu luna de miel', lunas_de_miel_path %> y compatir experiencias de viajes para esta ocasión tan especial</h2>
+		<p>El próximo paso es disfrutar la luna de miel como corresponde. Elegir el destino para tu viaje es algo fundamental, las opciones son muchas y deben hacer lo que realmente les gusta. Recorrer el sudeste asiático es una muy buena opción o hacer un intensivo en Tailandia, ir a los parques de Orlando o el Caribe también es algo muy recomendado <%= link_to '¡Veámos las opciones que tenemos!.', lunas_de_miel_path %></p>
+		<% @viajes.each do |viaje| %>
+			<div style="float:left; margin:0px 0px 10px 10px;">
+				<div style="text-align:left; width:300px;">
+					<span id="dress_intro"> <%= link_to( (j(viaje.title) unless viaje.title.nil?), viaje) %></span>
+				</div>
+				<%= link_to image_tag(viaje.main_image.url(:regular), :alt => viaje.title, :width => '300px'), viaje %>
+			</div>
+		<% end %>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div class="full_content shadow center" style="margin-top:10px">
+	<div class="left_content_inside_box">
+		<h1><%= link_to 'Arma tu nuevo hogar', tu_casa_path %></h1>
+		<h2>Pónle tu sello y arma tu <%= link_to 'living', dresses_ver_path(:type => "tu-casa-living") %>, la <%= link_to 'cocina', dresses_ver_path(:type => "tu-casa-cocina") %>, el <%= link_to 'comedor', dresses_ver_path(:type => "tu-casa-comedor") %>, tu <%= link_to 'pieza', dresses_ver_path(:type => "tu-casa-dormitorio") %> y <%= link_to 'decora', dresses_ver_path(:type => "tu-casa-decoración") %> con tu estilo generando un espacio único de encuentro</h2>
+		<p>Ya volviste de la Luna de Miel, llegó el momento de armar tu casa partamos con <%= link_to 'el living', dresses_ver_path(:type => "tu-casa-living") %> y el <%= link_to 'comedor', dresses_ver_path(:type => "tu-casa-comedor") %>, compremos <%= link_to 'las sillas del comedor', dresses_ver_path(:type => "tu-casa-comedor-sillas") %> de madera o como más te gusten, luego pasemos la <%= link_to 'cocina', dresses_ver_path(:type => "tu-casa-cocina") %> y <%= link_to 'decorémosla', dresses_ver_path(:type => "tu-casa-cocina-accesorios") %> con lo que más te gusta. Ahora pasemos al tu lugar íntimo: <%= link_to 'tu dormitorio', dresses_ver_path(:type => "tu-casa-dormitorio") %>.</p>
+		<% @nombre_imagenes_tu_casa.each do |imagen| %>
+			<div style="float:left; margin-left:10px;">
+				<div style="text-align:left; width:300px;">
+					<span id="dress_intro"><%= link_to imagen.gsub('-', ' ').capitalize, dresses_ver_path(:type => imagen) %></span>
+				</div>
+				<%= link_to image_tag('tu_casa/'+imagen+'.jpg', :alt => imagen), dresses_ver_path(:type => imagen) %>
+			</div>
+		<% end %>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div class="full_content shadow center" style="margin-top:10px">
+	<div style="margin:10px;">
+		<h3>Suscríbete a la comunidad Matriclick</h3>
+		<%= form_for @subscriber, :url => subscription_create_path, :validate => true do |f| %>
+		    <span><%= f.label :email, 'Correo' %> <%= f.text_field :email %></span>
+		    <span style="margin-left:10px">
+			<%= f.label :commune_id, 'Comuna' %>
+			<%= f.grouped_collection_select :commune_id, Region.order(:name), :communes, :name, :id, :name, :prompt => t('select') %>
+			</span>
+			<h4>Cuéntanos tus áreas de interés</h4>
+			<% @subscriber_preferences.each do |sp| %>
+		  	<div style="margin-top:5px">
+				<%= check_box_tag("subscriber[subscriber_preference_ids][]", sp.id) %> 
+				<b style="color:#555"><%= sp.name %></b> <span class="lucida small"><%= sp.description %></span>
+			</div>
+		<% end %>
+		<br />
+	  	<%= f.hidden_field :url_coming_from, :value => session[:url_coming_from] %>
+	    <%= f.submit 'Suscribirse', :class => 'sign_in_tab_button' %>
+		<div class="clear"></div>
+		<% end %>
+		<div class="clear"></div>
+	</div>
+		<div class="clear"></div>
+</div>

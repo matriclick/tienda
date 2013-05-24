@@ -1,0 +1,55 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<div class="overflow_x">
+<table class="list invitees"> 
+  <tr>
+    <th class="small"><%= sortable "name" %></th>
+    <th class="small"><%= sortable "gender_id" %></th>
+    <th class="small"><%= sortable "age_id" %></th>
+    <th class="small"><%= t('activerecord.attributes.invitee.address') %></th>
+    <th class="small"><%= sortable "couple_id" %></th>
+    <th class="small"><%= sortable "invitee_group_id" %></th>
+    <th class="small"><%= sortable "status_id" %></th>
+	<th class="small"><%= sortable "invitee_host_id" %></th>
+	<th class="small"><%= sortable "invitee_role_id" %></th>
+    <th class="small"><%= sortable "confirmed" %></th>
+    <th class="small"><%= t ('options') %></th>
+  </tr>
+
+<% @invitees.each do |invitee| %>
+  <tr>
+    <td class="small"><%= invitee.name %>
+    <%= invitee.lastname_p %>
+    <%= invitee.lastname_m %><br />
+    <span class="gray"><%= invitee.email unless invitee.email.nil? %></span><br />
+    				  <%= invitee.phone_number %></td>
+    <td class="small"><%= invitee.gender.gender unless invitee.gender.nil? %></td>
+    <td class="small"><%= invitee.age.range unless invitee.age.nil? %></td>
+		<% unless invitee.address.blank? %>
+    <td class="small"><%= invitee.address.street unless invitee.address.nil? %>
+			<%= invitee.address.number unless invitee.address.nil? %><br/>
+				<span class="gray"><%= invitee.address.region.name unless invitee.address.region.nil?  %> <br/>
+			<%= invitee.address.commune.name unless invitee.address.commune.nil? %></span>
+		</td>
+		<% else %>
+			 <td classs="small"> - </td>
+		<% end %>
+    <td class="small"><%= invitee.couple.name unless invitee.couple.nil? %></td>
+    <td class="small"><%= invitee.invitee_group.name unless invitee.invitee_group.nil? %></td>
+    <td class="small"><%= invitee.status.status unless invitee.status.nil? %></td>
+		<td class="small"><%= invitee.invitee_host.name unless invitee.invitee_host.nil? %></td>
+		<td class="small"><%= invitee.invitee_role.name unless invitee.invitee_role.nil? %></td>					  
+    <td class="small"><%= link_to (invitee.confirmed ? "✔" : "✘"), invitees_path(:new_confirmed=>invitee.id), :remote=>true  %></td>
+
+    <td class="list_actions small"><div><%= link_to t('edit'), edit_invitee_path(invitee), :id=> 'fancybox_form_with_dropdowns', :rel=>'inv' %></div> 
+     <div><%= link_to t('destroy'), invitee, confirm: 'Are you sure?', method: :delete, :remote=>true %></div></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<br />
+<% unless @invitees.blank? %>
+	<div class="apple_pagination">
+		<%= will_paginate @invitees, :container => false %>
+	</div>	
+<% end %>

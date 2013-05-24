@@ -1,0 +1,36 @@
+<h1>Detalle de facturas</h1>
+<%= render 'date_range_selector' %>
+
+<table style="width:900px">
+  <tr>
+    <th>Lead</th>
+    <th>Dueño contrato</th>
+    <th>Fecha emisión</th>
+    <th>Número</th>
+    <th>Precio</th>
+    <th>IVA</th>
+    <th>¿Pagada?</th>
+    <th>Fecha Pago</th>
+    <th>Comments</th>
+  </tr>
+
+<% @invoices.each do |invoice| %>
+  <tr>
+    <td><%= link_to invoice.contract.lead.name, invoice.contract.lead if !invoice.contract.nil? and !invoice.contract.lead.nil? %></td>
+    <td><%= link_to invoice.contract.matriclicker.name, invoice.contract if !invoice.contract.nil? and !invoice.contract.matriclicker.nil? %></td>
+    <td><%= invoice.issued_date.strftime("%d %B %Y") %></td>
+    <td><%= link_to invoice.number, invoice %></td>
+    <td><%= number_to_currency invoice.net_price %></td>
+    <td><%= number_to_currency invoice.vat %></td>
+    <td><%= invoice.paid ? "✓" : '✘' %></td>
+    <td><%= invoice.paid ? invoice.pay_date.strftime("%d %B %Y") : 'n/a' %></td>
+    <td><%= invoice.comments %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<br /><br />
+<% if current_user.matriclicker.privileges.include? Privilege.find_by_name("Finanzas") %>
+	<%= link_to 'Ir al reporte de facturas', reports_invoices_path %>
+<% end %>

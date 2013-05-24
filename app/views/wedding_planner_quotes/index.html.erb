@@ -1,0 +1,37 @@
+<h1>Listing wedding_planner_quotes</h1>
+
+<table>
+  <tr>
+    <th>Nombre novia</th>
+    <th>Fono novia</th>
+    <th>Nombre novio</th>
+    <th>Fono novio</th>
+    <th>Fecha del matrimonio</th>
+    <th>Cantidad de invitados</th>
+    <th>Presupuesto General</th>
+    <th>Comentarios adicionales</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @wedding_planner_quotes.each do |wedding_planner_quote| %>
+  <tr>
+    <td><%= wedding_planner_quote.nombre_novia %></td>
+    <td><%= wedding_planner_quote.fono_novia %></td>
+    <td><%= wedding_planner_quote.nombre_novio %></td>
+    <td><%= wedding_planner_quote.fono_novio %></td>
+    <td><%= wedding_planner_quote.fecha_del_matrimonio %></td>
+    <td><%= wedding_planner_quote.cantidad_de_invitados %></td>
+    <td><%= wedding_planner_quote.total_budget %></td>
+    <td><%= wedding_planner_quote.comentarios_adicionales %></td>
+    <td><%= link_to 'Show', wedding_planner_quote %></td>
+    <td><%= link_to 'Edit', edit_wedding_planner_quote_path(wedding_planner_quote) %></td>
+    <td><%= link_to 'Destroy', wedding_planner_quote, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Wedding planner quote', new_wedding_planner_quote_path %>

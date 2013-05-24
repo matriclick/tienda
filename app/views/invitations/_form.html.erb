@@ -1,0 +1,59 @@
+<%= form_for @invitation do |f| %>
+
+<%= text_area_tag 'live_upper_left', nil, :maxlength => 300 %><br />
+
+<%= text_area_tag 'live_upper_right', nil, :maxlength => 300 %><br />
+
+<%= text_area_tag 'live_mid_1', nil, :maxlength => 1500 %><br />
+
+<%= text_area_tag 'live_mid_2', nil, :maxlength => 1000 %><br />
+
+<%= text_area_tag 'live_lower', nil, :maxlength => 300 %>
+
+<br/>
+<br/>
+<div class="invitation">
+	<div class="top_text">
+		<div class="upper_invitation_text" id="upper_left">
+
+		</div>
+		<div class="upper_invitation_text" id="upper_right">
+
+		</div>
+	</div>
+	<div class="mid_text">
+		<div class="mid_invitation_text" id="mid_1">
+
+		</div>
+		<div class="mid_invitation_text" id="mid_2">
+
+		</div>
+	</div>
+	<div class="lower_invitation_text" id="lower_invitation_text">
+		
+	</div>	
+</div>
+
+<% if params[:action] == 'new' || params[:action] == 'create' %>
+	<script type="text/javascript">
+		fill_invitation_text("<%= @groom_father_name %> \n <%= @groom_mother_name %>",
+												 "<%= @bride_father_name %> \n <%= @bride_mother_name %>",
+												 "Participan del Matrimonio de sus hijos \n <%= @groom_name %>  y <%= @bride_name %>",
+												 "Y tienen el agrado de invitarle(s) a la \n Ceremonia Religiosa que se llevara a cabo \n el dia  <%= @wedding_day.to_s  %> de <%= @wedding_month %>, a las ___ horas en (Nombre de Iglesia) ubicada en \n (Direccion Iglesia),  <%= @city %>",
+												 "Despues de la Ceremonia \n Religiosa agradeceremos su \n presencia en (Nombre del salon, \n Direccion)");
+	</script>
+<% elsif params[:action] == 'edit' || params[:action] == 'update' %>
+	<script type="text/javascript">
+		fill_invitation_text('<%= @upper_left %>',
+												 '<%= @upper_right %>',
+												 '<%= @mid_1 %>',
+												 '<%= @mid_2 %>',
+												 '<%= @lower %>');
+	</script>
+<% end %>
+
+
+
+
+<%= f.submit :class => 'button' %>
+<% end %>

@@ -1,0 +1,9 @@
+<b><%= t 'ceremony_day_hours' %></b>
+<div class="field">
+	<%= ceremony_days_form.fields_for :ceremony_day_hours do |ceremony_day_hours_form| %>
+		<%= ceremony_day_hours_form.time_select :hour %>
+		<%= ceremony_day_hours_form.link_to_remove t('remove_this_ceremony_day_hour'), :class => 'small_button' %>
+	<% end %>
+	<br/>
+	<%= ceremony_days_form.link_to_add t('add_ceremony_day_hour'), :ceremony_day_hours, :class => 'small_button' %>
+</div>

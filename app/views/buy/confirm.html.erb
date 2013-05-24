@@ -1,0 +1,82 @@
+<div style="float:left; width:300px">
+	<%= image_tag @purchasable.main_image %>
+</div>
+
+<div style="float:left; width:400px; margin-left:20px">
+	<%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br />
+	<% if !@purchase.size.blank? %>
+		Talla: <%= @purchase.size %><br />
+	<% end %>
+	<br />
+	<table>
+		<% case @purchase.purchasable_type %>
+			<% when 'Dress' %>
+				<tr>
+					<td>Precio Unitario</td>
+					<td><%= number_to_currency @purchasable.price %> </td>
+				</tr>
+				<% if !@purchase.quantity.blank? %>
+				<tr>
+					<td>Cantidad</td>
+					<td><%= @purchase.quantity.to_s %></td>
+				</tr>
+				<% else %>
+				<tr>
+					<td>Cantidad</td>
+					<td>1</td>
+				</tr>
+				<% end %>
+		<% end %>
+		<tr>
+			<td>Subtotal</td>
+			<td><%= number_to_currency @subtotal %> <%= '('+@discount+' de descuento incluído)' if !@discount.nil? %> </td>
+		</tr>
+		<% if current_user.check_if_has_credits %>
+		<tr>
+			<td>Créditos a usar</td>
+			<td><%= number_to_currency @credits_to_use %></td>
+		</tr>
+		<% end %>
+		<% if !@purchase.delivery_info.nil? %>
+		<tr>
+			<td><%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %></td>
+			<td><%= number_to_currency @purchase.delivery_info.commune.dispatch_cost %></td>
+		</tr>
+		<% end %>
+		<tr>
+			<td><b>Precio final</b></td>
+			<td><b><%= number_to_currency @purchase.price %></b></td>
+		</tr>
+	</table>	
+	<br />
+	<% if !@purchase.delivery_date.nil? %>
+		Fecha: <b><%= @purchase.delivery_date.strftime("%d %B %Y") %></b><br /><br />
+	<% end %>
+	<% if @purchase.price == 0 %>
+		<%= render 'full_credit_method', purchase: @purchase %>
+	<% else %>
+		<% if @payment_method == 'transfer' %>
+			<%= render 'transfer_method', purchase: @purchase %>	
+		<% else %>
+			<%= render 'webpay_method', purchasable: @purchasable, oc: @oc %>
+		<% end %>
+	<% end %>
+</div>
+<div class="clear"></div>
+<% if !@purchase.delivery_info.nil? %>
+	<div style="margin-top:20px;">
+		<b>Despacho</b>
+		<hr>
+		<%= @purchase.delivery_info.street %>
+		<%= @purchase.delivery_info.number %>
+		<%= ', depto/casa ' + @purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.blank? %>
+		
+		<% if !@purchase.delivery_info.commune.nil? %>
+			<%= ', ' + @purchase.delivery_info.commune.name %>
+			<%= ', ' + @purchase.delivery_info.commune.region.name if !@purchase.delivery_info.commune.region.nil? %>
+		<% end %>
+		<br /><br />
+		<div id="map" style="width:450px; height:300px;"></div>
+	</div>
+<% end %>
+

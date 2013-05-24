@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Lead:</b>
+  <%= @lead_contact.lead_id %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%= @lead_contact.position %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @lead_contact.name %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @lead_contact.phone %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @lead_contact.email %>
+</p>
+
+
+<%= link_to 'Edit', edit_lead_contact_path(@lead_contact) %> |
+<%= link_to 'Back', lead_contacts_path %>

@@ -1,0 +1,41 @@
+div.stars {
+	cursor:pointer;
+	li.rate_star {
+		height:20px;
+		width:22px;
+		margin:0 1px;
+		float:left;
+		background: url(<%= asset_path 'estrellas_h20.png'%>) no-repeat;
+	}
+	form {
+		float:left;
+	}
+	li.rate_star_hover {
+		@extend li.rate_star;
+		background: url(<%= asset_path 'estrellas_h20.png'%>) no-repeat scroll -24px 0 !important;
+	}
+	li.rate_star_full {
+		@extend li.rate_star_hover;
+	}
+	li.rate_star_half {
+		@extend li.rate_star;
+		background: url(<%= asset_path 'estrellas_h20.png'%>) no-repeat scroll -48px 0;
+	}
+	.count {
+		float:right;
+		font: {
+			size:10px;
+		}
+		color:#aaa;
+		margin: {
+			right:3px;
+			top:5px;
+		}
+		.thanks {
+			color:#4CB900;
+		}
+	}
+}
+.disabled {
+	cursor:default !important;
+}

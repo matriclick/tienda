@@ -1,0 +1,84 @@
+<div class="right" style="margin-right:20px; margin-bottom:20px;">
+	<%= link_to 'Administrador de Vestidos', administration_dresses_path, :class => :button %>
+</div>
+<div class="clear"></div>
+
+<div class="dress_box left">
+	<% if @enable_edit %>
+	<div style="background:black; padding:2px; text-align:center;">
+		<%= link_to 'Editar', edit_supplier_account_dress_path(@supplier, @dress), :class => 'edit_dress_link' %>
+	</div>
+	<% end %>
+	<div class="image">
+		<%= image_tag(@dress.dress_images.first.dress.url(:original), :width => '265px', :height => '385px', :class => 'main') %>
+	</div>
+	<% if @enable_edit %>
+	<div style="background:black; padding:2px; text-align:center; margin-top:-3px">
+		<%= link_to 'Eliminar', @dress, confirm: '¿Estás seguro?', method: :delete, :class => 'edit_dress_link' %>
+	</div>
+	<% end %>
+	<% unless (imgs = @dress.dress_images.without_cover).blank? %>
+	<div style="margin-bottom:5px;"><%= image_tag 'dresses_icons/viewer.png' %></div>
+	<div class="images">
+		<% for image in imgs %>
+			<%= image_tag(image.dress.url(:original), :width => '64px', :height => '93px', :class => 'side', :onclick => 'switch_image(this)') %>
+		<% end %>
+	</div>								
+	<% end %>
+</div>
+<div class="dress_info left">
+	<div style="font-size:20px; font-weight:bold; text-transform:uppercase;">
+		<% case @dress.dress_type.name %>
+			<% when 'Novia' %>
+				Vestido de Novia
+			<% when 'Fiesta' %>
+				Vestido de Fiesta
+			<% when 'Madrina' %>
+				Vestido de Madrina
+			<% when 'Civil' %>
+				Vestido de Matrimonio Civil
+			<% else %>
+				<%= @dress.dress_type.name %>
+		<% end %>
+	</div>
+	<div style="margin:0px 0px 20px 10px">CLP $ <%= "#{number_to_currency @dress.price}" %></div>
+	<span class="selected" onclick="dress_menu('description','cares','returns',this)">DETALLE</span>
+	<span class="not_selected" style="margin-left:20px" onclick="dress_menu('cares','description','returns',this)">CIUDADOS</span>
+	<span class="not_selected" style="margin-left:20px" onclick="dress_menu('returns','description','cares',this)">CAMBIOS, PRUEBAS & DEVOLUCIONES</span>
+	<hr>
+	<div class="info_content" id="description">
+		<%= raw @dress.description.gsub(/\n/, '<br/>') %>
+	</div>
+	<div class="info_content" id="cares" style="display:none">
+		<%= raw @dress.care.gsub(/\n/, '<br/>') %>
+	</div>
+	<div class="info_content" id="returns" style="display:none">
+		<%= raw @dress.refund.gsub(/\n/, '<br/>') %>
+	</div>
+	<div style="margin:10px 0px 10px 0px;">
+		<%= link_to image_tag('mail.png') + 'Haz una pregunta sobre este vestido', '#' %>
+	</div>
+	<hr>
+	<div style="margin-top:30px;">
+	<% if !@dress.supplier_account.supplier_account_type.nil? %>
+		<% if @dress.supplier_account.supplier_account_type.name = 'Facebook' %>
+			<%= link_to "Contactar al Vendedor", dresses_dress_request_path(@dress), :id => :inline, :class => 'button_buy_dress' %>
+		<% elsif @dress.supplier_account.supplier_account_type.name = 'Vestidos de Novia Usados' %>
+			<%= link_to "Contactar al Vendedor", dresses_dress_request_path(@dress), :id => :inline, :class => 'button_buy_dress' %>
+		<% elsif @dress.supplier_account.supplier_account_type.name = 'Matriclick' %>
+			<%= link_to "Comprar", dresses_dress_request_path(@dress), :id => :inline, :class => 'button_buy_dress' %>
+		<% elsif @dress.supplier_account.supplier_account_type.name = 'Vestidos Boutique' %>
+			<%= link_to "Obtener Cupón de Descuento", dresses_dress_request_path(@dress), :id => :inline, :class => 'button_buy_dress' %>
+		<% else %>
+			<%= link_to "Obtener Cupón de Descuento", dresses_dress_request_path(@dress), :id => :inline, :class => 'button_buy_dress' %>
+		<% end %>
+	<% else %>
+		<b>Enviar un correo a socios@matriclick.com<br />para habilitar la opción de contacto o pago online.</b>
+	<% end %>
+	</div>
+	<div style="font-weight:bold; margin-top:20px;">DESPACHO</div>
+	<hr>
+	<div>
+		Próximamente
+	</div>
+</div>

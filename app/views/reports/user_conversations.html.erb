@@ -1,0 +1,35 @@
+<h1>Detalle de las conversaciones de <%= @user.email %></h1>
+
+<% @conversations.each do |c| %>
+<div style="margin-bottom:5px">
+	<b>Proveedor:</b> <%= link_to c.supplier_account.fantasy_name, 
+									reports_user_conversations_path(:supplier_email => c.supplier_account.supplier.email) %> | 
+	<b>Usuario:</b> <%= link_to c.user.email, reports_user_conversations_path(:user_email => c.user.email) %><br />
+</div>
+<table style="width:950px">
+	<tr>
+		<th style="width:80px">Fecha</th>
+		<th style="width:200px">Remitente</th>
+		<th>Mensaje</th>
+	</tr>
+	<% c.messages.each do |m| %>
+	<tr>
+		<td><%= m.created_at.strftime("%d %b %Y") %><br />(<%= distance_of_time_in_words(Time.now, m.created_at) %>)</td>
+		<td><%= m.transmitter %></td>
+		<td><%= m.content %><br /><br />
+		<% unless m.attached_files.blank? %>
+				<% m.attached_files.each do |file|%>
+					<%=	link_to '- '+file.attached_file_name.to_s, 
+						conversations_download_file_supplier_account_path(c.supplier_account, file) %><br/>
+				<% end %>
+		<% end %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+<br /><br />
+<% end %>
+
+<br /><br />
+
+<%= link_to 'Volver al menú de administración', administration_index_path %>

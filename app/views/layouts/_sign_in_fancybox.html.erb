@@ -1,0 +1,35 @@
+<div style="display:none"> <!-- fancy view -->
+	<div id="sign_in_fancybox" style="width:400px;padding:5px;">
+		<div>
+			<div class="titulos">
+				Si quieres seguir, debes ingresar con tu cuenta o registrarte.
+			</div>
+			<div class="center" style="text-align:center; width:395px">
+				<div id="fancy_successful">
+					<div style="text-align:center; width:375px; margin-left:10px">
+						<%- if devise_mapping.omniauthable? %>
+							<div class="facebook_google_sign_in">
+								<%- devise_mapping.to.omniauth_providers.each do |provider| %>
+									<div style="width:110px; float:left; margin-left:10px; text-align:center">
+							    		<div style="margin-bottom:5px">
+											<%= link_to t('devise.views.shared._links.omniauth_authorize') + " #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>
+										</div>
+										<%= link_to image_tag('sign_in/'+provider.to_s+'.png', :alt => 'registro con '+provider.to_s), omniauth_authorize_path(resource_name, provider), :class => [ provider.to_s.titleize, 'image_button'] %>
+									</div>
+								<% end -%>
+								<div style="width:110px; float:left; margin-left:10px; text-align:center">
+							    	<div style="margin-bottom:5px">
+										<%= link_to 'Ingresar con Matriclick', new_user_registration_path %>
+									</div>
+									<%= link_to image_tag('sign_in/register.png', :alt => 'registrse'), new_user_registration_path, :class => 'image_button' %>
+								</div>
+								<div class="clear"></div>	
+							</div>
+						<% end -%>		
+					</div>
+				</div>	
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>

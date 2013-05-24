@@ -1,0 +1,30 @@
+<%= form_for [@supplier, @important_date],
+:url => supplier_account_important_date_path(@supplier, @important_date),
+:validate => true do |f| %>
+
+<table class="invisible">
+	<tr>
+		<td class="span-115"><%= f.label :date %><%= mark_required @important_date, :date %><br />
+		<%= f.text_field :date, :class => 'datepicker' %></td>
+	</tr>
+	<tr>
+		<td class="span-115"><%= f.label :ends_date %><%= mark_required @important_date, :ends_date %><br />
+		<%= f.text_field :ends_date, :class => 'datepicker' %></td>
+	</tr>
+	<tr>
+		<td><%= f.label t('date_name') %><%= mark_required @important_date, :date_name %><br />
+		<%= f.text_field :date_name %></td>
+	</tr>
+	<tr>
+		<td class="span-115"><%= f.label :locked %><br />
+		<%= f.check_box :locked %></td>
+	</tr>
+	<tr>
+		<td> <%= f.label t('custom_message') %><br/>
+		<%=f.text_field :custom_message %></td>
+	</tr>
+</table>
+<div class="holder">
+	<%= f.submit  t('update'), :class => "button" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+</div>
+<% end %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_account_id: 1
+  trading_house_id: 1
+  trading_house_code: MyString
+
+two:
+  user_account_id: 1
+  trading_house_id: 1
+  trading_house_code: MyString

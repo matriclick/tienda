@@ -1,0 +1,46 @@
+<%= nested_form_for @campaign_gallery_item, html: {multipart: :true} do |f| %>
+  <% if @campaign_gallery_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@campaign_gallery_item.errors.count, "error") %> prohibited this campaign_anecdote from being saved:</h2>
+
+      <ul>
+      <% @campaign_gallery_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<b><%= t 'images' %></b>
+	<div class="help_tip">
+	<%= t('image_size_limit') %>
+	<br>
+	Las fotos están optimizadas para aspecto 4:3 (por ejemplo: 800 x 600 px)
+	</div>
+	<div class="field">
+		<%= f.fields_for :campaign_gallery_item_images do |di_form| %>
+				<div class="old_image">
+					<%= image_tag di_form.object.gallery_item.url(:tiny) %>
+				</div>
+			<%= di_form.file_field :gallery_item %>
+			<%= di_form.link_to_remove t('remove_this_image'), :class => 'small_button' %>
+		<% end %>
+		<br/>
+		<%= f.link_to_add t('add_image'), :campaign_gallery_item_images, :class => 'small_button' %>
+	</div>
+	<table class="invisible">
+		<tr>
+			<td>
+				<%= f.collection_select :tag, SupplierAccount.where(:country_id => session[:country].id).approved, :fantasy_name, :fantasy_name, :prompt => "Elige un proveedor..." %><%= mark_required @campaign_gallery_item, :tag %><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :description %><%= mark_required @campaign_gallery_item, :description %><br />
+		    <%= f.text_area :description %>
+			</td>
+		</tr>
+	</table>	
+  <div class="holder">
+    <%= f.submit :class => "button" %>
+  </div>
+<% end %>

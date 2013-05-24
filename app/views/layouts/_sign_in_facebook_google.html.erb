@@ -1,0 +1,21 @@
+<div style="display:none"> <!-- fancy view -->
+	<div id="sign_in_fancybox" style="width:270px; padding:5px;">
+		<div>
+			<div class="help_tip" style="text-align:center; margin-bottom:10px">
+				Para votar debes registrarte con Facebook
+			</div>
+			<div style="text-align:center; color:red; margin-bottom:10px">
+				<b>Una vez ingreses debes volver a la foto y hacer click en votar para que tu voto sea válido.</b>
+			</div>
+			<div class="help_tip" style="text-align:center; margin-bottom:10px">
+				<%- if devise_mapping.omniauthable? %>
+		    		<div style="margin-bottom:5px">
+						<%= link_to 'Entrar con Facebook', omniauth_authorize_path(resource_name, :facebook) %>
+					</div>
+					<%= link_to image_tag('sign_in/facebook.png', :alt => 'entrar con facebook'), omniauth_authorize_path(resource_name, :facebook), 
+						:class => 'image_button' %>
+				<% end -%>			
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,57 @@
+<div class="right_link">
+	<%= link_to t('new_album'), new_supplier_account_album_path(@supplier), :class => :button %>
+</div>
+<div class="titulos">
+	<%= t('albums') %>
+</div>
+
+<div class="box">
+	<% if !@albums.blank? %>
+	<table class="list">
+		<tr>
+			<th class="width5">
+				<%= t('visible') %>
+			</th>
+			<th>
+				Nombre del Album
+			</th>
+			<th>
+				Rubro
+			</th>
+			<th>
+				Cantidad de Fotos
+			</th>
+			<th class="width15">
+				<%= t('options') %>
+			</th>
+		</tr>
+		<% @albums.each do |album| %>
+		<tr>
+			<td>
+				<%= album.visible? ? 'Sí' : 'No' %>
+			</td>
+			<td>
+				<%= album.name %>
+			</td>
+			<td>
+				<%= album.industry_category.get_name if !album.industry_category.nil? %>
+			</td>
+			<td>
+				Totales: <%= album.album_photos.size %><br />
+				Visibles: <%= album.album_photos.visible.size %><br /><br />
+				<%= !album.visible? ? 'NOTA: ALBUM NO VISIBLE' : '' %>
+			</td>
+			<td class="list_actions">
+				<div><%= link_to t('edit'), edit_supplier_account_album_path(@supplier, album) %></div>	    	
+				<div><%= link_to t('destroy'), supplier_account_album_path(@supplier, album), confirm: t('are_you_sure'), method: :delete %></div>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+
+
+	<% else %>
+	  <%= render "layouts/nothing_to_show", :word => t('albums') %>
+	<% end %>
+</div>
+

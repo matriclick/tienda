@@ -1,0 +1,19 @@
+<%= javascript_include_tag 'views/services/parking' %>
+<div class="right_link">
+	<%= link_to t('cancel'), supplier_account_services_path(@supplier), :class => :button %>
+</div>
+<div class="titulos">
+	<%= t('new_service') %>
+</div>
+<% unless @supplier.supplier_account.bookable %>
+	<div class="help_tip">
+	 	<%= t('helptip.service.bookings_system_disabled') %> <%= link_to t('here').downcase, edit_supplier_account_path(@supplier) %>
+	</div>	
+<% end %><div class="box_form">
+	<div class="help_tip">
+		<%= t'helptip.required' %><br/>
+		<%= t'helptip.iva_included' %>
+	</div>
+	
+	<%= render 'form' %>
+</div>

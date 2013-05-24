@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Matriclicker:</b>
+  <%= @challenge_activity.matriclicker_id %>
+</p>
+
+<p>
+  <b>Challenge:</b>
+  <%= @challenge_activity.challenge_id %>
+</p>
+
+<p>
+  <b>Activity type:</b>
+  <%= @challenge_activity.challenge_activity_type_id %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @challenge_activity.comments %>
+</p>
+
+
+<%= link_to 'Edit', edit_challenge_activity_path(@challenge_activity) %> |
+<%= link_to 'Back', challenge_activities_path %>

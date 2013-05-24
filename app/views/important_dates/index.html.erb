@@ -1,0 +1,22 @@
+<% if @supplier.supplier_account.bookable -%>
+	<div class="right_link">
+		<%=link_to t('new_important_date'), new_supplier_account_important_date_path(@supplier), :class => :button %>
+	</div>
+	<div class="titulos">
+		<%= t('important_dates') %>
+	</div>
+	<div class="help_tip">
+		<%= t 'helptip.supplier_account.important_dates' %>
+	</div>
+
+	<div class="box">
+		<% if @supplier.supplier_account.important_dates.blank? %>
+			<%= render "layouts/nothing_to_show", :word => t('important_dates') %>
+		<% else -%>
+			<%= render "index_content" %>
+		<% end -%>
+	</div>
+	<br/>
+<% else -%>
+	<%= render "layouts/nothing_to_show", :word => 'las reservas habilitadas' %>
+<% end -%>

@@ -1,0 +1,70 @@
+<% flash.each do |name, msg| %>
+    <div class="centered_wrapper">
+      <div class="centered_positioner">
+        <%= content_tag(:div, msg, :id => "supplier_flash_#{name}", :class => "slideFadeOut centered_content") unless msg.blank? %>
+      </div>
+    </div>
+<% end %>
+
+
+
+<% if user_signed_in? && current_user.email != "invitado@2" %>
+	<% if current_user.admin? %>
+		<div style="float:right;">
+			<%= link_to "Administrar CUAI", campaign_user_account_infos_path, :class => 'button' %>
+		</div>
+	<% end %>
+<% end %>
+
+<div class="campaign_titles">
+	<h1>La mejor propuesta de matrimonio...</h1>
+	<h2>¡Todas estas propuestas concursaron por el gran premio de los 8 Millones!</h2>
+</div>
+<div class="box">
+	<% unless @campaign_user_accounts.blank? %>
+		<table class="invisible" id="campaign_stories">
+			<% @campaign_user_accounts.each do |c| %>
+			<tr class="<%= cycle "cl_light_gray", "" %>" id="<%= c.id %>">
+				<td class="campaign_user_account_info_id"><%= "##{c.id}" %></td>
+				<% unless (c.campaign_user_image.blank? or c.campaign_user_image.url.include? "missing") %>
+					<td class="image">
+						<%= link_to image_tag(c.campaign_user_image.url(:index)), user_story_path(c) %>
+					</td>
+				<% else %>
+					<td class="image">
+						<%= link_to image_tag('argolla_sola.png', height: 120), user_story_path(c) %>
+					</td>
+				<% end %>
+				<td>
+						<span class="quote">“</span><%= link_to sanitize(crop_if_longer(c.description, 400).gsub(/\n/,"<br>"), :tags => %w(br)), user_story_path(c) %>						
+				</td>
+				<td>
+                  <!-- "Simple" Voting System -->
+                  <div class="cua_vote">
+                  <% if user_signed_in? && current_user.email != "invitado@2"%>
+                        <% if c.cua_votes.where(user_id:current_user.id).present? %>
+                            <%= link_to "", "#", :class => 'vote_inactive', :title => "Ya has votado por esta historia" %>
+                        <% else %>
+                            <%= link_to "", campaign_vote_up_path(c), :class => 'vote_active', :title => "¡Está buena!", :remote=>true %>
+                        <% end %>
+                  <% else %>
+                        <% if cookies[:cua_voted].blank? %>
+                            <%= link_to "", campaign_vote_up_path(c), :class => 'vote_active', :title => "¡Está buena!", :remote=>true %>
+                        <% elsif cookies[:cua_voted].split(",").include? c.id.to_s %>
+                            <%= link_to "", "#", :class => 'vote_inactive', :title => "Ya has votado por esta historia" %>
+                        <% else %>
+                            <%= link_to "", campaign_vote_up_path(c), :class => 'vote_active', :title => "¡Está buena!", :remote=>true %>
+                        <% end %>
+                  <% end %>
+                  <span class="vote_count">(<%= c.cua_votes.count %>)</span>
+                  </div>
+									
+                  <!-- <div class="fb-like" data-href="<%= user_story_url(c) %>/" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false"></div> -->
+
+				</td>
+			</tr>
+			<% end %>			
+		</table>
+	<% end %>
+  <div class="clear"></div>
+</div>

@@ -1,0 +1,38 @@
+<%= form_for(@supplier_without_account) do |f| %>
+  <% if @supplier_without_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@supplier_without_account.errors.count, "error") %> prohibited this supplier_without_account from being saved:</h2>
+
+      <ul>
+      <% @supplier_without_account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">	
+	<%= f.collection_select :industry_category_id, IndustryCategory.joins(:countries).where("countries.id = ?", session[:country].id).order(:name), :id, :get_name %>
+    <%= f.label :industry_category_id %><br /><br />
+
+	<%= f.file_field :image %>
+	<%= f.label :image, "Imagen" %><br /><br />
+
+
+    <%= f.text_field :corporate_name %>
+    <%= f.label :corporate_name %><br /><br />
+    <%= f.text_field :web_page %>
+    <%= f.label :web_page %><br /><br />
+    <%= f.text_field :fantasy_name %>
+    <%= f.label :fantasy_name %><br /><br />
+    <%= f.text_field :phone_number %>
+    <%= f.label :phone_number %><br /><br />
+    <%= f.text_field :address %>
+    <%= f.label :address %><br /><br />
+    <%= f.label :description %><br />
+    <%= f.tinymce :description, :rows => 10 %><br /><br />
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

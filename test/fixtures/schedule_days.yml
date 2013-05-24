@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  day_id: 1
+  schedule_id: 1
+  enable_day: 1
+  from_time: 2011-08-22 12:18:14
+  to: 2011-08-22 12:18:14
+
+two:
+  day_id: 1
+  schedule_id: 1
+  enable_day: 1
+  from_time: 2011-08-22 12:18:14
+  to: 2011-08-22 12:18:14

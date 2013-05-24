@@ -1,0 +1,102 @@
+<p id="notice"><%= notice %></p>
+<div class="right_link">
+	<% if current_user.role_id == 3 -%>
+		<%= link_to t('edit'), "#sign_in_fancybox" , :id => "fancybox_form", :class => "button" %>
+		<%= render "layouts/sign_in_fancybox" %>
+	<% else -%>
+		<%= link_to t('edit'), edit_user_profile_path(), :class => :button %>
+	<% end -%>
+</div>
+
+<div class="titulos">
+	<%= t 'our_profile' %>
+</div>
+<div class="box">
+	<%= render "groom_bride_info", :person => @groom %>
+	<%= render "groom_bride_info", :person => @bride %>
+	
+	<div class="half_15">
+		<table class="floatLeft textAlignLeft marginLeft10 invisible">
+			<tr>
+				<td>
+					<div class="meter-wrap">
+						<div class="meter-value" style="background:url(<%= asset_path('progress_bar.jpg') %>) ; width: <%= @profile_average %>%;"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><i style="font-size:10px;"><%= @profile_average %>% del perfil completado</i></td>
+			</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div><br/>
+
+<div class="box">
+	<table class="invisible">
+		<tr>
+			<td>
+				<% if @user_account.user_account_image.blank? -%>
+					<%= image_tag "novios.png", :size => "120x120" %>
+				<% else -%>
+					<%= image_tag @user_account.user_account_image.couple.url(:normal) %>
+				<% end -%>
+			</td>
+			<td>
+				<% if !@groom.name.blank? and !@bride.name.blank? %>
+					<span class="especial_bold"><%= @bride.name %> y <%= @groom.name %> </span><br/>
+				<% end %>
+				<% unless @user_account.wedding_tentative_date.blank? %>
+					Nos casamos el <%= l(@user_account.wedding_tentative_date, :format => :long) %><br/>
+				<% end %>
+				<% unless @user_account.wedding_city.blank? %>
+					<%= @user_account.wedding_city %>
+				<% end %>
+			</td>
+			<td class ="day_counter"><%= @user_account.wedding_tentative_date.blank? ? "" : label_tag("¡"+(@user_account.wedding_tentative_date - Date.today).to_i.to_s+" días!") %> </td>
+		</tr>
+	</table>
+</div><br/>
+
+<div class="titulos">
+		<%= 'Personas que pueden ver mi perfil'%>
+</div>
+<br />
+<div class="box">
+	<table class="invisible">
+		<tr>
+			<th><%= t 'email' %></th>
+			<th></th>
+				<th><%= t 'options' %></th>
+		</tr>
+		<% @users.each do |user|%>
+			<tr>
+				<td><%= user.email%></td>
+				<td><%= user.is_owner ? t('is_owner') : t('is_invited')%></td>
+				<% if current_user.is_owner || current_user.id == user.id %>
+					<td>
+						<% if current_user.id == user.id %>
+							<%= current_user.is_owner ? (link_to t('edit'), edit_user_registration_path) : (link_to t('edit'), user_profile_edit_user_path(user)) %>
+						<% end %>
+						<% unless user.is_owner %>
+							<%= link_to t('delete'), user_profile_destroy_user_path(user), :method => :delete, confirm: t('are_you_sure') %>
+						<% end %>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+</div>
+<br />
+<div class="">
+	<% if user_signed_in? -%>
+		<% if current_user.role_id == 3 and current_user.is_owner %>
+			<%= link_to t('new'), "#sign_in_fancybox" , :id => "fancybox_form", :class => "button" %>
+			<%= render "layouts/sign_in_fancybox" %>
+		<% else -%>
+			<%= link_to 'Agregar usuario a mi cuenta', user_profile_add_user_path(), :class => :button if current_user.is_owner %>
+		<% end -%>
+	<% else -%>
+		<%= link_to 'Agregar usuario a mi cuenta', user_profile_add_user_path(), :class => :button if current_user.is_owner %>
+	<% end -%>
+</div>

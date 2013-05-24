@@ -1,0 +1,43 @@
+<div style="text-align:center; margin-bottom:3px; float:left; color:#BBB">
+Haz click en una fecha para agregar, revisar o modificar la reserva. Si no hay al menos 1 fecha reservada, el calendario no se mostrará a los novios
+</div>
+
+<div class="clear"></div>
+<div style="text-align:left; margin:5px 0px 5px 15px; font-size:15px;">
+	<%= link_to "<", :year => (@date_selector - 1.year).strftime("%d-%b-%Y"), :anchor => 'calendar' %>
+	<span style="color:#BBB">
+		<%=h @date_selector.strftime("%Y") %>
+	</span>
+	<%= link_to ">", :year => (@date_selector + 1.year).strftime("%d-%b-%Y"), :anchor => 'calendar' %>
+</div>
+
+<div>
+<% aux_month = 1 %>
+<% 12.times do %>
+<div style="float:left; margin:15px; height:200px;">
+	<div id="year_calendar">
+		<div style="text-align:center; margin-bottom:3px; color:#AAA">
+			<%= t("date.month_names")[aux_month] %> - <%=h @date_selector.strftime("%Y") %>
+		</div>
+		<%= calendar_for @reserved_dates, :year => @date_selector.year, :month => aux_month do |calendar| %>
+			<%= calendar.head('D', 'L','M','W','J','V','S')  %>
+			<% calendar.day(:day_method => :date) do |date, reserved_dates| %>
+				<% if date.month == aux_month %>
+					<% if reserved_dates.count > 0 %>
+					<div class="reserved">
+						<%= link_to date.day, edit_reserved_date_path(id: reserved_dates.first.id), :id => :form_inline %>
+					</div>
+					<% else %>
+					<div class="available">
+						<%= link_to date.day, new_reserved_date_path(date: date, id: @supplier.id), :id => :form_inline %>
+					</div>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+<% aux_month += 1 %>
+</div>
+<% end %>
+
+</div>

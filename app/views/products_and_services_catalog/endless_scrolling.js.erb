@@ -1,0 +1,27 @@
+
+ids = '<%=@photos_ids%>'
+
+<%if @last_set%>
+
+	$('.loading').unbind('ajaxStart');
+
+<% end %>
+
+<% unless @album_photos.blank? %>	
+	
+
+	<%@album_photos.each do |album_photo|%>
+
+		var $box_<%=album_photo.id%> = $('<div class="albums_photo"><%= link_to image_tag(album_photo.album_photo_image.url(:album_photo_size), :alt => album_photo.album_photo_image.name), supplier_products_and_services_path(album_photo.album.supplier_account.supplier_id, :public_url => album_photo.album.supplier_account.public_url, :matridream_ic => params[:industry_category_ids]), :title => t("show") %>			<div class="albums_text">				<div class="albums_h1">					<b><%= link_to album_photo.album.supplier_account.fantasy_name, supplier_products_and_services_path(album_photo.album.supplier_account.supplier_id, :public_url => album_photo.album.supplier_account.public_url, :matridream_ic => params[:industry_category_ids]), :title => t("show") %></b><br/>				</div>								<div class="albums_h2">										<%= link_to album_photo.album.name, supplier_products_and_services_path(album_photo.album.supplier_account.supplier_id, :public_url => album_photo.album.supplier_account.public_url, :matridream_ic => params[:industry_category_ids]), :title => t("show") %>				</div>			</div>		</div>');
+        $box_<%=album_photo.id%>.css({ opacity: 0 });
+        $box_<%=album_photo.id%>.imagesLoaded(function(){
+        $box_<%=album_photo.id%>.animate({ opacity: 1 });
+        $('#albums_columns').append( $box_<%=album_photo.id%> ).masonry( 'appended', $box_<%=album_photo.id%>, true );
+        });
+	<% end %>
+	flag_up = false
+
+	<% else %>
+		$('#infinite-scroll').detach();
+		$('.loading').hide();
+	<% end %>

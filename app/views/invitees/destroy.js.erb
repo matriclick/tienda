@@ -1,0 +1,4 @@
+$("#invitees").html("<%=escape_javascript(render 'invitees', :@invitees => Invitee.where(:user_account_id=> current_user.user_account.id).search(params[:search]).order(sort_column+' '+sort_direction).paginate(:per_page => 20, :page=> params[:page])) %>");
+
+reload_fancyboxes();
+

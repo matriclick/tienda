@@ -1,0 +1,52 @@
+<div class="left_menu">
+	<div class="sidebarmenu bold">
+		<ul id="sidebarmenu1">
+			<li>
+				<div class="<%= "hover_style" if action_name == "tu_casa" %>">
+					<%= link_to 'Tu Casa', tu_casa_path, :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if @type_param.include?('living') %>">
+					<%= link_to 'Living', dresses_ver_path(:type => "tu-casa-living"), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if @type_param.include?('comedor') %>">
+					<%= link_to 'Comedor', dresses_ver_path(:type => "tu-casa-comedor"), :class => "left_link" %>
+				</div>
+				<ul>
+					<li>
+						<%= link_to 'Sillas', dresses_ver_path(:type => "tu-casa-comedor-sillas"), :class => "left_link" %>
+					</li>
+					<li>
+						<%= link_to 'Accesorios', dresses_ver_path(:type => "tu-casa-comedor-accesorios"), :class => "left_link" %>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if @type_param.include?('dormitorio') %>">
+					<%= link_to 'Dormitorio', dresses_ver_path(:type => "tu-casa-dormitorio"), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if @type_param.include?('decoración') %>">
+					<%= link_to 'Decoración', dresses_ver_path(:type => "tu-casa-decoración"), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if @type_param.include?('cocina') %>">
+					<%= link_to 'Cocina', dresses_ver_path(:type => "tu-casa-cocina"), :class => "left_link" %>
+				</div>
+			</li>
+			<li>
+				<div class="<%= "hover_style" if %w[user_conversations buy purchases gift_cards].include?(controller_name) %>">
+					<%= link_to 'Ver Compras', user_conversations_index_path(), :class => "left_link" %>
+				</div>
+				<% if (@user_conversations_unread_count || 0 ) > 0 %>
+					<div class="notification_counter<%= "_selected" if params[:controller] == "bookings" %> "><%= @user_conversations_unread_count.to_s %></div>
+				<% end %>	
+			</li>
+		</ul>
+	</div>
+</div>

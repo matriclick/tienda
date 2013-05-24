@@ -1,0 +1,23 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Estimada Carolina,<br/><br/>
+					<p>Quieren <strong>Puntos Matriclick</strong></p><br/>
+					<p>Email usuario: <strong><%= @user.email %></strong></p>
+					<p><strong>Gasto registrado</strong><br></p>
+					<p>Proveedor: <%= @expense.supplier_account_id.blank? ? @expense.supplier_account_fantasy_name : @expense.supplier_account.fantasy_name %></p>
+					<p>Rubro: <%= @expense.industry_category_id.blank? ? @expense.industry_category_name : @expense.industry_category.get_name %></p>
+					<p>Cantidad: <%= @expense.quantity %></p>
+					<p>Valor Total: <%= number_to_currency @expense.total_price %></p>
+					<p>Pagado: <%= number_to_currency @expense.payed_price %></p><br/><br/><br/>
+					Saludos,<br>
+					- "Los de Soporte"<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>
