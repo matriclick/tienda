@@ -6,8 +6,8 @@ set :shared_assets, %w{vendor/webpay} # Add custom symlinks directories here (se
 task :production do
   set :scm_passphrase, "holagorda1"
   set :application, "matriclick"
-  server "matriclick.com", :app, :web, :db, :primary => true
-  set :repository,  "git@github.com:matriclick/matriclick.git"
+  server "ec2-107-22-9-239.compute-1.amazonaws.com", :app, :web, :db, :primary => true
+  set :repository,  "git@github.com:matriclick/tienda.git"
   set :scm, "git"
   set :deploy_via, :remote_cache
   set :branch, "master"
@@ -17,38 +17,6 @@ task :production do
   
   set :deploy_to, "/home/#{user}/apps/#{application}"
   set :database_name, "#{application}"
-end
-
-task :testing do
-  set :scm_passphrase, "holagorda1"
-  set :application, "matriclick"
-  server "ec2-50-17-171-151.compute-1.amazonaws.com", :app, :web, :db, :primary => true
-  set :repository,  "git@github.com:matriclick/matriclick.git"
-  set :scm, "git"
-  set :deploy_via, :remote_cache
-  set :branch, "WebPay"
-  set :user, "ubuntu"
-  set :use_sudo, false
-  set :keep_releases, 2
-  
-  set :deploy_to, "/home/#{user}/apps/#{application}"
-  set :database_name, "#{application}"
-end
-
-task :qa do
-  set :scm_passphrase, "holagorda1"
-  set :application, "matriclick"
-  server "matriclick.com", :app, :web, :db, :primary => true
-  set :repository,  "git@github.com:matriclick/matriclick.git"
-  set :scm, "git"
-  set :deploy_via, :remote_cache
-  set :branch, "master"
-  set :user, "ubuntu"
-  set :use_sudo, false
-  set :keep_releases, 3
-  
-  set :deploy_to, "/home/#{user}/apps/qa_#{application}"
-  set :database_name, "qa_#{application}"
 end
 
 ssh_options[:forward_agent] = true
