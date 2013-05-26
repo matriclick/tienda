@@ -488,8 +488,8 @@ Matri::Application.routes.draw do
   	end	      
   end # ENDING OF SCOPE COUNTRY_URL_PATH
   
-  match ':country_url_path' => 'home#check_country', as: :root_country
-  root :to => "home#index"
+  match ':country_url_path' => 'dresses#bazar', as: :root_country
+  root :to => "dresses#bazar"
 
   #SEO: Realiza match con archivo routes.yml para cambio de nombre (alias) a la ruta - HAY QUE DEJARLO AL FINAL
   ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml')
