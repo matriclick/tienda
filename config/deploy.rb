@@ -2,7 +2,8 @@ require 'bundler/capistrano'
 
 default_run_options[:pty] = true
 set :shared_assets, %w{vendor/webpay} # Add custom symlinks directories here (separated by space). This is used for unversioned directories in the git repository. Example: %w{public/custom1 public/custom2 vendor/custom3}
-  
+set :application, "matriclick"
+
 task :production do
   set :scm_passphrase, "holagorda1"
   set :application, "matriclick"
