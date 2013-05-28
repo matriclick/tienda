@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class DressesController < ApplicationController
   around_filter :catch_not_found
+  before_filter :hide_left_menu
 
   @@scrolling_set = 12
   
@@ -537,4 +538,5 @@ class DressesController < ApplicationController
     
     add_breadcrumb dress_type_param.gsub('-', ' ').capitalize, dresses_ver_path(:type => dress_type_param)
   end
+  
 end
