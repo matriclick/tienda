@@ -1,7 +1,7 @@
 <div class="main_menu">
 	<div id="myslidemenu" class="jqueryslidemenu">
 		<ul>
-			<li><%= link_to 'Vestidos de Fiesta', dresses_ver_path(:type => "vestidos-fiesta") %></li>
+			<li><%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %></li>
 			<li><%= link_to 'Ropa de Mujer', dresses_ver_path(:type => "ropa-de-mujer") %>
 				<ul>
 					<li><%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
@@ -11,7 +11,7 @@
 					<li><%= link_to 'Polleras', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
 				</ul>
 			</li>
-			<li><%= link_to 'Accesorios', dresses_accessories_menu_path %>
+			<li><%= link_to 'Accesorios', dresses_ver_path(:type => "accesorios") %>
 				<ul>
 					<li><%= link_to 'Aros', dresses_ver_path(:type => "accesorios-aros") %></li>
 					<li><%= link_to 'Anillos', dresses_ver_path(:type => "accesorios-anillos") %></li>
@@ -21,7 +21,8 @@
 					<li><%= link_to 'Sombreros', dresses_ver_path(:type => "accesorios-sombreros") %></li>
 				</ul>
 			</li>
-			<li><%= link_to 'Zapatos y Botines', dresses_ver_path(:type => "zapatos") %></li>
+			<li><%= link_to 'Zapatos y Botas', dresses_ver_path(:type => "zapatos") %></li>
+			<li><%= link_to 'Ropa Interior', dresses_ver_path(:type => "ajuar") %></li>
 			<li><%= link_to 'Blog', blog_el_bazar_path %></li>
 		</ul>
 		<br style="clear:left" />

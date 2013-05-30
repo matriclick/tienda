@@ -137,6 +137,7 @@ class DressesController < ApplicationController
 	end
 	
 	def bazar
+	  @home = true
     @title_content = 'Bienvenido a El Bazar'
     @meta_description_content = 'Compra miles de productos de moda para la mujer: vestidos de fiesta, blusas, chaquetas, accesorios y muchas cosas más!'
 	  if !current_supplier.nil?

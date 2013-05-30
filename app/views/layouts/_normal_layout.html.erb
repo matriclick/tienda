@@ -4,13 +4,22 @@
 	<% title("Matriclick", false) %>
 	<%= render "layouts/user_bar" %>
 	<div class="clear"></div>
-	<div class="center" style="width: 980px; position: relative;border: solid 3px #fff;	margin-top: 5px;">
-		<div class="main_content">
-			<%= render "layouts/navigation" %>
-			<%= yield %>
-		</div>	
+	<div class="center">
+		<% if @home || false %>
+			<div class="home_content center">
+				<%= yield %>
+			</div>
+		<% else %>
+			<div class="main_content center">
+				<%= render "layouts/navigation" %>
+				<%= yield %>
+			</div>	
+		<% end %>
 	</div>
 	<div class="clear"></div>
+	<% if !(@home || false) %>
+		<br />
+	<% end %>
 	<% unless @supplier_login_footer %>
 		<%= render "layouts/footer" %>
 	<% else %>
