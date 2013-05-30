@@ -1,27 +1,12 @@
 <% if !dress.supplier_account.supplier_account_type.nil? %>
-	<% if dress.supplier_account.supplier_account_type.name == 'Vestidos de Novia Usados' or dress.supplier_account.fantasy_name == 'Burdeo Moda' %>	
-		<%= link_to image_tag('mail.png') + ' Contacta al vendedor de este vestido', dresses_dress_request_path(:slug => dress.slug), :id => :inline, :stlye => 'color:blue' %>
-	<% elsif dress.supplier_account.supplier_account_type.name == 'Vestidos Boutique' %>
-		<% if @code %>
-			<b>¡Sólo <%= @codes_available %> cupones disponbiles!</b>
-			<br /><br />
-			<b>Paga <%= number_to_currency @gift_card.price %> 
-				para obtener un descuento de <%= number_to_currency @gift_card.value %> en la tienda
-				<%= dress.supplier_account.fantasy_name %></b>
-				<br /><br />
-				<%= link_to "COMPRAR CUPÓN DE DESCUENTO", buy_details_path(:purchasable_type => @code.class, :purchasable_id => @code.id), :class => 'button_buy_dress' %>
-		<% else %>
-			<%= link_to "CUPONES AGOTADOS", '#', :class => 'button_buy_dress' %>
-		<% end %>
+	<% if dress.supplier_account.supplier_account_type.name == 'Vestidos de Novia Usados' %>	
+		<%= link_to image_tag('mail.png') + ' Contacta al vendedor de este vestido', 
+			dresses_dress_request_path(:slug => dress.slug), :id => :inline, :stlye => 'color:blue' %>
 	<% else %>
 		<% if dress.has_stock? %>
-			<%= link_to "COMPRAR AHORA", buy_details_path(:purchasable_type => dress.class, :purchasable_id => dress.id), :class => 'button_buy_dress_pink' %><br />
-			<% if false %> <!-- LANZAMIENTO: Modificar acá para ¡LO QUIERO DE REGALO! -->
-				<br />
-				<%= link_to "¡LO QUIERO DE REGALO!", mail_inline_i_want_it_path(:dress_id => dress.id), :id => 'form_inline', :class => 'button_buy_dress' %>
-			<% end %>
+			<%= link_to "COMPRAR AHORA", buy_details_path(:purchasable_type => dress.class, :purchasable_id => dress.id), :class => 'button_buy_dress_pink' %>
 			<div style="float:right; width:120px; text-align:center; margin-top:-15px; line-height:20px;">
-				<b><%= link_to 'Agregar al carrito', buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), :method => :post %></b>
+				<b><%= link_to 'o agregar al carrito', buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), :method => :post %></b>
 				<%= link_to image_tag('shopping_cart/add-to-cart-small.jpeg', :class => 'image_button'), buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), :method => :post %>
 			</div>
 		<% else %>
