@@ -1,36 +1,22 @@
-<div style="width:800px; height:300px;">
+<div style="width:550px; height:200px;">
 	<div style='float:right;'>
-		<%= image_tag 'subscriber_popup/matriclick-casonas-banqueteras.png', :alt => 'Matriclick Casonas y Banqueteras' %>
-		<div>
-			<span class="lucida small">
-				<%= link_to 'Si ya estás suscrito continúa a Matriclick.com', '#', onClick: '$.fancybox.close();', :class => 'blue' %>
-			</span>
-		 </div>
+		<%= image_tag 'subscriber_popup/vestido-suscribirse.jpg', :alt => 'Vestidos de Fiesta' %>
 	</div>
-	<div style='width:500px'>
-		<h1>Suscríbete a la comunidad Matriclick</h1>
+	<div>
+		<h1 style="width:250px">Suscríbete a Incidit.com</h1>
 		<%= form_for @subscriber, :url => subscription_create_path, :validate => true do |f| %>
-		  <span>
-			<%= f.label :email, 'Correo' %> <%= f.text_field :email %>
-		  </span>
-		  <span style="margin-left:10px">
+		  <div><%= f.label :email, 'Correo' %> <%= f.text_field :email %></div>
+		  <div style="margin-top:10px">
 			<%= f.label :commune_id, 'Comuna' %> 
 			<%= f.grouped_collection_select :commune_id, Region.order(:name), :communes, :name, :id, :name, :prompt => t('select') %>
-		  </span>
-		  <div style="margin-top:15px">
-			<h2>Cuéntanos tus áreas de interés</h2>
-			<% @subscriber_preferences.each do |sp| %>
-		  		<div style="margin-top:5px">
-					<%= check_box_tag("subscriber[subscriber_preference_ids][]", sp.id) %> 
-					<b style="color:#555"><%= sp.name %></b> <span class="lucida small"><%= sp.description %></span>
-				</div>
-			<% end %>
 		  </div>
-		  <br /><br />
 		  <%= f.hidden_field :url_coming_from, :value => session[:url_coming_from] %>
-		  <div class="actions">
+		  <div style="margin:20px 10px 10px 10px;">
 		    <%= f.submit 'Suscribirse', :class => 'sign_in_tab_button' %>
 		  </div>
 		<% end %>
+		<div class="lucida small" style="margin:40px 10px 10px 10px;">
+			<%= link_to 'Si ya estás suscrito continúa a Incidit.com', '#', onClick: '$.fancybox.close();', :class => 'blue' %>
+		</div>
 	</div>
 </div>

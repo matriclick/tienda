@@ -49,10 +49,8 @@ class HomeController < ApplicationController
 	
 	def subscription
     @subscriber = Subscriber.new
-    @subscriber_preferences = SubscriberPreference.all
-    
-    @title_content = 'Subscribirse a Matriclick'
-  	@meta_description_content = 'Suscríbete a Matriclick.com para recibir información sobre lo que más te interese'  	
+    @title_content = 'Subscribirse a Incidit.com'
+  	@meta_description_content = 'Suscríbete a Incidit.com para recibir toda la información sobre moda y tendencias'  	
   	
     respond_to do |format|
       format.html { render :layout => false }
@@ -62,7 +60,7 @@ class HomeController < ApplicationController
   
   def subscription_create
     @subscriber = Subscriber.new(params[:subscriber])
-    @subscriber_preferences = SubscriberPreference.all
+    @subscriber.subscriber_preferences << SubscriberPreference.find_by_name("El Bazar")
     
     respond_to do |format|
       if @subscriber.save
