@@ -1,5 +1,5 @@
 <div class="blog_show">
-	<h1 class="blog_titulos_show"><%= @post.title %></h1>
+	<h1><%= @post.title %></h1>
 	<div style="float:left; width:40px"><%= image_tag 'blog/quotes.png', :alt => @post.title %></div>	
 	<h2 class="blog_texto_introduction"><%= @post.introduction.html_safe %></h2>
 	<div class="clear"></div>
@@ -7,6 +7,7 @@
 		<div class="addthis_toolbox addthis_default_style ">
 			<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 			<a class="addthis_button_tweet"></a>
+			<a class="addthis_button_pinterest_pinit"></a> 
 		</div>
 		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
 	</div>
@@ -37,36 +38,12 @@
 		<% end %>
 	</div>
 	<br />
-	<div class="titulos top_dottedLine">
-		<%= t('commentaries') %>
-	</div>
+	<div class="top_dottedLine"></div>
+	<br />
   	<div class="clear sin_titulos"></div>
-  	<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="4" data-width="620"></div>
-	<% if !@related_posts.blank? %>
-		<div class="otros_articulos top_dottedLine">
-			<% case @post.post_type%>
-				<% when 'Post' %>
-					Continúa leyendo algunos de nuestros últimos artículos relacionados
-				<% when 'Pack' %>
-					Continúa revisando otros matrimonios completos
-			<% end %>
-			
-		</div>
-	<% end %>
-	
-	<div>
+  	<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="4" data-width="950"></div>
 	<% @related_posts.each do |post| %>
-		<%= render 'small_post', :post => post %>		
+		<%= render 'small_post', :post => post %>
 	<% end %>
 	</div>
 </div>
-<% if @post.post_type == 'Post'%>
-	<div style="float:right; width:162px; margin-left:4px; padding:10px 10px 10px 0px; border:dotted 1px #888; background:#F5F5F5;">
-		<div style="margin-left:10px; margin-bottom:10px; color: #444;">
-			<b>Proveedores relacionados</b>
-		</div>
-	<%= render 'related_suppliers', related_supplier_accounts: @related_supplier_accounts %>
-	</div>
-<% end %>
-
-

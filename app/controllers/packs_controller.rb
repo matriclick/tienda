@@ -130,9 +130,9 @@ class PacksController < ApplicationController
 	  
   	@title_content = 'Moda y Tendencias'
   	@meta_description_content = 'Reportajes e información sobre las últimas tendencias de la moda local e internacional'
-  	@h1 = 'Título para El Bazar'
-  	@h2 = 'Bajada para El Bazar más larga que el título'
-  	@h3 = 'Introducción para El Bazar más larga que la bajada'
+  	@h1 = 'Revista de Moda y Tendencias (por definir por Pili)'
+  	@h2 = 'En este blog encontrarás datos, ideas y todo lo que necesitas saber para que te te sigan (por definir por Pili)'
+  	@h3 = 'Alguna introducción para El Bazar más larga que la bajada (por definir por Pili)'
     add_breadcrumb "Blog El Bazar", :blog_el_bazar_path
       	
   	respond_to do |format|
