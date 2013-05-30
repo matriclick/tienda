@@ -1,98 +1,24 @@
-<div id="user_bar">
-	<div class="box_nine_six_cero center relative">
-		<div id="top_menu">
-			<% if admin? %> <!-- LANZAMIENTO: Modificar acá para Internacionalización -->
-				<div class="flag_box">
-					<%= link_to (image_tag("country/selected/#{session[:country].url_path}.jpg")), '#', :class => 'country_down' %>
-					<%= link_to session[:country].name, '#',:style => 'color:white;', :class => 'country_down' %>
-					<%= link_to (image_tag("country/arrow.png")), '#', :class => 'country_down' %>
-					<div class="country_tab country_tab_content">
-						<%= render "layouts/country_selection" %>
-					</div>
-				</div>
-			<% end %>
-			
-			<!-- MENÚ TEMPORAL -->
-			<%= link_to 'Novios', products_and_services_catalog_select_industry_category_path, :style => 'left:230px', 
-				:class => (check_top_menu == 'Novios' ? 'selected_top_menu' : 'top_menu') %>
-			
-			<% if ['chile'].include?(session[:country].url_path) %>
-			
-				<%= link_to 'El Bazar', bazar_path, :style => 'left:325px', 
-					:class => (check_top_menu == 'El Bazar' ? 'selected_top_menu' : 'top_menu') %>
-			
-				<%= link_to 'Tu Casa', tu_casa_path, :style => 'left:425px', 
-					:class => (check_top_menu == 'Viajes' ? 'selected_top_menu' : 'top_menu') %>
-
-				<%= link_to 'Mi Bebe', mibebe_menu_path, :style => 'left:525px', 
-					:class => (check_top_menu == 'Bebe' ? 'selected_top_menu' : 'top_menu') %>
-
-			<% end %>
-			
-			<div style="left:750px; top:10px; position:absolute;">
-				<% if user_signed_in? %>
-					<%= link_to "#{current_user.email} | ", edit_user_registration_path,  :class => 'white_link', :rel => 'nofollow' %> 
-					<%= link_to 'Salir', destroy_user_session_path, method: :delete,  :class => 'white_link', :rel => 'nofollow' %>
-				<% else %>
-					<%= link_to 'Ingresar', '#', :class => 'log_in_down', :rel => 'nofollow' %> <div class="log_in_down">|</div> 
-					<%= link_to 'Registro', new_user_registration_path, :class => 'log_in_down_reg', :rel => 'nofollow' %>
-				<% end %>
-			</div>
-			<div class="log_in sign_in_tab" style="left:680px; top:30px; position:absolute; z-index:999">
-				<%= render "layouts/sign_in_tab" %>
-			</div>
-			
-			
-			<% if session[:preview] == true and not @supplier.blank? %>          
-				<% if !@supplier.supplier_account.nil? %>          
-		      		<% if @supplier.supplier_account.approved_by_supplier.nil? or @supplier.supplier_account.approved_by_supplier == false  %>
-			        <div id="validation_link">
-					      <%= link_to t('validate_me'), supplier_account_path(@supplier, :validate_account => true), 
-									   :method => :put, :confirm => t("are_you_sure_you_want_to_validate") %>
-					</div>
-			      	<% elsif @supplier.supplier_account.approved_by_supplier == true && 
-							(@supplier.supplier_account.approved_by_us == false or @supplier.supplier_account.approved_by_us.nil? ) %>
-			      		<div id="validation_label">
-			        		<%= t('awaiting_for_matriclick_approval') %>
-			      		</div>
-			      	<% end %>
-				<% end %>
-				<div class="user_bar_login">
-					<%= link_to t('close_preview'), "#", :onclick =>"window.close();return false;" %>
-				</div>
-			 <% end %>	
-		</div>
-	</div>
+<div style="left:750px; top:10px; position:absolute;">
+	<% if user_signed_in? %>
+		<%= link_to "#{current_user.email} | ", edit_user_registration_path,  :class => 'white_link', :rel => 'nofollow' %> 
+		<%= link_to 'Salir', destroy_user_session_path, method: :delete,  :class => 'white_link', :rel => 'nofollow' %>
+		<div class="log_in_down">| Carrito de Compras</div> 
+	<% else %>
+		<%= link_to 'Ingresar', '#', :class => 'log_in_down', :rel => 'log_in_down' %> <div class="log_in_down">|</div> 
+		<%= link_to 'Registro', new_user_registration_path, :class => 'log_in_down', :rel => 'nofollow' %>
+		<div class="log_in_down">| Carrito de Compras</div> 
+	<% end %>
+</div>
+<div class="log_in sign_in_tab" style="left:680px; top:30px; position:absolute; z-index:999">
+	<%= render "layouts/sign_in_tab" %>
 </div>
 <div class="center box_nine_six_cero" style="margin-top:5px;">
-	<div style="float:right">
-		<%= render 'layouts/page_follow_us' %>
-	</div>
 	<div class="logo_matri">
-		<%= render 'layouts/page_logo' %>
+		<%= link_to (image_tag 'logo_matri_bazar.jpg', :alt => "el-bazar de matriclick.com"), bazar_path %>
 	</div>
-	<div class="credits_and_cart">
-	<% if user_signed_in? %>
-		<% if current_user.cart_items or current_user.check_if_has_credits %>
-			<div style="color:#7e7e7e">
-				<div style="border:2px solid #eaeaea; text-align:center; padding:2px 10px 2px 10px; font-weight:bold; line-height:20px">
-					<% if current_user.check_if_has_credits %>
-						<div >
-							Tienes <%= number_to_currency current_user.credit_amount %> en créditos
-						</div>
-					<% end %>
-					<% if current_user.cart_items %>
-						<div>
-							<%= link_to 'Tienes '+current_user.cart_items.to_s+' producto en el carrito', buy_view_cart_path, :class => 'blue' %>
-						</div>
-					<% end %>
-				</div>
-			</div>
-		<% end %>
-	<% end %>
+	<div class="logo_matri" style="border-bottom:1px solid #ccc; width:800px;">
+		<div>
+			<%= render 'layouts/main_menu' %>
+		</div>
 	</div>
-</div>
-<div class="clear"></div>
-<div class="full_content_inapp center" style="">
-	<%= render 'layouts/main_menu' %>
 </div>

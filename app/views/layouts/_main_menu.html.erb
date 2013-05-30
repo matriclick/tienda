@@ -1,21 +1,9 @@
-<div class="main_menu shadow">
+<div class="main_menu">
 	<div id="myslidemenu" class="jqueryslidemenu">
 		<ul>
-			<li><%= link_to 'Novios', products_and_services_catalog_select_industry_category_path %>
-				<ul>
-					<li><%= link_to 'Casonas y Centros de Eventos', casonas_matriclick_path %></li>
-					<li><%= link_to 'Banquetería', products_and_services_catalog_index_path(:industry_category_ids => 'banqueteras') %></li>
-					<li><%= link_to 'Vestidos de Novia', dresses_wedding_dress_menu_path %></li>
-					<li><%= link_to 'Fotografía y Video', products_and_services_catalog_album_path(:industry_category_ids => 'fotografia-y-video') %></li>
-					<li><%= link_to 'DJ y Música', products_and_services_catalog_index_path(:industry_category_ids => 'dj-y-musica') %></li>
-					<li><%= link_to 'Ofertas Especiales', opportunities_path %></li>
-					<li><%= link_to 'Ver todos', products_and_services_catalog_select_industry_category_path %></li>
-				</ul>
-			</li>
 			<li><%= link_to 'Vestidos de Fiesta', dresses_ver_path(:type => "vestidos-fiesta") %></li>
 			<li><%= link_to 'Ropa de Mujer', dresses_ver_path(:type => "ropa-de-mujer") %>
 				<ul>
-					<li><%= link_to 'Zapatos y Botines', dresses_ver_path(:type => "zapatos") %></li>
 					<li><%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
 					<li><%= link_to 'Chalecos y Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
 					<li><%= link_to 'Chaquetas', dresses_ver_path(:type => "ropa-de-mujer-chaquetas") %></li>
@@ -33,16 +21,8 @@
 					<li><%= link_to 'Sombreros', dresses_ver_path(:type => "accesorios-sombreros") %></li>
 				</ul>
 			</li>
-			<li><%= link_to 'Decoración y Vivienda', tu_casa_path %>
-				<ul>
-					<li><%= link_to 'Living', dresses_ver_path(:type => "tu-casa-living") %></li>
-					<li><%= link_to 'Comedor', dresses_ver_path(:type => "tu-casa-comedor") %></li>
-					<li><%= link_to 'Dormitorio', dresses_ver_path(:type => "tu-casa-dormitorio") %></li>
-					<li><%= link_to 'Decoración', dresses_ver_path(:type => "tu-casa-decoración") %></li>
-					<li><%= link_to 'Cocina', dresses_ver_path(:type => "tu-casa-cocina") %></li>
-				</ul>
-			</li>
-			<li><%= link_to 'Ropa de Bebe', mibebe_menu_path %></li>
+			<li><%= link_to 'Zapatos y Botines', dresses_ver_path(:type => "zapatos") %></li>
+			<li><%= link_to 'Blog', dresses_ver_path(:type => "zapatos") %></li>
 		</ul>
 		<br style="clear:left" />
 	</div>
