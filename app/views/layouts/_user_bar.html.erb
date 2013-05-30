@@ -1,7 +1,7 @@
 <div style="left:750px; top:10px; position:absolute;">
 	<% if user_signed_in? %>
-		<%= link_to "#{current_user.email} | ", edit_user_registration_path,  :class => 'white_link', :rel => 'nofollow' %> 
-		<%= link_to 'Salir', destroy_user_session_path, method: :delete,  :class => 'white_link', :rel => 'nofollow' %>
+		<%= link_to "#{current_user.email} | ", edit_user_registration_path,  :class => 'log_in_down', :rel => 'nofollow' %> 
+		<%= link_to 'Salir', destroy_user_session_path, method: :delete,  :class => 'log_in_down', :rel => 'nofollow' %>
 		<div class="log_in_down">| Carrito de Compras</div> 
 	<% else %>
 		<%= link_to 'Ingresar', '#', :class => 'log_in_down', :rel => 'log_in_down' %> <div class="log_in_down">|</div> 
