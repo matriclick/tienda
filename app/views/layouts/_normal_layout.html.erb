@@ -3,22 +3,13 @@
 <% else %>
 	<% title("Matriclick", false) %>
 	<%= render "layouts/user_bar" %>
-	
-	<% # FGM: Catch all login-related views here %>
-	<% if (params[:controller] == "home" and (params[:action] == "check_country" or params[:action] == "chile" or params[:action] == "peru" or params[:action] == "tour" or params[:action] == "test_home")) or 
-	(params[:controller] == "devise/registrations" and (params[:action] == "new" or params[:action] == "create")) or
-	(params[:controller] == "devise/passwords" and (params[:action] == "new" or params[:action] == "create")) or
-	(params[:controller] == "devise/sessions" and (params[:action] == "new" or params[:action] == "create")) or 
-	(params[:controller] == "users/registrations" and (params[:action] == "new" or params[:action] == "create")) %>
-		<%= yield %>
-	<% else %>
+	<div class="clear"></div>
 	<div class="center" style="width: 980px; position: relative;border: solid 3px #fff;	margin-top: 5px;">
 		<div class="main_content">
 			<%= render "layouts/navigation" %>
 			<%= yield %>
 		</div>	
 	</div>
-	<% end %>
 	<div class="clear"></div>
 	<% unless @supplier_login_footer %>
 		<%= render "layouts/footer" %>

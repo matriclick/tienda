@@ -1,12 +1,20 @@
 <div style="left:750px; top:10px; position:absolute;">
 	<% if user_signed_in? %>
 		<%= link_to "#{current_user.email} | ", edit_user_registration_path,  :class => 'log_in_down', :rel => 'nofollow' %> 
-		<%= link_to 'Salir', destroy_user_session_path, method: :delete,  :class => 'log_in_down', :rel => 'nofollow' %>
-		<div class="log_in_down">| Carrito de Compras</div> 
+		<%= link_to 'Salir', destroy_user_session_path, method: :delete,  :class => 'no_underline_login', :rel => 'nofollow' %>
 	<% else %>
 		<%= link_to 'Ingresar', '#', :class => 'log_in_down', :rel => 'log_in_down' %> <div class="log_in_down">|</div> 
-		<%= link_to 'Registro', new_user_registration_path, :class => 'log_in_down', :rel => 'nofollow' %>
-		<div class="log_in_down">| Carrito de Compras</div> 
+		<%= link_to 'Registro', new_user_registration_path, :class => 'no_underline_login', :rel => 'nofollow' %>
+	<% end %>
+		| 
+	<% if current_user %>
+		<% if current_user.cart_items %>
+			<%= link_to 'Carrito de Compras ('+current_user.cart_items.to_s+')', buy_view_cart_path, :class => 'no_underline_login' %>
+		<% else %>
+			<%= link_to 'Carrito de Compras', buy_view_cart_path, :class => 'no_underline_login' %>
+		<% end %>			
+	<% else %>
+		<%= link_to 'Carrito de Compras', buy_view_cart_path, :class => 'no_underline_login' %>
 	<% end %>
 </div>
 <div class="log_in sign_in_tab" style="left:680px; top:30px; position:absolute; z-index:999">

@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
 	def select_current_shopping_cart
 	  self.shopping_carts.is_active.count > 0 ? self.shopping_carts.is_active.first : ShoppingCart.create(:user_id => self.id, :active => true)
   end
-  
+    
   def cart_items
 	  if self.shopping_carts.is_active.count > 0 
 	     self.shopping_carts.is_active.first.shopping_cart_items.size > 0 ? self.shopping_carts.is_active.first.shopping_cart_items.size : false
