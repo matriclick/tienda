@@ -1,10 +1,16 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  include Rails.application.routes.url_helpers
   skip_before_filter :require_no_authentication, :only => [ :new, :create ]
-  
+      
   def new
     resource = build_resource({})
     resource.email = params[:email] unless params[:email].blank?
     respond_with_navigational(resource){ render_with_scope :new }
+  end
+  
+  def edit
+    add_breadcrumb 'Tu cuenta', edit_user_registration_path
+		@purchases = current_user.purchases.where(:status => 'finalizado')
   end
   
   # POST /resource

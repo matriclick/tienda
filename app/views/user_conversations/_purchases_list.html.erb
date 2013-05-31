@@ -13,7 +13,8 @@
 					<%= number_to_currency(purchase.price) + ' ' + purchase.currency %>
 				</div>
 				<div style="margin-top:10px">
-					<%= link_to 'Ver Detalle', purchase.purchasable.link_to_view(params[:country_url_path], purchase.id), :style => 'color:blue' %>
+					<%= link_to 'Ver Detalle', purchase.purchasable.link_to_view(params[:country_url_path], purchase.id), 
+						:class => 'blue no_underline' %>
 				</div>		
 			</div>
 			<div class="clear"></div>

@@ -58,9 +58,10 @@ class PurchasesController < ApplicationController
   end
   
   def show_for_user
+    add_breadcrumb 'Tu cuenta', edit_user_registration_path
     @purchase = Purchase.find(params[:id])
     @purchasable = eval(@purchase.purchasable_type + '.find ' + @purchase.purchasable_id.to_s)
-
+    
     if !@purchase.quantity.blank?
       @subtotal = @purchasable.price * @purchase.quantity
     else
@@ -68,7 +69,7 @@ class PurchasesController < ApplicationController
     end
 
     if @purchase.user != current_user
-      redirect_to user_conversations_index_path
+      redirect_to edit_user_registration_path
     end
   end
 
