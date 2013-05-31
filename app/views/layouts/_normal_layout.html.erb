@@ -4,7 +4,7 @@
 	<% title("Matriclick", false) %>
 	<%= render "layouts/user_bar" %>
 	<div class="clear"></div>
-	<div class="center">
+	<div class="center <%= @background ? 'background' : '' %>">
 		<% if @home || false %>
 			<div class="home_content center">
 				<%= yield %>
