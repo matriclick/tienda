@@ -29,6 +29,14 @@
   		<%= f.label :visible, '¿El post estará visible?' %> <%= f.check_box :visible %>
 	</div>
 	<br />
+	<div class="help_tip">
+		IMPORTANTE: este campo define los productos que se mostrarán como relacionados<br />
+		Los productos relacionados son los que contengan todas estas palabras claves en la descripción del vestido<br />
+		Las palabras hay que escribirlas con el siguiente formato: palabra1, palabra2, palabra3<br />
+		Ejemplo: vestido, blanco, peplum
+	</div>
+	<%= f.label :position, 'Keywords' %><%= mark_required @post, :product_keywords %> <%= f.text_field :product_keywords %>
+	<br />	
 	<div class="field">
 		<div class="help_tip">
 			Solo subir imágenes de este tamaño: 700px de ancho x 350px de largo <br />

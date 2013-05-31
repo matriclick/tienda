@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503180902) do
+ActiveRecord::Schema.define(:version => 20130531142921) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -602,6 +602,7 @@ ActiveRecord::Schema.define(:version => 20130503180902) do
     t.integer  "dress_status_id"
     t.integer  "position",            :default => 99
     t.string   "slug"
+    t.string   "product_keywords"
   end
 
   add_index "dresses", ["slug"], :name => "index_dresses_on_slug", :unique => true
@@ -1058,6 +1059,7 @@ ActiveRecord::Schema.define(:version => 20130503180902) do
     t.boolean  "visible"
     t.integer  "country_id",              :default => 1
     t.string   "post_type"
+    t.string   "product_keywords"
   end
 
   add_index "posts", ["slug"], :name => "index_posts_on_slug"

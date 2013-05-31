@@ -1,0 +1,20 @@
+<div id="albums_columns" style="width:100%">
+<% related_dresses.each do |dress| %>
+		<div class="dresses_album_box dresses_index_box left <%= @type_param.include?('accesorios') ? 'dresses_index_box_small' : 'dresses_index_box_regular' %> first_set_dress">
+			<% unless dress.dress_images.blank? %>
+				<% if dress.dress_status.name == 'Vendido' %>
+					<div style="position:absolute;right:5px;">
+						<%= image_tag 'dresses_icons/sold.png' %>
+					</div>
+				<% end %>
+				<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
+							dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+			<% end %>
+			<div style="text-align:left; width:170px; padding-left:15px;">
+				<span id="dress_intro"> <%= link_to((j(dress.introduction[0..30]) unless dress.introduction.nil?), 
+										dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug)) %></span><br />
+				<span id="dress_price"> <%= "#{number_to_currency dress.price}" %></span>
+			</div>
+		</div>
+<% end %>
+</div>

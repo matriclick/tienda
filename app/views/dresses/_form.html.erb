@@ -77,21 +77,24 @@
 		<tr>
 			<td>
 				<div class="help_tip">
-					Describe los cuidados especiales que haya que tener con el item. Por ejemplo lavar a mano u otros.
-				</div>
-				<%= f.label :care, 'Cuidados' %><%= mark_required @dress, :care %><br />
-		    	<%= f.text_area :care, :size => '8x10' %>		
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div class="help_tip">
 					Política de devolución (días que se acepta, cómo funciona, etc.)
 				</div>
 				<%= f.label :refund, 'Política de devolución' %><%= mark_required @dress, :refund %><br />
 		    	<%= f.text_area :refund, :size => '8x10' %>		
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					IMPORTANTE: este campo define los productos que se mostrarán como relacionados<br />
+					Los productos relacionados son los que contengan todas estas palabras claves en la descripción del vestido<br />
+					Las palabras hay que escribirlas con el siguiente formato: palabra1, palabra2, palabra3<br />
+					Ejemplo: vestido, blanco, peplum
+				</div>
+				<%= f.label :position, 'Keywords' %><%= mark_required @dress, :product_keywords %> <%= f.text_field :product_keywords %>
+			</td>
+		</tr>
+		
 	</table>
 	<% if defined? @supplier_account %>
 		<% if !@supplier_account.supplier_account_type.nil? and @supplier_account.supplier_account_type.name == 'Vestidos de Novia Usados' %>

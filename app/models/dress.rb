@@ -24,6 +24,35 @@ class Dress < ActiveRecord::Base
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	
+	def get_related_dresses
+	  texto = self.product_keywords
+    unless texto.nil?
+  	  keywords = texto.split(",")
+  	  like = ''
+  	  keywords.each_with_index do |keyword, i|
+  	    i > 0 ? like = like+' and ' : ''
+  	    like = like+'description like "%'+keyword.strip+'%"'
+      end
+  	  return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s+' and '+like).order('position').limit(4)
+	  else
+	    return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s).order('position').limit(4)
+    end
+  end
+  
+  def self.get_related_dresses_by_string(texto = nil)
+    unless texto.nil?
+  	  keywords = texto.split(",")
+  	  like = ''
+  	  keywords.each_with_index do |keyword, i|
+  	    i > 0 ? like = like+' and ' : ''
+  	    like = like+'description like "%'+keyword.strip+'%"'
+      end
+  	  return Dress.available_to_purchase.where(like).order('position').limit(4)
+    else
+  	  return Dress.available_to_purchase.order('position').limit(4)
+    end
+  end
+  
 	def dress_type
 	  self.dress_types.first
   end
@@ -59,6 +88,11 @@ class Dress < ActiveRecord::Base
 	  vendido_oculto_id = DressStatus.find_by_name("Vendido y Oculto").id
 	  
 	  where('dress_status_id <> ? and dress_status_id <> ?', oculto_id, vendido_oculto_id).order('position ASC')
+  end
+
+	def self.available_to_purchase
+	  disp = DressStatus.find_by_name("Disponible").id
+	  where('dress_status_id = ?', disp).order('position ASC')
   end
   
   def find_gift_card

@@ -4,104 +4,7 @@ class DressesController < ApplicationController
   before_filter :hide_left_menu
 
   @@scrolling_set = 12
-  
-  def tu_casa
-    add_breadcrumb "Tu Casa", :tu_casa_path
-    @h1 = 'Tu Casa Matriclick'
-    @h2 = 'Estilo para tu hogar'
-    @h3 = 'Organiza tu '+
-    view_context.link_to('living', dresses_ver_path(:type => "tu-casa-living"))+
-    ', arma tu '+
-    view_context.link_to('comedor', dresses_ver_path(:type => "tu-casa-comedor"))+
-    ', haz de tu '+
-    view_context.link_to('dormitorio', dresses_ver_path(:type => "tu-casa-dormitorio"))+
-    ' un lugar único e íntimo, revisa todos los items de '+
-    view_context.link_to('decoración', dresses_ver_path(:type => "tu-casa-decoración"))+
-    ' que hemos seleccionado para ti y dale un toque de diseño a tu '+
-    view_context.link_to('cocina', dresses_ver_path(:type => "tu-casa-cocina"))
     
-    @p = '<p>Tu casa nace para que organices tu hogar de la forma que tú quieres, con el estilo y sello que tú le quieras dar.</p><p>Queremos que en este espacio encuentres ideas para potenciar las tuyas y que puedas comprar los distintos productos que necesitas para ejecutar tu visión y armar tu espacio único.</p>'
-    
-    render :template => "dresses/tu_casa/tu_casa"
-  end
-  
-  def tu_casa_living
-    add_breadcrumb "Tu Casa", :tu_casa_path
-    add_breadcrumb "Living", :tu_casa_living_path
-    @h1 = 'Tu Living'
-    @h2 = 'Mezcla estilos en muebles y decoración'
-    @h3 = 'Elige ese mueble especial y haz de tu living un espacio acogedor y entretenido'
-    @p = '<p>Comencemos a armar tu living, vamos por esa mesa de centro, esos sofás y sillas que calzan perfecto con la alfombra y el bar que tienes pensado armar.</p>'
-    
-    render :template => "dresses/tu_casa/living"
-  end
-
-  def tu_casa_comedor
-    add_breadcrumb "Tu Casa", :tu_casa_path
-    add_breadcrumb "Comedor", :tu_casa_comedor_path
-    @h1 = 'Tu Comedor'
-    @h2 = 'Comedores, sillas y decoración'
-    @h3 = '¡Lúcete con tus invitados!'
-    @p = '<p>Elige la mejor combinación de muebles y accesorios para tu mesa</p>'
-    
-    render :template => "dresses/tu_casa/comedor"
-  end
-
-  def tu_casa_dormitorio
-    add_breadcrumb "Tu Casa", :tu_casa_path
-    add_breadcrumb "Dormitorio", :tu_casa_dormitorio_path
-    @h1 = 'Tu Dormitorio'
-    @h2 = 'Estilo en decoración para tu hogar'
-    @h3 = 'Elige un estilo para darle un poco más de carácter a tu dormitorio, mezclando diversos artículos de decoración, muebles y un toque de color.'
-    @p = '<p>El dormitorio es tu lugar en el mundo</p>'
-    
-    render :template => "dresses/tu_casa/dormitorio"
-  end
-
-  def tu_casa_decoracion
-    add_breadcrumb "Tu Casa", :tu_casa_path
-    add_breadcrumb "Decoración", :tu_casa_decoracion_path
-    @h1 = 'Decoración'
-    @h2 = 'Combinar para impresionar'
-    @h3 = 'Encontrarás distintos artículos de decoración para hacer de tu hogar una portada de revista. ¡Juega a ser diseñador!'
-    @p = '<p>El dormitorio es tu lugar en el mundo</p>'
-    
-    render :template => "dresses/tu_casa/decoracion"
-  end
-
-  def tu_casa_cocina
-    add_breadcrumb "Tu Casa", :tu_casa_path
-    add_breadcrumb "Cocina", :tu_casa_cocina_path
-    @h1 = 'Tu Cocina'
-    @h2 = 'Un toque de diseño a tu cocina'
-    @h3 = 'Que la cocina sea un punto de encuentro entre diseño y comodidad'
-    @p = '<p>Encontrarás artículos de decoración que ayudarán a darle un vuelco al uso cotidiano de tu cocina. ¡Agrégale estilo! Y verás como tu cocina se transforma en uno de tus lugares favoritos de tu hogar.</p>'
-    
-    render :template => "dresses/tu_casa/cocina"
-  end
-
-  def tu_casa_terraza
-    add_breadcrumb "Tu Casa", :tu_casa_path
-    add_breadcrumb "Terraza", :tu_casa_terraza_path
-    @h1 = 'Tu Casa Matriclick'
-    @h2 = 'Estilo en decoración para tu hogar'
-    @h3 = '¡Arma tu casa desde tu casa!'
-    @p = '<p>Ama tu living</p>'
-    
-    render :template => "dresses/tu_casa/terraza"
-  end
-  
-  def tu_casa_bano
-    add_breadcrumb "Tu Casa", :tu_casa_path
-    add_breadcrumb "Baño", :tu_casa_bano_path
-    @h1 = 'Tu Baño'
-    @h2 = 'Un espacio relajante en tu hogar'
-    @h3 = 'Encuentra los accesorios perfectos para tu baño'
-    @p = '<p>El dormitorio es tu lugar en el mundo</p>'
-    
-    render :template => "dresses/tu_casa/bano"
-  end
-  
   def faq_elbazar
     #SEO: @title_content =
     #SEO: @meta_description_content =
@@ -301,6 +204,7 @@ class DressesController < ApplicationController
     
     @dress = Dress.find_by_slug(params[:slug])
     @type = DressType.find_by_name params[:type]
+    @related_dresses = @dress.get_related_dresses
             
     if !@dress.nil? and !@type.nil?
       if @dress.supplier_account.nil? or @dress.dress_images.first.nil?

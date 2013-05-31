@@ -25,6 +25,8 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
+    @related_dresses = Dress.get_related_dresses_by_string(@post.product_keywords)
+    
     case @post.post_type
       when 'Post'
         @related_posts = Post.where(:country_id => session[:country].id).by_industry_category(@post.industry_category_id).not_id(@post.id)
