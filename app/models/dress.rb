@@ -26,7 +26,7 @@ class Dress < ActiveRecord::Base
 	
 	def get_related_dresses
 	  texto = self.product_keywords
-    unless texto.nil?
+    unless texto.nil? or texto.empty?
   	  keywords = texto.split(",")
   	  like = ''
   	  keywords.each_with_index do |keyword, i|
@@ -40,7 +40,7 @@ class Dress < ActiveRecord::Base
   end
   
   def self.get_related_dresses_by_string(texto = nil)
-    unless texto.nil?
+    unless texto.nil? or texto.empty?
   	  keywords = texto.split(",")
   	  like = ''
   	  keywords.each_with_index do |keyword, i|
