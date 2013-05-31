@@ -308,7 +308,7 @@ class BuyController < ApplicationController
         @purchase.save(:validate => false)
         
         #ENVÍA EL CORREO PARA AVISAR QUE OCURRIÓ UNA COMPRA
-        #NoticeMailer.purchase_email(@purchase, params[:country_url_path]).deliver
+        NoticeMailer.purchase_email(@purchase, params[:country_url_path]).deliver
       end
     end
   end
