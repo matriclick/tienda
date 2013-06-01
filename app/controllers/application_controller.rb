@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ApplicationController < ActionController::Base  
-  before_filter :set_user_language, :new_feedback, :count_unread_conversations, :meta_content_default, :set_time_zone, :set_country, :save_matriclick_last_url_in_session, :set_top_menu, :set_locale_from_url, :subscriber_pop_up
+  before_filter :set_user_language, :meta_content_default, :set_time_zone, :set_country, :save_matriclick_last_url_in_session, :set_locale_from_url, :subscriber_pop_up
   before_filter :set_type_param
 	protect_from_forgery
 
