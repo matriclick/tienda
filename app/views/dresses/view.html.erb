@@ -32,7 +32,7 @@
 <div class="left_menu">
 	<%= render 'dresses/left_menu', :dresses => @dresses %>
 </div>
-<div id="albums_columns" style="width:850px; margin-left:150px">
+<div id="albums_columns" style="width:800px; float:left; margin-left:10px;">
 	<%= render 'dresses/view_dress_list', :dresses => @dresses %>
 </div>
 <% if(@dresses.size >= @scrolling_set) %>
