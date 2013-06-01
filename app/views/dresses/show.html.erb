@@ -32,10 +32,18 @@
 	<% end %>
 </div>
 <div class="clear"></div>
-<div style="margin-top:20px; border-top:1px dotted #ccc">
-	<h3>Quienes vieron este producto también revisaron:</h3>
-	<%= render 'related_dresses', related_dresses: @related_dresses %>
-</div>
+<% unless @related_dresses.blank? %>
+	<div style="margin-top:20px; border-top:1px dotted #ccc">
+		<h3>Otros productos relacionados:</h3>
+		<%= render 'related_dresses', related_dresses: @related_dresses %>
+	</div>
+<% end %>
+<% unless @viewed_dresses.blank? %>
+	<div style="margin-top:20px; border-top:1px dotted #ccc">
+		<h3>Productos que has visto recientemente:</h3>
+		<%= render 'related_dresses', related_dresses: @viewed_dresses %>
+	</div>
+<% end %>
 <div>
 	<%= yield :right_arrow %>
 </div>

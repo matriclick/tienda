@@ -6,8 +6,8 @@ class DressesController < ApplicationController
   @@scrolling_set = 12
     
   def faq_elbazar
-    #SEO: @title_content =
-    #SEO: @meta_description_content =
+    @title_content = 'Preguntas frecuentes'
+    @meta_description_content = 'Preguntas frecuentes de la tienda online de vestidos y ropa de mujer'
     @background = true
     add_breadcrumb "El Bazar", :bazar_path
     add_breadcrumb "Preguntas frecuentes", :faq_elbazar_path
@@ -206,7 +206,9 @@ class DressesController < ApplicationController
     @dress = Dress.find_by_slug(params[:slug])
     @type = DressType.find_by_name params[:type]
     @related_dresses = @dress.get_related_dresses
-            
+    set_dresses_viewed_cookies(@dress)
+    @viewed_dresses = get_dresses_viewed(@dress)
+    
     if !@dress.nil? and !@type.nil?
       if @dress.supplier_account.nil? or @dress.dress_images.first.nil?
         respond_to do |format|
@@ -445,4 +447,24 @@ class DressesController < ApplicationController
     add_breadcrumb dress_type_param.gsub('-', ' ').capitalize, dresses_ver_path(:type => dress_type_param)
   end
   
+  def set_dresses_viewed_cookies(dress)
+    if cookies[:viewed_dresses_ids].nil?
+      cookies[:viewed_dresses_ids] = { :value => dress.id.to_s, :expires => 2.month.from_now }
+    else
+      cookies[:viewed_dresses_ids] = { :value => dress.id.to_s+','+cookies[:viewed_dresses_ids], :expires => 2.month.from_now }
+    end
+  end
+  
+  def get_dresses_viewed(dress = nil)
+    if !cookies[:viewed_dresses_ids].nil?
+      ids = cookies[:viewed_dresses_ids].split(',')
+      ids.delete(dress.id.to_s)
+      ids.uniq!
+      dresses = Array.new
+      ids[0..3].each do |id|
+        dresses.push(Dress.find(id))
+      end      
+      return dresses
+    end
+  end     
 end
