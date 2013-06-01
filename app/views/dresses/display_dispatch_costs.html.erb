@@ -6,53 +6,23 @@
 	</head>
 	
 	<body>
-		<div style="width:650px; height:550px;">
-			<h1>Costos por región o comuna</h1>
+		<div style="width:850px; height:350px;">
+			<h1>Costos por región</h1>
 			<br />
-			Recuerda que si vas a comprar más de un producto, es mejor que los compres todos en un carro de compras.<br />
-			De este modo se te cobrará el despacho una sola vez.<br />
-
+			<h3>
+				Recuerda que si vas a comprar más de un producto, es mejor que los compres todos en un carro de compras.<br />
+				De este modo se te cobrará el despacho una sola vez.<br />
+			</h3>
 			<% total_sets = 4 %>
 			<% current_set = 0 %>
-
 			<% @regions.each do |region| %>
-				<% case region.name %>
-					<% when 'RM - Metropolitana' %>
-						<br /><br />
-						<%= region.name %><br />
-						<br />
-						<table>
-							<tr>
-								<th>Comuna</th>
-								<th>Costo de despacho</th>
-								<th>Comuna</th>
-								<th>Costo de despacho</th>
-								<th>Comuna</th>
-								<th>Costo de despacho</th>
-								<th>Comuna</th>
-								<th>Costo de despacho</th>
-							</tr>
-						<% region.communes.each do |commune| %>
-							<% if current_set == total_sets %>
-								<tr>
-							<% end %>	
-								<td><b><%= commune.name %></b></td>
-								<td><%= number_to_currency(commune.dispatch_cost) %></td>
-								<% current_set = current_set + 1 %>
-					
-							<% if current_set == total_sets %>
-								</tr>
-								<% current_set = 0 %>
-							<% end %>
-						<% end %>
-						</table>
-						<br /><br />
-					<% else %>
-						<div style="float:left;width:180px;height:30px;border:solid 1px;margin:2px;padding:2px;">
-							<div style="float:left;width:100px;"><%= region.name %>: </div>
-							<div style="float:right;width:80px;"><%= number_to_currency(region.dispatch_cost) %></div>
-						</div>		    
-				<% end %>
+				<div style="float:left; width:180px; height:30px; border:solid 1px #ccc; margin:2px; padding:2px;">
+					<div style="margin:7px 0px 0px 3px">
+						<div style="float:left; width:100%; color:#555">
+							<%= region.name %>: <%= number_to_currency(region.dispatch_cost) %>
+						</div>
+					</div>
+				</div>		    
 			<% end %>
 		</div>		    
 	</body>
