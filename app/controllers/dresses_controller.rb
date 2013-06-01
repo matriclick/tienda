@@ -8,6 +8,7 @@ class DressesController < ApplicationController
   def faq_elbazar
     #SEO: @title_content =
     #SEO: @meta_description_content =
+    @background = true
     add_breadcrumb "El Bazar", :bazar_path
     add_breadcrumb "Preguntas frecuentes", :faq_elbazar_path
   end
