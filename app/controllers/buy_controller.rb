@@ -107,10 +107,6 @@ class BuyController < ApplicationController
         else
           @purchase.price = @purchasable.price
         end
-        if @payment_method == 'webpay_bchile' and !(@purchase.purchasable_type == 'Service' or @purchase.purchasable_type == 'Product') 
-          @purchase.price = (@purchasable.price * 0.85).ceil
-          @discount = '15%'
-        end
       when 'Product', 'Service'
         @purchase.price = session[:matriclick_purchase_price] if !session[:matriclick_purchase_price].blank?
     end

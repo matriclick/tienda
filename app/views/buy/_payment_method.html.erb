@@ -4,14 +4,7 @@
 	<div style="color:#545454; margin-left:20px;">
 		<%= radio_button("payment", "option", "webpay", :checked => true) %> 
 		Tarjetas de crédito y débito (webpay) <br /><br />
-		<%= radio_button("payment", "option", "webpay_bchile") %> 
-		Tarjetas de crédito y débito del Banco de Chile (15% de descuento)<br /><br />
 		<%= radio_button("payment", "option", "transfer") %>
 		Trasferencia bancaria (depósito a la cuenta de Matriclick) <br /><br />
 	</div>
-</div>
-<div style="float:right; width:auto">
-	<%= image_tag('online_payment/bchile_tarjetas.png', :alt => 'Tarjetas del Banco de Chile') %>
-	<br />
-	15% de descuento exclusivo con el Banco de Chile
 </div>
