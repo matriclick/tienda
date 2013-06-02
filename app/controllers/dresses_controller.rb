@@ -103,7 +103,6 @@ class DressesController < ApplicationController
       @dresses.push(Dress.find(pending_dresses_ids[d]))    
     end
     
-    @type = params[:type] == '' ? @dresses.first.dress_types.first.name : DressType.where('name like "%'+params[:type]+'%"').first.name
     #Responde a  endless_scrolling.js.erb       
   end
 
@@ -120,8 +119,9 @@ class DressesController < ApplicationController
       @supplier = current_supplier
       @dresses = @supplier.supplier_account.dresses
       @dress_types = DressType.get_options(@supplier.supplier_account)
-
-     @title_content = @dresses.size.to_s+' productos'
+      @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
+      
+      @title_content = @dresses.size.to_s+' productos'
 
       #IE v8 y anteriores no compatible con carga dinamica
       user_agent = request.env['HTTP_USER_AGENT']

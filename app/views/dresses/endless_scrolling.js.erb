@@ -10,13 +10,13 @@ ids = '<%=@dresses_array_ids%>'
 '		<% if @trousseau %>																					'+
 '			<div class="dresses_album_box trousseau_index_box left dresses_index_box_regular">								'+
 '		<% else %>																							'+
-'			<div class="dresses_album_box dresses_index_box left <%= @type_param.include?("accesorios") ? "dresses_index_box_small" : "dresses_index_box_regular" %>">								'+
+'			<div class="dresses_album_box dresses_index_box left dresses_index_box_regular %>">								'+
 '		<% end %>																							'+
 '				<% if @enable_edit %>																		'+
 '					<div style="background:black; padding:2px; text-align:center;">							'+
 '						<%= link_to "Editar", edit_supplier_account_dress_path(@supplier, dress), :class => "edit_dress_link" %>					'+
 '					</div>																					'+
-'				<% end %>																					'+
+'				<% end %>																'+
 '				<% unless dress.dress_images.blank? %>														'+
 '					<% if dress.dress_status.name == "Vendido" %>											'+
 '						<div style="position:absolute;right:5px;">											'+
@@ -24,11 +24,7 @@ ids = '<%=@dresses_array_ids%>'
 '						</div>																				'+
 '					<% end %>																				'+
 '					<div>																					'+
-'						<% if %w[Accesorios].include?(dress.dress_type.name) %>		'+
-'							<%= link_to image_tag(dress.dress_images.first.dress.url(:index_accesory)), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>'+
-'						<% else %>																			'+
-'							<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress)), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>'+
-'						<% end %>																			'+
+'						<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress)), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>'+
 '					</div>																					'+
 '				<% end %>																					'+
 '				<div style="text-align:left; width:127px;padding-left:15px;">													'+

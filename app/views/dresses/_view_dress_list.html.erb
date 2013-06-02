@@ -1,6 +1,6 @@
 <% if defined? dresses %>
 <% dresses.each do |dress| %>
-		<div class="dresses_album_box dresses_index_box left <%= @type_param.include?('accesorios') ? 'dresses_index_box_small' : 'dresses_index_box_regular' %> first_set_dress">
+		<div class="dresses_album_box dresses_index_box left dresses_index_box_regular first_set_dress">
 			<% if @enable_edit %>
 				<div style="background:black; padding:2px; text-align:center;">
 					<%= link_to 'Editar', edit_supplier_account_dress_path(@supplier, dress), :class => 'edit_dress_link' %>
