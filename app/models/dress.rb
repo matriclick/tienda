@@ -54,7 +54,7 @@ class Dress < ActiveRecord::Base
   end
   
 	def dress_type
-	  self.dress_types.first
+	  !self.dress_types.first.nil? ? self.dress_types.first : DressType.find_by_name("vestidos-fiesta")
   end
     
 	def has_stock?
