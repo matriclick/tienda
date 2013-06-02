@@ -92,11 +92,12 @@ class DressesController < ApplicationController
     @last_set =  pending_dresses_count<=@@scrolling_set
     @enable_edit = params[:edit] =='true' ? true : false
     @supplier = params[:supp]
-
+      
     if params[:supp] != "0"
       sign_in(Supplier.find @supplier)
+      @dress_types = DressType.get_options(current_supplier.supplier_account)
     end
-
+    
     @dresses = Array.new
 
     for d in 0..[@@scrolling_set-1,pending_dresses_count-1].min

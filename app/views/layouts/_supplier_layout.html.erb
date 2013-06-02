@@ -11,10 +11,9 @@
 </div>
 
 <div class="header center">
-	<div class="logo_matri_supplier">
-		<%= link_to (image_tag 'logo_matriclick_sin_caja.png', :alt => "matriclick.com"), root_country_path %>
+	<div class="left" style="margin-top:20px">
+		<%= link_to (image_tag 'incidit.png', :alt => "Incidit.com"), bazar_path %>
 	</div>
-
 	<div class="profileMenu">
 		<div class="profileDataBox">
 			<div class="profileMenuImage">
@@ -39,14 +38,13 @@
 			</ul>
 		</div>				
 	</div>
-</div>      
+</div> 
 
-<div class="full_content_inapp center shadow">
-	<%= render "layouts/supplier_menu" %>	
-	<div class="main_content">
-    	<%= yield %>
+<div class="center">
+	<div class="main_content center">
+		<%= render 'layouts/supplier_menu' %>
+		<%= yield %>
     </div>
-
 	<div class="clear"></div>  
 </div>
 

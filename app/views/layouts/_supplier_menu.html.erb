@@ -1,9 +1,15 @@
-<div class="main_menu">
-	<div id="myslidemenu" class="jqueryslidemenu">
-		<ul>
-			<li><%= link_to t('my_profile'), supplier_account_path(@supplier), :class => "left_link" %></li>
-			<li><%= link_to t('presentation'), supplier_account_presentation_path(@supplier), :class => "left_link" %></li>
-			<li><%= link_to 'Items', supplier_account_dresses_path(@supplier), :class => "left_link" %></li>
-		</ul>
-	</div>
+<div style="
+	border-bottom:1px solid #ccc; 
+	color:grey;
+	text-transform:uppercase;
+	font:14px 'PT Sans', Arial, Helvetica, Geneva, sans-serif; 
+	padding-bottom:10px;
+	">
+	<%= link_to t('my_profile'), supplier_account_path(@supplier), 
+		class: 'no_underline', style: 'margin-right:10px' %> |
+	<%= link_to t('presentation'), supplier_account_presentation_path(@supplier), 
+		class: 'no_underline', style: 'margin:0px 10px 0px 10px' %> |
+	<%= link_to 'Items', supplier_account_dresses_path(@supplier), 
+		class: 'no_underline', style: 'margin-left:10px' %>
 </div>
+<div class="clear"></div>
