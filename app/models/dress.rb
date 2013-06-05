@@ -24,6 +24,23 @@ class Dress < ActiveRecord::Base
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	
+	def self.all_filtered(string_filter = nil, separator = ' ')
+    if string_filter.nil?
+      return Dress.all
+    else
+      keywords = string_filter.split(separator)
+      query = ''
+      keywords.each_with_index do |k, i|
+        if i == 0
+          query = '(description like "%'+k+'%" or introduction like "%'+k+'%")'
+        else
+          query = '(description like "%'+k+'%" or introduction like "%'+k+'%") and '+query
+        end
+      end
+      return self.where(query)
+    end
+  end
+	
 	def get_related_dresses
 	  texto = self.product_keywords
     unless texto.nil? or texto.empty?

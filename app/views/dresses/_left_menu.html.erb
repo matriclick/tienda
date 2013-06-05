@@ -1,13 +1,13 @@
-<% if @dress_types.first.name.include?('accesorio')  %>
-<ul>
-	<li><%= link_to 'Aros', dresses_ver_path(:type => "accesorios-aros") %></li>
-	<li><%= link_to 'Anillos', dresses_ver_path(:type => "accesorios-anillos") %></li>
-	<li><%= link_to 'Collares', dresses_ver_path(:type => "accesorios-collares") %></li>
-	<li><%= link_to 'Pulseras', dresses_ver_path(:type => "accesorios-pulseras") %></li>
-	<li><%= link_to 'Carteras / Bolsos', dresses_ver_path(:type => "accesorios-carteras") %></li>
-	<li><%= link_to 'Sombreros', dresses_ver_path(:type => "accesorios-sombreros") %></li>
-	<li><%= link_to 'Blog', blog_el_bazar_path %></li>
-</ul>
+<% if !@dress_types.nil?  and @dress_types.first.name.include?('accesorio')  %>
+	<ul>
+		<li><%= link_to 'Aros', dresses_ver_path(:type => "accesorios-aros") %></li>
+		<li><%= link_to 'Anillos', dresses_ver_path(:type => "accesorios-anillos") %></li>
+		<li><%= link_to 'Collares', dresses_ver_path(:type => "accesorios-collares") %></li>
+		<li><%= link_to 'Pulseras', dresses_ver_path(:type => "accesorios-pulseras") %></li>
+		<li><%= link_to 'Carteras / Bolsos', dresses_ver_path(:type => "accesorios-carteras") %></li>
+		<li><%= link_to 'Sombreros', dresses_ver_path(:type => "accesorios-sombreros") %></li>
+		<li><%= link_to 'Blog', blog_el_bazar_path %></li>
+	</ul>
 <% else %>
 <ul>
 	<li><%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %></li>

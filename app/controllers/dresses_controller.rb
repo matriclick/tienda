@@ -115,10 +115,11 @@ class DressesController < ApplicationController
         format.json { head :ok }
       end
     else
+      @search_term = params[:q]
       set_supplier_layout
       @enable_edit = true
       @supplier = current_supplier
-      @dresses = @supplier.supplier_account.dresses
+      @dresses = @supplier.supplier_account.dresses_filtered(@search_term)
       @dress_types = DressType.get_options(@supplier.supplier_account)
       @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
       
@@ -147,7 +148,6 @@ class DressesController < ApplicationController
   end
   
   def view
-    @search_term = params[:q]
     @dress_types = DressType.where('name like "%'+params[:type]+'%"')
     generate_bread_crumbs(params[:type])
     
@@ -159,13 +159,9 @@ class DressesController < ApplicationController
     else
       @soldable = (@dress_types.first.name == 'vestidos-novia' and @dress_types.size == 1 ? true : false)
     
-      if !params[:selected_sizes].blank?
-        @selected_sizes = Size.find(params[:selected_sizes])
-      end
-    
       @dresses = Array.new
       @dress_types.each do |dt| 
-        @dresses.concat(dt.dresses_filtered(@search_term).available)
+        @dresses.concat(dt.dresses.available)
       end
       @dresses.uniq!
       @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
@@ -193,6 +189,35 @@ class DressesController < ApplicationController
         format.json { render json: @dresses }
       end
     end    
+  end
+  
+  def view_search
+    @search_term = params[:q]
+    @dresses = Dress.all_filtered(@search_term) 
+    @dresses.uniq!
+    @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
+  
+    @title_content = 'Buscando '+@search_term.capitalize
+  	@meta_description_content = 'Compra '+@search_term.capitalize
+    add_breadcrumb "Incidit", :bazar_path
+    add_breadcrumb @search_term, dresses_search_path(q: @search_term)
+    
+    #IE v8 y anteriores no compatible con carga dinamica
+    user_agent = request.env['HTTP_USER_AGENT']
+    unless user_agent =~ /MSIE 8/ || user_agent =~ /MSIE 7/ || user_agent =~ /MSIE 6/ || user_agent =~ /MSIE 5/ 
+      @scrolling_set = @@scrolling_set
+      @dresses_array_ids ="";
+  
+      @dresses.each do |dress|
+        @dresses_array_ids += dress.id.to_s + ','
+      end
+  
+      @dresses = @dresses[0..@@scrolling_set-1]      
+    else
+      @scrolling_set = @dresses.length + 1
+    end
+
+    render :view
   end
   
   # GET /dresses/1
@@ -431,17 +456,7 @@ class DressesController < ApplicationController
   end
   
   def generate_bread_crumbs(dress_type_param)
-    case session[:matriclick_top_menu]    
-      when 'Novios'
-        add_breadcrumb "Vestidos de Novia", :dresses_wedding_dress_menu_path
-      when 'Tu Casa'
-        add_breadcrumb "Tu Casa", :tu_casa_path
-      when 'El Bazar'
-        add_breadcrumb "El Bazar", :bazar_path    
-      when 'Bebe'
-        add_breadcrumb "Ropa de Bebe", :mibebe_menu_path
-    end
-    
+    add_breadcrumb "Incidit", :bazar_path
     add_breadcrumb dress_type_param.gsub('-', ' ').capitalize, dresses_ver_path(:type => dress_type_param)
   end
   

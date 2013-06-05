@@ -2,20 +2,6 @@ class DressType < ActiveRecord::Base
   has_and_belongs_to_many :dresses
   has_and_belongs_to_many :sizes
   
-  def dresses_filtered(string_filter = nil, separator = ' ')
-    if string_filter.nil?
-      return self.dresses
-    else
-      keywords = string_filter.split(separator)
-      query = ''
-      keywords.each_with_index do |k, i|
-        query = 'description like "%'+k+'%" or introduction like "%'+k+'%" '+query
-      end
-      return self.dresses.where(query)
-    end
-  end
-  
-  
   def self.get_options(supplier_account)
     if supplier_account.nil?
       return DressType.all.sort_by {|dt| dt[:name]}

@@ -59,7 +59,24 @@ class SupplierAccount < ActiveRecord::Base
 
 	#http://railscasts.com/episodes/108-named-scope
 	scope :from_industry, lambda { |ic| { :joins => :industry_categories, :conditions => [ "industry_categories.id = ?", ic.id ] } }
-  	  
+  
+  def dresses_filtered(string_filter = nil, separator = ' ')
+    if string_filter.nil?
+      return self.dresses
+    else
+      keywords = string_filter.split(separator)
+      query = ''
+      keywords.each_with_index do |k, i|
+        if i == 0
+          query = '(description like "%'+k+'%" or introduction like "%'+k+'%")'
+        else
+          query = '(description like "%'+k+'%" or introduction like "%'+k+'%") and '+query
+        end
+      end
+      return self.dresses.where(query)
+    end
+  end
+  
   def image_name
     file_name = self.image_file_name
 	  return !file_name.nil? ? file_name[0..file_name.index('.')-1].gsub('-', ' ') : 'sin-imagen'

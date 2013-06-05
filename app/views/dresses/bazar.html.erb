@@ -1,0 +1,21 @@
+<script>
+	$("#main_search").live("blur", function(){
+		var default_value = $(this).attr("rel");
+		if ($(this).val() == ""){
+			$(this).val(default_value);
+		}
+	}).live("focus", function(){
+		var default_value = $(this).attr("rel");
+		if ($(this).val() == default_value){
+			$(this).val("");
+		}
+	});
+</script>
+
+<div style="text-align:center; margin-top:200px">
+	<%= form_tag(dresses_search_path, :method => "get") do %>
+		<%= text_field_tag(:q, @search_term, size: '55x10', id: 'main_search', 
+			value: 'Busca por color, talla, tela, etc...', rel: 'Busca por color, talla, tela, etc...') %>
+		<%= submit_tag("Buscar", :class => 'button_filter_pink') %>
+	<% end %>
+</div>

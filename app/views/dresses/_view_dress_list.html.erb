@@ -1,27 +1,40 @@
-<% if defined? dresses %>
-<% dresses.each do |dress| %>
-	<div class="dresses_album_box dresses_index_box left dresses_index_box_regular first_set_dress">
-		<% if @enable_edit %>
-			<div style="background:black; padding:2px; text-align:center;">
-				<%= link_to 'Editar', edit_supplier_account_dress_path(@supplier, dress), :class => 'edit_dress_link' %>
-			</div>
-		<% end %>
-		<% unless dress.dress_images.blank? %>
-			<% if dress.dress_status.name == 'Vendido' %>
-				<div style="position:absolute;right:5px;">
-					<%= image_tag 'dresses_icons/sold.png' %>
+<% if defined? dresses and dresses.size > 0 %>
+	<% dresses.each do |dress| %>
+		<div class="dresses_album_box dresses_index_box left dresses_index_box_regular first_set_dress">
+			<% if @enable_edit %>
+				<div style="background:black; padding:2px; text-align:center;">
+					<%= link_to 'Editar', edit_supplier_account_dress_path(@supplier, dress), :class => 'edit_dress_link' %>
 				</div>
 			<% end %>
-			<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
-						dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
-		<% end %>
-		<div style="text-align:left; width:170px; padding-left:15px;">
-			<span id="dress_intro"> <%= link_to((j(dress.introduction[0..30]) unless dress.introduction.nil?), 
-									dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug)) %></span><br />
-			<span id="dress_price"> <%= "#{number_to_currency dress.price}" %></span>
-			<br />
+			<% unless dress.dress_images.blank? %>
+				<% if dress.dress_status.name == 'Vendido' %>
+					<div style="position:absolute;right:5px;">
+						<%= image_tag 'dresses_icons/sold.png' %>
+					</div>
+				<% end %>
+				<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
+							dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+			<% end %>
+			<div style="text-align:left; width:170px; padding-left:15px;">
+				<span id="dress_intro"> <%= link_to((j(dress.introduction[0..30]) unless dress.introduction.nil?), 
+										dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug)) %></span><br />
+				<span id="dress_price"> <%= "#{number_to_currency dress.price}" %></span>
+				<br />
+			</div>
+		</div>
+	<% end %>
+	<div id="infinite-scroll"></div>
+<% else %>
+	<div class="not_found">
+		<h2>Pucha...</h2><h3>No encontramos lo que estabas buscando... ¡pero tal vez alguno de estos estilos te guste más!</h3>
+		<%= image_tag 'el_bazar/not-found.jpg', alt: 'búsqueda no encontrada' %> <br />
+		<h3>Si no... ¡sigue buscando! </h3>
+		<div style="text-align:center;">
+			<%= form_tag(dresses_search_path, :method => "get") do %>
+				<%= text_field_tag(:q, @search_term, size: '55x10', id: 'main_search', 
+					value: 'Busca por color, talla, tela, etc...', rel: 'Busca por color, talla, tela, etc...') %>
+				<%= submit_tag("Buscar", :class => 'button_filter_pink') %>
+			<% end %>
 		</div>
 	</div>
-<% end %>
-<div id="infinite-scroll"></div>
 <% end %>

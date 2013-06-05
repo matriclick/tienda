@@ -219,7 +219,9 @@ Matri::Application.routes.draw do
   	post "dresses/ver/dresses/endless_scrolling" => 'dresses#endless_scrolling', as: 'dresses_endless_scrolling'
   	resources :dresses, :except => ['show']
 	  get 'dresses/:type/:slug' => 'dresses#show', :as => 'dress_ver'
-  	
+	  get 'dresses/buscar' => 'dresses#view_search', :as => 'dresses_search'
+	  post "dresses/dresses/endless_scrolling" => 'dresses#endless_scrolling'
+	  	
   	# BLOG
     resources :posts do
   		resources :blog_comments  	
