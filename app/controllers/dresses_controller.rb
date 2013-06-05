@@ -151,7 +151,8 @@ class DressesController < ApplicationController
   def view
     @dress_types = DressType.where('name like "%'+params[:type]+'%"')
     generate_bread_crumbs(params[:type])
-    
+    @search_text = 'Busca por color, talla, tela, etc...'
+        
     if @dress_types.size == 0
       respond_to do |format|
         format.html { redirect_to bazar_path }
