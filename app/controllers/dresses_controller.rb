@@ -116,6 +116,7 @@ class DressesController < ApplicationController
       end
     else
       @search_term = params[:q]
+      @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
       set_supplier_layout
       @enable_edit = true
       @supplier = current_supplier
@@ -193,6 +194,7 @@ class DressesController < ApplicationController
   
   def view_search
     @search_term = params[:q]
+    @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
     @dresses = Dress.all_filtered(@search_term) 
     @dresses.uniq!
     @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
