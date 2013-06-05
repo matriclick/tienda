@@ -37,7 +37,7 @@ class Dress < ActiveRecord::Base
           query = '(description like "%'+k+'%" or introduction like "%'+k+'%") and '+query
         end
       end
-      return self.where(query)
+      return self.where(query).available_to_purchase
     end
   end
 	
