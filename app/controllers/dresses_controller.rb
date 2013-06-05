@@ -139,11 +139,15 @@ class DressesController < ApplicationController
         @scrolling_set = @dresses.length + 1
       end
 
-      render :action => :view
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @dresses }
+      end
     end
   end
   
   def view
+    @search_term = params[:q]
     @dress_types = DressType.where('name like "%'+params[:type]+'%"')
     generate_bread_crumbs(params[:type])
     
@@ -159,19 +163,12 @@ class DressesController < ApplicationController
         @selected_sizes = Size.find(params[:selected_sizes])
       end
     
-      if !current_supplier.nil? #Solo entra acá si es un proveedor el que está mirando vestidos, así lo deja editar
-        set_supplier_layout
-        @enable_edit = true
-        @supplier = current_supplier
-        @dresses = @supplier.supplier_account.dresses.available
-      else
-        @dresses = Array.new
-        @dress_types.each do |dt| 
-          @dresses.concat(dt.dresses.available)
-        end
-        @dresses.uniq!
-        @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
+      @dresses = Array.new
+      @dress_types.each do |dt| 
+        @dresses.concat(dt.dresses_filtered(@search_term).available)
       end
+      @dresses.uniq!
+      @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
     
       @title_content = (params[:type]).gsub('-', ' ').capitalize
     	@meta_description_content = 'Compra '+(params[:type]).gsub('-', ' ')

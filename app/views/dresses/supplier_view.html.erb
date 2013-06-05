@@ -1,0 +1,41 @@
+<% if(@dresses.size >= @scrolling_set) %>
+	<script>		
+		flag_up = false	
+		ids = '<%= @dresses_array_ids %>'
+		type = '<%= params[:type] %>'		
+		edit = '<%= @enable_edit %>'
+		supp = '<%=  @supplier ? @supplier.id : 0 %>'
+
+
+ 		$(document).ready(function(){
+ 		$('#albums_columns').masonry();
+ 		load_album_endless_scrolling(next_dress_scroll_feed)
+ 		});
+
+	</script>
+
+<% end %>
+
+<div style="margin:10px 0px 20px 10px">
+	<div style="float:left">
+		<%= form_tag(supplier_account_dresses_path(@supplier), :method => "get") do %>
+			<%= text_field_tag(:q, @search_term, :size => 75) %> <%= submit_tag("Buscar", :class => 'button_filter_pink') %>
+		<% end %>
+	</div>
+	<div style="float:right">
+		<%= link_to 'Agregar un nuevo item', new_supplier_account_dress_path(@supplier), :class => 'button' %>
+	</div>
+</div>
+<div class="clear"></div>
+<br />
+<div class="left_menu">
+	<%= render 'dresses/left_menu', :dresses => @dresses %>
+</div>
+<div id="albums_columns" style="width:800px; float:left; margin-left:10px;">
+	<%= render 'dresses/view_dress_list', :dresses => @dresses %>
+</div>
+<% if(@dresses.size >= @scrolling_set) %>
+	<div class="loading"><%=image_tag "campaign/after_contest/1/loading.gif", :size =>'50x22' %></div>
+<% end %>
+
+<%= render 'sell_your_dress_message' %>
