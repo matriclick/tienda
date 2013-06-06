@@ -15,9 +15,9 @@
 </script>
 
 <div style="text-align:center; margin-top:200px">
-	<%= form_tag(dresses_search_path, :method => "get") do %>
+	<form action="<%= dresses_search_path %>" method="get">
 		<%= text_field_tag(:q, @search_term, size: '55x10', id: 'main_search', 
 			value: 'Ejemplo: Vestido azul', rel: 'Ejemplo: Vestido azul') %>
-		<%= submit_tag("Buscar", :class => 'button_filter_pink') %>
-	<% end %>
+		<%= submit_tag("Buscar", :name => nil, :class => 'button_filter_pink') %>
+	</form>
 </div>
