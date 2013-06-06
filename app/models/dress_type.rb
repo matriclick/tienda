@@ -8,20 +8,12 @@ class DressType < ActiveRecord::Base
     else
       sa_type = supplier_account.supplier_account_type.name
       
-      if ['Facebook', 'Matriclick', 'Vestidos de Novia Usados', 'Vestidos Boutique'].include?(sa_type)
-        return DressType.where('name like "%Vestidos%"').sort_by {|dt| dt[:name]}
-      elsif sa_type == "Ropa de Bebe"
-        return DressType.where('name like "%Bebe%"').sort_by {|dt| dt[:name]}
+      if sa_type == "Ropa de Bebe"
+        return DressType.where('name like "%bebe%"').sort_by {|dt| dt[:name]}
       elsif sa_type == "Tu Casa"
-        return DressType.where('name like "%Tu-Casa%"').sort_by {|dt| dt[:name]}
-      elsif sa_type == "Accesorios"
-        return DressType.where('name like "%Accesorios%"').sort_by {|dt| dt[:name]}
-      elsif sa_type == "Zapatos"
-        return DressType.where('name like "%Zapatos%"').sort_by {|dt| dt[:name]}
-      elsif sa_type == "Ropa de Mujer"
-        return DressType.where('name like "%Mujer%"').sort_by {|dt| dt[:name]}
+        return DressType.where('name like "%tu-casa%"').sort_by {|dt| dt[:name]}
       else
-        return DressType.all.sort_by {|dt| dt[:name]}
+        return DressType.where('name not like "%bebe%" and name not like "%tu-casa%"').sort_by {|dt| dt[:name]}
       end
     end
   end
