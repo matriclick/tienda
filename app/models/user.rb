@@ -42,11 +42,11 @@ class User < ActiveRecord::Base
   def purchased_dresses
     products = Array.new
     self.purchases.each do |pur|
-      if pur.purchasable_type == 'Dress'
+      if pur.purchasable_type == 'Dress' and !pur.purchasable.nil?
         unless pur.purchasable.nil?
           products.push(pur.purchasable)
         end
-      elsif pur.purchasable_type == 'ShoppingCart'
+      elsif pur.purchasable_type == 'ShoppingCart' and !pur.purchasable.nil?
         unless pur.purchasable.shopping_cart_items.nil?
           pur.purchasable.shopping_cart_items.each do |sci|
             if pur.purchasable_type == 'Dress'
