@@ -1,13 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Razón devolución:</b>
-  <%= @refund_request.refund_reason.name %>
+  <b>Usuario:</b>
+  <%= @refund_request.user.email %>
 </p>
 
 <p>
-  <b>Usuario:</b>
-  <%= @refund_request.user.email %>
+  <b>Producto:</b><br />
+	<% unless @refund_request.dress.nil? %>
+  	<%= link_to image_tag(@refund_request.dress.main_image), 
+		dress_ver_path(:type => @refund_request.dress.dress_types.first.name, :slug => @refund_request.dress.slug) %>
+	<% else %>
+		No se ha guardado la información del producto correctamente
+	<% end %>
+</p>
+
+<p>
+  <b>Razón devolución:</b>
+  <%= @refund_request.refund_reason.name %>
 </p>
 
 <p>
@@ -24,5 +34,5 @@
   <%= @refund_request.description %>
 </p>
 
-<%= link_to 'Edit', edit_refund_request_path(@refund_request) %> |
-<%= link_to 'Back', refund_requests_path %>
+<%= link_to 'Editar', edit_refund_request_path(@refund_request) %> |
+<%= link_to 'Volver al listado de devoluciones', refund_requests_path %>
