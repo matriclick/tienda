@@ -1,0 +1,54 @@
+<%= form_for(@refund_request) do |f| %>
+<% if @refund_request.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@refund_request.errors.count, "errores") %> hicieron que no fuera posible enviar la solicitud</h2>
+</div>
+<% end %>
+
+<h2>Producto</h2>
+<h4>Selecciona de los productos que haz comprado para el que quieres solicitar la devolución<h4>
+<div class="field" style="margin-bottom:20px">
+	<% current_user.purchased_dresses.each do |pd| %>
+		<div style="float:left; margin-bottom:5px;">
+			<%= link_to(image_tag(pd.dress_images.first.dress.url(:tiny)), pd) if !pd.dress_images.first.nil? %>
+		</div>
+		<div style="float:left; margin:6px 0px 0px 5px">
+			<%= f.radio_button :dress_id, pd.id %>
+			<%= f.label :dress_id, pd.introduction %>
+		</div>
+		<div class="clear"></div>
+	<% end %>
+</div>
+
+<h2>Razón de la devolución</h2>
+<div class="field" style="margin-bottom:20px">
+	<% RefundReason.all.each do |rr| %>
+	<%= f.radio_button :refund_reason_id, rr.id %>
+	<%= f.label :refund_reason_id, rr.name %><br />
+	<% end %>
+</div>
+
+<h2>Datos de la cuenta</h2>
+<div class="field" style="margin-bottom:20px">
+	<%= f.label :account_owner_name, 'Nombre' %> <%= f.text_field :account_owner_name %><br />
+	<%= f.label :account_owner_id, 'RUT' %> <%= f.text_field :account_owner_id %><br />
+	<%= f.label :account_owner_email, 'Correo' %> <%= f.text_field :account_owner_email %><br />
+	<%= f.label :account_bank, 'Banco' %> <%= f.text_field :account_bank %><br />
+	<%= f.label :account_type, 'Tipo de cuenta' %> <%= f.text_field :account_type %><br />
+	<%= f.label :account_number, 'Número de cuenta' %> <%= f.text_field :account_number %>
+</div>
+
+<h2><%= f.label :description, 'Comentarios adicionales' %></h2>
+<div class="field" style="margin-bottom:20px">
+	<%= f.text_area :description, :size => '1x10' %>
+</div>
+
+<div class="field">
+	<%= f.hidden_field :user_id, :value => @user_id %>
+</div>
+
+<div class="actions" style="margin-bottom:20px">
+	<%= f.submit 'Solicitar devolución', class: 'button_buy_dress_pink' %>
+</div>
+
+<% end %>

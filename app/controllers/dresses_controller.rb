@@ -4,7 +4,11 @@ class DressesController < ApplicationController
   before_filter :hide_left_menu
 
   @@scrolling_set = 12
-    
+  
+  def refund_policy
+    render :layout => false    
+  end
+  
   def faq_elbazar
     @title_content = 'Preguntas frecuentes'
     @meta_description_content = 'Preguntas frecuentes de la tienda online de vestidos y ropa de mujer'

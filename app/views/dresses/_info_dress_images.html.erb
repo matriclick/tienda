@@ -16,6 +16,11 @@
 </div>
 <% end %>
 
+<% if dress.dress_status.name.include?('Vendido') %>
+	<div style="position:absolute;">
+		<%= image_tag 'dresses_icons/sold.png' %>
+	</div>
+<% end %>
 <img id="zoom_03" src="<%= dress.dress_images.first.dress.url(:main) %>" data-zoom-image="<%= dress.dress_images.first.dress.url(:original) %>" alt="<%= dress.dress_images.first.name %>" />
 
 <% unless (imgs = dress.dress_images).blank? %>

@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 	
 	has_one :wedding_planner_quote
 	has_many :contest_travelites
+	has_many :refund_requests, :dependent => :destroy
 	has_one :matriclicker
   belongs_to :country
 	belongs_to :role
@@ -36,6 +37,22 @@ class User < ActiveRecord::Base
   
   def contest_despedida_de_soltera
     self.contest_travelites.where(:selection => 'despedida_de_soltera').first
+  end
+  
+  def purchased_dresses
+    products = Array.new
+    self.purchases.each do |pur|
+      if pur.purchasable_type == 'Dress'
+        products.push(pur.purchasable)
+      elsif pur.purchasable_type == 'ShoppingCart'
+        pur.purchasable.shopping_cart_items.each do |sci|
+          if pur.purchasable_type == 'Dress'
+            products.push(sci.purchasable)
+          end
+        end
+      end
+    end
+    return products
   end
   
   def credit_amount

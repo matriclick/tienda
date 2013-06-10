@@ -7,7 +7,7 @@
 				</div>
 			<% end %>
 			<% unless dress.dress_images.blank? %>
-				<% if dress.dress_status.name == 'Vendido' %>
+				<% if dress.dress_status.name.include?('Vendido') %>
 					<div style="position:absolute;right:5px;">
 						<%= image_tag 'dresses_icons/sold.png' %>
 					</div>

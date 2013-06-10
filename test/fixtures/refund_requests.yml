@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  refund_reason_id: 1
+  user_id: 1
+  bank_account_id: 1
+  description: MyText
+
+two:
+  refund_reason_id: 1
+  user_id: 1
+  bank_account_id: 1
+  description: MyText

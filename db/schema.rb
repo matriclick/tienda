@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531142921) do
+ActiveRecord::Schema.define(:version => 20130609171157) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -89,6 +89,17 @@ ActiveRecord::Schema.define(:version => 20130531142921) do
     t.string   "attachable_type"
     t.integer  "attachable_id"
     t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_accounts", :force => true do |t|
+    t.string   "owner_name"
+    t.string   "owner_id"
+    t.string   "owner_email"
+    t.string   "bank"
+    t.string   "account_type"
+    t.string   "account_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1169,6 +1180,28 @@ ActiveRecord::Schema.define(:version => 20130531142921) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "supplier_id"
+  end
+
+  create_table "refund_reasons", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "refund_requests", :force => true do |t|
+    t.integer  "refund_reason_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "account_owner_name"
+    t.string   "account_owner_id"
+    t.string   "account_owner_email"
+    t.string   "account_bank"
+    t.string   "account_type"
+    t.string   "account_number"
+    t.integer  "dress_id"
   end
 
   create_table "regions", :force => true do |t|

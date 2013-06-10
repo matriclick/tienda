@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Razón devolución:</b>
+  <%= @refund_request.refund_reason.name %>
+</p>
+
+<p>
+  <b>Usuario:</b>
+  <%= @refund_request.user.email %>
+</p>
+
+<p>
+	<b>Nombre dueño cuenta:</b> <%= @refund_request.account_owner_name %><br />
+	<b>RUT dueño cuenta:</b> <%= @refund_request.account_owner_id %><br />
+	<b>Correo dueño cuenta:</b> <%= @refund_request.account_owner_email %><br />
+	<b>Banco:</b> <%= @refund_request.account_bank %><br />
+	<b>Tipo de cuenta:</b> <%= @refund_request.account_type %><br />
+	<b>Número de cuenta:</b> <%= @refund_request.account_number %>
+</p>
+
+<p>
+  <b>Comentarios:</b>
+  <%= @refund_request.description %>
+</p>
+
+<%= link_to 'Edit', edit_refund_request_path(@refund_request) %> |
+<%= link_to 'Back', refund_requests_path %>

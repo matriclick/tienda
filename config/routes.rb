@@ -221,7 +221,10 @@ Matri::Application.routes.draw do
 	  get 'dresses/:type/:slug' => 'dresses#show', :as => 'dress_ver'
 	  get 'dresses/buscar' => 'dresses#view_search', :as => 'dresses_search'
 	  post "dresses/dresses/endless_scrolling" => 'dresses#endless_scrolling'
-	  	
+	  
+	  get 'dresses/refund_policy'	=> 'dresses#refund_policy', as: 'refund_policy'
+	  resources :refund_requests
+	    
   	# BLOG
     resources :posts do
   		resources :blog_comments  	
