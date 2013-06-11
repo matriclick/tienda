@@ -854,5 +854,12 @@ aux << (RefundReason.find_by_name("Me arrepentí") || RefundReason.create(:name 
 aux.each { |x| puts x.name}
 puts "\n"
 
+puts "--> DeliveryMethod:"
+aux = []
+aux << (DeliveryMethod.find_by_name("Normal") || DeliveryMethod.create(:name => 'Normal', :price => 0, :description => 'Desde 4 a 8 días hábiles para que tu compra esté en el lugar deseado'))
+aux << (DeliveryMethod.find_by_name("Express") || DeliveryMethod.create(:name => 'Express', :price => 3000, :description => 'Desde 1 a 2 días hábiles para que tu compra esté en el lugar deseado'))
+aux.each { |x| puts x.name}
+puts "\n"
+
 
 

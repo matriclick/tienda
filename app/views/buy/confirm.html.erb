@@ -29,18 +29,26 @@
 		<% end %>
 		<tr>
 			<td>Subtotal</td>
-			<td><%= number_to_currency @subtotal %> <%= '('+@discount+' de descuento incluído)' if !@discount.nil? %> </td>
+			<td><%= number_to_currency(@purchase.quantity*@purchase.purchasable_price) %></td>
 		</tr>
-		<% if current_user.check_if_has_credits %>
 		<tr>
-			<td>Créditos a usar</td>
-			<td><%= number_to_currency @credits_to_use %></td>
+			<td>Tipo de despacho</td>
+			<td><b><%= @purchase.delivery_method.name %></b>
+				<%= ' (suma '+number_to_currency(@purchase.delivery_method_cost)+')' if @purchase.delivery_method_cost > 0 %></td>
 		</tr>
-		<% end %>
 		<% if !@purchase.delivery_info.nil? %>
 		<tr>
 			<td><%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %></td>
-			<td><%= number_to_currency @purchase.delivery_info.commune.dispatch_cost %></td>
+			<td>
+				<%= number_to_currency @purchase.delivery_cost %> 
+				<%= ' + '+number_to_currency(@purchase.delivery_method_cost) if @purchase.delivery_method_cost > 0 %>
+			</td>
+		</tr>
+		<% end %>
+		<% if current_user.check_if_has_credits %>
+		<tr>
+			<td>Créditos a usar</td>
+			<td><%= number_to_currency @purchase.credits_used %></td>
 		</tr>
 		<% end %>
 		<tr>
@@ -55,7 +63,7 @@
 	<% if @purchase.price == 0 %>
 		<%= render 'full_credit_method', purchase: @purchase %>
 	<% else %>
-		<% if @payment_method == 'transfer' %>
+		<% if @purchase.transfer_type == 'transfer' %>
 			<%= render 'transfer_method', purchase: @purchase %>	
 		<% else %>
 			<%= render 'webpay_method', purchasable: @purchasable, oc: @oc %>

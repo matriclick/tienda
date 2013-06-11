@@ -118,12 +118,29 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.new(params[:purchase])
     @object = eval(@purchase.purchasable_type + '.find ' + @purchase.purchasable_id.to_s)
     
-    purchase_method = params[:payment][:option]
-    session[:matriclick_purchase_price] = @purchase.price
+    @purchase.transfer_type = params[:payment][:option]
+    @purchase.delivery_method = DeliveryMethod.find_by_name params[:delivery][:option]
+    @purchase.delivery_method_cost = @purchase.delivery_method.price
+    @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost
+    @purchase.purchasable_price = @object.price
+    
+    if !@purchase.quantity.blank?
+        @purchase.price = @purchase.purchasable_price * @purchase.quantity + @purchase.delivery_cost + @purchase.delivery_method.price
+    else
+        @purchase.price = @purchase.purchasable_price + @purchase.delivery_cost + @purchase.delivery_method.price
+    end
+    
+    if current_user.credit_amount > @purchase.price
+			@purchase.credits_used = @purchase.price
+		else
+			@purchase.credits_used = current_user.credit_amount
+		end
+				
+		@purchase.price = (@purchase.price - @purchase.credits_used).ceil
     
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to buy_confirm_path(:purchase_id => @purchase, :purchase_method => purchase_method) }
+        format.html { redirect_to buy_confirm_path(:purchase_id => @purchase) }
         format.json { render json: @purchase, status: :created, location: @purchase }
       else
         format.html { redirect_to buy_details_path(:purchasable_id => @purchase.purchasable_id.to_s, :purchasable_type => @purchase.purchasable_type), notice: 'Debes completar todos los campos y aceptar los términos y condiciones.<br />Recuerda agregar la dirección de despacho si es requerida.<br />Debes elegir una talla y la cantidad no debe superar la disponibilidad.<br />' }

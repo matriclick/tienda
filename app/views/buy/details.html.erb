@@ -18,12 +18,6 @@
 			<%= render 'stock_size', purchasable: @purchasable, f: f %>
 			<div class="clear" style="padding:10px"></div>
 			<%= render 'delivery_info', user: @user, purchasable: @purchasable, f: f %>
-		<% when 'GiftCardCode' %>
-			<%= render 'gift_card_code', purchasable: @purchasable, f: f %>
-		<% when 'Service' %>
-			<%= render 'service', purchasable: @purchasable, f: f %>
-		<% when 'Product' %>
-			<%= render 'product', purchasable: @purchasable, f: f %>
 		<% when 'ShoppingCart' %>
 			<%= render 'cart', purchasable: @purchasable, f: f %>
 			<div class="clear" style="padding:10px"></div>
@@ -31,6 +25,8 @@
 	<% end %>
 	<div class="clear" style="padding:10px"></div>
 		<%= render 'payment_method' %>
+	<div class="clear" style="padding:10px"></div>
+		<%= render 'delivery_method' %>
 	<div class="clear" style="padding:10px"></div>
 	
 	<div>

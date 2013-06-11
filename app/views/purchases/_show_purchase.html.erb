@@ -1,33 +1,24 @@
 <div style="float:left; width:300px">
-	<% case purchase.purchasable_type %>
-		<% when 'Dress' %>
-			<%= link_to image_tag(purchasable.main_image), dress_ver_path(:type => purchasable.dress_types.first.name, :slug => purchasable.slug) %>
-		<% else %>
-			<%= image_tag(purchasable.main_image) %>
-	<% end %>
+	<%= image_tag @purchasable.main_image %>
 </div>
+
 <div style="float:left; width:400px; margin-left:20px">
-	<%= raw purchasable.description.gsub(/\n/, '<br/>') %><br />
-	<% if !purchase.size.blank? %>
-		Talla: <%= purchase.size %><br />
+	<%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br />
+	<% if !@purchase.size.blank? %>
+		Talla: <%= @purchase.size %><br />
 	<% end %>
 	<br />
 	<table>
-		<tr>
-			<td>Usuario</td>
-			<td><%= purchase.user.email %></td>
-		</tr>
-		
-		<% case purchase.purchasable_type %>
+		<% case @purchase.purchasable_type %>
 			<% when 'Dress' %>
 				<tr>
 					<td>Precio Unitario</td>
-					<td><%= number_to_currency purchasable.price %></td>
+					<td><%= number_to_currency @purchasable.price %> </td>
 				</tr>
-				<% if !purchase.quantity.blank? %>
+				<% if !@purchase.quantity.blank? %>
 				<tr>
 					<td>Cantidad</td>
-					<td><%= purchase.quantity.to_s %></td>
+					<td><%= @purchase.quantity.to_s %></td>
 				</tr>
 				<% else %>
 				<tr>
@@ -38,44 +29,53 @@
 		<% end %>
 		<tr>
 			<td>Subtotal</td>
-			<td><%= number_to_currency subtotal %></td>
+			<td><%= number_to_currency(@purchase.quantity*@purchase.purchasable_price) %></td>
 		</tr>
-		<% if !purchase.credit_reductions.nil? %>
 		<tr>
-			<td>Créditos usados</td>
-			<td><%= number_to_currency purchase.total_credit_reductions %></td>
+			<td>Tipo de despacho</td>
+			<td><b><%= @purchase.delivery_method.name %></b>
+				<%= ' (suma '+number_to_currency(@purchase.delivery_method_cost)+')' if @purchase.delivery_method_cost > 0 %></td>
+		</tr>
+		<% if !@purchase.delivery_info.nil? %>
+		<tr>
+			<td><%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %></td>
+			<td>
+				<%= number_to_currency @purchase.delivery_cost %> 
+				<%= ' + '+number_to_currency(@purchase.delivery_method_cost) if @purchase.delivery_method_cost > 0 %>
+			</td>
 		</tr>
 		<% end %>
-		<% if !purchase.dispatch_cost.blank? and %w[Dress ShoppingCart].include?(purchase.purchasable_type) %>
+		<% if current_user.check_if_has_credits %>
 		<tr>
-			<td>Costo de despacho</td>
-			<td><%= number_to_currency purchase.dispatch_cost %></td>
+			<td>Créditos a usar</td>
+			<td><%= number_to_currency @purchase.credits_used %></td>
 		</tr>
 		<% end %>
-		
 		<tr>
 			<td><b>Precio final</b></td>
-			<td><b><%= number_to_currency(purchase.price) + ' ' + purchase.currency %></b></td>
+			<td><b><%= number_to_currency @purchase.price %></b></td>
 		</tr>
-	</table>
-	<br /><br />
-	Fecha de compra: <%= purchase.created_at.strftime("%d %b %Y") %>
+	</table>	
+	<br />
+	<% if !@purchase.delivery_date.nil? %>
+		Fecha: <b><%= @purchase.delivery_date.strftime("%d %B %Y") %></b><br /><br />
+	<% end %>
 </div>
 <div class="clear"></div>
-<br /><br />
-<% if purchase.purchasable_type == 'ShoppingCart' %>
-	Items comprados en este carro:<br />
-	<br /><br />
-	<%= render 'cart', :cart => purchase.purchasable %>
-<% end %>
-<div class="clear"></div>
-
-<% if !purchase.dispatch_address.blank? and %w[Dress ShoppingCart].include?(purchase.purchasable_type) %>
+<% if !@purchase.delivery_info.nil? %>
 	<div style="margin-top:20px;">
 		<b>Despacho</b>
 		<hr>
-		<%= purchase.dispatch_address %>
+		<%= @purchase.delivery_info.street %>
+		<%= @purchase.delivery_info.number %>
+		<%= ', depto/casa ' + @purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.blank? %>
+		
+		<% if !@purchase.delivery_info.commune.nil? %>
+			<%= ', ' + @purchase.delivery_info.commune.name %>
+			<%= ', ' + @purchase.delivery_info.commune.region.name if !@purchase.delivery_info.commune.region.nil? %>
+		<% end %>
 		<br /><br />
 		<div id="map" style="width:450px; height:300px;"></div>
 	</div>
 <% end %>
+

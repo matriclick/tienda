@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609171157) do
+ActiveRecord::Schema.define(:version => 20130611063204) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -544,6 +544,14 @@ ActiveRecord::Schema.define(:version => 20130609171157) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "apartment"
+  end
+
+  create_table "delivery_methods", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.float    "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "dress_images", :force => true do |t|
@@ -1162,13 +1170,17 @@ ActiveRecord::Schema.define(:version => 20130609171157) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "confirmed_terms"
-    t.string   "status",           :default => "inicial"
+    t.string   "status",               :default => "inicial"
     t.date     "delivery_date"
     t.string   "transfer_type"
-    t.integer  "dispatch_cost"
+    t.integer  "delivery_cost"
     t.string   "dispatch_address"
     t.string   "size"
     t.integer  "quantity"
+    t.integer  "delivery_method_id"
+    t.float    "delivery_method_cost"
+    t.float    "purchasable_price"
+    t.float    "credits_used"
   end
 
   create_table "reference_requests", :force => true do |t|

@@ -6,6 +6,7 @@ class Purchase < ActiveRecord::Base
   belongs_to :purchasable, :polymorphic => true
   has_many :credits
   has_many :credit_reductions
+  belongs_to :delivery_method
   
   validates :purchasable_id, :purchasable_type, :user_id, :price, :currency, :confirmed_terms, :presence => true
   validate :check_if_delivery_info_required
@@ -17,6 +18,10 @@ class Purchase < ActiveRecord::Base
       total = total + credit_reduction.value
     end
     return total
+  end
+  
+  def dispatch_cost
+    self.delivery_cost
   end
   
   def check_if_delivery_info_required

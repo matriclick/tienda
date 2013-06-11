@@ -96,42 +96,13 @@ class BuyController < ApplicationController
     @user = current_user
     @purchase = Purchase.find params[:purchase_id]
     @purchasable = @purchase.purchasable
-
-    @payment_method = params[:purchase_method]
-    @purchase.transfer_type = @payment_method
-
-    case @purchase.purchasable_type
-      when 'Dress', 'GiftCardCode', 'ShoppingCart'
-        if !@purchase.quantity.blank?
-          @purchase.price = @purchasable.price * @purchase.quantity
-        else
-          @purchase.price = @purchasable.price
-        end
-      when 'Product', 'Service'
-        @purchase.price = session[:matriclick_purchase_price] if !session[:matriclick_purchase_price].blank?
-    end
-    
-    @subtotal =  @purchase.price
-    
-    if current_user.credit_amount > @subtotal
-			@credits_to_use = @subtotal
-		else
-			@credits_to_use = current_user.credit_amount
-		end
-		@purchase.price = (@purchase.price - @credits_to_use).ceil
-
-    if !@purchase.delivery_info.nil?
-      @purchase.price = @purchase.price + @purchase.delivery_info.commune.dispatch_cost
-    end
-        
-    @purchase.save
     
     if !@purchase.delivery_info.nil?
       @show_map = true
       @map = @purchase.delivery_info
     end
     
-    if (@payment_method == 'webpay' or @payment_method == 'webpay_bchile') and @purchase.price > 0
+    if (@purchase.transfer_type == 'webpay') and @purchase.price > 0
       @oc = Order.new
       @oc.purchase = @purchase
       @oc.tbk_orden_compra = DateTime.current().to_s(:number) + 'U' + @user.id.to_s
@@ -284,13 +255,12 @@ class BuyController < ApplicationController
             @purchasable.mark_as_sold
         end
         
-        #REGISTRO DE DATOS DE DESPACHO Y COSTO EN EL MOMENTO DE LA COMPRA
+        #REGISTRO DE DATOS DE DESPACHO
         if !@purchase.delivery_info.nil?
           @purchase.dispatch_address = @purchase.delivery_info.street + ' ' + @purchase.delivery_info.number
           @purchase.dispatch_address = @purchase.dispatch_address +  ', depto/casa ' + @purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.blank?
           @purchase.dispatch_address = @purchase.dispatch_address +  ', ' + @purchase.delivery_info.commune.name if !@purchase.delivery_info.commune.nil?
           @purchase.dispatch_address = @purchase.dispatch_address +  ', ' + @purchase.delivery_info.commune.region.name if !@purchase.delivery_info.commune.region.nil?
-          @purchase.dispatch_cost = @purchase.delivery_info.commune.dispatch_cost if !@purchase.delivery_info.commune.nil?
         end
         @purchase.save(:validate => false)
         

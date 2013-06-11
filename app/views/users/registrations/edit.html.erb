@@ -1,6 +1,6 @@
 <h1>Compras realizadas</h1>
 <div class="clear"></div>
-<div style="border-top:1px dotted #ccc">
+<div style="border-top:1px dotted #ccc; margin-bottom:15px">
 	<% unless @purchases.blank? %>
 		<%= render 'user_conversations/purchases_list', :purchases => @purchases %>
 	<% else -%>
