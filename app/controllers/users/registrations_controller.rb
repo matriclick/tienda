@@ -9,8 +9,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   
   def edit
-    add_breadcrumb 'Tu cuenta', edit_user_registration_path
-		@purchases = current_user.purchases.where(:status => 'finalizado').order 'created_at DESC'
+    add_breadcrumb 'Tu cuenta', user_profile_path
+    add_breadcrumb 'Usuario', edit_user_registration_path
   end
   
   # POST /resource

@@ -271,17 +271,8 @@ Matri::Application.routes.draw do
     get 'matrichecklist/view_activity' => 'matrichecklist#view_activity'
       
     # USER_PROFILE
-    get 'user_profile'											=> 'user_profile#show',					as: 'user_profile'
-    get 'user_profile/edit'									=> 'user_profile#edit',					as: 'edit_user_profile'
-  	put 'user_profile/edit'									=> 'user_profile#update',				as: 'update_user_profile'
-    get 'user_profile/add_couple'						=> 'user_profile#add_couple',		as: 'user_profile_add_couple'
-    get 'user_profile/add_user'							=> 'user_profile#add_user',			as: 'user_profile_add_user'
-    get 'user_profile/show_people'					=> 'user_profile#show_people',	as: 'user_profile_show_people'
-    post 'user_profile/create_user'					=> 'user_profile#create_user',	as: 'user_profile_create_user'
-    get 'user_profile/edit_user/:id'				=> 'user_profile#edit_user',		as: 'user_profile_edit_user'
-    put 'user_profile/update_user/:id'			=> 'user_profile#update_user',	as: 'user_profile_update_user'
-    delete 'user_profile/destroy_user/:id'	=> 'user_profile#destroy_user', as: 'user_profile_destroy_user'
-    delete 'user_profile/sign_in_user'			=> 'user_profile#sign_in_user', as: 'user_profile_sign_in_user'
+    get 'user_profile'											=> 'user_profile#purchases',					as: 'user_profile'
+    get 'user_profile/personalization'			=> 'user_profile#personalization',		as: 'user_profile_personalization'
 	
   	# BOOKING
   	match 'bookings'											=> 'bookings#booking_list', 		as: 'bookings_booking_list'

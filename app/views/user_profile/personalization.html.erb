@@ -1,0 +1,14 @@
+<div class="left_menu">
+	<%= render 'left_menu', :dresses => @dresses %>
+</div>
+<div style="width:750px; float:left; margin-left:20px;">
+	<h1>Compras realizadas</h1>
+	<div class="clear"></div>
+	<div style="border-top:1px dotted #ccc; margin-bottom:15px">
+		<% unless @purchases.blank? %>
+			<%= render 'user_conversations/purchases_list', :purchases => @purchases %>
+		<% else -%>
+			<%= render "layouts/nothing_to_show", :word => 'compras en matriclick ¿¡Qué esperas!?', :small => true %>
+		<% end -%>
+	</div>
+</div>
