@@ -1,0 +1,32 @@
+<%= form_for(@cloth_measure) do |f| %>
+	<% if @cloth_measure.errors.any? %>
+	<div id="error_explanation">
+	  	<h2><%= pluralize(@cloth_measure.errors.count, "error") %> prohibited this cloth_measure from being saved:</h2>
+		<ul>
+			<% @cloth_measure.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+  			<% end %>
+		</ul>
+	</div>
+	<% end %>
+	<h2>Tus Medidas</h2>
+	<p>Solo números enteros. No agregues comas ni puntos.</p>
+	<div style="float:left">
+		<%= image_tag 'el_bazar/medidas.png', alt: 'medidas' %>
+	</div>
+	<div>
+		<h3 style="margin-top:105px">
+			Busto <%= f.text_field :bust %> cms
+		</h3>
+		<h3 style="margin-top:20px">
+			Cintura <%= f.text_field :waist %> cms
+		</h3>
+		<h3 style="margin-top:25px">
+			Caderas <%= f.text_field :hips %> cms
+		</h3>
+		<div style="margin-top:25px">
+			  <%= f.submit 'Guardar Medidas', class: 'button_buy_dress_pink' %>
+		</div>
+	</div>
+	<div class="clear"></div>
+<% end %>

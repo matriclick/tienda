@@ -1,0 +1,27 @@
+<h1>Listing cloth_measures</h1>
+
+<table>
+  <tr>
+    <th>Bust</th>
+    <th>Waist</th>
+    <th>Hips</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cloth_measures.each do |cloth_measure| %>
+  <tr>
+    <td><%= cloth_measure.bust %></td>
+    <td><%= cloth_measure.waist %></td>
+    <td><%= cloth_measure.hips %></td>
+    <td><%= link_to 'Show', cloth_measure %></td>
+    <td><%= link_to 'Edit', edit_cloth_measure_path(cloth_measure) %></td>
+    <td><%= link_to 'Destroy', cloth_measure, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Cloth measure', new_cloth_measure_path %>

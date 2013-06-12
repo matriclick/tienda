@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130611063204) do
+ActiveRecord::Schema.define(:version => 20130612053121) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -328,6 +328,14 @@ ActiveRecord::Schema.define(:version => 20130611063204) do
     t.string   "name"
     t.date     "follow_up_date"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cloth_measures", :force => true do |t|
+    t.float    "bust"
+    t.float    "waist"
+    t.float    "hips"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1656,6 +1664,7 @@ ActiveRecord::Schema.define(:version => 20130611063204) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.integer  "country_id",                            :default => 1
+    t.integer  "cloth_measure_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

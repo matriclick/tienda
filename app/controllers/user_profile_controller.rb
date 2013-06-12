@@ -10,7 +10,11 @@ class UserProfileController < ApplicationController
   def personalization
     add_breadcrumb 'Tu cuenta', user_profile_path
     add_breadcrumb 'Personalización', user_profile_personalization_path
-	  @purchases = current_user.purchases.where(:status => 'finalizado').order 'created_at DESC'  
+    @cloth_measure = current_user.cloth_measure
+  end
+  
+  def save_cloth_measure
+  
   end
   
 end

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Bust:</b>
+  <%= @cloth_measure.bust %>
+</p>
+
+<p>
+  <b>Waist:</b>
+  <%= @cloth_measure.waist %>
+</p>
+
+<p>
+  <b>Hips:</b>
+  <%= @cloth_measure.hips %>
+</p>
+
+
+<%= link_to 'Edit', edit_cloth_measure_path(@cloth_measure) %> |
+<%= link_to 'Back', cloth_measures_path %>

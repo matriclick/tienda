@@ -1,5 +1,6 @@
 # encoding: UTF-8
 Matri::Application.routes.draw do
+
   # This is one way to implement the "channel.html" file recommended by facebook. Your application.html.erb should have something like "channelUrl : '//www.matriclick.com/channel.html'"
   get '/channel.html' => proc {
     [
@@ -224,7 +225,8 @@ Matri::Application.routes.draw do
 	  
 	  get 'dresses/refund_policy'	=> 'dresses#refund_policy', as: 'refund_policy'
 	  resources :refund_requests
-	    
+    resources :cloth_measures	    
+  	
   	# BLOG
     resources :posts do
   		resources :blog_comments  	

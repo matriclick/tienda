@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  bust: 1.5
+  waist: 1.5
+  hips: 1.5
+
+two:
+  bust: 1.5
+  waist: 1.5
+  hips: 1.5

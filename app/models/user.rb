@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 	belongs_to :role
 	belongs_to :reviews
 	belongs_to :user_account
+	belongs_to :cloth_measure
 	has_many :conversations, :dependent => :destroy
 	has_many :supplier_accounts, :through => :conversations
 	has_many :dress_requests
