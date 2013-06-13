@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     self.contest_travelites.where(:selection => 'despedida_de_soltera').first
   end
   
+  def email_name
+    self.email[0..self.email.index('@')-1]
+  end
+  
   def purchased_dresses
     products = Array.new
     self.purchases.each do |pur|

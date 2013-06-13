@@ -46,12 +46,12 @@ class DressesController < ApplicationController
 	
 	def bazar
 	  @home = true
-    @title_content = 'Bienvenido a El Bazar'
+    @title_content = '¡Bienvenido!'
     @meta_description_content = 'Compra miles de productos de moda para la mujer: vestidos de fiesta, blusas, chaquetas, accesorios y muchas cosas más!'
 	  if !current_supplier.nil?
 	    sign_out current_supplier
     end
-    add_breadcrumb "El Bazar", :bazar_path
+    add_breadcrumb "INCIDIT", :bazar_path
   end
 	
 	def party_dress_menu

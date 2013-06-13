@@ -2,8 +2,9 @@
 
 <table>
   <tr>
-    <th>Razón de devolución</th>
     <th>Usuario</th>
+    <th>Producto</th>
+    <th>Razón de devolución</th>
     <th>Banco</th>
     <th></th>
     <th></th>
@@ -12,8 +13,9 @@
 
 <% @refund_requests.each do |refund_request| %>
   <tr>
-    <td><%= refund_request.refund_reason.name %></td>
     <td><%= refund_request.user.email %></td>
+    <td><%= refund_request.dress.introduction if !refund_request.dress.nil? %></td>
+    <td><%= refund_request.refund_reason.name %></td>
     <td><%= refund_request.account_bank %></td>
     <td><%= link_to 'Ver Detalle', refund_request %></td>
     <td><%= link_to 'Editar', edit_refund_request_path(refund_request) %></td>
@@ -21,7 +23,5 @@
   </tr>
 <% end %>
 </table>
-
 <br />
-
-<%= link_to 'Crear una devolución', new_refund_request_path %>
+<%= link_to 'Crear una devolución', new_refund_request_path %> | <%= link_to 'Volver al Administrador', administration_index_path %>

@@ -1,0 +1,12 @@
+<div class="not_found">
+	<h2>Ouch...!</h2><h3>No encontramos lo que estabas buscando... ¡pero tal vez alguno de estos estilos te guste más!</h3>
+	<%= image_tag 'el_bazar/not-found.jpg', alt: 'búsqueda no encontrada' %> <br />
+	<h3>Si no... ¡sigue buscando! </h3>
+	<div style="text-align:center;">
+		<%= form_tag(dresses_search_path, :method => "get") do %>
+			<%= text_field_tag(:q, @search_term, size: '55x10', id: 'main_search', 
+				value: 'Busca por color, talla, tela, etc...', rel: 'Busca por color, talla, tela, etc...') %>
+			<%= submit_tag("Buscar", :class => 'button_filter_pink') %>
+		<% end %>
+	</div>
+</div>
