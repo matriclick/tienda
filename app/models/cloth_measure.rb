@@ -1,3 +1,4 @@
 class ClothMeasure < ActiveRecord::Base
-  validates :bust, :waist, :hips, :presence => true
+  belongs_to :shoe_size
+  validates :bust, :waist, :hips, :shoe_size_id,:presence => true
 end

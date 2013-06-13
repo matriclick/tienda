@@ -24,6 +24,9 @@
 		<h3 style="margin-top:25px">
 			Caderas <%= f.text_field :hips %> cms
 		</h3>
+		<h3 style="margin-top:150px">
+			Zapato <%= f.collection_select :shoe_size_id, ShoeSize.all, :id, :size_cl, :prompt => true, :allow_blank => false %>
+		</h3>
 		<div style="margin-top:25px">
 			  <%= f.submit 'Guardar Medidas', class: 'button_buy_dress_pink' %>
 		</div>

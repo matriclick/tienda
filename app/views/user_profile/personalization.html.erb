@@ -20,6 +20,10 @@
 			<h3 style="margin-top:25px">
 				Caderas <%= @cloth_measure.nil? ? link_to('= ?', new_cloth_measure_path, class: 'no_underline') : link_to('= '+@cloth_measure.hips.to_s+' cms', edit_cloth_measure_path(@cloth_measure), class: 'no_underline') %>
 			</h3>
+			<h3 style="margin-top:150px">
+				Zapato <%= @cloth_measure.nil? ? link_to('= ?', new_cloth_measure_path, class: 'no_underline') : link_to('= talla  '+@cloth_measure.shoe_size.size_cl, edit_cloth_measure_path(@cloth_measure), class: 'no_underline') %>
+			</h3>
+			
 		</div>
 		<div class="clear"></div>
 	</div>
