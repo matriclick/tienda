@@ -11,10 +11,29 @@ class UserProfileController < ApplicationController
     add_breadcrumb 'Tu cuenta', user_profile_path
     add_breadcrumb 'Personalización', user_profile_personalization_path
     @cloth_measure = current_user.cloth_measure
+    @tags = current_user.tags
   end
   
-  def save_cloth_measure
-  
+  def edit_tags
+    add_breadcrumb 'Tu cuenta', user_profile_path
+    add_breadcrumb 'Personalización', user_profile_personalization_path
+    add_breadcrumb 'Estilo', user_profile_edit_tags_path
+    @tags = Tag.all
+    @user = current_user
+  end
+
+  def update_tags
+    @user = current_user
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        puts '----------------'
+        puts @user.email
+        puts params[:user]
+        puts '----------------'
+        format.html { redirect_to user_profile_personalization_path }
+        format.json { head :ok }
+      end
+    end
   end
   
 end

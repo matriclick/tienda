@@ -13,6 +13,8 @@ class Dress < ActiveRecord::Base
   has_one :refund_request
   
   has_and_belongs_to_many :dress_types
+  has_and_belongs_to_many :tags
+  
 	belongs_to :dress_status
 	belongs_to :supplier_account
 	belongs_to :color

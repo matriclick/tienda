@@ -1,0 +1,18 @@
+<h1>Selecciona los estilos que mejor reflejen el tuyo</h1>
+<p>Esta información la utilizaremos para enviarte correos y darle más importancia a los productos que calcen con tu estilo.</p>
+
+<%= form_for(@user, :url => user_profile_update_tags_path) do |f| %>
+	<% @tags.each do |tag| %>
+		<div style="float:left; margin:10px; background:#f6f6f6">
+			<%= image_tag('tags/'+tag.image_name, width: '200px', height: '200px') %><br />
+			<h3 style="text-align:center;">
+				<%= check_box_tag("user[tag_ids][]", tag.id, (@user.tags.include? tag), 
+					:class => "tag_#{tag.id}") %> <%= tag.name.capitalize %>
+			</h3>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+	<div style="margin-top:25px">
+		  <%= f.submit 'Actualizar', class: 'button_buy_dress_pink' %>
+	</div>
+<% end %>

@@ -6,25 +6,13 @@
 	<p>Acá podrás darnos más información sobre tus preferencias y tus medidas para que podamos enviarte los productos y promociones que más te interesan y ¡mejor te quedarán!</p>
 	<p>Nunca compartiremos esta información. Solo usaremos esta información para poder enviarte correos personalizados y mejorar tu experiencia en la página sugieriendo los productos que mejor te podrían quedar y más te van a gustar.</p>
 	<div style="border-top:1px dotted #ccc; margin:15px 0px 15px 0px">
-		<h2>Tus Medidas</h2>
-		<div style="float:left">
-			<%= image_tag 'el_bazar/medidas.png', alt: 'medidas' %>
+		<div style="float:left;">
+			<h2>Tus Medidas <%= link_to '(editar)', edit_cloth_measure_path(@cloth_measure), class: 'no_underline' %></h2>
+			<%= render 'show_cloth_measure' %>
 		</div>
-		<div>
-			<h3 style="margin-top:105px">
-				Busto <%= @cloth_measure.nil? ? link_to('= ?', new_cloth_measure_path, class: 'no_underline') : link_to('= '+@cloth_measure.bust.to_s+' cms', edit_cloth_measure_path(@cloth_measure), class: 'no_underline') %>
-			</h3>
-			<h3 style="margin-top:20px">
-				Cintura <%= @cloth_measure.nil? ? link_to('= ?', new_cloth_measure_path, class: 'no_underline') : link_to('= '+@cloth_measure.waist.to_s+' cms', edit_cloth_measure_path(@cloth_measure), class: 'no_underline') %>
-			</h3>
-			<h3 style="margin-top:25px">
-				Caderas <%= @cloth_measure.nil? ? link_to('= ?', new_cloth_measure_path, class: 'no_underline') : link_to('= '+@cloth_measure.hips.to_s+' cms', edit_cloth_measure_path(@cloth_measure), class: 'no_underline') %>
-			</h3>
-			<h3 style="margin-top:150px">
-				Zapato <%= @cloth_measure.nil? ? link_to('= ?', new_cloth_measure_path, class: 'no_underline') : link_to('= talla  '+@cloth_measure.shoe_size.size_cl, edit_cloth_measure_path(@cloth_measure), class: 'no_underline') %>
-			</h3>
-			
+		<div style="float:right; margin-left:20px; max-width:450px;">
+			<h2>Tus Estilos <%= link_to '(editar)', user_profile_edit_tags_path, class: 'no_underline' %></h2>
+			<%= render 'show_tags' %>
 		</div>
-		<div class="clear"></div>
 	</div>
 </div>

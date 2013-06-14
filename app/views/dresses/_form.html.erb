@@ -94,6 +94,22 @@
 				<%= f.label :position, 'Keywords' %><%= mark_required @dress, :product_keywords %> <%= f.text_field :product_keywords %>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					Selecciona los estilos que representa este producto.
+				</div>
+				<% Tag.all.each do |tag| %>
+					<div style="float:left; margin:10px; background:#f6f6f6">
+						<%= image_tag('tags/'+tag.image_name, width: '200px', height: '200px') %><br />
+						<div>
+							<%= check_box_tag("dress[tag_ids][]", tag.id, (@dress.tags.include? tag), 
+								:class => "tag_#{tag.id}") %> <%= tag.name.capitalize %>
+						</div>
+					</div>
+				<% end %>
+			</td>
+		</tr>
 		
 	</table>
 	<% if defined? @supplier_account %>

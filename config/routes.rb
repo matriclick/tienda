@@ -275,7 +275,9 @@ Matri::Application.routes.draw do
     # USER_PROFILE
     get 'user_profile'											=> 'user_profile#purchases',					as: 'user_profile'
     get 'user_profile/personalization'			=> 'user_profile#personalization',		as: 'user_profile_personalization'
-	
+    get 'user_profile/estilos'		        	=> 'user_profile#edit_tags',	      	as: 'user_profile_edit_tags'
+    put "user_profile/update_tags"          => "user_profile#update_tags",        as: 'user_profile_update_tags'
+    
   	# BOOKING
   	match 'bookings'											=> 'bookings#booking_list', 		as: 'bookings_booking_list'
   	match 'bookings/update_booking/:id' 		=> 'bookings#update_booking', 	as: 'bookings_update_booking'

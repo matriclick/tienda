@@ -875,4 +875,16 @@ aux << (ShoeSize.find_by_size_cl("43") || ShoeSize.create(:size_cl => '43', :siz
 aux.each { |x| puts x.size_cl }
 puts "\n"
 
+puts "--> TagType:"
+aux = []
+aux << (TagType.find_by_name("Estilo Ropa") || TagType.create(:name => 'Estilo Ropa', :description => ''))
+aux.each { |x| puts x.name }
+puts "\n"
 
+puts "--> Tag:"
+aux = []
+aux << (Tag.find_by_name("Formal") || Tag.create(:name => 'Formal', :image_name => 'formal.jpg', :tag_type_id => 1, :description => ''))
+aux << (Tag.find_by_name("Hippie") || Tag.create(:name => 'Hippie', :image_name => 'hippie.jpg', :tag_type_id => 1, :description => ''))
+aux << (Tag.find_by_name("Rockero") || Tag.create(:name => 'Rockero', :image_name => 'rockero.jpg', :tag_type_id => 1, :description => ''))
+aux.each { |x| puts x.name }
+puts "\n"

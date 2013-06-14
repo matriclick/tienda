@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 	belongs_to :reviews
 	belongs_to :user_account
 	belongs_to :cloth_measure
+  has_and_belongs_to_many :tags
+  
 	has_many :conversations, :dependent => :destroy
 	has_many :supplier_accounts, :through => :conversations
 	has_many :dress_requests
@@ -30,7 +32,7 @@ class User < ActiveRecord::Base
 	has_many :shopping_carts
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :language
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids
 	
 	def check_if_has_credits
     self.credits.is_active.count > 0 ? true : false

@@ -1,0 +1,13 @@
+<% if @tags.size > 0 %>
+	<% @tags.each do |tag| %>
+		<div style="float:left; margin:10px; background:#f6f6f6">
+			<%= image_tag('tags/'+tag.image_name, width: '200px', height: '200px') %><br />
+			<h3 style="text-align:center;"><%= tag.name.capitalize %></h3>
+		</div>
+	<% end %>
+<% else %>
+	<div style="width:450px">
+	<h3>Oh! No has seleccionado tus estilos aún :-(</h3>
+	<h3>Hazlo ahora haciendo <%= link_to 'click acá', user_profile_edit_tags_path %>.</h3>
+	</div>
+<% end %>
