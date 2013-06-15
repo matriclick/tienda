@@ -32,4 +32,7 @@
 		</div>
 	</div>
 	<div class="clear"></div>
+	<% if !@id.nil? %>
+		<%= hidden_field_tag 'id', @id %>
+	<% end %>
 <% end %>

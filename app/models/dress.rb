@@ -18,6 +18,8 @@ class Dress < ActiveRecord::Base
 	belongs_to :dress_status
 	belongs_to :supplier_account
 	belongs_to :color
+	belongs_to :cloth_measure
+	
 	has_and_belongs_to_many :gift_cards
 	  
 	accepts_nested_attributes_for :dress_images, :reject_if => proc { |a| a[:dress].blank? }, :allow_destroy => true

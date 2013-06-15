@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130614164742) do
+ActiveRecord::Schema.define(:version => 20130615023527) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -631,6 +631,7 @@ ActiveRecord::Schema.define(:version => 20130614164742) do
     t.integer  "position",            :default => 99
     t.string   "slug"
     t.string   "product_keywords"
+    t.integer  "cloth_measure_id"
   end
 
   add_index "dresses", ["slug"], :name => "index_dresses_on_slug", :unique => true

@@ -1,6 +1,6 @@
 <div style="left:830px; top:10px; position:absolute;">
 	<% if user_signed_in? %>
-		<%= link_to "Tu Cuenta | ", user_profile_path,  :class => 'no_underline_login', :rel => 'nofollow' %>
+		<%= link_to "Tu Cuenta | ", user_profile_personalization_path,  :class => 'no_underline_login', :rel => 'nofollow' %>
 		<%= carrito_compra_link %> |
 		<%= link_to 'Salir', destroy_user_session_path, method: :delete,  :class => 'no_underline_login', :rel => 'nofollow' %>
 	<% else %>

@@ -26,10 +26,6 @@ class UserProfileController < ApplicationController
     @user = current_user
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        puts '----------------'
-        puts @user.email
-        puts params[:user]
-        puts '----------------'
         format.html { redirect_to user_profile_personalization_path }
         format.json { head :ok }
       end

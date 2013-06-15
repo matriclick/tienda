@@ -7,7 +7,9 @@
 	<p>Nunca compartiremos esta información. Solo usaremos esta información para poder enviarte correos personalizados y mejorar tu experiencia en la página sugieriendo los productos que mejor te podrían quedar y más te van a gustar.</p>
 	<div style="border-top:1px dotted #ccc; margin:15px 0px 15px 0px">
 		<div style="float:left;">
-			<h2>Tus Medidas <%= link_to '(editar)', edit_cloth_measure_path(@cloth_measure), class: 'no_underline' %></h2>
+			<h2>Tus Medidas 
+				<%= (@cloth_measure.nil?) ? link_to('(editar)', new_cloth_measure_path(:u => 'ok'), class: 'no_underline') : link_to('(editar)', edit_cloth_measure_path(@cloth_measure), class: 'no_underline') %>
+			</h2>
 			<%= render 'show_cloth_measure' %>
 		</div>
 		<div style="float:right; margin-left:20px; max-width:450px;">

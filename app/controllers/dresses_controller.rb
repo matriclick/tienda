@@ -371,7 +371,8 @@ class DressesController < ApplicationController
     @dress = Dress.find(params[:id])
     @dress_types = DressType.all
     
-    @stock_updated = params[:commit] == 'Guardar stock'
+    @stock_updated = (params[:commit] == 'Guardar stock sin medidas' or params[:commit] == 'Guardar stock y agregar medidas')
+    @add_cloth_measures = params[:commit] == 'Guardar stock y agregar medidas'
     
     if @stock_updated
       if !params[:dress].nil?
@@ -388,6 +389,9 @@ class DressesController < ApplicationController
       if @dress.update_attributes(params[:dress])
         if !@stock_updated
           format.html { redirect_to dresses_set_stock_path(id: @dress) }
+          format.json { head :ok }
+        elsif @add_cloth_measures
+          format.html { redirect_to !@dress.cloth_measure.nil? ? edit_cloth_measure_path(@dress.cloth_measure) : new_cloth_measure_path(:u => @dress.id) }
           format.json { head :ok }
         else
           format.html { redirect_to dress_ver_path(type: @dress.dress_types.first.name, slug: @dress.slug) }

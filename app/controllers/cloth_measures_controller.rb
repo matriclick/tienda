@@ -27,6 +27,13 @@ class ClothMeasuresController < ApplicationController
   # GET /cloth_measures/new.json
   def new
     @cloth_measure = ClothMeasure.new
+    if params[:u] == 'ok'
+      @id = 'current_user'
+    elsif numeric?(params[:u]) and (current_user.admin? or !current_supplier.nil?)
+      @id = params[:u]
+    else
+      redirect_to root_country_path
+    end
     
     respond_to do |format|
       format.html # new.html.erb
@@ -45,9 +52,19 @@ class ClothMeasuresController < ApplicationController
     @cloth_measure = ClothMeasure.new(params[:cloth_measure])
     respond_to do |format|
       if @cloth_measure.save
-        current_user.update_attribute(:cloth_measure_id, @cloth_measure.id)
-        format.html { redirect_to user_profile_personalization_path, notice: 'Cloth measure was successfully created.' }
-        format.json { render json: @cloth_measure, status: :created, location: @cloth_measure }
+        if params[:id] == 'current_user'
+          current_user.update_attribute(:cloth_measure_id, @cloth_measure.id)
+          format.html { redirect_to user_profile_personalization_path, notice: 'Cloth measure was successfully created.' }
+          format.json { render json: @cloth_measure, status: :created, location: @cloth_measure }
+        elsif numeric?(params[:id]) and (current_user.admin? or !current_supplier.nil?)
+          dress = Dress.find(params[:id])
+          dress.update_attribute(:cloth_measure_id, @cloth_measure.id)
+          format.html { redirect_to dress_ver_path(type: dress.dress_types.first.name, slug: dress.slug), notice: 'Cloth measure was successfully created.' }
+          format.json { render json: @cloth_measure, status: :created, location: @cloth_measure }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @cloth_measure.errors, status: :unprocessable_entity }  
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @cloth_measure.errors, status: :unprocessable_entity }
@@ -62,8 +79,13 @@ class ClothMeasuresController < ApplicationController
 
     respond_to do |format|
       if @cloth_measure.update_attributes(params[:cloth_measure])
-        format.html { redirect_to user_profile_personalization_path, notice: 'Cloth measure was successfully updated.' }
-        format.json { head :ok }
+        if !@cloth_measure.user.nil?
+          format.html { redirect_to user_profile_personalization_path, notice: 'Cloth measure was successfully updated.' }
+          format.json { head :ok }
+        elsif !@cloth_measure.dress.nil?
+          format.html { redirect_to dress_ver_path(type: @cloth_measure.dress.dress_types.first.name, slug: @cloth_measure.dress.slug), notice: 'Cloth measure was successfully updated.' }
+          format.json { head :ok }
+        end
       else
         format.html { render action: "edit" }
         format.json { render json: @cloth_measure.errors, status: :unprocessable_entity }
