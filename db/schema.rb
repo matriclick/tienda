@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615023527) do
+ActiveRecord::Schema.define(:version => 20130615182239) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -339,6 +339,14 @@ ActiveRecord::Schema.define(:version => 20130615023527) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "shoe_size_id"
+    t.integer  "size_id"
+  end
+
+  create_table "cloth_measures_dresses", :id => false, :force => true do |t|
+    t.integer  "dress_id"
+    t.integer  "cloth_measure_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "color_types", :force => true do |t|
@@ -631,7 +639,6 @@ ActiveRecord::Schema.define(:version => 20130615023527) do
     t.integer  "position",            :default => 99
     t.string   "slug"
     t.string   "product_keywords"
-    t.integer  "cloth_measure_id"
   end
 
   add_index "dresses", ["slug"], :name => "index_dresses_on_slug", :unique => true

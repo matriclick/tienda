@@ -31,12 +31,17 @@ class ClothMeasuresController < ApplicationController
       @id = 'current_user'
     elsif numeric?(params[:u]) and (current_user.admin? or !current_supplier.nil?)
       @id = params[:u]
+      @size = Size.find(params[:size_id])
     else
       redirect_to root_country_path
     end
     
     respond_to do |format|
-      format.html # new.html.erb
+      if @id == params[:u]
+        format.html { render :layout => false }
+      else
+        format.html
+      end
       format.json { render json: @cloth_measure }
     end
   end
@@ -44,6 +49,23 @@ class ClothMeasuresController < ApplicationController
   # GET /cloth_measures/1/edit
   def edit
     @cloth_measure = ClothMeasure.find(params[:id])
+    
+    if !@cloth_measure.size.nil?
+      @size = @cloth_measure.size
+      @is_dress = true
+    else
+      @is_dress = false
+    end
+    
+    respond_to do |format|
+      if @is_dress
+        format.html { render :layout => false }
+      else
+        format.html
+      end
+      format.json { render json: @cloth_measure }
+    end
+    
   end
 
   # POST /cloth_measures
@@ -58,8 +80,8 @@ class ClothMeasuresController < ApplicationController
           format.json { render json: @cloth_measure, status: :created, location: @cloth_measure }
         elsif numeric?(params[:id]) and (current_user.admin? or !current_supplier.nil?)
           dress = Dress.find(params[:id])
-          dress.update_attribute(:cloth_measure_id, @cloth_measure.id)
-          format.html { redirect_to dress_ver_path(type: dress.dress_types.first.name, slug: dress.slug), notice: 'Cloth measure was successfully created.' }
+          dress.cloth_measures << @cloth_measure
+          format.html { redirect_to dresses_set_stock_path(id: dress.id), notice: 'Cloth measure was successfully created.' }
           format.json { render json: @cloth_measure, status: :created, location: @cloth_measure }
         else
           format.html { render action: "new" }
@@ -83,7 +105,7 @@ class ClothMeasuresController < ApplicationController
           format.html { redirect_to user_profile_personalization_path, notice: 'Cloth measure was successfully updated.' }
           format.json { head :ok }
         elsif !@cloth_measure.dress.nil?
-          format.html { redirect_to dress_ver_path(type: @cloth_measure.dress.dress_types.first.name, slug: @cloth_measure.dress.slug), notice: 'Cloth measure was successfully updated.' }
+          format.html { redirect_to dresses_set_stock_path(id: @cloth_measure.dress.id), notice: 'Cloth measure was successfully updated.' }
           format.json { head :ok }
         end
       else

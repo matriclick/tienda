@@ -9,7 +9,10 @@
 		</ul>
 	</div>
 	<% end %>
-	<h2>Tus Medidas</h2>
+	<h2><%= @id == 'current_user' ? 'Tus Medidas' : 'Agregar medidas para '+@size.name %></h2>
+	<% if @id != 'current_user' %>
+		<%= f.hidden_field :size_id, :value => @size.id %>
+	<% end %>
 	<p>Solo números enteros. No agregues comas ni puntos.</p>
 	<div style="float:left">
 		<%= image_tag 'el_bazar/medidas.png', alt: 'medidas' %>

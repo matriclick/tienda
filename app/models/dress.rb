@@ -14,11 +14,11 @@ class Dress < ActiveRecord::Base
   
   has_and_belongs_to_many :dress_types
   has_and_belongs_to_many :tags
+  has_and_belongs_to_many :cloth_measures
   
 	belongs_to :dress_status
 	belongs_to :supplier_account
 	belongs_to :color
-	belongs_to :cloth_measure
 	
 	has_and_belongs_to_many :gift_cards
 	  

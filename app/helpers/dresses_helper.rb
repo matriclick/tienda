@@ -1,4 +1,18 @@
 module DressesHelper
+  
+  def link_cloth_measure(size)
+    @measure_for_size = @cloth_measures.detect{|measure| measure.size_id == size.id }
+    if !@measure_for_size.nil? and !@measure_for_size.bust.nil? and !@measure_for_size.waist.nil? and !@measure_for_size.hips.nil?
+      link_to '(editar medidas '+@measure_for_size.bust.ceil.to_s+' x '+@measure_for_size.waist.ceil.to_s+' x '+@measure_for_size.hips.ceil.to_s+')', 
+              edit_cloth_measure_path(@measure_for_size), :id => 'form_inline', :style => 'margin-left:10px', :class => 'no_underline'
+    elsif !@measure_for_size.nil? and (@measure_for_size.bust.nil? or @measure_for_size.waist.nil? or @measure_for_size.hips.nil?)
+      link_to '(completar medidas)', edit_cloth_measure_path(@measure_for_size), :id => 'form_inline', :style => 'margin-left:10px', :class => 'no_underline'
+    else
+      link_to '(agregar medidas)', new_cloth_measure_path(:u => @dress.id, :size_id => size.id), 
+              :id => 'form_inline', :style => 'margin-left:10px', :class => 'no_underline'
+    end
+  end
+  
   def dispatch_cost_apply(dress)
     case dress.supplier_account.supplier_account_type.name
       when 'Vestidos de Novia Usados', 'Vestidos Boutique'
