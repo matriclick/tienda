@@ -23,16 +23,18 @@ class DressesController < ApplicationController
   end
   
   def contact_elbazar
-    @title_content = 'Contacto El Bazar'
-    @meta_description_content = 'Contáctanos en El Bazar para resolver cualquier duda que tengas'
+    add_breadcrumb "Incidit", :bazar_path
+    add_breadcrumb "Contacto", :contact_elbazar_path
+    
+    @title_content = 'Formulario de Contacto'
+    @meta_description_content = 'Contáctanos para resolver cualquier duda que tengas'
     @contact = Contact.new
 
     respond_to do |format|
       format.html
       format.json { render json: @contact }
     end
-    add_breadcrumb "El Bazar", :bazar_path
-    add_breadcrumb "Contacto", :tu_casa_path
+    
   end
     
 	def wedding_dress_menu

@@ -1,6 +1,12 @@
 # coding: utf-8
 class NoticeMailer < ActionMailer::Base
 	default from: "mensajes@matriclick.com"
+
+	#CONTACT
+  def refund_request_email(refund_request)
+    @refund_request = refund_request
+  	mail to: "hola@matriclick.com", subject: "Devolución en Matriclick.com"
+  end
 	
 	#CONTACT
   def contact_email(contact)

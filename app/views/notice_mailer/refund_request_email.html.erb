@@ -1,0 +1,19 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					Estimada,<br/><br/>
+					Se ingresó una nueva solicitud de devolución.<br/><br/>
+					<p style="color:#aaa;">Usuario: <%= @refund_request.user.email %></p>
+					<p style="color:#aaa;">Razón: <%= @refund_request.refund_reason.name %></p>
+					<p style="color:#aaa;">Vestido: <%= @refund_request.dress.introduction %></p><br/><br/><br/>
+					Saludos,<br>
+					- Equipo Matriclick<br/><br/>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>

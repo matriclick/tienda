@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RefundRequestsController < ApplicationController
   before_filter :redirect_unless_admin, :except => [:new, :create]
   before_filter :authenticate_user!
@@ -27,6 +28,9 @@ class RefundRequestsController < ApplicationController
   # GET /refund_requests/new
   # GET /refund_requests/new.json
   def new
+    add_breadcrumb "Incidit", :bazar_path
+    add_breadcrumb "Solicitud de devolución", :new_refund_request_path
+    
     @refund_request = RefundRequest.new
     @user_id = current_user.id
     
@@ -49,7 +53,8 @@ class RefundRequestsController < ApplicationController
 
     respond_to do |format|
       if @refund_request.save
-        format.html { redirect_to root_country_path, notice: 'Refund request was successfully created.' }
+        NoticeMailer.purchase_email(@refund_request).deliver
+        format.html { redirect_to root_country_path, notice: 'Solicitud de devolución correctamente ingresada.' }
         format.json { render json: @refund_request, status: :created, location: @refund_request }
       else
         format.html { render action: "new" }

@@ -1,6 +1,5 @@
-<div class="titulos">
-	<%= t('contact') %>
-</div>
+<h1><%= t('contact') %></h1>
+<div class="clear"></div>
 <div class="box">
 	<%= form_for(@contact) do |f| %>
 	  <% if @contact.errors.any? %>
@@ -21,7 +20,7 @@
 		    <%= f.text_field :name %></td>
 		</tr>
 		<tr>
-			<td><%= f.label :company, "Empresa (solo si aplica)" %><br />
+			<td><%= f.label :company, "Empresa (si aplica)" %><br />
 		    <%= f.text_field :company %></td>
 		</tr>
 		<tr>

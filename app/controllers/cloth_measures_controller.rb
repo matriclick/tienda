@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ClothMeasuresController < ApplicationController
   before_filter :authenticate_user!
   
@@ -29,6 +30,10 @@ class ClothMeasuresController < ApplicationController
     @cloth_measure = ClothMeasure.new
     if params[:u] == 'ok'
       @id = 'current_user'
+      add_breadcrumb 'Tu cuenta', user_profile_personalization_path
+      add_breadcrumb 'Personalización', user_profile_personalization_path
+      add_breadcrumb 'Agregar Medidas', new_cloth_measure_path
+      
     elsif numeric?(params[:u]) and (current_user.admin? or !current_supplier.nil?)
       @id = params[:u]
       @size = Size.find(params[:size_id])
@@ -54,7 +59,12 @@ class ClothMeasuresController < ApplicationController
       @size = @cloth_measure.size
       @is_dress = true
     else
+      add_breadcrumb 'Tu cuenta', user_profile_personalization_path
+      add_breadcrumb 'Personalización', user_profile_personalization_path
+      add_breadcrumb 'Editar Medidas', edit_cloth_measure_path(@cloth_measure)
+      
       @is_dress = false
+      @id = 'current_user'
     end
     
     respond_to do |format|

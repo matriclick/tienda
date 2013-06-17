@@ -32,9 +32,13 @@
 	<div class="footer_box right">
 		<ul class="footer_links">
 			<li class="h4 bold">SÍGUENOS</li>
-			<li><%= link_to t('Facebook'), 'https://www.facebook.com/matriclick', :target => '_blank' %></li>
-			<li><%= link_to t('Twitter'), 'https://twitter.com/matriclick', :target => '_blank' %></li>
-			<li><%= link_to t('LinkedIn'), 'http://www.linkedin.com/company/matriclick-com', :target => '_blank' %></li>
+			<li><%= link_to image_tag('footer/social-black-facebook.jpg'), 'https://www.facebook.com/matriclick', 
+					:target => '_blank' %> 
+				<%= link_to image_tag('footer/social-black-twitter.jpg'), 'https://twitter.com/matriclick', 
+						:target => '_blank' %>
+			</li>
+			<li><%= link_to image_tag('footer/social-black-pinterest.jpg'), 'http://www.linkedin.com/company/matriclick-com', 
+				:target => '_blank' %></li>
 		</ul>
 	</div>
 	<% if !current_user.nil? and current_user.role_id == 1 %>

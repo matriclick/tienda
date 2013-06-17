@@ -74,20 +74,10 @@ class HomeController < ApplicationController
     
   end
   
-	def wedding_tools
-  end
-  
-	def marry_me
-		#SEO: @title_content =
-		#SEO: @meta_description_content =
-  end
-	
-	def tour
-  	@title_content = 'Tour'
-	  @meta_description_content = "Revisa este tour por Matriclick y conoce nuestra página."
-	end
-	
 	def terms
+	  add_breadcrumb "Incidit", :bazar_path
+	  add_breadcrumb "Condiciones de Uso", :terms_path
+	  
 	  @title_content = 'Condiciones de Uso'    
 	  @meta_description_content = "Estas son las condiciones de uso de Matriclick."
       respond_to do |format| 
@@ -96,8 +86,11 @@ class HomeController < ApplicationController
 	end
 	
 	def company
+	  add_breadcrumb "Incidit", :bazar_path
+	  add_breadcrumb "Quiénes Somos", :company_path
+	  
   	@title_content = 'Quiénes Somos'
-	  @meta_description_content = "Somos una empresa joven, compuesta por un equipo multi-disciplinario de ingenieros, publicistas, diseñadores y periodistas. Nuestra principal tareas es estar constantemente ideando nuevas formas de aumentarles la felicidad a los novios y proveedores Matriclick.com."
+	  @meta_description_content = "Somos una empresa joven, compuesta por un equipo multi-disciplinario de ingenieros, publicistas, diseñadores y periodistas."
 	  respond_to do |format| 
       format.html # company.html.erb
     end  
@@ -126,6 +119,9 @@ class HomeController < ApplicationController
 	end
 	
 	def press
+	  add_breadcrumb "Incidit", :bazar_path
+	  add_breadcrumb "Prensa", :press_path
+	  
 	  @title_content = 'Prensa' 
 	  @meta_description_content = "Revisa las numerosas apariciones en prensa que ha tenido Matriclick: Canal 13, Chilevisión, Emol, Terra, La Segunda, Radio Agricultura, 24 horas, La Nación"
     respond_to do |format| 
@@ -134,6 +130,9 @@ class HomeController < ApplicationController
 	end
 	
 	def work_with_us
+	  add_breadcrumb "Incidit", :bazar_path
+	  add_breadcrumb "Trabaja con nosotros", :work_with_us_path
+	  
   	@title_content = 'Postulación a Trabajos'
   	@meta_description_content = 'Postula y trabaja con nosotros'
 
