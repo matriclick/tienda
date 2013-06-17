@@ -1,6 +1,6 @@
 # coding: utf-8
 class NoticeMailer < ActionMailer::Base
-	default from: "no-reply@matriclick.cl"
+	default from: "mensajes@matriclick.com"
 	
 	#CONTACT
   def contact_email(contact)

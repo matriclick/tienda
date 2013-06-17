@@ -1,0 +1,25 @@
+<% if @send %>
+	<h1>Correos Enviados</h1>
+<% else %>
+	<h1>Información Correo Masivo</h1>
+<% end %>
+<h2>Usuarios con Tags: <%= @users.size %></h2>
+<h2>
+<%= form_tag(request.fullpath, :method => "get") do %>
+		<%= @dresses.size %> vestidos con Tags creados desde: <%= text_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
+		hasta: <%= text_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
+	<%= submit_tag("Actualizar fechas") %>
+<% end %>
+(<%= link_to '>> enviar correos >>', administration_mailing_sent_path(:from => @from, :to => @to) %>)
+</h2>
+<hr>
+<h3><b>DETALLE</b></h3>
+<% @mail_infos.each do |mail_info|%>
+	<b>Usuario: <%= User.find(mail_info[0]).email %></b><br />
+	<% mail_info[1].each do |dress_id| %>
+		<% dress = Dress.find(dress_id) %>
+		<em> - <%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug), 
+				:class => 'no_underline' %></em><br />
+	<% end %>
+	<br />
+<% end %>

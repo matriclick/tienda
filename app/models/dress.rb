@@ -29,6 +29,10 @@ class Dress < ActiveRecord::Base
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	
+	def self.get_all_with_tag(start_date, end_date)
+    joins(:tags).where('dresses.created_at >= ? and dresses.created_at <= ?', start_date, end_date).uniq
+  end
+  
 	def self.all_filtered(string_filter = nil, separator = ' ')
     if string_filter.nil?
       return Dress.all

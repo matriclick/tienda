@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class UserMailer < ActionMailer::Base
-  default from: "no-reply@matriclick.cl"
+  default from: "mensajes@matriclick.com"
   
   def user_email(user, password) # when a UserAccount add a new user to his people
   	@user = user

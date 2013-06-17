@@ -1,9 +1,44 @@
 # encoding: UTF-8
 class AdministrationController < ApplicationController
   before_filter :redirect_unless_admin, :hide_left_menu
+  
+  def mailing_tools
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.yesterday
+      @to = DateTime.now
+    else
+      @from = Time.parse(params[:from])
+      @to = Time.parse(params[:to])
+    end
+    
+    @send = params[:send]
+    @users = User.get_all_with_tag
+    @dresses = Dress.get_all_with_tag(@from, @to)
+    #mail_infos tiene un hash { user_id => [dress_id] }
+    @mail_infos = Mailing.get_personalized_mailing_information(@users, @dresses)
+    
+  end
+  
+  def mailing_sent
+    @from = Time.parse(params[:from])
+    @to = Time.parse(params[:to])
+    
+    @send = params[:send]
+    @users = User.get_all_with_tag
+    @dresses = Dress.get_all_with_tag(@from, @to)
+    
+    #mail_infos tiene un hash { user_id => [dress_id] }
+    @mail_infos = Mailing.get_personalized_mailing_information(@users, @dresses)
+    
+    Mailing.create(:date_sent => DateTime.now, :users_sent => @mail_infos.size, :dresses_start_date => @from.strftime("%Y-%m-%d"), :dresses_end_date => @to.strftime("%Y-%m-%d"))
+    #      @mail_infos.each do |mail_info|
+    #    	  MassiveMailer.send_personalized_email(mail_info[0], mail_info[1]).deliver
+    #      end
+    redirect_to mailings_path
+  end
+    
   # GET
   def index
-    
     if !current_user.matriclicker.nil?
       @matriclicker = current_user.matriclicker
     else 

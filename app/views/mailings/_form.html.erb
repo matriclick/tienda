@@ -1,0 +1,33 @@
+<%= form_for(@mailing) do |f| %>
+  <% if @mailing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mailing.errors.count, "error") %> prohibited this mailing from being saved:</h2>
+
+      <ul>
+      <% @mailing.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date_sent %><br />
+    <%= f.datetime_select :date_sent %>
+  </div>
+  <div class="field">
+    <%= f.label :users_sent %><br />
+    <%= f.number_field :users_sent %>
+  </div>
+  <div class="field">
+    <%= f.label :dresses_start_date %><br />
+    <%= f.datetime_select :dresses_start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :dresses_end_date %><br />
+    <%= f.datetime_select :dresses_end_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -226,7 +226,7 @@ Matri::Application.routes.draw do
 	  get 'dresses/refund_policy'	=> 'dresses#refund_policy', as: 'refund_policy'
 	  resources :refund_requests
     resources :cloth_measures	    
-  	
+  	resources :mailings
   	# BLOG
     resources :posts do
   		resources :blog_comments  	
@@ -447,6 +447,7 @@ Matri::Application.routes.draw do
 
     # ADMINISTRATION
     get "administration/index" => "administration#index"
+    get "administration" => "administration#index"
     get "administration/webpage_contacts" => 'administration#webpage_contacts', as: 'administration_webpage_contacts'  
     get "administration/old_dresses" => 'administration#old_dresses', as: 'administration_old_dresses'
     get "administration/dresses" => 'administration#dresses', as: 'administration_dresses'
@@ -485,7 +486,11 @@ Matri::Application.routes.draw do
           put 'update_multiple'
         end 
       end
-  	end	      
+  	end
+  	
+  	get "administration/mailing-tools" => "administration#mailing_tools", as: 'administration_mailing_tools'
+  	get "administration/mailing_sent" => "administration#mailing_sent", as: 'administration_mailing_sent'
+    	      
   end # ENDING OF SCOPE COUNTRY_URL_PATH
   
   match ':country_url_path' => 'dresses#bazar', as: :root_country

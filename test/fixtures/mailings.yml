@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  date_sent: 2013-06-17 03:51:46
+  users_sent: 1
+  dresses_start_date: 2013-06-17 03:51:46
+  dresses_end_date: 2013-06-17 03:51:46
+
+two:
+  date_sent: 2013-06-17 03:51:46
+  users_sent: 1
+  dresses_start_date: 2013-06-17 03:51:46
+  dresses_end_date: 2013-06-17 03:51:46

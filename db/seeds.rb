@@ -863,15 +863,15 @@ puts "\n"
 
 puts "--> ShoeSize:"
 aux = []
-aux << (ShoeSize.find_by_size_cl("35") || ShoeSize.create(:size_cl => '35', :size_us => ''))
-aux << (ShoeSize.find_by_size_cl("36") || ShoeSize.create(:size_cl => '36', :size_us => ''))
-aux << (ShoeSize.find_by_size_cl("37") || ShoeSize.create(:size_cl => '37', :size_us => ''))
-aux << (ShoeSize.find_by_size_cl("38") || ShoeSize.create(:size_cl => '38', :size_us => ''))
-aux << (ShoeSize.find_by_size_cl("39") || ShoeSize.create(:size_cl => '39', :size_us => ''))
-aux << (ShoeSize.find_by_size_cl("40") || ShoeSize.create(:size_cl => '40', :size_us => ''))
-aux << (ShoeSize.find_by_size_cl("41") || ShoeSize.create(:size_cl => '41', :size_us => ''))
-aux << (ShoeSize.find_by_size_cl("42") || ShoeSize.create(:size_cl => '42', :size_us => ''))
-aux << (ShoeSize.find_by_size_cl("43") || ShoeSize.create(:size_cl => '43', :size_us => ''))
+aux << (ShoeSize.find_by_size_cl(35) || ShoeSize.create(:size_cl => 35, :size_us => 0))
+aux << (ShoeSize.find_by_size_cl(36) || ShoeSize.create(:size_cl => 36, :size_us => 0))
+aux << (ShoeSize.find_by_size_cl(37) || ShoeSize.create(:size_cl => 37, :size_us => 0))
+aux << (ShoeSize.find_by_size_cl(38) || ShoeSize.create(:size_cl => 38, :size_us => 0))
+aux << (ShoeSize.find_by_size_cl(39) || ShoeSize.create(:size_cl => 39, :size_us => 0))
+aux << (ShoeSize.find_by_size_cl(40) || ShoeSize.create(:size_cl => 40, :size_us => 0))
+aux << (ShoeSize.find_by_size_cl(41) || ShoeSize.create(:size_cl => 41, :size_us => 0))
+aux << (ShoeSize.find_by_size_cl(42) || ShoeSize.create(:size_cl => 42, :size_us => 0))
+aux << (ShoeSize.find_by_size_cl(43) || ShoeSize.create(:size_cl => 43, :size_us => 0))
 aux.each { |x| puts x.size_cl }
 puts "\n"
 

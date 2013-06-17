@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids
 	
+	def self.get_all_with_tag
+    joins(:tags).all.uniq
+  end
+  
 	def check_if_has_credits
     self.credits.is_active.count > 0 ? true : false
   end

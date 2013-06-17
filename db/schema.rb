@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615182239) do
+ActiveRecord::Schema.define(:version => 20130617105139) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -919,6 +919,15 @@ ActiveRecord::Schema.define(:version => 20130615182239) do
     t.integer  "industry_category_id"
   end
 
+  create_table "mailings", :force => true do |t|
+    t.datetime "date_sent"
+    t.integer  "users_sent"
+    t.datetime "dresses_start_date"
+    t.datetime "dresses_end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "matri_dream_ics", :force => true do |t|
     t.integer  "industry_category_id"
     t.datetime "created_at"
@@ -1391,8 +1400,8 @@ ActiveRecord::Schema.define(:version => 20130615182239) do
   end
 
   create_table "shoe_sizes", :force => true do |t|
-    t.string   "size_cl"
-    t.string   "size_us"
+    t.float    "size_cl"
+    t.float    "size_us"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

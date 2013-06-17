@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date sent:</b>
+  <%= @mailing.date_sent %>
+</p>
+
+<p>
+  <b>Users sent:</b>
+  <%= @mailing.users_sent %>
+</p>
+
+<p>
+  <b>Dresses start date:</b>
+  <%= @mailing.dresses_start_date %>
+</p>
+
+<p>
+  <b>Dresses end date:</b>
+  <%= @mailing.dresses_end_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_mailing_path(@mailing) %> |
+<%= link_to 'Back', mailings_path %>

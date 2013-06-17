@@ -1,6 +1,6 @@
 # coding: utf-8
 class SupplierMailer < ActionMailer::Base
-  default from: "no-reply@matriclick.cl"
+  default from: "mensajes@matriclick.com"
   
   def welcome_email(supplier)
   	@supplier = supplier
