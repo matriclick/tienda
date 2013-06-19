@@ -4,34 +4,34 @@
 	<div class="box_nine_eight_cero center">
 	<div class="footer_box left">
 		<ul class="footer_links">
-			<li class="h4 bold">INFO</li>
+			<li class="footer_title">INFO</li>
 			<li><%= link_to 'Suscribirse', subscription_path, :class => 'subscription_popup' %></li>
-			<li><%= link_to t('press'), press_path %></li>
-			<li><%= link_to t('about_us'), company_path %></li>
-			<li><%= link_to 'Trabaja en Incidit', work_with_us_path %></li>
+			<li><%= link_to 'Prensa', press_path %></li>
+			<li><%= link_to 'Quiénes somos', company_path %></li>
+			<li><%= link_to 'Trabaja en Tramanta', work_with_us_path %></li>
 		</ul>	
 	</div>
 	<div class="footer_box left">
 		<ul class="footer_links">
-			<li class="h4 bold">AYUDA</li>
-			<li><%= link_to t('Preguntas Frecuentes'), faq_elbazar_path %></li>
+			<li class="footer_title">AYUDA</li>
+			<li><%= link_to t('Preguntas frecuentes'), faq_elbazar_path %></li>
 			<li><%= link_to t('terms_of_use'), terms_path %></li>
 			<li><%= supplier_signed_in? ? (link_to "Mi Página", supplier_home_path, :rel => 'nofollow' ) : (link_to 'Ingresar como Empresa', new_supplier_session_path, :rel => 'nofollow') %></li>
-			<li><%= link_to 'Contacto Empresas', contact_elbazar_path %></li>
+			<li><%= link_to 'Contacto wmpresas', contact_elbazar_path %></li>
 		</ul>	
 	</div>
 	<div class="footer_box left">
 		<ul class="footer_links">
-			<li class="h4 bold">SERVICIO AL CLIENTE</li>
-			<li><%= link_to 'Política de Devoluciones', refund_policy_path, :id => 'form_inline' %></li>
-			<li><%= link_to 'Solicitar Devolución', new_refund_request_path %></li>
-			<li><%= link_to 'Contacto y Feedback', contact_elbazar_path %></li>
+			<li class="footer_title">SERVICIO AL CLIENTE</li>
+			<li><%= link_to 'Política de devoluciones', refund_policy_path, :id => 'form_inline' %></li>
+			<li><%= link_to 'Solicitar devolución', new_refund_request_path %></li>
+			<li><%= link_to 'Contacto y feedback', contact_elbazar_path %></li>
 		</ul>	
 	</div>
 	
 	<div class="footer_box right">
 		<ul class="footer_links">
-			<li class="h4 bold">SÍGUENOS</li>
+			<li class="footer_title">SÍGUENOS</li>
 			<li><%= link_to image_tag('footer/social-black-facebook.jpg'), 'https://www.facebook.com/incidit', 
 					:target => '_blank' %> 
 				<%= link_to image_tag('footer/social-black-twitter.jpg'), 'https://twitter.com/incidit', 
@@ -44,7 +44,7 @@
 	<% if !current_user.nil? and current_user.role_id == 1 %>
 	<div class="footer_box right">
 		<ul class="footer_links">
-			<li class="h4 bold">ADMINISTRACIÓN</li>
+			<li class="footer_title">ADMINISTRACIÓN</li>
 			<li><%= link_to t('Administrador'), administration_index_path, :rel => 'nofollow' %></li>
 		</ul>
 	</div>
