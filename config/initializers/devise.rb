@@ -3,7 +3,7 @@
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = "no-reply@matriclick.cl"
+  config.mailer_sender = "mensajes@matriclick.cl"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -191,7 +191,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :facebook, '199668766763277', '0685167e90161da874fc0accd6503348'
+  config.omniauth :facebook, '176583972510260', '899dbeab2dc54fef04ff5c40c47585d6'
   config.omniauth :open_id, OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
 
   # ==> Warden configuration
