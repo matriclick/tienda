@@ -9,11 +9,11 @@ class ApplicationController < ActionController::Base
   end
 
 	def meta_content_default
-    	@title_content = "Matrimonios | Vestidos de Novia y Fiesta | Ropa de Bebe | en Matriclick.com"
-    	@meta_description_content = "Matrimonios | Vestidos de Novia y Fiesta | Ropa de Bebe .. en Matriclick.com"
+    	@title_content = "Tramanta.com"
+    	@meta_description_content = "Compra online vestidos de fiesta, chaquetas, blusas, y muchas otros productos de moda en Tramanta.com"
       @og_type = 'article'
-      @og_image = 'http://www.matriclick.com/images/emails/logo_matriclick_sin_caja.png'
-      @og_description = 'Matrimonios | Vestidos de Novia y Fiesta | Ropa de Bebe | en Matriclick.com'
+      @og_image = 'http://www.tramanta.com/assets/el_bazar/logo-bf68209fb8b99b402a5a903d59550732.png'
+      @og_description = 'Tramanta.com'
     	#SEO: indica el idioma natural en el que el sitio será mostrado, en ocasiones es utilizado
     	#     por los buscadores para indexar.
     	@meta_languaje_content = "es"
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     	#SEO: A pesar de que ya no tienen la misma importancia que antes, no esta demas agregar explicitamente
     	#     keywords en los tags meta (se puede sobreescribir por cada controlador al igual que las demas
       # 	  variables declaradas en meta_content_default)
-    	@meta_keywords_content = "a, e, o, u, tu, el, la, los, un, unos, con, y, matrimonio, matrimonios, fiesta, novios, novio, novia, viajes, bebes"   	
+    	@meta_keywords_content = "vestidos de fiesta, blusas, chaquetas, poleras, poleranos, aros, collares, pantalones, leggings"   	
   end
   	
 	def subscriber_pop_up 
