@@ -2,7 +2,6 @@
 class DressesController < ApplicationController
   around_filter :catch_not_found
   before_filter :hide_left_menu
-  caches_action :faq_elbazar, :contact_elbazar, :bazar
   
   @@scrolling_set = 12
   
