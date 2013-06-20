@@ -28,7 +28,7 @@ class RefundRequestsController < ApplicationController
   # GET /refund_requests/new
   # GET /refund_requests/new.json
   def new
-    add_breadcrumb "Incidit", :bazar_path
+    add_breadcrumb "Tramanta", :bazar_path
     add_breadcrumb "Solicitud de devolución", :new_refund_request_path
     
     @refund_request = RefundRequest.new
