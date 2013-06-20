@@ -186,11 +186,11 @@ Matri::Application.routes.draw do
   	# DRESSES
   	get "dresses/display_dispatch_costs" => 'dresses#display_dispatch_costs', as: 'display_dispatch_costs'
   	
-  	get "el-bazar" => 'dresses#bazar', as: 'bazar'
-  	get 'el-bazar/accesorios' => 'dresses#accessories_menu', as: 'dresses_accessories_menu'
-  	get "el-bazar/vestidos" => 'dresses#party_dress_menu', as: 'dresses_party_dress_menu'
-  	get "contacto-elbazar" => 'dresses#contact_elbazar', as: 'contact_elbazar'
-  	get "faq-elbazar" => 'dresses#faq_elbazar', as: 'faq_elbazar'
+  	get "tramanta" => 'dresses#bazar', as: 'bazar'
+  	get 'tramanta/accesorios' => 'dresses#accessories_menu', as: 'dresses_accessories_menu'
+  	get "tramanta/vestidos" => 'dresses#party_dress_menu', as: 'dresses_party_dress_menu'
+  	get "contacto-tramanta" => 'dresses#contact_elbazar', as: 'contact_elbazar'
+  	get "faq-tramanta" => 'dresses#faq_elbazar', as: 'faq_elbazar'
   	
   	get "tu-casa" => 'dresses#tu_casa', as: 'tu_casa'
   	get "tu-casa/living" => 'dresses#tu_casa_living', as: 'tu_casa_living'
@@ -239,7 +239,7 @@ Matri::Application.routes.draw do
     get 'blog-viajes' => 'packs#viajes', as: 'blog_viajes'
     get 'blog-tu-casa' => 'packs#tu_casa', as: 'blog_tu_casa'
     get 'blog-bebe' => 'packs#aguclick', as: 'blog_aguclick'
-    get 'blog-el-bazar' => 'packs#el_bazar', as: 'blog_el_bazar'
+    get 'blog-tramanta' => 'packs#el_bazar', as: 'blog_el_bazar'
     resources :contacts
 
   	# CEREMONY
