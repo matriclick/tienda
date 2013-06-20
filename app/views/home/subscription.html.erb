@@ -3,7 +3,7 @@
 		<%= image_tag 'subscriber_popup/vestido-suscribirse.jpg', :alt => 'Vestidos de Fiesta' %>
 	</div>
 	<div>
-		<h1 style="width:250px">Suscríbete a Incidit.com</h1>
+		<h1 style="width:250px">Suscríbete a Tramanta.com</h1>
 		<%= form_for @subscriber, :url => subscription_create_path, :validate => true do |f| %>
 		  <div><%= f.label :email, 'Correo' %> <%= f.text_field :email %></div>
 		  <div style="margin-top:10px">
@@ -15,8 +15,8 @@
 		    <%= f.submit 'Suscribirse', :class => 'sign_in_tab_button' %>
 		  </div>
 		<% end %>
-		<div class="lucida small" style="margin:40px 10px 10px 10px;">
-			<%= link_to 'Si ya estás suscrito continúa a Incidit.com', '#', onClick: '$.fancybox.close();', :class => 'blue' %>
+		<div class="lucida small" style="margin:20px 10px 10px 10px;">
+			<%= link_to 'o continúa a Tramanta.com', '#', onClick: '$.fancybox.close();', :class => 'blue' %>
 		</div>
 	</div>
 </div>

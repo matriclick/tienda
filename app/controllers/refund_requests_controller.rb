@@ -6,7 +6,7 @@ class RefundRequestsController < ApplicationController
   # GET /refund_requests
   # GET /refund_requests.json
   def index
-    @refund_requests = RefundRequest.all
+    @refund_requests = RefundRequest.order 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -53,7 +53,7 @@ class RefundRequestsController < ApplicationController
 
     respond_to do |format|
       if @refund_request.save
-        NoticeMailer.purchase_email(@refund_request).deliver
+        NoticeMailer.refund_request_email(@refund_request).deliver
         format.html { redirect_to root_country_path, notice: 'Solicitud de devolución correctamente ingresada.' }
         format.json { render json: @refund_request, status: :created, location: @refund_request }
       else

@@ -3,7 +3,7 @@
 		<tr>
 			<td align="left">
 				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
-					Hola <%= @user.user_account.get_wedding_first_name || "Usuario" %>,<br/><br/>
+					Hola <%= @user.email || "Usuario" %>,<br/><br/>
 					¡Mira estos nuevos productos!<br/><br/>
 					<% @dresses_id.each do |dress_id|%>
 						- <%= Dress.find(dress_id).introduction %><br />

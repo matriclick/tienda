@@ -64,17 +64,17 @@ Matri::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :user_name            => "mensajes@matriclick.com",
+    :user_name            => "mensajes@tramanta.com",
     :password             => "holacarola",
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
   
-  config.action_mailer.default_url_options = { :host => "www.matriclick.com" }
-  config.action_mailer.asset_host = "http://www.matriclick.com"
+  config.action_mailer.default_url_options = { :host => "www.tramanta.com" }
+  config.action_mailer.asset_host = "http://www.tramanta.com"
   
   config.middleware.use ExceptionNotifier,
     email_prefix: "[Error] ",
-    sender_address: "mensajes@matriclick.com",
+    sender_address: "mensajes@tramanta.com",
     exception_recipients: "soporte@matriclick.com"
 end

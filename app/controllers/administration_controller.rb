@@ -31,9 +31,11 @@ class AdministrationController < ApplicationController
     @mail_infos = Mailing.get_personalized_mailing_information(@users, @dresses)
     
     Mailing.create(:date_sent => DateTime.now, :users_sent => @mail_infos.size, :dresses_start_date => @from.strftime("%Y-%m-%d"), :dresses_end_date => @to.strftime("%Y-%m-%d"))
-    #      @mail_infos.each do |mail_info|
-    #    	  MassiveMailer.send_personalized_email(mail_info[0], mail_info[1]).deliver
-    #      end
+    @mail_infos.each do |user_id, dresses_id|
+      if dresses_id.size > 0
+        MassiveMailer.send_personalized_email(user_id, dresses_id).deliver
+      end
+    end
     redirect_to mailings_path
   end
     

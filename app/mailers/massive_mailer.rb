@@ -4,8 +4,8 @@ class MassiveMailer < ActionMailer::Base
   
   def send_personalized_email(user_id, dresses_id)
   	@user = User.find user_id
-		@dresses = dresses
-  	mail to: "<#{@user.email}>", bcc: "matriclick_notice@matriclick.com", subject: "Hola! Te enviamos nuevos productos que sabemos te gustarán!"
+		@dresses_id = dresses_id
+  	mail to: "<#{@user.email}>", bcc: "contacto@tramanta.com", subject: "Hola! Te enviamos nuevos productos que sabemos te gustarán!"
   end
   
 end

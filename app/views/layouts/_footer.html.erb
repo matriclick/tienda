@@ -14,10 +14,10 @@
 	<div class="footer_box left">
 		<ul class="footer_links">
 			<li class="footer_title">AYUDA</li>
-			<li><%= link_to t('Preguntas frecuentes'), faq_elbazar_path %></li>
-			<li><%= link_to t('terms_of_use'), terms_path %></li>
-			<li><%= supplier_signed_in? ? (link_to "Mi Página", supplier_home_path, :rel => 'nofollow' ) : (link_to 'Ingresar como Empresa', new_supplier_session_path, :rel => 'nofollow') %></li>
-			<li><%= link_to 'Contacto wmpresas', contact_elbazar_path %></li>
+			<li><%= link_to 'Preguntas frecuentes', faq_elbazar_path %></li>
+			<li><%= link_to 'Términos de uso', terms_path %></li>
+			<li><%= supplier_signed_in? ? (link_to "Mi Página", supplier_home_path, :rel => 'nofollow' ) : (link_to 'Ingresar como empresa', new_supplier_session_path, :rel => 'nofollow') %></li>
+			<li><%= link_to 'Contacto empresas', contact_elbazar_path %></li>
 		</ul>	
 	</div>
 	<div class="footer_box left">
@@ -26,7 +26,7 @@
 			<li><%= link_to 'Política de devoluciones', refund_policy_path, :id => 'form_inline' %></li>
 			<li><%= link_to 'Solicitar devolución', new_refund_request_path %></li>
 			<li><%= link_to 'Contacto y feedback', contact_elbazar_path %></li>
-		</ul>	
+		</ul>
 	</div>
 	
 	<div class="footer_box right">
@@ -34,10 +34,10 @@
 			<li class="footer_title">SÍGUENOS</li>
 			<li><%= link_to image_tag('footer/social-black-facebook.jpg'), 'https://www.facebook.com/tramantaonline', 
 					:target => '_blank' %> 
-				<%= link_to image_tag('footer/social-black-twitter.jpg'), 'https://twitter.com/incidit', 
+				<%= link_to image_tag('footer/social-black-twitter.jpg'), 'https://twitter.com/tramantaonline', 
 						:target => '_blank' %>
 			</li>
-			<li><%= link_to image_tag('footer/social-black-pinterest.jpg'), 'http://pinterest.com/incidit/', 
+			<li><%= link_to image_tag('footer/social-black-pinterest.jpg'), 'http://pinterest.com/tramanta', 
 				:target => '_blank' %></li>
 		</ul>
 	</div>

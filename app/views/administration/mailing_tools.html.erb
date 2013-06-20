@@ -14,9 +14,9 @@
 </h2>
 <hr>
 <h3><b>DETALLE</b></h3>
-<% @mail_infos.each do |mail_info|%>
-	<b>Usuario: <%= User.find(mail_info[0]).email %></b><br />
-	<% mail_info[1].each do |dress_id| %>
+<% @mail_infos.each do |user_id, dresses_id|%>
+	<b>Usuario: <%= User.find(user_id).email %></b><br />
+	<% dresses_id.each do |dress_id| %>
 		<% dress = Dress.find(dress_id) %>
 		<em> - <%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug), 
 				:class => 'no_underline' %></em><br />

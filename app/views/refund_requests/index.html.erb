@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+	<th>Fecha</th>
     <th>Usuario</th>
     <th>Producto</th>
     <th>Razón de devolución</th>
@@ -13,6 +14,7 @@
 
 <% @refund_requests.each do |refund_request| %>
   <tr>
+	<td><%= refund_request.created_at.strftime("%d-%m-%Y") %></td>
     <td><%= refund_request.user.email %></td>
     <td><%= refund_request.dress.introduction if !refund_request.dress.nil? %></td>
     <td><%= refund_request.refund_reason.name %></td>

@@ -49,8 +49,8 @@ class HomeController < ApplicationController
 	
 	def subscription
     @subscriber = Subscriber.new
-    @title_content = 'Subscribirse a Incidit.com'
-  	@meta_description_content = 'Suscríbete a Incidit.com para recibir toda la información sobre moda y tendencias'  	
+    @title_content = 'Subscribirse a Tramanta.com'
+  	@meta_description_content = 'Suscríbete a Tramanta.com para recibir toda la información sobre moda y tendencias'  	
   	
     respond_to do |format|
       format.html { render :layout => false }
@@ -75,7 +75,7 @@ class HomeController < ApplicationController
   end
   
 	def terms
-	  add_breadcrumb "Incidit", :bazar_path
+	  add_breadcrumb "Tramanta", :bazar_path
 	  add_breadcrumb "Condiciones de Uso", :terms_path
 	  
 	  @title_content = 'Condiciones de Uso'    
@@ -86,7 +86,7 @@ class HomeController < ApplicationController
 	end
 	
 	def company
-	  add_breadcrumb "Incidit", :bazar_path
+	  add_breadcrumb "Tramanta", :bazar_path
 	  add_breadcrumb "Quiénes Somos", :company_path
 	  
   	@title_content = 'Quiénes Somos'
@@ -119,7 +119,7 @@ class HomeController < ApplicationController
 	end
 	
 	def press
-	  add_breadcrumb "Incidit", :bazar_path
+	  add_breadcrumb "Tramanta", :bazar_path
 	  add_breadcrumb "Prensa", :press_path
 	  
 	  @title_content = 'Prensa' 
@@ -130,7 +130,7 @@ class HomeController < ApplicationController
 	end
 	
 	def work_with_us
-	  add_breadcrumb "Incidit", :bazar_path
+	  add_breadcrumb "Tramanta", :bazar_path
 	  add_breadcrumb "Trabaja con nosotros", :work_with_us_path
 	  
   	@title_content = 'Postulación a Trabajos'
