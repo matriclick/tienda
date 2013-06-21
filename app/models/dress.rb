@@ -52,19 +52,20 @@ class Dress < ActiveRecord::Base
 	
 	def get_related_dresses
 	  texto = self.product_keywords
-    if !texto.nil? or !texto.empty?
-  	  keywords = texto.split(",")
-  	  like = ''
-  	  keywords.each_with_index do |keyword, i|
-  	    i > 0 ? like = like+' and ' : ''
-  	    like = like+'description like "%'+keyword.strip+'%"'
-      end
-  	  return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s+' and '+like).order('position').limit(4)
-	  elsif !self.dress_types.first.nil?
-	    return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s).order('position').limit(4)
-    else
-      return Array.new
+	  if !texto.nil?	    
+      if !texto.empty?
+    	  keywords = texto.split(",")
+    	  like = ''
+    	  keywords.each_with_index do |keyword, i|
+    	    i > 0 ? like = like+' and ' : ''
+    	    like = like+'description like "%'+keyword.strip+'%"'
+        end
+    	  return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s+' and '+like).order('position').limit(4)
+  	  elsif !self.dress_types.first.nil?
+  	    return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s).order('position').limit(4)
+	    end
     end
+    return Array.new
   end
   
   def self.get_related_dresses_by_string(texto = nil)

@@ -1,9 +1,15 @@
 # encoding: UTF-8
 require 'will_paginate/array'
 class ProductsAndServicesCatalogController < ApplicationController
-  before_filter :new_feedback, :load_user_account, :load_reference, :load_categories_with_albums
-  before_filter :authenticate_user!, :only => [:conversations, :bookings, :add_booking]
-  before_filter :redirect_if_object_class_nil, :only => [:description, :faqs, :contacts, :conversations, :add_to_budget]
+  before_filter :redirect
+  
+  def redirect
+    redirect_to bazar_path
+  end
+  
+  #before_filter :new_feedback, :load_user_account, :load_reference, :load_categories_with_albums
+  #before_filter :authenticate_user!, :only => [:conversations, :bookings, :add_booking]
+  #before_filter :redirect_if_object_class_nil, :only => [:description, :faqs, :contacts, :conversations, :add_to_budget]
   
   add_breadcrumb "Catálogo", :products_and_services_catalog_select_industry_category_path
 
