@@ -60,8 +60,10 @@ class Dress < ActiveRecord::Base
   	    like = like+'description like "%'+keyword.strip+'%"'
       end
   	  return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s+' and '+like).order('position').limit(4)
-	  else
+	  elsif !self.dress_types.first.nil?
 	    return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s).order('position').limit(4)
+    else
+      return Array.new
     end
   end
   
