@@ -645,6 +645,8 @@ aux << (DressType.find_by_name("ropa-de-mujer-abrigados-chalecos") || DressType.
 aux << (DressType.find_by_name("ropa-de-mujer-abrigados-polerones") || DressType.create(:name => 'ropa-de-mujer-abrigados-polerones', :description => "Polerones mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-chaquetas") || DressType.create(:name => 'ropa-de-mujer-chaquetas', :description => "Chaquetas mujer"))
 
+aux << (DressType.find_by_name("ropa-deportiva") || DressType.create(:name => 'ropa-deportiva', :description => "Ropa deportiva general"))
+
 aux << (DressType.find_by_name("ropa-bebe-niño") || DressType.create(:name => 'ropa-bebe-niño', :description => "Ropa de Bebe para Niño"))
 aux << (DressType.find_by_name("ropa-bebe-niña") || DressType.create(:name => 'ropa-bebe-niña', :description => "Ropa de Bebe para Niña"))
 aux << (DressType.find_by_name("zapatos-bebe-niño") || DressType.create(:name => 'zapatos-bebe-niño', :description => "Zapatos de Niño"))
