@@ -19,7 +19,7 @@ class PacksController < ApplicationController
   	@h2 = 'En este blog encontrarás datos, ideas y todo lo que necesitas saber para que todas te sigan'
   	@h3 = ''
     add_breadcrumb "Blog El Bazar", :blog_el_bazar_path
-      	
+    	
   	respond_to do |format|
       format.html { render :index }
       format.json { render json: @posts }
