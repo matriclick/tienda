@@ -407,11 +407,10 @@ class DressesController < ApplicationController
   # DELETE /dresses/1.json
   def destroy
     @dress = Dress.find(params[:id])
-    @type = @dress.dress_types.first.name
     @dress.destroy
 
     respond_to do |format|
-      format.html { redirect_to dresses_ver_path(:type => @type.to_s) }
+      format.html { redirect_to bazar_path }
       format.json { head :ok }
     end
   end
