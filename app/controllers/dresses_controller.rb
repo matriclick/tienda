@@ -237,11 +237,12 @@ class DressesController < ApplicationController
     
     @dress = Dress.find_by_slug(params[:slug])
     @type = DressType.find_by_name params[:type]
-    @related_dresses = @dress.get_related_dresses
-    set_dresses_viewed_cookies(@dress)
-    @viewed_dresses = get_dresses_viewed(@dress)
     
     if !@dress.nil? and !@type.nil?
+      @related_dresses = @dress.get_related_dresses
+      set_dresses_viewed_cookies(@dress)
+      @viewed_dresses = get_dresses_viewed(@dress)
+      
       if @dress.supplier_account.nil? or @dress.dress_images.first.nil?
         respond_to do |format|
           format.html { redirect_to bazar_path }
