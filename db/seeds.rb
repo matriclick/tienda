@@ -619,12 +619,9 @@ puts "\n"
 puts "--> Dress Types:"
 aux = []
 aux << (DressType.find_by_name("ajuar") || DressType.create(:name => 'ajuar', :description => "Ajuar para la novia"))
-aux << (DressType.find_by_name("vestidos-novia") || DressType.create(:name => 'vestidos-novia', :description => "Vestidos de novia"))
 aux << (DressType.find_by_name("vestidos-fiesta") || DressType.create(:name => 'vestidos-fiesta', :description => "Vestidos para la fiesta"))
-aux << (DressType.find_by_name("vestidos-madrina") || DressType.create(:name => 'vestidos-madrina', :description => "Vestidos para la fiesta"))
-aux << (DressType.find_by_name("vestidos-civil") || DressType.create(:name => 'vestidos-civil', :description => "Vestidos para la ceremonia civil"))
-aux << (DressType.find_by_name("vestidos-tienda-boutique") || DressType.create(:name => 'vestidos-tienda-boutique', :description => "Vestidos de tiendas boutique"))
 aux << (DressType.find_by_name("zapatos") || DressType.create(:name => 'zapatos', :description => "Zapatos"))
+
 aux << (DressType.find_by_name("accesorios-aros") || DressType.create(:name => 'accesorios-aros', :description => "Accesorios para fiesta"))
 aux << (DressType.find_by_name("accesorios-anillos") || DressType.create(:name => 'accesorios-anillos', :description => "Accesorios para fiesta"))
 aux << (DressType.find_by_name("accesorios-collares") || DressType.create(:name => 'accesorios-collares', :description => "Accesorios para fiesta"))
@@ -646,11 +643,6 @@ aux << (DressType.find_by_name("ropa-de-mujer-abrigados-polerones") || DressType
 aux << (DressType.find_by_name("ropa-de-mujer-chaquetas") || DressType.create(:name => 'ropa-de-mujer-chaquetas', :description => "Chaquetas mujer"))
 
 aux << (DressType.find_by_name("ropa-deportiva") || DressType.create(:name => 'ropa-deportiva', :description => "Ropa deportiva general"))
-
-aux << (DressType.find_by_name("ropa-bebe-niño") || DressType.create(:name => 'ropa-bebe-niño', :description => "Ropa de Bebe para Niño"))
-aux << (DressType.find_by_name("ropa-bebe-niña") || DressType.create(:name => 'ropa-bebe-niña', :description => "Ropa de Bebe para Niña"))
-aux << (DressType.find_by_name("zapatos-bebe-niño") || DressType.create(:name => 'zapatos-bebe-niño', :description => "Zapatos de Niño"))
-aux << (DressType.find_by_name("zapatos-bebe-niña") || DressType.create(:name => 'zapatos-bebe-niña', :description => "Zapatos de Niña"))
 
 aux.each { |x| puts x.name}
 puts "\n"
