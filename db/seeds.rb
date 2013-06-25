@@ -652,47 +652,6 @@ aux << (DressType.find_by_name("ropa-bebe-niña") || DressType.create(:name => '
 aux << (DressType.find_by_name("zapatos-bebe-niño") || DressType.create(:name => 'zapatos-bebe-niño', :description => "Zapatos de Niño"))
 aux << (DressType.find_by_name("zapatos-bebe-niña") || DressType.create(:name => 'zapatos-bebe-niña', :description => "Zapatos de Niña"))
 
-aux << (DressType.find_by_name("tu-casa-living-sillas") || DressType.create(:name => 'tu-casa-living-sillas'))
-aux << (DressType.find_by_name("tu-casa-living-mesas") || DressType.create(:name => 'tu-casa-living-mesas'))
-aux << (DressType.find_by_name("tu-casa-living-sillones") || DressType.create(:name => 'tu-casa-living-sillones'))
-aux << (DressType.find_by_name("tu-casa-living-sofás") || DressType.create(:name => 'tu-casa-living-sofás'))
-aux << (DressType.find_by_name("tu-casa-living-accesorios") || DressType.create(:name => 'tu-casa-living-accesorios'))
-aux << (DressType.find_by_name("tu-casa-living-arrimos") || DressType.create(:name => 'tu-casa-living-arrimos'))
-aux << (DressType.find_by_name("tu-casa-living-mesas-centro") || DressType.create(:name => 'tu-casa-living-mesas-centro'))
-aux << (DressType.find_by_name("tu-casa-living-mesas-lateral") || DressType.create(:name => 'tu-casa-living-lateral'))
-
-aux << (DressType.find_by_name("tu-casa-comedor-comedores") || DressType.create(:name => 'tu-casa-comedor-comedores'))
-aux << (DressType.find_by_name("tu-casa-comedor-sillas") || DressType.create(:name => 'tu-casa-comedor-sillas'))
-aux << (DressType.find_by_name("tu-casa-comedor-accesorios") || DressType.create(:name => 'tu-casa-comedor-accesorios'))
-
-aux << (DressType.find_by_name("tu-casa-dormitorio-accesorios") || DressType.create(:name => 'tu-casa-dormitorio-accesorios'))
-aux << (DressType.find_by_name("tu-casa-dormitorio-cubrecamas") || DressType.create(:name => 'tu-casa-dormitorio-cubrecamas'))
-aux << (DressType.find_by_name("tu-casa-dormitorio-respaldos") || DressType.create(:name => 'tu-casa-dormitorio-respaldos'))
-aux << (DressType.find_by_name("tu-casa-dormitorio-muebles") || DressType.create(:name => 'tu-casa-dormitorio-muebles'))
-aux << (DressType.find_by_name("tu-casa-dormitorio-respaldos") || DressType.create(:name => 'tu-casa-dormitorio-respaldos'))
-aux << (DressType.find_by_name("tu-casa-dormitorio-veladores") || DressType.create(:name => 'tu-casa-dormitorio-veladores'))
-aux << (DressType.find_by_name("tu-casa-dormitorio-cómodas") || DressType.create(:name => 'tu-casa-dormitorio-cómodas'))
-aux << (DressType.find_by_name("tu-casa-dormitorio-closets") || DressType.create(:name => 'tu-casa-dormitorio-closets'))
-
-aux << (DressType.find_by_name("tu-casa-home-office-muebles") || DressType.create(:name => 'tu-casa-home-office-muebles'))
-aux << (DressType.find_by_name("tu-casa-home-office-accesorios") || DressType.create(:name => 'tu-casa-home-office-accesorios'))
-
-aux << (DressType.find_by_name("tu-casa-cocina-accesorios") || DressType.create(:name => 'tu-casa-cocina-accesorios'))
-aux << (DressType.find_by_name("tu-casa-cocina-cerámicas") || DressType.create(:name => 'tu-casa-cocina-cerámicas'))
-
-aux << (DressType.find_by_name("tu-casa-terraza-muebles") || DressType.create(:name => 'tu-casa-terraza-muebles'))
-aux << (DressType.find_by_name("tu-casa-terraza-accesorios") || DressType.create(:name => 'tu-casa-terraza-accesorios'))
-
-aux << (DressType.find_by_name("tu-casa-baño-accesorios") || DressType.create(:name => 'tu-casa-baño-accesorios'))
-
-aux << (DressType.find_by_name("tu-casa-decoración-cuadros") || DressType.create(:name => 'tu-casa-decoración-cuadros'))
-aux << (DressType.find_by_name("tu-casa-decoración-iluminación") || DressType.create(:name => 'tu-casa-decoración-iluminación'))
-aux << (DressType.find_by_name("tu-casa-decoración-cortinas") || DressType.create(:name => 'tu-casa-decoración-cortinas'))
-aux << (DressType.find_by_name("tu-casa-decoración-alfombras") || DressType.create(:name => 'tu-casa-decoración-alfombras'))
-aux << (DressType.find_by_name("tu-casa-decoración-cojines") || DressType.create(:name => 'tu-casa-decoración-cojines'))
-aux << (DressType.find_by_name("tu-casa-decoración-espejos") || DressType.create(:name => 'tu-casa-decoración-espejos'))
-aux << (DressType.find_by_name("tu-casa-decoración-ventiladores") || DressType.create(:name => 'tu-casa-decoración-ventiladores'))
-
 aux.each { |x| puts x.name}
 puts "\n"
 
