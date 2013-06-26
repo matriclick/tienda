@@ -484,10 +484,14 @@ class DressesController < ApplicationController
       ids.delete(dress.id.to_s)
       ids.uniq!
       dresses = Array.new
-      ids[0..3].each do |id|
-        dresses.push(Dress.find(id))
-      end      
+      length = ids.size > 3 ? 3 : ids.size
+      ids[0..length].each do |id|
+        dress = Dress.find_by_id id
+        if !dress.nil?
+          dresses.push(dress)
+        end
+      end
       return dresses
     end
-  end     
+  end    
 end
