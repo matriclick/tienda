@@ -22,7 +22,7 @@ gem 'paperclip', "~> 2.3", :git => "git://github.com/redvel-ltda/paperclip.git"
 gem 'mime-types', :require => 'mime/types'
 gem 'cancan'
 gem 'nested_form', :git => "https://github.com/fxposter/nested_form.git"
-gem 'will_paginate', '~> 4.0'
+gem 'will_paginate', '~> 3.0'
 gem 'spreadsheet'
 
 gem 'jquery-rails'
@@ -30,7 +30,7 @@ gem 'geocoder'
 gem 'client_side_validations'
 gem "breadcrumbs_on_rails"
 
-gem 'sitemap_generator', '~> 3.4'
+gem 'sitemap_generator', '~> 4.0'
 
 gem 'friendly_id'
 
