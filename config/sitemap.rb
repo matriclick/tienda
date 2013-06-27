@@ -2,22 +2,17 @@
 SitemapGenerator::Sitemap.default_host = "http://www.matriclick.com"
 
 SitemapGenerator::Sitemap.create do
+  
+  add '/chile', :changefreq => 'daily', :priority => 1
     
+  Dress.all.each do |dress|
+    add dress_ver_path(:type => dress.type, :slug => dress.slug, :country_url_path => 'chile'), :lastmod => dress.updated_at, :priority => 0.9
+  end
+  
   Post.find_each do |post|
     add post_path(post, :country_url_path => post.country.url_path), :lastmod => post.updated_at, :priority => 0.6
   end
-  
-  SupplierAccount.approved.each do |supplier_account|
-    add supplier_products_and_services_path(supplier_account.supplier_id, :public_url => supplier_account.public_url, :country_url_path => supplier_account.country.url_path), :lastmod => supplier_account.updated_at
-  end
-  
-  Product.approved.each do |element|
-    add products_and_services_catalog_description_path(element.id, :object_class => element.class, :country_url_path => element.supplier_account.country.url_path), :lastmod => element.updated_at
-  end
-  
-  Service.approved.each do |element|
-    add products_and_services_catalog_description_path(element.id, :object_class => element.class, :country_url_path => element.supplier_account.country.url_path), :lastmod => element.updated_at
-  end
+
 end
 
 #SEO: ping a buscadores
