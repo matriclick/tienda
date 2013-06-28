@@ -21,14 +21,6 @@ class DeleteAllNotAdminUsers < ActiveRecord::Migration
       s.destroy
     end
     
-    u = User.where('role_id <> 1')
-    size = u.size
-    u.each_with_index do |user, i|
-      puts user.email
-      puts i.to_s+'/'+size.to_s
-      user.destroy
-    end
-    
   end
 
   def down
