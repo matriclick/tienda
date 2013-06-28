@@ -186,7 +186,6 @@ Matri::Application.routes.draw do
   	# DRESSES
   	get "dresses/display_dispatch_costs" => 'dresses#display_dispatch_costs', as: 'display_dispatch_costs'
   	
-  	get "tramanta" => 'dresses#bazar', as: 'bazar'
   	get 'tramanta/accesorios' => 'dresses#accessories_menu', as: 'dresses_accessories_menu'
   	get "tramanta/vestidos" => 'dresses#party_dress_menu', as: 'dresses_party_dress_menu'
   	get "contacto-tramanta" => 'dresses#contact_elbazar', as: 'contact_elbazar'
@@ -494,6 +493,7 @@ Matri::Application.routes.draw do
   end # ENDING OF SCOPE COUNTRY_URL_PATH
   
   match ':country_url_path' => 'dresses#bazar', as: :root_country
+  match ':country_url_path' => 'dresses#bazar', as: 'bazar'
   root :to => "dresses#bazar"
 
   #SEO: Realiza match con archivo routes.yml para cambio de nombre (alias) a la ruta - HAY QUE DEJARLO AL FINAL

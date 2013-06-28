@@ -10,26 +10,26 @@ class User < ActiveRecord::Base
   after_create :check_if_is_matriclicker
   after_create :ensure_user_account_exists
 	
-	has_one :wedding_planner_quote
-	has_many :contest_travelites
+	has_one :wedding_planner_quote, :dependent => :destroy
+	has_many :contest_travelites, :dependent => :destroy
 	has_many :refund_requests, :dependent => :destroy
-	has_one :matriclicker
+	has_one :matriclicker, :dependent => :destroy
   belongs_to :country
 	belongs_to :role
-	belongs_to :reviews
-	belongs_to :user_account
-	belongs_to :cloth_measure
+	has_many :reviews, :dependent => :destroy
+	belongs_to :user_account, :dependent => :destroy
+	belongs_to :cloth_measure, :dependent => :destroy
   has_and_belongs_to_many :tags
   
 	has_many :conversations, :dependent => :destroy
 	has_many :supplier_accounts, :through => :conversations
-	has_many :dress_requests
-	has_many :purchases
-	has_many :orders
-	has_many :delivery_infos
-	has_many :user_contest_selections
-	has_many :credits
-	has_many :shopping_carts
+	has_many :dress_requests, :dependent => :destroy
+	has_many :purchases, :dependent => :destroy
+	has_many :orders, :dependent => :destroy
+	has_many :delivery_infos, :dependent => :destroy
+	has_many :user_contest_selections, :dependent => :destroy
+	has_many :credits, :dependent => :destroy
+	has_many :shopping_carts, :dependent => :destroy
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids

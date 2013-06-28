@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://www.matriclick.com"
+SitemapGenerator::Sitemap.default_host = "http://www.tramanta.com"
 
 SitemapGenerator::Sitemap.create do
   
