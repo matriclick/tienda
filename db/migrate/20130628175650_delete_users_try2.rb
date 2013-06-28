@@ -1,6 +1,6 @@
 class DeleteUsersTry2 < ActiveRecord::Migration
   def up
-    u = User.where('role_id <> 1')
+    u = User.where('role_id is null')
     size = u.size
     i = 1
     u.each do |user|
