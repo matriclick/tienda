@@ -9,7 +9,7 @@ class SliderImage < ActiveRecord::Base
 		:thumb => "100x100>",
 		:small => "200x150>",
 		:tiny => "40x40>"
-	}, :whiny => false
+	}, :whiny => false, :dependent => :destroy
 	
 	validates :slider_image, :presence => true
 		

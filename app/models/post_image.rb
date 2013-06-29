@@ -6,7 +6,7 @@ class PostImage < ActiveRecord::Base
 		:smaller => "120x90>",
 		:small => "200x150>",
 		:tiny => "40x40>"
-	}, :whiny => false
+	}, :whiny => false, :dependent => :destroy
   
   validates_attachment_size :photo, :less_than => 7.megabytes
   

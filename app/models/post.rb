@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   
   belongs_to :country
   belongs_to :industry_category
-  has_many :blog_comments
+  has_many :blog_comments, :dependent => :destroy
   has_many :post_contents, :dependent => :destroy
   has_and_belongs_to_many :pack_promotions
   
@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
                  :home_page => "300x200>",
                  :regular => "350x250>",
                  :tiny => "40x40>"
-  }, :whiny => false
+  }, :whiny => false, :dependent => :destroy
   validates_attachment_size :main_image, :less_than => 7.megabytes
   
   accepts_nested_attributes_for :post_contents, :reject_if => proc { |a| a[:content].blank? }, :allow_destroy => true

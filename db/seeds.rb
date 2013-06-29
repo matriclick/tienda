@@ -656,14 +656,7 @@ puts "\n"
 
 puts "--> Slider Image Types:"
 aux = []
-aux << (SliderImageType.find_by_name("Inicio") || SliderImageType.create(:name => 'Inicio', :description => "Se muestra en la página de inicio"))
-aux << (SliderImageType.find_by_name("Matri-Revista") || SliderImageType.create(:name => 'Matri-revista', :description => "Se muestra en el inicio de la Matri-Revista"))
-aux << (SliderImageType.find_by_name("Matri-packs") || SliderImageType.create(:name => 'Matri-packs', :description => "Se muestra en el inicio de Casonas Matriclick"))
-aux << (SliderImageType.find_by_name("Lunas de Miel") || SliderImageType.create(:name => 'Lunas de Miel', :description => "Se muestra en el inicio de Lunas de Miel"))
-aux << (SliderImageType.find_by_name("Tu-Casa") || SliderImageType.create(:name => 'Tu-Casa', :description => "Se muestra en el inicio de Tu-Casa"))
 aux << (SliderImageType.find_by_name("El Bazar") || SliderImageType.create(:name => 'El Bazar', :description => "Se muestra en el inicio de El Bazar Blog"))
-aux << (SliderImageType.find_by_name("Viajes") || SliderImageType.create(:name => 'Viajes', :description => "Se muestra en el inicio de Viajes"))
-aux << (SliderImageType.find_by_name("Aguclick") || SliderImageType.create(:name => 'Aguclick', :description => "Se muestra en el inicio de Aguclick"))
 aux.each { |x| puts x.name}
 puts "\n"
 

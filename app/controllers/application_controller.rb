@@ -473,9 +473,9 @@ class ApplicationController < ActionController::Base
 	
 	def redirect_unless_admin
 		if user_signed_in?
-			redirect_to blog_url unless current_user.role_id == 1
+			redirect_to blog_el_bazar_url unless current_user.role_id == 1
 		else
-			redirect_to blog_url
+			redirect_to blog_el_bazar_url
 		end
 	end
 	
@@ -490,7 +490,7 @@ class ApplicationController < ActionController::Base
       redirect = true
     end
     if redirect
-      redirect_to blog_url
+      redirect_to blog_el_bazar_url
     end
   end
   
@@ -516,10 +516,10 @@ class ApplicationController < ActionController::Base
       end
     
       if !is_admin and !is_owner
-        redirect_to blog_url
+        redirect_to blog_el_bazar_url
       end
     else
-      redirect_to blog_url
+      redirect_to blog_el_bazar_url
     end
   end
   
@@ -529,11 +529,11 @@ class ApplicationController < ActionController::Base
       if !is_supplier
         is_admin = !current_user.matriclicker.nil?
         if !is_admin
-          redirect_to blog_url
+          redirect_to blog_el_bazar_url
         end
       end
     else
-      redirect_to blog_url
+      redirect_to blog_el_bazar_url
     end
   end
   

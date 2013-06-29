@@ -1,4 +1,4 @@
 class SliderImageType < ActiveRecord::Base
-    has_many :slider_images
+    has_many :slider_images, :dependent => :destroy
     
 end
