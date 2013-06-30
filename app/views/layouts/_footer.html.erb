@@ -1,5 +1,71 @@
-<div class="sombra_footer">
+<div class="footer" style="margin-bottom:0px;">
+	<div class="box_nine_eight_cero center">
+	<div class="footer_box left">
+		<ul class="footer_links">
+			<li class="footer_title">VESTIDOS</li>
+			<li><%= link_to 'Formales', dresses_search_path(q: 'vestidos formal') %></li>
+			<li><%= link_to 'Peplum', dresses_search_path(q: 'vestidos peplum') %></li>
+			<li><%= link_to 'Azules', dresses_search_path(q: 'vestidos azul') %></li>
+			<li><%= link_to 'Rojos', dresses_search_path(q: 'vestidos rojo') %></li>
+		</ul>	
+	</div>
+	<div class="footer_box left">
+		<ul class="footer_links">
+			<li class="footer_title">ROPA DE MUJER</li>
+			<li><%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
+			<li><%= link_to 'Chalecos y Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
+			<li><%= link_to 'Chaquetas', dresses_ver_path(:type => "ropa-de-mujer-chaquetas") %></li>
+			<li><%= link_to 'Pantalones y Leggins', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>
+			<li><%= link_to 'Polleras', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
+		</ul>	
+	</div>
+	<div class="footer_box left">
+		<ul class="footer_links">
+			<li class="footer_title">ZAPATOS Y BOTAS</li>
+			<li><%= link_to 'Zapatos', dresses_search_path(q: 'zapato') %></li>
+			<li><%= link_to 'Botas', dresses_search_path(q: 'bota') %></li>
+		</ul>
+	</div>
+	
+	<div class="footer_box left">
+		<ul class="footer_links">
+			<li class="footer_title">ROPA INTERIOR</li>
+			<li><%= link_to 'Algodón', dresses_search_path(q: 'ajuar algodón') %></li>
+			<li><%= link_to 'Satín', dresses_search_path(q: 'ajuar satín') %></li>
+			<li><%= link_to 'Tull', dresses_search_path(q: 'ajuar tull') %></li>
+		</ul>
+	</div>
+	
+	<% unless Post.find_last(2).nil? %>
+		<div class="footer_box left">
+			<ul class="footer_links">
+				<li class="footer_title">BLOG DE MODA</li>
+				<li><%= link_to Post.find_last(0).title, Post.find_last(0) %></li>
+				<li><%= link_to Post.find_last(1).title, Post.find_last(1) %></li>
+				<li><%= link_to Post.find_last(2).title, Post.find_last(2) %></li>
+			</ul>
+		</div>
+	<% end %>
+	
+	<div class="footer_box right">
+		<ul class="footer_links">
+			<li class="footer_title">SÍGUENOS</li>
+			<li><%= link_to image_tag('footer/social-black-facebook.jpg'), 'https://www.facebook.com/tramantaonline', 
+					:target => '_blank' %> 
+				<%= link_to image_tag('footer/social-black-twitter.jpg'), 'https://twitter.com/tramantaonline', 
+						:target => '_blank' %>
+			</li>
+			<li><%= link_to image_tag('footer/social-black-pinterest.jpg'), 'http://pinterest.com/tramanta', 
+				:target => '_blank' %></li>
+		</ul>
+	</div>
+	
+	<div class="clear"></div>
+	</div>
 </div>
+
+<!-- SEGUNDA PARTE -->
+
 <div class="footer" style="margin-bottom:30px;">
 	<div class="box_nine_eight_cero center">
 	<div class="footer_box left">
@@ -29,18 +95,6 @@
 		</ul>
 	</div>
 	
-	<div class="footer_box right">
-		<ul class="footer_links">
-			<li class="footer_title">SÍGUENOS</li>
-			<li><%= link_to image_tag('footer/social-black-facebook.jpg'), 'https://www.facebook.com/tramantaonline', 
-					:target => '_blank' %> 
-				<%= link_to image_tag('footer/social-black-twitter.jpg'), 'https://twitter.com/tramantaonline', 
-						:target => '_blank' %>
-			</li>
-			<li><%= link_to image_tag('footer/social-black-pinterest.jpg'), 'http://pinterest.com/tramanta', 
-				:target => '_blank' %></li>
-		</ul>
-	</div>
 	<% if !current_user.nil? and current_user.role_id == 1 %>
 	<div class="footer_box right">
 		<ul class="footer_links">
@@ -51,4 +105,8 @@
 	<% end %>
 	<div class="clear"></div>
 	</div>
+</div>
+<div style="text-align:center; margin-bottom:30px">
+	<%= link_to image_tag('el_bazar/logo.png'), bazar_path %>
+	<div class="help_tip">Todos los derechos reservados</div>
 </div>

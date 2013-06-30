@@ -24,7 +24,12 @@ class Post < ActiveRecord::Base
   
   extend FriendlyId
   friendly_id :title, use: [:slugged, :history, :i18n]
-  	
+  
+  def self.find_last(position)
+    posts = Post.order('id DESC').limit(3)
+    return posts[position]
+  end
+  
   def self.by_industry_category(id, name = nil)
 		if id
 			joins(:industry_category).where("industry_categories.id = #{id}")
