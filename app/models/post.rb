@@ -26,7 +26,7 @@ class Post < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history, :i18n]
   
   def self.find_last(position)
-    posts = Post.order('id DESC').limit(3)
+    posts = Post.is_visible.order('id DESC').limit(3)
     return posts[position]
   end
   
