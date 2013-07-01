@@ -148,7 +148,7 @@ class Dress < ActiveRecord::Base
   end
   
   def main_image
-    self.dress_images.first.dress.url(:index)
+    self.dress_images.first.dress.url(:main)
   end
   
   def small_image

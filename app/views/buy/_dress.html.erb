@@ -1,5 +1,5 @@
 <div>
-	<% case @purchasable.dress_type.name %>
+	<% case @purchasable.dress_type.get_human_name %>
 		<% when 'Novia' %>
 			<b>Vestido de Novia</b>
 		<% when 'Fiesta' %>
@@ -9,7 +9,7 @@
 		<% when 'Civil' %>
 			<b>Comprar Vestido</b>
 		<% else %>
-			<b>Comprar <%= @purchasable.dress_type.name %></b>
+			<b>Comprar <%= @purchasable.dress_type.get_human_name %></b>
 	<% end %>
 	<hr>
 	<div style="float:left;">
