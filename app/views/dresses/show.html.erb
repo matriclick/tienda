@@ -1,9 +1,4 @@
-<%= render "navigation", :dress => @dress, :type => @type %>
 <div id="notice"><%= notice %></div>
-
-<div>
-	<%= yield :left_arrow %>
-</div>
 
 <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
 <div class="dress_box left">
@@ -44,6 +39,3 @@
 		<%= render 'related_dresses', related_dresses: @viewed_dresses %>
 	</div>
 <% end %>
-<div>
-	<%= yield :right_arrow %>
-</div>

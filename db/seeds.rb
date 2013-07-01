@@ -796,7 +796,8 @@ puts "--> RefundReasons:"
 aux = []
 aux << (RefundReason.find_by_name("Producto no calza con la descripción") || RefundReason.create(:name => 'Producto no calza con la descripción', :description => 'El producto que enviamos no calza con la descripción que aparece en la página'))
 aux << (RefundReason.find_by_name("Producto con fallas") || RefundReason.create(:name => 'Producto con fallas', :description => 'El producto que enviamos venía con fallas: estaba roto o tenía algún defecto'))
-aux << (RefundReason.find_by_name("Me arrepentí") || RefundReason.create(:name => 'Me arrepentí', :description => 'El producto que enviamos estaba en perfectas condiciones pero ya no lo quiero'))
+aux << (RefundReason.find_by_name("Me arrepentí porque no me gustó el diseño") || RefundReason.create(:name => 'Me arrepentí porque no me gustó el diseño', :description => 'El producto que enviamos estaba en perfectas condiciones pero ya no lo quiero porque no me gustó el diseño'))
+aux << (RefundReason.find_by_name("Me arrepentí porque no me quedó bien de talla") || RefundReason.create(:name => 'Me arrepentí porque no me quedó bien de talla', :description => 'El producto que enviamos estaba en perfectas condiciones pero ya no lo quiero porque no me quedó bien de talla'))
 aux.each { |x| puts x.name}
 puts "\n"
 

@@ -24,7 +24,7 @@
 <div class="field" style="margin-bottom:20px">
 	<% RefundReason.all.each do |rr| %>
 	<%= f.radio_button :refund_reason_id, rr.id %>
-	<%= f.label :refund_reason_id, rr.name %><br />
+	<%= f.label :refund_reason_id, rr.name %><br /><em style="color:grey; font-size:11px"><%= rr.description %></em><br /><br />
 	<% end %>
 </div>
 
@@ -46,7 +46,10 @@
 <div class="field">
 	<%= f.hidden_field :user_id, :value => @user_id %>
 </div>
-
+<div class="field">
+	Luego de que solicites la devolución, te responderemos con las instrucciones para devolver el producto.
+</div>
+<br />
 <div class="actions" style="margin-bottom:20px">
 	<%= f.submit 'Solicitar devolución', class: 'button_buy_dress_pink' %>
 </div>
