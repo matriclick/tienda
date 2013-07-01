@@ -20,9 +20,5 @@
 	<% if !(@home || false) %>
 		<br />
 	<% end %>
-	<% unless @supplier_login_footer %>
-		<%= render "layouts/footer" %>
-	<% else %>
-	  <%= render "layouts/supplier_login_footer" %>
-	<% end %>
+	<%= render "layouts/footer" %>
 <% end %>
