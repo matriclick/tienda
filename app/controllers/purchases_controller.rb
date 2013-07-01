@@ -121,13 +121,14 @@ class PurchasesController < ApplicationController
     @purchase.transfer_type = params[:payment][:option]
     @purchase.delivery_method = DeliveryMethod.find_by_name params[:delivery][:option]
     @purchase.delivery_method_cost = @purchase.delivery_method.price
-    @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost
+    @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost if !@purchase.delivery_info.nil?
     @purchase.purchasable_price = @object.price
     
-    if !@purchase.quantity.blank?
+    if !@purchase.quantity.blank? and !@purchase.delivery_cost.nil?
         @purchase.price = @purchase.purchasable_price * @purchase.quantity + @purchase.delivery_cost + @purchase.delivery_method.price
-    else
+    elsif !@purchase.delivery_cost.nil?
         @purchase.price = @purchase.purchasable_price + @purchase.delivery_cost + @purchase.delivery_method.price
+        @purchase.quantity = 1
     end
     
     if current_user.credit_amount > @purchase.price
