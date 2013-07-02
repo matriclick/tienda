@@ -8,7 +8,12 @@
 		<% unless @purchases.blank? %>
 			<%= render 'user_conversations/purchases_list', :purchases => @purchases %>
 		<% else -%>
-			<%= render "layouts/nothing_to_show", :word => 'compras en matriclick ¿¡Qué esperas!?', :small => true %>
+			<div class="nothing_to_show">
+				<div class="message help_tip">
+					¡No has realizado compras aún!
+				</div>
+			</div>
+			
 		<% end -%>
 	</div>
 </div>

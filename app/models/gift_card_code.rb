@@ -52,7 +52,7 @@ class GiftCardCode < ActiveRecord::Base
   end
   
   def full_link_to_view(country_url_path, purchase_id = nil)
-    host = 'www.matriclick.com'
+    host = 'www.tramanta.com'
     gift_cards_show_coupon_path(:id => self.id, :only_path => false, :host => host, :country_url_path => country_url_path)
   end
   # -------------- END PURCHASABLE METHODS -------------------

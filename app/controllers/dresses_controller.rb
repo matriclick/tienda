@@ -86,7 +86,7 @@ class DressesController < ApplicationController
     @title_content = 'Ropa de Bebe | Matriclick' #SEO
     @meta_description_content = 'En este sitio encontrarás todo lo que necesitas para vestir a tu bebé durante las distintas etapas de su crecimiento' #Descripción
     @og_type = 'website' #FB Puede ser website, article
-    @og_image = 'http://www.matriclick.com/images/emails/logo_matriclick_sin_caja.png' #FB Ruta completa a la imagen, por ejemplo http://www.matriclick.com/images/emails/logo_matriclick_sin_caja.png
+    @og_image = 'http://www.tramanta.com/images/emails/logo_matriclick_sin_caja.png' #FB Ruta completa a la imagen, por ejemplo http://www.tramanta.com/images/emails/logo_matriclick_sin_caja.png
     add_breadcrumb "Ropa de Bebe", :mibebe_menu_path
   end
 
@@ -268,7 +268,7 @@ class DressesController < ApplicationController
         @title_content = @dress.introduction
       	@meta_description_content = @type.name.gsub('-', ' ').capitalize+': '+@dress.description+' - '+@dress.description
         @og_type = 'article'
-        @og_image = 'http://www.matriclick.com'+@dress.dress_images.first.dress.url(:original)
+        @og_image = 'http://www.tramanta.com'+@dress.dress_images.first.dress.url(:original)
         @og_description = @type.name + ': ' + @dress.description
 
         @title = params[:type]

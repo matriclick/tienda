@@ -30,11 +30,11 @@ class Supplier < ActiveRecord::Base
   end
   
   def alvi?
-		self.email == 'agmarin@matriclick.com'
+		self.email == 'agmarin@tributosport.com'
 	end
 	
   def developer?
-		['magdalena@matriclick.com', 'felbalart@gmail.com'].include?(self.email)
+		['magdalena@tributosport.com', 'felbalart@gmail.com'].include?(self.email)
 	end
 	
 end

@@ -58,7 +58,7 @@ class PurchasesController < ApplicationController
   end
   
   def show_for_user
-    add_breadcrumb 'Tu cuenta', edit_user_registration_path
+    add_breadcrumb 'Tu cuenta', user_profile_personalization_path
     @purchase = Purchase.find(params[:id])
     @purchasable = eval(@purchase.purchasable_type + '.find ' + @purchase.purchasable_id.to_s)
     

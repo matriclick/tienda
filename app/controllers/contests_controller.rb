@@ -238,7 +238,7 @@ class ContestsController < ApplicationController
       @title_content = @contest_travelite.photo_name
   	  @meta_description_content = @contest_travelite.photo_name+' concursando para ganar una despedida de soltera en Buenos Aires. ¡Todo Incluído!'
       @og_type = 'article'
-      @og_image = 'http://www.matriclick.com'+@contest_travelite.contest_travelite_image(:contest_travelite_big)
+      @og_image = 'http://www.tramanta.com'+@contest_travelite.contest_travelite_image(:contest_travelite_big)
       @og_description = 'Vota por '+@contest_travelite.bride_name.to_s+' con su imagen '+@contest_travelite.photo_name.to_s+' que está concursando para ganar una despedida de soltera en Buenos Aires.'
     end    
   end
@@ -331,7 +331,7 @@ class ContestsController < ApplicationController
   	@meta_description_content = 'Concursa para ganar una despedida de soltera en Buenos Aires. ¡Todo Incluído!'
     @contest_travelites = ContestTravelite.where("id = 1278 or id = 1288 or id = 1154 or id = 1323 or id = 1206").order('vote_count DESC')
     @og_type = 'article'
-    @og_image = 'http://www.matriclick.com/assets/contests/despedida-de-soltera/despedida-de-soltera-final-f6ed531335faef43e7d6e36f86defb56.jpg'
+    @og_image = 'http://www.tramanta.com/assets/contests/despedida-de-soltera/despedida-de-soltera-final-f6ed531335faef43e7d6e36f86defb56.jpg'
     @og_description = 'Les presentamos a nuestras 5 finalistas, ellas deberán mostrar este jueves por qué se merecen ganar la ¡Despedida de Soltera Soñada!'    
   end
   

@@ -85,7 +85,7 @@ grid([4,0], [5,3]).bounding_box do
 			pdf.text "¿Dudas? Contáctanos:"
 			pdf.move_down(5)
 			indent(5) { 
-				pdf.text "- Correo Soporte Matriclick: hola@matriclick.com"
+				pdf.text "- Correo Soporte Matriclick: hola@tributosport.com"
 				pdf.move_down(3)
 				pdf.text "- Soporte al cliente Matriclick: 02 247 8174" 
 			}

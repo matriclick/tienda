@@ -40,7 +40,7 @@ class PostsController < ApplicationController
     @title_content = @post.title
   	@meta_description_content = @post.introduction
     @og_type = 'article'
-    @og_image = 'http://www.matriclick.com'+@post.main_image.url(:original)
+    @og_image = 'http://www.tramanta.com'+@post.main_image.url(:original)
     @og_description = strip_tags(@post.introduction).gsub('&','').gsub(/acute;/,'')
 		get_breadcrumb(@post)
 		

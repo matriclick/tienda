@@ -19,7 +19,7 @@ esPE:
       empty_dot: "Reserva por confirmar"
     supplier_account:
       public_url: "Esta será la URL para tu página pública. Por ejemplo 'flores_lindas'"
-      valid: "Luego de completada la información del formulario te contactaremos para activar tu cuenta.<br />Si no conoces los planes y tarifas, contáctanos a socios@matriclick.com."
+      valid: "Luego de completada la información del formulario te contactaremos para activar tu cuenta.<br />Si no conoces los planes y tarifas, contáctanos a socios@tributosport.com."
       presentation: "Esta Presentación representa lo que los usuarios verán sobre tu empresa. Puedes agregar imágenes y una descripción."
       industry_categories: "Selecciona las categorías en las que tienes productos y/o servicios"
       image: "Agrega una imágen que representará a tu empresa. Un logo es una buena idea. (Formato JPG o PNG y no excedas 800 x 600 píxeles ni 1 MB)"

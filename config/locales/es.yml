@@ -728,24 +728,24 @@ es:
   terms_of_use: "Terminos de Uso"
   como_nace: "Cómo Nace"
   press: "Prensa"
-  work_with_us: "Trabaja en Matriclick"
+  work_with_us: "Trabaja en Tramanta"
   leyend: "Leyenda"
   today: "Hoy"
-  new_to_matriclick: "¿Nuevo en Matriclick?"
+  new_to_matriclick: "¿Nuevo en Tramanta?"
   select_service: "Elige un servicio"
   edit_contact: "Editar contacto"
   charged_per: "Cobrado por"
-  your_site_in_mc: "Tu sitio en matriclick.com"
+  your_site_in_mc: "Tu sitio en tributosport.com"
   change_image: "Cambiar imagen"
   validate_me: "¡Estoy listo, validarme!"
-  awaiting_for_matriclick_approval: "¡Sólo falta que el Equipo de Matriclick valide tu cuenta!"
+  awaiting_for_matriclick_approval: "¡Sólo falta que el Equipo de Tramanta valide tu cuenta!"
   your_account_status: "Estado de tu cuenta"
   you_havent_approved_yourself_yet: "Todavía no te has validado"
   you_are_ready: "Ya estás listo"
-  matriclick_approved: "El Equipo Matriclick ha aprobado tu cuenta!"
-  awaiting_matriclick_approval: "El Equipo Matriclick todavía no ha aprobado tu cuenta."
+  matriclick_approved: "El Equipo Tramanta ha aprobado tu cuenta!"
+  awaiting_matriclick_approval: "El Equipo Tramanta todavía no ha aprobado tu cuenta."
   self_approval: "Validación propia"
-  matriclick_approval: "Validación Equipo Matriclick"
+  matriclick_approval: "Validación Equipo Tramanta"
   you_are_online: "¡Felicitaciones! ¡Tu cuenta está online!"
   i_want_to_validate: "Quiero validar mi cuenta"
   are_you_sure_you_want_to_validate: "¿Estás seguro que quieres validar tu cuenta? Esta operación no se puede deshacer."
@@ -787,7 +787,7 @@ es:
   reserved: "Reservado"
   available: "Disponible"
   few_reserve_left: "Pocos cupos disponibles"
-  add_reminder: "Matriclick.com enviará un correo a las personas que agregues cuando la actividad esté cerca de terminar" 
+  add_reminder: "Tramanta.com enviará un correo a las personas que agregues cuando la actividad esté cerca de terminar" 
   activity: "Actividad"
   done: "Listo"
   add_activity: "Agregar actividad"
@@ -856,7 +856,7 @@ es:
   by_product: "Por producto"
   ask_reference: "Pedir referencia"
   reference_request_created_title: "¡Listo, ya hemos recibido tu solicitud!"
-  reference_request_created: "¡Las novias y novios de Matriclick te ayudarán a decidir! (te enviaremos un email a la brevedad)"
+  reference_request_created: "¡Las novias y novios de Tramanta te ayudarán a decidir! (te enviaremos un email a la brevedad)"
   add_user: "Agregar usuario"
   owner: 'Dueño'
   select: "Seleccione"
@@ -912,7 +912,7 @@ es:
   wont_be_confirmed: 'No podrá ser confirmada'
   en: 'en'
   unconfirmed_text1: 'Te informamos que tu reserva para'
-  unconfirmed_text2: 'ya no está confirmada. Para mayor información te puedes contactar directamente con el proveedor o enviarnos un correo a contacto@matriclick.com'
+  unconfirmed_text2: 'ya no está confirmada. Para mayor información te puedes contactar directamente con el proveedor o enviarnos un correo a contacto@tributosport.com'
   hide: 'Esconder'
   edit_user: 'Editar'
   instructions: 'Instrucciones'
@@ -971,5 +971,5 @@ es:
   econ: "Económico"
   settings: "Configuración"
   added: "Agregado"
-  matriclick_points: "Puntos Matriclick"
+  matriclick_points: "Puntos Tramanta"
   opportunities: "Matri-oportunidades"

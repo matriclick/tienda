@@ -3,7 +3,7 @@
 		<tr>
 			<td align="left">
 				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
-					¡Felicitaciones! Haz realizado una compra en Matriclick<br /><br />
+					¡Felicitaciones! Haz realizado una compra en Tramanta<br /><br />
 					<%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br /><br />
 					Precio <b><%= number_to_currency @purchase.price %> <%= number_to_currency @purchase.currency %></b><br /><br />
 					Método de pago: <%= @purchase.transfer_type %><br /><br />

@@ -169,7 +169,7 @@ class Service < ActiveRecord::Base
   end
   
   def full_link_to_view(country_url_path, purchase_id = nil)
-    host = 'www.matriclick.com'
+    host = 'www.tramanta.com'
     products_and_services_catalog_description_path(:id => self.id, :object_class => self.class, :only_path => false, :host => host, :country_url_path => country_url_path)
   end
   # -------------- END PURCHASABLE METHODS -------------------

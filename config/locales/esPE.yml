@@ -734,7 +734,7 @@ esPE:
   select_service: "Elige un servicio"
   edit_contact: "Editar contacto"
   charged_per: "Cobrado por"
-  your_site_in_mc: "Tu sitio en matriclick.com"
+  your_site_in_mc: "Tu sitio en tributosport.com"
   change_image: "Cambiar imagen"
   validate_me: "¡Estoy listo, validarme!"
   awaiting_for_matriclick_approval: "¡Sólo falta que el Equipo de Matriclick valide tu cuenta!"
@@ -911,7 +911,7 @@ esPE:
   wont_be_confirmed: 'No podrá ser confirmada'
   en: 'en'
   unconfirmed_text1: 'Te informamos que tu reserva para'
-  unconfirmed_text2: 'ya no está confirmada. Para mayor información te puedes contactar directamente con el proveedor o enviarnos un correo a contacto@matriclick.com'
+  unconfirmed_text2: 'ya no está confirmada. Para mayor información te puedes contactar directamente con el proveedor o enviarnos un correo a contacto@tributosport.com'
   hide: 'Esconder'
   edit_user: 'Editar'
   instructions: 'Instrucciones'

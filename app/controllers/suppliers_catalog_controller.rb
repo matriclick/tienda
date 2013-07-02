@@ -183,7 +183,7 @@ class SuppliersCatalogController < ApplicationController
   
   def load_facebook_meta(supplier)
     @og_type = 'article'
-    @og_image = 'http://www.matriclick.com'+supplier.supplier_account.image.url(:original)
+    @og_image = 'http://www.tramanta.com'+supplier.supplier_account.image.url(:original)
     @og_description = supplier.supplier_account.presentation
   end
   

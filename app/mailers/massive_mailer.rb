@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class MassiveMailer < ActionMailer::Base
-  default from: "mensajes@matriclick.com"
+  default from: "mensajes@tributosport.com"
   
   def send_personalized_email(user_id, dresses_id)
   	@user = User.find user_id

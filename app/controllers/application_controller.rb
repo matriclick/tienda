@@ -541,7 +541,7 @@ class ApplicationController < ActionController::Base
 		if !user_signed_in?
 			
 			# DZF creating and login_in an invitee user.
-			ua = User.find_by_email("demo@matriclick.com").user_account
+			ua = User.find_by_email("demo@tributosport.com").user_account
 
 			u = User.new
 			email = u.email ="invitado_matriclick@"+rand(9999).to_s+"-"+Time.now.to_s.gsub(/(\s|\D)/, "")+".cl"

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class UserMailer < ActionMailer::Base
-  default from: "mensajes@matriclick.com"
+  default from: "mensajes@tributosport.com"
   
   def user_email(user, password) # when a UserAccount add a new user to his people
   	@user = user
@@ -72,21 +72,21 @@ class UserMailer < ActionMailer::Base
   	@country_url_path = @booking.supplier_account.country.url_path
   	@bookable = @booking.bookable
   	@supplier_account = @booking.supplier_account
-  	mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@matriclick.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' ha sido confirmada"
+  	mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@tributosport.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' ha sido confirmada"
   end
   
   def booking_deletion_email(booking)
   	@booking = booking
   	@bookable = @booking.bookable
   	@supplier_account = @booking.supplier_account
-  	mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@matriclick.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' ha sido cancelada"
+  	mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@tributosport.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' ha sido cancelada"
   end
   
 	def booking_resources_full_email(booking)
 		@booking = booking
 		@bookable = @booking.bookable
 		@supplier_account = @booking.supplier_account
-		mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@matriclick.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' no podrá ser confirmada"
+		mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@tributosport.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' no podrá ser confirmada"
 	end
 
 	# BEGIN AMK 2012-11-29
@@ -98,7 +98,7 @@ class UserMailer < ActionMailer::Base
 	#   @booking = booking
 	#	  @bookable = @booking.bookable
 	#	  @supplier_account = @booking.supplier_account
-	#	  mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@matriclick.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' ha expirado"
+	#	  mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@tributosport.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' ha expirado"
 	# end
 	# END AMK 2012-11-29
     

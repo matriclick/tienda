@@ -1,6 +1,6 @@
  var _gaq = _gaq || [];
  _gaq.push(['_setAccount', 'UA-27704875-1']);
- _gaq.push(['_setDomainName', '.matriclick.com']);
+ _gaq.push(['_setDomainName', '.tributosport.com']);
  _gaq.push(['_setAllowLinker', true]);
  _gaq.push(['_trackPageview']);
 

@@ -725,7 +725,7 @@ en:
   select_service: "Select service"
   edit_contact: "Edit contact"
   charged_per: "Charged per"
-  your_site_in_mc: "Your site in matriclick.com"
+  your_site_in_mc: "Your site in tributosport.com"
   change_image: "Change image"
   validate_me: "Validate me"
   awaiting_for_matriclick_approval: "Awaiting for Matriclick's Team approval"
@@ -899,7 +899,7 @@ en:
   wont_be_confirmed: 'It wont be confirmed'
   en: 'in'
   unconfirmed_text1: 'We inform you that your booking for'
-  unconfirmed_text2: 'is no longer confirmed. For more information you can contact directly with the supplier or send us a email to contacto@matriclick.com'
+  unconfirmed_text2: 'is no longer confirmed. For more information you can contact directly with the supplier or send us a email to contacto@tributosport.com'
   hide: 'Hide'
   edit_user: 'Edit User'
   instructions: 'Instructions'

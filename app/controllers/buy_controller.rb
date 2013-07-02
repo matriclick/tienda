@@ -236,7 +236,7 @@ class BuyController < ApplicationController
   def success_transfer
     @purchase = Purchase.find params[:purchase_id]
     purchase_actions
-    redirect_to user_conversations_index_path()
+    redirect_to user_profile_path
   end
   
   def success_full_credit

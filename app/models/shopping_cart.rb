@@ -60,7 +60,7 @@ class ShoppingCart < ActiveRecord::Base
   end
   
   def full_link_to_view(country_url_path, purchase_id = nil)
-    host = 'www.matriclick.com'
+    host = 'www.tramanta.com'
     
     purchases_show_for_user_path(:only_path => false, :host => host, :country_url_path => country_url_path, :id => purchase_id)
   end

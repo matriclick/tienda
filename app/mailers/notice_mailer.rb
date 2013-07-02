@@ -1,6 +1,6 @@
 # coding: utf-8
 class NoticeMailer < ActionMailer::Base
-	default from: "mensajes@matriclick.com"
+	default from: "mensajes@tributosport.com"
 
 	#CONTACT
   def refund_request_email(refund_request)

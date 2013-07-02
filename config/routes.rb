@@ -1,7 +1,7 @@
 # encoding: UTF-8
 Matri::Application.routes.draw do
 
-  # This is one way to implement the "channel.html" file recommended by facebook. Your application.html.erb should have something like "channelUrl : '//www.matriclick.com/channel.html'"
+  # This is one way to implement the "channel.html" file recommended by facebook. Your application.html.erb should have something like "channelUrl : '//www.tramanta.com/channel.html'"
   get '/channel.html' => proc {
     [
       200,

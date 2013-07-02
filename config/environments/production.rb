@@ -76,5 +76,5 @@ Matri::Application.configure do
   config.middleware.use ExceptionNotifier,
     email_prefix: "[Error] ",
     sender_address: "mensajes@tramanta.com",
-    exception_recipients: "soporte@matriclick.com"
+    exception_recipients: "soporte@tributosport.com"
 end
