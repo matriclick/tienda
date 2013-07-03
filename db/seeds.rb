@@ -618,7 +618,7 @@ puts "\n"
 
 puts "--> Dress Types:"
 aux = []
-aux << (DressType.find_by_name("ajuar") || DressType.create(:name => 'ajuar', :description => "Ajuar para la novia"))
+aux << (DressType.find_by_name("ropa-interior") || DressType.create(:name => 'ropa-interior', :description => "Ropa interior"))
 aux << (DressType.find_by_name("vestidos-fiesta") || DressType.create(:name => 'vestidos-fiesta', :description => "Vestidos para la fiesta"))
 aux << (DressType.find_by_name("zapatos") || DressType.create(:name => 'zapatos', :description => "Zapatos"))
 
