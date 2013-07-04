@@ -201,32 +201,39 @@ class DressesController < ApplicationController
   
   def view_search
     @search_term = params[:q]
-    @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
-    @dresses = Dress.all_filtered(@search_term) 
-    @dresses.uniq!
-    @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
+    unless @search_term.nil?
+      @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
+      @dresses = Dress.all_filtered(@search_term) 
+      @dresses.uniq!
+      @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
   
-    @title_content = 'Buscando '+@search_term.capitalize
-  	@meta_description_content = 'Compra '+@search_term.capitalize
-    add_breadcrumb "Tramanta", :bazar_path
-    add_breadcrumb @search_term, dresses_search_path(q: @search_term)
+      @title_content = 'Buscando '+@search_term.capitalize
+    	@meta_description_content = 'Compra '+@search_term.capitalize
+      add_breadcrumb "Tramanta", :bazar_path
+      add_breadcrumb @search_term, dresses_search_path(q: @search_term)
     
-    #IE v8 y anteriores no compatible con carga dinamica
-    user_agent = request.env['HTTP_USER_AGENT']
-    unless user_agent =~ /MSIE 8/ || user_agent =~ /MSIE 7/ || user_agent =~ /MSIE 6/ || user_agent =~ /MSIE 5/ 
-      @scrolling_set = @@scrolling_set
-      @dresses_array_ids ="";
+      #IE v8 y anteriores no compatible con carga dinamica
+      user_agent = request.env['HTTP_USER_AGENT']
+      unless user_agent =~ /MSIE 8/ || user_agent =~ /MSIE 7/ || user_agent =~ /MSIE 6/ || user_agent =~ /MSIE 5/ 
+        @scrolling_set = @@scrolling_set
+        @dresses_array_ids ="";
   
-      @dresses.each do |dress|
-        @dresses_array_ids += dress.id.to_s + ','
+        @dresses.each do |dress|
+          @dresses_array_ids += dress.id.to_s + ','
+        end
+  
+        @dresses = @dresses[0..@@scrolling_set-1]      
+      else
+        @scrolling_set = @dresses.length + 1
       end
-  
-      @dresses = @dresses[0..@@scrolling_set-1]      
-    else
-      @scrolling_set = @dresses.length + 1
-    end
 
-    render :view
+      render :view
+    else
+      respond_to do |format|
+        format.html { redirect_to bazar_path }
+        format.json { head :ok }
+      end
+    end
   end
   
   # GET /dresses/1

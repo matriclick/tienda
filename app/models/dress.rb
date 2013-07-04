@@ -52,7 +52,7 @@ class Dress < ActiveRecord::Base
 	
 	def get_related_dresses
 	  texto = self.product_keywords
-	  if !texto.nil?	    
+	  if !texto.nil? and self.dress_types.size > 0
       if !texto.empty?
     	  keywords = texto.split(",")
     	  like = ''
