@@ -61,10 +61,11 @@ class HomeController < ApplicationController
   def subscription_create
     @subscriber = Subscriber.new(params[:subscriber])
     @subscriber.subscriber_preferences << SubscriberPreference.find_by_name("El Bazar")
+    redirection = session[:url_coming_from].nil? ? bazar_path : session[:url_coming_from] 
     
     respond_to do |format|
       if @subscriber.save
-        format.html { redirect_to session[:url_coming_from], notice: '¡Genial! Ya estás inscrito' }
+        format.html { redirect_to redirection, notice: '¡Genial! Ya estás inscrito' }
         format.json { render json: @subscriber, status: :created, location: @subscriber }
       else
         format.html { render action: "subscription" }

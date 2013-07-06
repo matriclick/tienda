@@ -10,3 +10,5 @@ Disallow: /images/
 Disallow: /administration/
 Disallow: /users/
 Disallow: /compras/
+Disallow: /chile/failure
+Disallow: /chile/success
