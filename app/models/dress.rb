@@ -25,7 +25,7 @@ class Dress < ActiveRecord::Base
 	accepts_nested_attributes_for :dress_images, :reject_if => proc { |a| a[:dress].blank? }, :allow_destroy => true
 	accepts_nested_attributes_for :dress_stock_sizes, :reject_if => proc { |a| a[:dress].blank? }, :allow_destroy => true
 	
-	validates :dress_status_id, :presence => true	
+	validates :dress_status_id, :introduction, :description, :presence => true	
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	

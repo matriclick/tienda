@@ -3,29 +3,23 @@
 </div>
 
 <div style="float:left; width:400px; margin-left:20px">
-	<%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br />
+	<h3><%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br /></h3>
 	<% if !@purchase.size.blank? %>
 		Talla: <%= @purchase.size %><br />
 	<% end %>
 	<br />
 	<table>
-		<% case @purchase.purchasable_type %>
-			<% when 'Dress' %>
-				<tr>
-					<td>Precio Unitario</td>
-					<td><%= number_to_currency @purchasable.price %> </td>
-				</tr>
-				<% if !@purchase.quantity.blank? %>
+		<% if @purchase.purchasable_type == 'Dress' %>
+			<tr>
+				<td>Precio Unitario</td>
+				<td><%= number_to_currency @purchasable.price %> </td>
+			</tr>
+			<% if !@purchase.quantity.blank? %>
 				<tr>
 					<td>Cantidad</td>
 					<td><%= @purchase.quantity.to_s %></td>
 				</tr>
-				<% else %>
-				<tr>
-					<td>Cantidad</td>
-					<td>1</td>
-				</tr>
-				<% end %>
+			<% end %>
 		<% end %>
 		<tr>
 			<td>Subtotal</td>
@@ -61,6 +55,11 @@
 		Fecha: <b><%= @purchase.delivery_date.strftime("%d %B %Y") %></b><br /><br />
 	<% end %>
 </div>
+<div class="clear"></div>
+<% if @purchase.purchasable_type == 'ShoppingCart' %>
+	<h2>Productos comprados</h2>
+	<%= render 'cart', cart: @purchasable %>
+<% end %>
 <div class="clear"></div>
 <% if !@purchase.delivery_info.nil? %>
 	<div style="margin-top:20px;">
