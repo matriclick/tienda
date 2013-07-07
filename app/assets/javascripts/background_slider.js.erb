@@ -21,6 +21,7 @@ $(document).ready(function(){
  function changeImg(){
  $('#home_content').animate({opacity: 0}, 1000, function(){
  $(this).css('background','url(' + preloadArr[currImg++%preloadArr.length].src +') top center no-repeat');
+ $(this).css('background-size','100% auto');
  }).animate({opacity: 1}, 1000);
  }
  
