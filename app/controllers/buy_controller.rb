@@ -268,7 +268,7 @@ class BuyController < ApplicationController
         generate_credit_reduction(@purchase)
     
         #GENERA LOS CRÉDITOS DE PREMIO EN EL CASO DE PAGO WEBPAY (acción success)
-        generate_credit(@purchase) if action_name == 'success'
+        #generate_credit(@purchase) if action_name == 'success'
         
         @purchase.status = 'finalizado'
         @purchase.save(:validate => false)

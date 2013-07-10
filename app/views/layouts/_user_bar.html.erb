@@ -12,10 +12,13 @@
 	<%= render "layouts/sign_in_tab" %>
 </div>
 <div class="center box_nine_six_cero" style="margin-top:5px;">
-	<div class="left" style="margin-top:5px">
+	<div style="position:absolute;">
 		<%= link_to (image_tag 'el_bazar/logo.png', :alt => "Tramanta.com"), root_country_path %>
 	</div>
-	<div class="left" style="border-bottom:1px solid #ccc; width:750px;">
+	<div style="position:absolute; text-align:center; color:#c136b2; left:40%; top:15px; font-size:13px">
+		<%= (user_signed_in? and current_user.check_if_has_credits) ? number_to_currency(current_user.credit_amount)+' créditos disponibles' : '' %>
+	</div>
+	<div class="right" style="border-bottom:1px solid #ccc; width:770px;">
 		<div>
 			<%= render 'layouts/main_menu' %>
 		</div>
