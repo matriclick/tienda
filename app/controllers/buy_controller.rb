@@ -268,7 +268,7 @@ class BuyController < ApplicationController
         generate_credit_reduction(@purchase)
     
         #GENERA LOS CRÉDITOS DE PREMIO EN EL CASO DE PAGO WEBPAY (acción success)
-        #generate_credit(@purchase) if action_name == 'success'
+        generate_credit(@purchase) #if action_name == 'success'
         
         @purchase.status = 'finalizado'
         @purchase.save(:validate => false)
@@ -296,16 +296,12 @@ class BuyController < ApplicationController
   
   #FUNCIÓN PARA GENERAR LOS CRÉDITOS CUANDO SE REALIZA UNA COMPRA
   def generate_credit(purchase)
-    if purchase.price < 100000
-      credit_value = (purchase.price * 0.05).ceil
-      @formula = '@purchase.value * 0.05'
-    else
-      credit_value = 0
-      @formula = '0'
+    if purchase.price > 15000 and purchase.user.is_first_purchase
+      credit_value = 5000
+      @formula = '$5000 por primera compra'
+      expiration_date = DateTime.now + 3.month
+      @credit = Credit.create(:purchase_id => purchase.id, :value => credit_value, :user_id => purchase.user_id, :formula => @formula, :expiration_date => expiration_date, :active => true)
     end
-    expiration_date = DateTime.now + 3.month
-    
-    @credit = Credit.create(:purchase_id => purchase.id, :value => credit_value, :user_id => purchase.user_id, :formula => @formula, :expiration_date => expiration_date, :active => true)
   end
   
   #FUNCIÓN PARA DESCONTAR LOS CRÉDITOS DE UNA COMPRA

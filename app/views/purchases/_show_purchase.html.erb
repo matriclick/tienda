@@ -39,9 +39,9 @@
 			</td>
 		</tr>
 		<% end %>
-		<% if current_user.check_if_has_credits %>
+		<% if @purchase.credits_used > 0 %>
 		<tr>
-			<td>Créditos a usar</td>
+			<td>Créditos usados</td>
 			<td><%= number_to_currency @purchase.credits_used %></td>
 		</tr>
 		<% end %>
