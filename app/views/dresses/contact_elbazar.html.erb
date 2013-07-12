@@ -1,4 +1,5 @@
 <h1><%= t('contact') %></h1>
+<p>Recuerda antes de enviar el formulario revisar las <%= link_to 'preguntas frecuentes', faq_elbazar_path %> y no olvides que en Tramanta.com siempre <b>compras online</b>. Si no te queda bien completas el <%= link_to 'formulario de devolución', new_refund_request_path %> y rápidamente te devolveremos el dinero y gestionaremos el retorno del producto. Recuerda, no hay un lugar físico para probarse los productos, primero compras y si no te quedara bien, simplemente nos los devuelves. <b>¡Felices compras!</b></p>
 <div class="clear"></div>
 <div class="box">
 	<%= form_for(@contact) do |f| %>
