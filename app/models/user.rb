@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids
 	
 	def is_first_purchase
-	  self.purchases.where(:status => 'finalizado').size == 1 ? true : false
+	  self.purchases.where('purchases.status = "finalizado"').size == 1 ? true : false
   end
   
 	def self.get_all_with_tag

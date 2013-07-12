@@ -262,6 +262,8 @@ class BuyController < ApplicationController
           @purchase.dispatch_address = @purchase.dispatch_address +  ', ' + @purchase.delivery_info.commune.name if !@purchase.delivery_info.commune.nil?
           @purchase.dispatch_address = @purchase.dispatch_address +  ', ' + @purchase.delivery_info.commune.region.name if !@purchase.delivery_info.commune.region.nil?
         end
+                
+        @purchase.status = 'finalizado'
         @purchase.save(:validate => false)
         
         #REDUCE LOS CRÉDITOS QUE CORRESPONDEN A LA COMPRA
@@ -269,9 +271,6 @@ class BuyController < ApplicationController
     
         #GENERA LOS CRÉDITOS DE PREMIO EN EL CASO DE PAGO WEBPAY (acción success)
         generate_credit(@purchase) #if action_name == 'success'
-        
-        @purchase.status = 'finalizado'
-        @purchase.save(:validate => false)
         
         #ENVÍA EL CORREO PARA AVISAR QUE OCURRIÓ UNA COMPRA
         NoticeMailer.purchase_email(@purchase, params[:country_url_path]).deliver
