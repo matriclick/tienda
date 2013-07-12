@@ -76,6 +76,7 @@ class PostsController < ApplicationController
 		
     respond_to do |format|
       if @post.save
+        exipre_caches_when_post_is_created_or_updated
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
       else
@@ -92,6 +93,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.update_attributes(params[:post])
+        exipre_caches_when_post_is_created_or_updated
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :ok }
       else
@@ -127,6 +129,10 @@ class PostsController < ApplicationController
   			redirect_to blog_url
 		end
 	end
+  
+  def exipre_caches_when_post_is_created_or_updated
+    expire_fragment('footer')
+  end
   
   def get_breadcrumb(post)
     case @post.post_type    

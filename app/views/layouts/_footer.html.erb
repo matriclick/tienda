@@ -81,7 +81,7 @@
 			<li class="footer_title">AYUDA</li>
 			<li><%= link_to 'Preguntas frecuentes', faq_elbazar_path %></li>
 			<li><%= link_to 'Términos de uso', terms_path %></li>
-			<li><%= supplier_signed_in? ? (link_to "Mi Página", supplier_home_path, :rel => 'nofollow' ) : (link_to 'Ingresar como empresa', new_supplier_session_path, :rel => 'nofollow') %></li>
+			<li><%= link_to 'Ingresar como empresa', new_supplier_session_path, :rel => 'nofollow' %></li>
 			<li><%= link_to 'Contacto empresas', contact_elbazar_path %></li>
 		</ul>	
 	</div>
