@@ -3,7 +3,7 @@ require "active_merchant/billing/integrations/action_view_helper"
 
 class BuyController < ApplicationController
   before_filter :authenticate_user!, :only => [:index, :details, :confirm, :add_to_cart, :remove_from_cart, :view_cart]
-  before_filter :get_order_and_log_user_back, :only => [:success, :failure]
+  #before_filter :get_order_and_log_user_back, :only => [:success, :failure]
 
   helper ActiveMerchant::Billing::Integrations::ActionViewHelper
   
@@ -201,7 +201,7 @@ class BuyController < ApplicationController
     render :text => notify.acknowledge
   end
   
-  def success    
+  def success
     if @oc.tbk_tipo_pago == 'VD'
       @tipo_pago = 'Redcompra'
       @tipo_cuotas = 'Venta Débito'
