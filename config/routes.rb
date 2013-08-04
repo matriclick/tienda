@@ -233,11 +233,6 @@ Matri::Application.routes.draw do
     get 'blog' => 'posts#blog'
   
   	# PACKS
-    get 'casonas-matriclick' => 'packs#index', as: 'casonas_matriclick'
-    get 'lunas-de-miel' => 'packs#honey_moons', as: 'lunas_de_miel'
-    get 'blog-viajes' => 'packs#viajes', as: 'blog_viajes'
-    get 'blog-tu-casa' => 'packs#tu_casa', as: 'blog_tu_casa'
-    get 'blog-bebe' => 'packs#aguclick', as: 'blog_aguclick'
     get 'blog-tramanta' => 'packs#el_bazar', as: 'blog_el_bazar'
     resources :contacts
 

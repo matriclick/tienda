@@ -19,10 +19,6 @@
 						Para efectuar la devolución del producto, tiene que estar en las mismas condiciones que fue entregado.<br /><br />
 						Para hacer efectiva la devolución debes devolver el producto ya sea enviándolo por correo o dejándolo en horario hábil en las oficinas de Matriclick.<br /><br />
 						No se aceptarán devoluciones fuera de plazo.
-					<% when 'Vestidos Boutique' %>
-						Se aceptan devoluciones hasta 1 mes desde comprado el Cupón de Descuento.<br /><br />
-						Para hacer efectiva la devolución debes enviar un correo a contacto@tramanta.com con el código del Cupón de Descuento.<br /><br />
-						No se aceptarán devoluciones fuera de plazo.
 					<% when 'Vestidos de Novia Usados' %>
 						A convenir con la dueña del vestido.
 					<% else %>
@@ -37,31 +33,17 @@
 									<% else %>
 										Se aceptan devoluciones hasta 5 días corridos desde la entrega del vestido.<br /><br />
 										Para efectuar la devolución la prenda tiene que estar en las mismas condiciones que fue entregado.<br /><br />
-										Para hacer efectiva la devolución debes devolver la prenda ya sea enviándolo por correo o dejándolo en horario hábil en las oficinas de Matriclick.<br /><br />
+										Para hacer efectiva la devolución debes devolver la prenda ya sea enviándolo por correo o dejándolo en horario hábil en nuestras oficinas.<br /><br />
 										No se aceptarán devoluciones fuera de plazo.
 								<% end %>
 							<% else %>
 								Se aceptan devoluciones hasta 5 días corridos desde la entrega del vestido.<br /><br />
 								Para efectuar la devolución la prenda tiene que estar en las mismas condiciones que fue entregado.<br /><br />
-								Para hacer efectiva la devolución debes devolver la prenda ya sea enviándolo por correo o dejándolo en horario hábil en las oficinas de Matriclick.<br /><br />
+								Para hacer efectiva la devolución debes devolver la prenda ya sea enviándolo por correo o dejándolo en horario hábil en nuestras oficinas.<br /><br />
 								No se aceptarán devoluciones fuera de plazo.
 						<% end %>
 				<% end %>
 			</div>
-		</div>
-		<div style="font-weight:bold; margin-top:20px;">DESPACHO</div>
-		<hr>
-		<div style="color:#545454">
-			<% if @purchasable.supplier_account.nil? or @purchasable.supplier_account.supplier_account_type.name != 'Vestidos Boutique' %>
-			<b>¡Despacho gratuito!*</b><br /><br />
-			El vestido será enviado a tu dirección el lunes inmediatamente siguiente al día que realices la compra.<br /><br />
-			Si por ejemplo compraste el viernes, entonces el lunes de la semana siguiente se despachará el vestido.<br /><br />
-			Si al momento de llevar el vestido a la dirección de envío no hay nadie que lo pueda recibir, el vestido tendrá que ser recogido en las oficinas de Matriclick.<br /><br />
-			<i>*El despacho gratuito aplica solo para Santiago. Contáctantos para conocer los costos de despacho a regiones.</i>
-			<% else %>
-			<b>¡Cupón de Descuento en tu correo!*</b><br /><br />
-			Se te enviará el Cupón de Descuento con un código a tu correo. Debes imprimirla y presentarla en la tienda para hacerlo efectivo.
-			<% end %>
 		</div>
 	</div>
 </div>

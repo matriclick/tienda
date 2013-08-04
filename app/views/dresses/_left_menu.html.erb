@@ -1,23 +1,11 @@
-<% if !@dress_types.nil?  and @dress_types.first.name.include?('accesorio')  %>
-	<ul>
-		<li><%= link_to 'Aros', dresses_ver_path(:type => "accesorios-aros") %></li>
-		<li><%= link_to 'Anillos', dresses_ver_path(:type => "accesorios-anillos") %></li>
-		<li><%= link_to 'Collares', dresses_ver_path(:type => "accesorios-collares") %></li>
-		<li><%= link_to 'Pulseras', dresses_ver_path(:type => "accesorios-pulseras") %></li>
-		<li><%= link_to 'Carteras / Bolsos', dresses_ver_path(:type => "accesorios-carteras") %></li>
-		<li><%= link_to 'Sombreros', dresses_ver_path(:type => "accesorios-sombreros") %></li>
-		<li><%= link_to 'Blog', blog_el_bazar_path %></li>
-	</ul>
-<% else %>
 <ul>
 	<li><%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %></li>
 	<li><%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
 	<li><%= link_to 'Chalecos y Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
 	<li><%= link_to 'Chaquetas', dresses_ver_path(:type => "ropa-de-mujer-chaquetas") %></li>
-	<li><%= link_to 'Pantalones y Leggins', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>
+	<li><%= link_to 'Pantalones y Leggings', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>
 	<li><%= link_to 'Polleras', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
 	<li><%= link_to 'Zapatos y Botas', dresses_ver_path(:type => "zapatos") %></li>
 	<li><%= link_to 'Ropa Interior', dresses_ver_path(:type => "ropa-interior") %></li>	
 	<li><%= link_to 'Blog', blog_el_bazar_path %></li>
 </ul>
-<% end %>
