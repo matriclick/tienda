@@ -166,6 +166,13 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.find(params[:id])
     @object = eval(@purchase.purchasable_type + '.find ' + @purchase.purchasable_id.to_s)
     
+    if @purchase.purchasable_type == 'Dress'
+      @purchase.total_cost = (@object.net_cost + @object.vat_cost)*@purchase.quantity
+    else
+      @purchase.purchasable.shopping_cart_items.each do |sci|
+        @purchase.total_cost = sci.total_cost + @purchase.total_cost
+      end
+    end
     session[:matriclick_purchase_price] = @purchase.price
     
     respond_to do |format|
