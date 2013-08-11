@@ -1,10 +1,10 @@
+<div style="float:left; width:200px">
 <h1>Sales Dashboard</h1>
-<div style="float:left">
 <%= render 'date_range_selector' %><br /><br />
 <%= link_to 'Volver al menú de administración', administration_index_path %>
 </div>
-<div style="float:left; margin-left:15px;">
-	<em>El reporte considera solamente compras en las que hemos recibido los fondos</em>
+<div style="float:left; width:300px; margin-left:15px;">
+	<h2>Información del período seleccionado</h2>	
 	<table>
 		<tr><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum %></td></tr>
 		<tr><th>Monto devuelto:</th><td><%= number_to_currency @r_sum %></td></tr>
@@ -14,5 +14,25 @@
 		<tr><th>Ticket promedio por compra:</th><td><%= number_to_currency(@p_sum / @count) if @count > 0 %></td></tr>
 		<tr><th>Precio promedio por producto:</th><td><%= number_to_currency(@p_sum / @prod_count) if @prod_count > 0 %></td></tr>
 	</table>
+	<br />
+	<em>El reporte considera solamente compras en las que hemos recibido los fondos</em>
+</div>
+<div style="float:left; width:300px; margin-left:15px;">	
+	<table>
+		<h2>Información del mes actual</h2>
+		<tr><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum_month %></td></tr>
+		<tr><th>Monto devuelto:</th><td><%= number_to_currency @r_sum_month %></td></tr>
+		<tr><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum_month - @r_sum_month) %></b></td></tr>
+
+		<tr><th>Días del mes:</th><td><%= @days_month %></td></tr>
+		<tr><th>Día actual:</th><td><%= @day_today %></td></tr>
+
+		<tr><th>RR Ventas realizadas:</th><td><%= number_to_currency @p_sum_month*@factor %></td></tr>
+		<tr><th>RR Monto devuelto:</th><td><%= number_to_currency @r_sum_month*@factor %></td></tr>
+		<tr><td><b>RR Resultado:</b></td><td><b><%= number_to_currency((@p_sum_month - @r_sum_month)*@factor) %></b></td></tr>
+
+	</table>
+	<br />
+	<em>El reporte considera solamente compras en las que hemos recibido los fondos</em>
 </div>
 <div class="clear"></div>

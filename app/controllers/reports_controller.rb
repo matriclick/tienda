@@ -13,8 +13,15 @@ class ReportsController < ApplicationController
       @to = Time.parse(params[:to])
     end
 
+    @days_month = Time.days_in_month(Time.now.month)
+    @day_today = Time.now.day
+    @factor = @days_month.to_f/@day_today
+    @p_sum_month = Purchase.sum(:price, :conditions => ['funds_received = ? and created_at >= ? and created_at <= ?', true, DateTime.now.beginning_of_month, DateTime.now.end_of_month])
+    @r_sum_month = Purchase.sum(:refund_value, :conditions => ['refunded = ? and created_at >= ? and created_at <= ?', true, DateTime.now.beginning_of_month, DateTime.now.end_of_month])
+    
     @p_sum = Purchase.sum(:price, :conditions => ['funds_received = ? and created_at >= ? and created_at <= ?', true, @from, @to])
     @r_sum = Purchase.sum(:refund_value, :conditions => ['refunded = ? and created_at >= ? and created_at <= ?', true, @from, @to])
+    
     @count = Purchase.count(:conditions => ['funds_received = ? and created_at >= ? and created_at <= ?', true, @from, @to])
     @prod_count = 0
     Purchase.where('funds_received = ? and created_at >= ? and created_at <= ?', true, @from, @to).each do |p|
