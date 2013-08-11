@@ -1,7 +1,7 @@
 <%= content_for :supplier_page_in_content do %>
 	<b>Condiciones comerciales</b>
 	<hr>
-		<%= @supplier.supplier_account.net_margin.to_s+'% + IVA' %>
+		<%= @supplier.supplier_account.net_margin.nil? ? 'No definido' : @supplier.supplier_account.net_margin.to_s+'% + IVA' %>
 		<p>
 			<%= sanitize(@presentation.description.gsub(/\n/, '<br/>'), :tags => %W(br)) unless @presentation.description.blank? %>
 		</p>

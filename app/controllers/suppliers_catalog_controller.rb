@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class SuppliersCatalogController < ApplicationController
-	before_filter :new_feedback, :load_budget_types, :load_user_account, :load_reference, :add_breadcrumbs
+	before_filter :new_feedback, :load_budget_types, :load_user_account, :load_reference, :add_breadcrumbs, :redirect_unless_admin
   	
   def supplier_description
     

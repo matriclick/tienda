@@ -18,7 +18,6 @@
     <th>Tipo</th>
     <th>Usuario</th>
     <th>Precio</th>
-    <th>Forma Pago</th>
     <th>Estado</th>
     <th>Créditos usados</th>
     <th>Tracking #</th>
@@ -26,16 +25,15 @@
     <th>¿Fondos recibidos?</th>
     <th>¿Tienda pagada?</th>
     <th>¿Devolución realizada?</th>
-    <th>Monto devolución</th>
   </tr>
 
 <% @purchases.each do |purchase| %>
-  <tr>
+  <tr <%= purchase.funds_received ? raw('style="background-color:#f5fffa"') : raw('style="background-color:#ffe4e1"') %>>
 	<% if purchase.purchasable.nil? %>
-		<td><%= purchase.created_at.strftime("%d %b %Y") %></td>
+		<td><%= purchase.created_at.strftime("%d-%m-%y") %></td>
 		<td>purchase.purchasable es nil!</td>
 	<% else %>
-		<td><b><%= purchase.created_at.strftime("%d %b %Y") %></b><br />
+		<td><b><%= purchase.created_at.strftime("%d-%m-%y") %></b><br />
 		<%= link_to image_tag(purchase.purchasable.small_image), purchase %></td>
 		<td>
 			<%= !purchase.purchasable.supplier_account.nil? ? purchase.purchasable.supplier_account.fantasy_name : 'n/a' %><br />
@@ -44,20 +42,18 @@
 	<% end %>
     <td><%= purchase.purchasable_type %></td>
     <td><%= purchase.user.email_name %> <%= raw '<br />('+purchase.delivery_info.name+')' if !purchase.delivery_info.nil? %></td>
-    <td><%= number_to_currency purchase.price %> <%= purchase.currency %></td>
-	<td><%= purchase.transfer_type %></td>
-    <td><%= purchase.status %></td>
+    <td><%= purchase.transfer_type %><br /><%= number_to_currency purchase.price %> <%= purchase.currency %></td>
+    <td><%= purchase.status == 'finalizado' ? 'OK' : 'No OK' %></td>
     <td><%= number_to_currency(purchase.credits_used) if !purchase.credits_used.nil? %></td>
     <td>
 		<%= purchase.tracking_number %><br />
-		<%= !purchase.delivery_cost.nil? ? 'Pago envío '+number_to_currency(purchase.delivery_cost) : '' %><br />
-		<%= !purchase.actual_delivery_cost.nil? ? 'Costo envío '+number_to_currency(purchase.actual_delivery_cost) : '' %>
+		<%= !purchase.delivery_cost.nil? ? 'P: '+number_to_currency(purchase.delivery_cost) : '' %><br />
+		<%= !purchase.actual_delivery_cost.nil? ? 'C: '+number_to_currency(purchase.actual_delivery_cost) : '' %>
 	</td>
     <td><%= purchase.logistic_provider.name  if !purchase.logistic_provider.nil? %></td>
     <td><%= purchase.funds_received ? 'Sí' : 'No' %></td>
-    <td><%= purchase.store_paid ? 'Sí' : 'No' %><br /><em>(<%= number_to_currency(purchase.total_cost) %>)</em></td>
-    <td><%= purchase.refunded ? 'Sí' : 'No' %></td>
-    <td><%= number_to_currency(purchase.refund_value) if !purchase.refund_value.nil? %></td>
+    <td><%= purchase.store_paid ? 'Sí' : 'No' %><br /><%= number_to_currency(purchase.total_cost) %></td>
+    <td><%= purchase.refunded ? raw('Sí <br />'+number_to_currency(purchase.refund_value)) : 'No' %></td>
 	<td><%= link_to 'Editar', administration_edit_purchase_path(purchase) %> | 
 		<%= link_to 'Eliminar', purchase, confirm: 'Seguro?', method: :delete %>
 	</td>
@@ -66,15 +62,17 @@
 	<% purchase.purchasable.shopping_cart_items.each do |sci| %>
 	<tr>
 		<td colspan="16">
-			<b><%= link_to sci.purchasable.introduction, 
-						dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></b> 
-			| Precio: <%= number_to_currency(sci.purchasable.price*sci.quantity) %> 
-							<em>(<%= number_to_currency(sci.purchasable.price) %> c/u)</em>
-			| Cantidad: <%= sci.quantity %> 
-			| Talla: <%= sci.size %> 
-			| Tienda: <%= link_to sci.purchasable.supplier_account.fantasy_name, 
-							supplier_description_path(:public_url => sci.purchasable.supplier_account.public_url) %> 
-			| Pago a tienda: <em>(<%= number_to_currency(sci.total_cost) %>)</em>
+			<div style="margin-left:15px">
+				<b><%= link_to sci.purchasable.introduction, 
+							dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></b> 
+				| Precio: <%= number_to_currency(sci.purchasable.price*sci.quantity) %> 
+								<em>(<%= number_to_currency(sci.purchasable.price) %> c/u)</em>
+				| Cantidad: <%= sci.quantity %> 
+				| Talla: <%= sci.size %> 
+				| Tienda: <%= link_to sci.purchasable.supplier_account.fantasy_name, 
+								supplier_description_path(:public_url => sci.purchasable.supplier_account.public_url) %> 
+				| Pago a tienda: <em>(<%= number_to_currency(sci.total_cost) %>)</em>
+			</div>
 		</td>
 	</tr>
 	<% end %>

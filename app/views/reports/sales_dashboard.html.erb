@@ -4,12 +4,15 @@
 <%= link_to 'Volver al menú de administración', administration_index_path %>
 </div>
 <div style="float:left; margin-left:15px;">
+	<em>El reporte considera solamente compras en las que hemos recibido los fondos</em>
 	<table>
-		<tr><th style="width:150px">Fondos recibidos:</th><td style="width:100px"><%= number_to_currency @p_sum %></td></tr>
-		<tr><th>Fondos devueltos:</th><td><%= number_to_currency @r_sum %></td></tr>
+		<tr><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum %></td></tr>
+		<tr><th>Monto devuelto:</th><td><%= number_to_currency @r_sum %></td></tr>
 		<tr><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum - @r_sum) %></b></td></tr>
-		<tr><th>Compras realizadas:</th><td><%= @count %></td></tr>
+		<tr><th>Compras:</th><td><%= @count %></td></tr>
 		<tr><th>Productos vendidos:</th><td><%= @prod_count %></td></tr>
+		<tr><th>Ticket promedio por compra:</th><td><%= number_to_currency(@p_sum / @count) if @count > 0 %></td></tr>
+		<tr><th>Precio promedio por producto:</th><td><%= number_to_currency(@p_sum / @prod_count) if @prod_count > 0 %></td></tr>
 	</table>
 </div>
 <div class="clear"></div>
