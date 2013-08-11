@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703015533) do
+ActiveRecord::Schema.define(:version => 20130810232021) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -639,6 +639,8 @@ ActiveRecord::Schema.define(:version => 20130703015533) do
     t.integer  "position",            :default => 99
     t.string   "slug"
     t.string   "product_keywords"
+    t.float    "net_cost"
+    t.float    "vat_cost"
   end
 
   add_index "dresses", ["slug"], :name => "index_dresses_on_slug", :unique => true
@@ -917,6 +919,12 @@ ActiveRecord::Schema.define(:version => 20130703015533) do
     t.datetime "updated_at"
     t.integer  "supplier_account_id"
     t.integer  "industry_category_id"
+  end
+
+  create_table "logistic_providers", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "mailings", :force => true do |t|
@@ -1214,6 +1222,13 @@ ActiveRecord::Schema.define(:version => 20130703015533) do
     t.float    "delivery_method_cost"
     t.float    "purchasable_price"
     t.float    "credits_used"
+    t.string   "tracking_number"
+    t.integer  "logistic_provider_id"
+    t.boolean  "funds_received"
+    t.boolean  "store_paid"
+    t.boolean  "refunded"
+    t.float    "refund_value"
+    t.float    "total_cost"
   end
 
   create_table "reference_requests", :force => true do |t|
@@ -1414,6 +1429,7 @@ ActiveRecord::Schema.define(:version => 20130703015533) do
     t.datetime "updated_at"
     t.string   "size"
     t.integer  "quantity"
+    t.float    "total_cost"
   end
 
   create_table "shopping_carts", :force => true do |t|
@@ -1543,6 +1559,12 @@ ActiveRecord::Schema.define(:version => 20130703015533) do
     t.integer  "address_id"
     t.boolean  "online_payment"
     t.integer  "country_id",                :default => 1
+    t.string   "account_owner_name"
+    t.string   "account_number"
+    t.string   "account_bank"
+    t.string   "account_type"
+    t.string   "account_owner_email"
+    t.float    "net_margin"
   end
 
   create_table "supplier_contacts", :force => true do |t|

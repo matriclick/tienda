@@ -835,3 +835,10 @@ aux << (Tag.find_by_name("Hippie") || Tag.create(:name => 'Hippie', :image_name 
 aux << (Tag.find_by_name("Rockero") || Tag.create(:name => 'Rockero', :image_name => 'rockero.jpg', :tag_type_id => 1, :description => ''))
 aux.each { |x| puts x.name }
 puts "\n"
+
+puts "--> LogisticProvider:"
+aux = []
+aux << (LogisticProvider.find_by_name("Chile Express") || LogisticProvider.create(:name => 'Chile Express'))
+aux << (LogisticProvider.find_by_name("Correos de Chile") || LogisticProvider.create(:name => 'Correos de Chile'))
+aux.each { |x| puts x.name }
+puts "\n"

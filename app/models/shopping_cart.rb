@@ -5,6 +5,22 @@ class ShoppingCart < ActiveRecord::Base
   belongs_to :user
   has_many :shopping_cart_items
   
+  def net_cost
+    aux = 0
+    self.shopping_cart_items.each do |sci|
+      aux = aux + sci.purchasable.net_cost
+    end
+    return aux
+  end
+  
+  def vat_cost
+    aux = 0
+    self.shopping_cart_items.each do |sci|
+      aux = aux + sci.purchasable.vat_cost
+    end
+    return aux
+  end
+  
   def self.is_active
     where(:active => true)
   end

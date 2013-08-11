@@ -221,6 +221,7 @@ Matri::Application.routes.draw do
 	  get 'dresses/:type/:slug' => 'dresses#show', :as => 'dress_ver'
 	  get 'dresses/buscar' => 'dresses#view_search', :as => 'dresses_search'
 	  post "dresses/dresses/endless_scrolling" => 'dresses#endless_scrolling'
+	  get 'dresses/new-arrivals'	=> 'dresses#new_arrivals', as: 'dresses_new_arrivals'
 	  
 	  get 'dresses/refund_policy'	=> 'dresses#refund_policy', as: 'refund_policy'
 	  resources :refund_requests
@@ -484,7 +485,10 @@ Matri::Application.routes.draw do
   	
   	get "administration/mailing-tools" => "administration#mailing_tools", as: 'administration_mailing_tools'
   	get "administration/mailing_sent" => "administration#mailing_sent", as: 'administration_mailing_sent'
-    	      
+    	  
+    get 'administration/edit_purchase/:id' => "administration#edit_purchase", as: 'administration_edit_purchase'
+    put 'administration/update_purchase/:id' => "administration#update_purchase", as: 'administration_update_purchase'
+    
   end # ENDING OF SCOPE COUNTRY_URL_PATH
   
   match ':country_url_path' => 'dresses#bazar', as: :root_country

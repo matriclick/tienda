@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class PurchasesController < ApplicationController
   before_filter :redirect_unless_admin, :hide_left_menu, :except => [:create, :show_for_user]
-  before_filter :authenticate_user!, :only => [:show_for_user]
+  before_filter :authenticate_user!, :only => [:show_for_user, :create]
   helper_method :sort_column, :sort_direction
     
   # GET /purchases
@@ -10,8 +10,8 @@ class PurchasesController < ApplicationController
     redirect_unless_privilege('Vestidos')
     
     if params[:from].nil? or params[:to].nil?
-     @from = DateTime.now.beginning_of_year
-     @to = DateTime.now.end_of_year
+     @from = DateTime.now.beginning_of_week
+     @to = DateTime.now.end_of_week
     else
      @from = Time.parse(params[:from])
      @to = Time.parse(params[:to])
@@ -123,6 +123,14 @@ class PurchasesController < ApplicationController
     @purchase.delivery_method_cost = @purchase.delivery_method.price
     @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost if !@purchase.delivery_info.nil?
     @purchase.purchasable_price = @object.price
+    @purchase.total_cost = 0
+    if @purchase.purchasable_type == 'Dress'
+      @purchase.total_cost = (@object.net_cost + @object.vat_cost)*@purchase.quantity
+    else
+      @purchase.purchasable.shopping_cart_items.each do |sci|
+        @purchase.total_cost = sci.total_cost + @purchase.total_cost
+      end
+    end
     
     if !@purchase.quantity.blank? and !@purchase.delivery_cost.nil?
         @purchase.price = @purchase.purchasable_price * @purchase.quantity + @purchase.delivery_cost + @purchase.delivery_method.price

@@ -236,6 +236,32 @@ class DressesController < ApplicationController
     end
   end
   
+  def new_arrivals
+    @dresses = Dress.available_to_purchase.order('created_at').limit 30
+    add_breadcrumb "Tramanta", :bazar_path
+    add_breadcrumb 'New Arrivals!', dresses_new_arrivals_path
+    @search_text = 'Busca por color, talla, tela, etc...'
+    @title_content = 'New Arrivals'
+  	@meta_description_content = 'Los últimos productos agregados: vestidos, leggings, blusas, chaquetas y muchas cosas más.'
+    
+    #IE v8 y anteriores no compatible con carga dinamica
+    user_agent = request.env['HTTP_USER_AGENT']
+    unless user_agent =~ /MSIE 8/ || user_agent =~ /MSIE 7/ || user_agent =~ /MSIE 6/ || user_agent =~ /MSIE 5/ 
+      @scrolling_set = @@scrolling_set
+      @dresses_array_ids ="";
+
+      @dresses.each do |dress|
+        @dresses_array_ids += dress.id.to_s + ','
+      end
+
+      @dresses = @dresses[0..@@scrolling_set-1]      
+    else
+      @scrolling_set = @dresses.length + 1
+    end
+    
+    render :view
+  end
+  
   # GET /dresses/1
   # GET /dresses/1.json
   def show

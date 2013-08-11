@@ -19,18 +19,58 @@
 	<table class="invisible">
 		<tr>
 			<td>
-				<%= f.label :price, 'Precio' %><%= mark_required @dress, :price %> CLP $<%= f.number_field :price %>
+				<%= f.label :dress_type, 'Tipo de producto' %><%= mark_required @dress, :dress_type_id %>
+				<table class="invisible">
+				<tr>
+					<% DressType.get_options(@supplier_account).each_with_index do |dt, i| %>
+			  		<td>
+						<%= check_box_tag("dress[dress_type_ids][]", dt.id, (@dress.dress_types.include? dt)) %> 
+						<span style="color:#555"><%= dt.name.gsub('-', ' ').capitalize %></span>
+					</td>
+						<% if i == DressType.get_options(@supplier_account).size - 1 %>
+				</tr>
+						<% elsif (i + 1) % 5 == 0 %>
+				</tr>
+				<tr>
+						<% end %>
+				<% end %>
+				</table>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<%= f.label :dress_type, 'Tipo de producto' %><%= mark_required @dress, :dress_type_id %>
-				<% DressType.get_options(@supplier_account).each do |dt| %>
-			  		<div style="margin-top:5px">
-						<%= check_box_tag("dress[dress_type_ids][]", dt.id, (@dress.dress_types.include? dt)) %> 
-						<span style="color:#555"><%= dt.name.gsub('-', ' ').capitalize %></span>
-					</div>
-				<% end %>
+				<div class="help_tip">
+					Precio al que se publicará el producto en la página. Incluye IVA.
+				</div>
+				<%= f.label :price, 'Precio de Venta' %>
+				<%= mark_required @dress, :price %> 
+				CLP $<%= f.number_field :price, :onchange => 'update_cost(this.value,'+@dress.supplier_account.net_margin.to_s+')' %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					Si es de una tienda que está en modalidad comisión con nosotros, entonces el Costo Neto es lo que le tenemos que pagar a la tienda si vendemos el producto.<br /><br />
+					Margen cobrado a la tienda: <b><%= @dress.supplier_account.net_margin.to_s %>% + IVA</b><br />
+					<br />
+					Cobro neto: <b><span id="net_cost"></span></b> = precio x comisión<br />
+					- IVA: <b><span id="vat_cost"></span></b> = 19% x precio x comisión<br />
+					= Pagar al Socio: <b><span id="total_cost"></span></b> = precio venta - costo neto - IVA
+				</div>
+				<%= f.label :price, 'Costo Neto' %>
+				<%= mark_required @dress, :net_cost %> CLP $<%= f.number_field :net_cost %> 
+				<span class="help_tip">(lo que se le pagará a la tienda cuando se venda el producto)</span>
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="help_tip">
+					Solo aplica para los productos que compramos con facturas.<br />
+					Si es de una tienda que está en modalidad comisión con nosotros, entonces el Costo IVA es 0
+				</div>
+				<%= f.label :price, 'Costo IVA' %>
+				<%= mark_required @dress, :vat_cost %> CLP $<%= f.number_field :vat_cost %>
 			</td>
 		</tr>
 		<tr>

@@ -11,15 +11,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td><%= f.label :corporate_name %><%= mark_required @supplier_account, :corporate_name %><br />
+				<td><%= f.label :corporate_name, 'Nombre legal Empresa' %><%= mark_required @supplier_account, :corporate_name %><br />
 				<%= f.text_field :corporate_name, :serviceholder => "Monsters Incorporated" %><span class="tiptip" title="<%= t('helptip.supplier_account.corporate_name') %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
 			</tr>
 			<tr>
-				<td><%= f.label :rut %><%= mark_required @supplier_account, :rut %><br />
-				<%= f.text_field :rut, :serviceholder => "23.456.345-3", :onblur => 'format_rut(this)' %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :fantasy_name %><%= mark_required @supplier_account, :fantasy_name %><br />
+				<td><%= f.label :fantasy_name, 'Nombre Empresa' %><%= mark_required @supplier_account, :fantasy_name %><br />
 				<%= f.text_field :fantasy_name, :serviceholder => "Monsters Inc." %><span class="tiptip" title="<%= t('helptip.supplier_account.fantasy_name') %>"><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span></td>
 			</tr>			
 			<tr>
@@ -38,10 +34,11 @@
 				<td><%= f.label :phone_number %><%= mark_required @supplier_account, :phone_number %><br />
 				<%= f.text_field :phone_number, :serviceholder => "+56 2 324 3434" %></td>
 			</tr>
-
+			<tr>
+				<td><hr /><br /><b>DIRECCIÓN</b></td>
+			</tr>
 			<tr>
 				<td>
-					<div class="line"></div>
 					<%= f.fields_for :address do |address| %>
 						<tr>
 							<td><%= address.label :street, t('activerecord.attributes.address.street') %><br/>
@@ -66,7 +63,42 @@
 					<% end %>
 				</td>
 			</tr>
-
+			<tr>
+				<td><hr /><br /><b>ACUERDO COMERCIAL</b></td>
+			</tr>
+			<tr>
+				<td><%= f.label :net_margin, 'Comisión' %>	<%= f.number_field :net_margin %>% + IVA</td>
+			</tr>
+			<tr>
+				<td><hr /><br /><b>DATOS BANCARIOS</b></td>
+			</tr>
+			<tr>
+				<td><span class="lucida small">Puede ser de la persona que tiene la cuenta o la empresa misma que tenga una cuenta</span><br />
+				<%= f.label :rut, 'RUT del dueño de la cuenta' %><%= mark_required @supplier_account, :rut %>
+				<%= f.text_field :rut, :serviceholder => "23.456.345-3", :onblur => 'format_rut(this)' %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :account_owner_name, 'Nombre dueño de la cuenta' %>
+				<%= f.text_field :account_owner_name %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :account_owner_email, 'Correo del dueño de la cuenta' %>
+				<%= f.text_field :account_owner_email %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :account_bank, 'Banco de la cuenta' %>
+				<%= f.text_field :account_bank %></td>
+			</tr>			
+			<tr>
+				<td><%= f.label :account_number, 'Número de cuenta' %> <%= f.text_field :account_number %></td>
+			</tr>
+			<tr>
+				<td><span class="lucida small">Cuenta corriente, cuenta de ahorros, cuenta vista u otras</span><br />
+				<%= f.label :account_type, 'Tipo de cuenta' %><%= f.text_field :account_type %></td>
+			</tr>
+			<tr>
+				<td><hr /><br /><b>CATEGORÍA</b></td>
+			</tr>			
 			<tr>
 				<td><%= f.label t('industry_categories') %><span class="tiptip" title="<%= t('helptip.supplier_account.industry_categories') %>"><%= mark_required @supplier_account, :industry_category_ids %><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span>
 					<br />

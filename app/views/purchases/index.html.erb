@@ -5,42 +5,74 @@
 		<% when 'finalizado' %>
 			Compras realizadas exitosamente
 		<% else %>
-			Compras realizadas exitosamente
+			Compras
 	<% end %>
 </h1>
 
-<table style="width:950px;">
+<%= render 'reports/date_range_selector' %>
+
+<table style="width:950px;" class="report">
   <tr>
-    <th>Fecha compra</th>
+    <th>Fecha</th>
     <th>Tienda</th>
-    <th>Producto</th>
     <th>Tipo</th>
     <th>Usuario</th>
-    <th>Despacho</th>
-    <th style="width:100px">Precio</th>
-    <th>Moneda</th>
+    <th>Precio</th>
     <th>Forma Pago</th>
     <th>Estado</th>
+    <th>Créditos usados</th>
+    <th>Tracking #</th>
+    <th>3PL</th>
+    <th>¿Fondos recibidos?</th>
+    <th>¿Tienda pagada?</th>
+    <th>¿Devolución realizada?</th>
+    <th>Monto devolución</th>
   </tr>
 
 <% @purchases.each do |purchase| %>
   <tr>
-	<td><%= purchase.created_at.strftime("%d %b %Y") %></td>
 	<% if purchase.purchasable.nil? %>
-		<td>purchase.purchasable es nil!</td>
+		<td><%= purchase.created_at.strftime("%d %b %Y") %></td>
 		<td>purchase.purchasable es nil!</td>
 	<% else %>
-		<td><%= purchase.purchasable.supplier_account.fantasy_name if !purchase.purchasable.supplier_account.nil? %></td>
-		<td><%= link_to image_tag(purchase.purchasable.small_image), purchase %></td>
+		<td><b><%= purchase.created_at.strftime("%d %b %Y") %></b><br />
+		<%= link_to image_tag(purchase.purchasable.small_image), purchase %></td>
+		<td>
+			<%= !purchase.purchasable.supplier_account.nil? ? purchase.purchasable.supplier_account.fantasy_name : 'n/a' %><br />
+			<%= !purchase.purchasable.supplier_account.nil? ? purchase.purchasable.supplier_account.net_margin.to_s+'% + IVA' : '' %>
+		</td>
 	<% end %>
     <td><%= purchase.purchasable_type %></td>
-    <td><%= purchase.user.email %> <%= raw '<br />('+purchase.delivery_info.name+')' if !purchase.delivery_info.nil? %></td>
-    <td><%= link_to(purchase.delivery_info.get_address_string, purchase.delivery_info) if !purchase.delivery_info.nil? %></td>
-    <td><%= number_to_currency purchase.price %></td>
-    <td><%= purchase.currency %></td>
+    <td><%= purchase.user.email_name %> <%= raw '<br />('+purchase.delivery_info.name+')' if !purchase.delivery_info.nil? %></td>
+    <td><%= number_to_currency purchase.price %> <%= purchase.currency %></td>
 	<td><%= purchase.transfer_type %></td>
     <td><%= purchase.status %></td>
+    <td><%= number_to_currency(purchase.credits_used) if !purchase.credits_used.nil? %></td>
+    <td><%= purchase.tracking_number %></td>
+    <td><%= purchase.logistic_provider.name  if !purchase.logistic_provider.nil? %></td>
+    <td><%= purchase.funds_received %></td>
+    <td><%= purchase.store_paid %><br /><em>(<%= number_to_currency(purchase.total_cost) %>)</em></td>
+    <td><%= purchase.refunded %></td>
+    <td><%= number_to_currency(purchase.refund_value) if !purchase.refund_value.nil? %></td>
+	<td><%= link_to 'Editar', administration_edit_purchase_path(purchase) %> | 
+		<%= link_to 'Eliminar', purchase, confirm: 'Seguro?', method: :delete %>
+	</td>
   </tr>
+  <% if purchase.purchasable_type == 'ShoppingCart' %>
+	<% purchase.purchasable.shopping_cart_items.each do |sci| %>
+	<tr>
+		<td colspan="16">
+			<b><%= link_to sci.purchasable.introduction, sci.purchasable %></b> 
+			| Precio: <%= number_to_currency(sci.purchasable.price) %> 
+			| Cantidad: <%= sci.quantity %> 
+			| Talla: <%= sci.size %> 
+			| Tienda: <%= link_to sci.purchasable.supplier_account.fantasy_name, 
+							supplier_description_path(:public_url => sci.purchasable.supplier_account.public_url) %> 
+			| Pago a tienda: <em>(<%= number_to_currency(sci.total_cost) %>)</em>
+		</td>
+	</tr>
+	<% end %>
+  <% end %>
 <% end %>
 </table>
 <br /><br />

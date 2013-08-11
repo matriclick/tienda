@@ -2,8 +2,10 @@
 class Purchase < ActiveRecord::Base
   has_one :order, :dependent => :destroy
   belongs_to :user
-  belongs_to :delivery_info, :dependent => :destroy
+  belongs_to :delivery_info
   belongs_to :purchasable, :polymorphic => true
+  belongs_to :logistic_provider
+  
   has_many :credits, :dependent => :destroy
   has_many :credit_reductions, :dependent => :destroy
   belongs_to :delivery_method
@@ -11,6 +13,18 @@ class Purchase < ActiveRecord::Base
   validates :purchasable_id, :purchasable_type, :user_id, :price, :currency, :confirmed_terms, :delivery_cost, :presence => true
   validate :check_if_delivery_info_required
   validate :check_quantity_size
+  
+  def store_payment_amount
+    if self.purchasable_type == 'Dress'
+      return self.purchasable.net_cost
+    else
+      amount = 0
+      self.purchasable.shopping_cart_items.each do |sci|
+        amount = amount + sci.purchasable.net_cost
+      end
+      return amount
+    end
+  end
   
   def total_credit_reductions
     total = 0

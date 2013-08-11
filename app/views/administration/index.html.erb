@@ -2,25 +2,24 @@
 
 <div style="font-size:13px; margin:20px 0px 0px 40px; line-height:20px; color:#AAA" class="no_underline">
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Salestool") %>
-	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración comercial</div>
-	- <%= link_to 'Matri-salestool',  leads_path(:q => @matriclicker.name) %><br />
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración proveedores</div>
+	<!--- <%= link_to 'Matri-salestool',  leads_path(:q => @matriclicker.name) %><br />-->
 	- <%= link_to 'Ver los últimos 20 agregados', administration_suppliers_list_path %>	<br />
-	- <%= link_to 'Ver proveedores Bazar o Bebe', administration_suppliers_list_path(:filter => "Active", :type => 'bazar') %>	<br />
+	- <%= link_to 'Ver proveedores Bazar', administration_suppliers_list_path(:filter => "Active", :type => 'bazar') %>	<br />
 	<br />
 	<% end %>
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Vestidos") %>
-	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de vestidos</div>
-	- <%= link_to 'Administrar vestidos', administration_dresses_path %><br />
-	- <%= link_to 'Devoluciones', refund_requests_path %><br />
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de productos</div>
+	- <%= link_to 'Administrar productos', administration_dresses_path %><br />
+	- <%= link_to 'Solicitudes de devolución', refund_requests_path %><br />
 	- <%= link_to 'Administrador de tallas', sizes_path %><br />
 	- <%= link_to 'Administrador de costos por comuna', administration_edit_dispatch_costs_path %><br />
-	- <%= link_to 'Envío de correos personalizados', administration_mailing_tools_path %><br />
+	- <%= link_to 'Envío de correos personalizados [beta]', administration_mailing_tools_path %><br />
 	<br />
 	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Reportes de Compras</div>
 	- <%= link_to 'Historial de compras en la página',  reports_purchases_path %><br />
 	- <%= link_to 'Detalle de compras exitosas',  purchases_path(:status => 'finalizado') %><br />
 	- <%= link_to 'Detalle de intentos de compra en la página',  purchases_path(:status => 'all') %><br />
-	- <%= link_to 'Detalle de créditos devueltos',  purchases_path(:status => 'devuelto_creditos') %><br />
 	<br />
 	<% end %>
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Webpage") %>
@@ -36,7 +35,7 @@
 	<br />
 	<% end %>
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Matriclickers") %>
-	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de matriclickers</div>
-	- <%= link_to 'Administrar Matriclickers',  matriclickers_path %><br />
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de accesos</div>
+	- <%= link_to 'Administrar accesos a la página',  matriclickers_path %><br />
 	<% end %>
 </div>

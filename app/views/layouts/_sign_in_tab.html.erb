@@ -10,7 +10,7 @@
 	</div>
 	<div class="clear"></div>
 	<div style="margin:20px 0px 20px 20px">
-		Entrar con tu usuario y clave Matriclick:<br /><br />
+		Entrar con tu usuario y clave:<br /><br />
 		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 			Correo <%= f.email_field :email, :placeholder => t('email'), size: '20', :class => "user_bar_form" %><br /><br />
 			Clave <%= f.password_field :password, :placeholder => t('password'), size: '20', :class => "user_bar_form" %><br /><br />

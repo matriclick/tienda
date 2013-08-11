@@ -1,22 +1,11 @@
 <div>
-	<% case @purchasable.dress_type.get_human_name %>
-		<% when 'Novia' %>
-			<b>Vestido de Novia</b>
-		<% when 'Fiesta' %>
-			<b>Comprar Vestido</b>
-		<% when 'Madrina' %>
-			<b>Comprar Vestido</b>
-		<% when 'Civil' %>
-			<b>Comprar Vestido</b>
-		<% else %>
-			<b>Comprar <%= @purchasable.dress_type.get_human_name %></b>
-	<% end %>
+	<b>Comprar <%= @purchasable.dress_type.get_human_name %></b>
 	<hr>
 	<div style="float:left;">
 		<div class="image" style="float:left">
 			<%= image_tag(@purchasable.main_image) %>
 		</div>
-		<div style="float:left; margin-left:10px;">
+		<div style="float:left; margin-left:10px; max-width:650px;">
 			<table>
 				<tr>
 					<th style="min-width:300px">Descripción</th>
@@ -30,8 +19,7 @@
 				<tr>
 					<td colspan="2">Tienes <%= number_to_currency current_user.credit_amount %> en créditos</td>
 				</tr>
-				<% end %>
-				
+				<% end %>	
 			</table>
 		</div>
 	</div>

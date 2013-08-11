@@ -1,16 +1,28 @@
 <%= content_for :supplier_page_in_content do %>
-	<b>Descripción</b>
+	<b>Condiciones comerciales</b>
 	<hr>
-	<%= sanitize(@presentation.description.gsub(/\n/, '<br/>'), :tags => %W(br)) unless @presentation.description.blank? %>
+		<%= @supplier.supplier_account.net_margin.to_s+'% + IVA' %>
+		<p>
+			<%= sanitize(@presentation.description.gsub(/\n/, '<br/>'), :tags => %W(br)) unless @presentation.description.blank? %>
+		</p>
 	<br /><br />
-	<% if !@trousseau %>
-		<b>Ubicación</b> - <%= @supplier.supplier_account.address.get_address_string if !@supplier.supplier_account.address.nil? %>
-		<hr>
-		<% if @show_map %>
-		<div id="map" style="width:550px; height:300px;"></div>
-		<% else %>
-			<div class="help_tip">Mapa no disponible</div>
-		<% end %>
+	<b>Datos bancarios</b>
+	<hr>
+	<ul>
+		<li>RUT: <%= @supplier.supplier_account.rut %></li>
+		<li>Nombre: <%= @supplier.supplier_account.account_owner_name %></li>
+		<li>Correo: <%= @supplier.supplier_account.account_owner_email %></li>
+		<li>Banco: <%= @supplier.supplier_account.account_bank %></li>
+		<li>Número cuenta: <%= @supplier.supplier_account.account_number %></li>
+		<li>Tipo de cuenta: <%= @supplier.supplier_account.account_type %></li>
+	</ul>
+	<br /><br />
+	<b>Ubicación</b> - <%= @supplier.supplier_account.address.get_address_string if !@supplier.supplier_account.address.nil? %>
+	<hr>
+	<% if @show_map %>
+	<div id="map" style="width:550px; height:300px;"></div>
+	<% else %>
+		<div class="help_tip">Mapa no disponible</div>
 	<% end %>
 	<div class="clear"></div>
 <% end %>

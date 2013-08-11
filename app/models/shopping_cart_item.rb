@@ -1,8 +1,14 @@
-# encoding: UTF-8
+  # encoding: UTF-8
 class ShoppingCartItem < ActiveRecord::Base
+  after_create :update_costs
   belongs_to :shopping_cart
   
   validate :check_quantity_size
+  
+  def update_costs
+    self.total_cost = (self.purchasable.vat_cost + self.purchasable.net_cost)*self.quantity
+    self.save
+  end
   
   def check_quantity_size
     case self.purchasable_type

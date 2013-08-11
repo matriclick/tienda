@@ -35,3 +35,19 @@ function next_dress_scroll_feed(){
 			dataType: 'script'
 		 });
 	  }
+	
+function update_cost(dress_price, net_margin) {
+	net_cost = Math.round(dress_price*net_margin/100)
+	vat_cost = Math.round(0.19*dress_price*net_margin/100)
+	total_cost = dress_price - net_cost - vat_cost
+	
+	document.getElementById('net_cost').innerHTML = net_cost
+	document.getElementById('vat_cost').innerHTML = vat_cost
+	document.getElementById('total_cost').innerHTML = total_cost
+	$("#dress_net_cost").val(total_cost);
+}
+
+
+
+
+

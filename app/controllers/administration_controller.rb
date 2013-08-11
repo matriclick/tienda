@@ -2,6 +2,26 @@
 class AdministrationController < ApplicationController
   before_filter :redirect_unless_admin, :hide_left_menu
   
+  def edit_purchase
+    redirect_unless_privilege('Finanzas')
+    @purchase = Purchase.find(params[:id])
+  end
+  
+  def update_purchase
+    redirect_unless_privilege('Finanzas')
+    @purchase = Purchase.find(params[:id])
+    
+    respond_to do |format|
+      if @purchase.update_attributes(params[:purchase])
+        format.html { redirect_to purchases_path(:status => 'finalizado') }
+        format.json { head :ok }
+      else
+        format.html { redirect_to administration_edit_purchase_path(@purchase), notice: 'Errores' }
+        format.json { render json: @purchase.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def mailing_tools
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.yesterday

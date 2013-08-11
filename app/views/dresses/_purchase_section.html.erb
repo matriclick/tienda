@@ -1,16 +1,9 @@
 <% if !dress.supplier_account.supplier_account_type.nil? %>
-	<% if dress.supplier_account.supplier_account_type.name == 'Vestidos de Novia Usados' %>	
-		<%= link_to image_tag('mail.png') + ' Contacta al vendedor de este vestido', 
-			dresses_dress_request_path(:slug => dress.slug), :id => :inline, :stlye => 'color:blue' %>
+	<% if dress.has_stock? %>
+		<%= link_to "AGREGAR AL CARRITO", 
+					buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), 
+					:method => :post, :class => 'button_buy_dress_pink' %>
 	<% else %>
-		<% if dress.has_stock? %>
-			<%= link_to "COMPRAR AHORA", buy_details_path(:purchasable_type => dress.class, :purchasable_id => dress.id), :class => 'button_buy_dress_pink' %>
-			<div style="float:right; width:120px; text-align:center; margin-top:-15px; line-height:20px;">
-				<b><%= link_to 'o agregar al carrito', buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), :method => :post %></b>
-				<%= link_to image_tag('shopping_cart/add-to-cart-small.jpeg', :class => 'image_button'), buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), :method => :post %>
-			</div>
-		<% else %>
-			ITEM SIN STOCK DISPONIBLE<br />
-		<% end %>
+		ITEM SIN STOCK DISPONIBLE<br />
 	<% end %>
 <% end %>
