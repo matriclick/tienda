@@ -30,6 +30,7 @@
 	<% end %>
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Reportes") %>
 	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Reportes</div>
+	- <%= link_to 'Dashboard ventas',  reports_sales_dashboard_path %><br />
 	- <%= link_to 'Reporte comercial',  reports_salestool_path %><br />
 	- <%= link_to 'Reporte de usuarios',  reports_users_path %><br />
 	<br />

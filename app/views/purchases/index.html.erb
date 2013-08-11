@@ -9,7 +9,7 @@
 	<% end %>
 </h1>
 
-<%= render 'reports/date_range_selector' %>
+<%= render 'reports/date_range_selector', param: params[:status] %>
 
 <table style="width:950px;" class="report">
   <tr>
@@ -48,11 +48,15 @@
 	<td><%= purchase.transfer_type %></td>
     <td><%= purchase.status %></td>
     <td><%= number_to_currency(purchase.credits_used) if !purchase.credits_used.nil? %></td>
-    <td><%= purchase.tracking_number %></td>
+    <td>
+		<%= purchase.tracking_number %><br />
+		<%= !purchase.delivery_cost.nil? ? 'Pago envío '+number_to_currency(purchase.delivery_cost) : '' %><br />
+		<%= !purchase.actual_delivery_cost.nil? ? 'Costo envío '+number_to_currency(purchase.actual_delivery_cost) : '' %>
+	</td>
     <td><%= purchase.logistic_provider.name  if !purchase.logistic_provider.nil? %></td>
-    <td><%= purchase.funds_received %></td>
-    <td><%= purchase.store_paid %><br /><em>(<%= number_to_currency(purchase.total_cost) %>)</em></td>
-    <td><%= purchase.refunded %></td>
+    <td><%= purchase.funds_received ? 'Sí' : 'No' %></td>
+    <td><%= purchase.store_paid ? 'Sí' : 'No' %><br /><em>(<%= number_to_currency(purchase.total_cost) %>)</em></td>
+    <td><%= purchase.refunded ? 'Sí' : 'No' %></td>
     <td><%= number_to_currency(purchase.refund_value) if !purchase.refund_value.nil? %></td>
 	<td><%= link_to 'Editar', administration_edit_purchase_path(purchase) %> | 
 		<%= link_to 'Eliminar', purchase, confirm: 'Seguro?', method: :delete %>
@@ -62,8 +66,10 @@
 	<% purchase.purchasable.shopping_cart_items.each do |sci| %>
 	<tr>
 		<td colspan="16">
-			<b><%= link_to sci.purchasable.introduction, sci.purchasable %></b> 
-			| Precio: <%= number_to_currency(sci.purchasable.price) %> 
+			<b><%= link_to sci.purchasable.introduction, 
+						dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></b> 
+			| Precio: <%= number_to_currency(sci.purchasable.price*sci.quantity) %> 
+							<em>(<%= number_to_currency(sci.purchasable.price) %> c/u)</em>
 			| Cantidad: <%= sci.quantity %> 
 			| Talla: <%= sci.size %> 
 			| Tienda: <%= link_to sci.purchasable.supplier_account.fantasy_name, 

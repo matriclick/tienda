@@ -197,7 +197,7 @@ class PurchasesController < ApplicationController
     @purchase.destroy
 
     respond_to do |format|
-      format.html { redirect_to purchases_url }
+      format.html { redirect_to purchases_url(:status => 'finalizado') }
       format.json { head :ok }
     end
   end

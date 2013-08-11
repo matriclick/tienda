@@ -1,0 +1,12 @@
+<h1>Sales Dashboard</h1>
+<%= render 'date_range_selector' %>
+<ul>
+	<li>Fondos recibidos: <%= number_to_currency @p_sum %></li>
+	<li>Fondos devueltos:</li>
+	<li><b>Resultado:</b></li>	
+	<li>Compras realizadas:</li>
+	<li>Transacciones realizadas:</li>
+	<li>Productos vendidos:</li>
+</ul>
+<br /><br />
+<%= link_to 'Volver al menú de administración', administration_index_path %>

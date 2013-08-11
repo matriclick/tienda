@@ -16,11 +16,28 @@
   <h2><%= @purchase.purchasable.supplier_account.fantasy_name if !@purchase.purchasable.supplier_account.nil? %></h2>
 
   <div class="field">
-    <%= f.label :price, 'Monto pagado por el cliente' %> <%= f.text_field :price %>
+    <%= f.label :price, 'Monto pagado por el cliente' %> <%= f.number_field :price %> 
+	<%= f.label :funds_received, '¿Fondos recibidos?' %> <%= f.check_box :funds_received %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :total_cost, 'Costo producto' %> <%= f.number_field :total_cost %> 
+	<em>(lo que Tramanta paga por el/los productos de la compra)</em>
+    <%= f.label :store_paid, '¿Pagamos los productos?' %> <%= f.check_box :store_paid %>
   </div>
   <br />
   <div class="field">
     <%= f.label :currency %> <%= f.text_field :currency %>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :delivery_cost, 'Costo despacho cliente' %> <%= f.number_field :delivery_cost %> 
+	<em>(costo de delivery que paga el cliente por la compra)</em>
+  </div>
+  <br />
+  <div class="field">
+    <%= f.label :actual_delivery_cost, 'Costo despacho tramanta' %> <%= f.number_field :actual_delivery_cost %>
+	<em>(costo de delivery que paga Tramanta para entregar el producto)</em>
   </div>
   <br />
   <div class="field">
@@ -33,30 +50,8 @@
   </div>
   <br />
   <div class="field">
-    <%= f.label :funds_received %> <%= f.check_box :funds_received %>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :delivery_cost %> <%= f.text_field :delivery_cost %> 
-	(costo de delivery que paga el cliente por la compra)
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :total_cost, 'Costo producto' %> <%= f.text_field :total_cost %> 
-	(lo que Tramanta paga por el/los productos de la compra)
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :store_paid %> <%= f.check_box :store_paid %>
-  </div>
-
-  <br />
-  <div class="field">
-    <%= f.label :refunded %> <%= f.check_box :refunded %>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :refund_value %> <%= f.text_field :refund_value %>
+    <%= f.label :refunded, '¿Producto devuelto?' %> <%= f.check_box :refunded %> 
+	<%= f.label :refund_value, 'Monto devuelto' %> <%= f.number_field :refund_value %>
   </div>
   <br />
   <div class="actions">

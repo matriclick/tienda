@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130810232021) do
+ActiveRecord::Schema.define(:version => 20130811021006) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -1229,6 +1229,7 @@ ActiveRecord::Schema.define(:version => 20130810232021) do
     t.boolean  "refunded"
     t.float    "refund_value"
     t.float    "total_cost"
+    t.float    "actual_delivery_cost"
   end
 
   create_table "reference_requests", :force => true do |t|

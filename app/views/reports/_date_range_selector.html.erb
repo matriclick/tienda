@@ -5,5 +5,10 @@
 	<div style="margin:0px 0px 10px 5px">
 		<b>Hasta:</b><%= text_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
 	</div>
+	<div>
+		<% if !param.nil? %>
+			<%= hidden_field_tag :status, param %>
+		<% end %>
+	</div>
 	<%= submit_tag("Actualizar Fechas") %>
 <% end %>

@@ -4,6 +4,19 @@ class ReportsController < ApplicationController
   before_filter { redirect_unless_privilege('Reportes') }
   helper_method :sort_column, :sort_direction
   
+  def sales_dashboard
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.beginning_of_week
+      @to = DateTime.now.end_of_week
+    else
+      @from = Time.parse(params[:from])
+      @to = Time.parse(params[:to])
+    end
+
+    @p_sum = 0 #Purchase.sum('price')
+    
+  end
+  
   def salestool
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.beginning_of_week

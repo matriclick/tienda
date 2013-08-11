@@ -125,6 +125,7 @@ Matri::Application.routes.draw do
     get "reports/user_conversations" => "reports#user_conversations"
     get "reports/list_user_conversations" => "reports#list_user_conversations"
     get "reports/purchases" => "reports#purchases"
+    get 'reports/sales_dashboard' => 'reports#sales_dashboard', as: 'reports_sales_dashboard'
     resources :lead_contacts
     resources :challenge_activities
     resources :challenges

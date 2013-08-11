@@ -230,6 +230,7 @@ class BuyController < ApplicationController
     end
     
     @purchase = @oc.purchase
+    @purchase.funds_received = true
     purchase_actions
   end
   
