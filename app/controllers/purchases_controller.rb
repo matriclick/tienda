@@ -142,6 +142,7 @@ class PurchasesController < ApplicationController
       @purchase.total_cost = (@object.net_cost + @object.vat_cost)*@purchase.quantity
     else
       @purchase.purchasable.shopping_cart_items.each do |sci|
+        sci.update_costs
         @purchase.total_cost = sci.total_cost + @purchase.total_cost
       end
     end
@@ -170,6 +171,7 @@ class PurchasesController < ApplicationController
       @purchase.total_cost = (@object.net_cost + @object.vat_cost)*@purchase.quantity
     else
       @purchase.purchasable.shopping_cart_items.each do |sci|
+        sci.update_costs
         @purchase.total_cost = sci.total_cost + @purchase.total_cost
       end
     end

@@ -1,16 +1,15 @@
   # encoding: UTF-8
 class ShoppingCartItem < ActiveRecord::Base
-  after_update :update_costs
   belongs_to :shopping_cart
   
   validate :check_quantity_size
   
   def update_costs
-    #vat = self.purchasable.vat_cost.nil? ? 0 : self.purchasable.vat_cost
-    #net = self.purchasable.net_cost.nil? ? 0 : self.purchasable.net_cost
-    #amount = self.quantity.nil? ? 0 : self.quantity
+    vat = self.purchasable.vat_cost.nil? ? 0 : self.purchasable.vat_cost
+    net = self.purchasable.net_cost.nil? ? 0 : self.purchasable.net_cost
+    amount = self.quantity.nil? ? 0 : self.quantity
     
-    self.total_cost = 0
+    self.total_cost = (vat+net)*amount
     self.save
   end
   
