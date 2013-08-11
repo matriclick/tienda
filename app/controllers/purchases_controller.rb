@@ -123,14 +123,6 @@ class PurchasesController < ApplicationController
     @purchase.delivery_method_cost = @purchase.delivery_method.price
     @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost if !@purchase.delivery_info.nil?
     @purchase.purchasable_price = @object.price
-    @purchase.total_cost = 0
-    if @purchase.purchasable_type == 'Dress'
-      @purchase.total_cost = (@object.net_cost + @object.vat_cost)*@purchase.quantity
-    else
-      @purchase.purchasable.shopping_cart_items.each do |sci|
-        @purchase.total_cost = sci.total_cost + @purchase.total_cost
-      end
-    end
     
     if !@purchase.quantity.blank? and !@purchase.delivery_cost.nil?
         @purchase.price = @purchase.purchasable_price * @purchase.quantity + @purchase.delivery_cost + @purchase.delivery_method.price
@@ -144,7 +136,16 @@ class PurchasesController < ApplicationController
 		else
 			@purchase.credits_used = current_user.credit_amount
 		end
-				
+		
+		@purchase.total_cost = 0
+    if @purchase.purchasable_type == 'Dress'
+      @purchase.total_cost = (@object.net_cost + @object.vat_cost)*@purchase.quantity
+    else
+      @purchase.purchasable.shopping_cart_items.each do |sci|
+        @purchase.total_cost = sci.total_cost + @purchase.total_cost
+      end
+    end
+    
 		@purchase.price = (@purchase.price - @purchase.credits_used).ceil
     
     respond_to do |format|
