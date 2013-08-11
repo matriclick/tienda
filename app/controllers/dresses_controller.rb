@@ -237,7 +237,7 @@ class DressesController < ApplicationController
   end
   
   def new_arrivals
-    @dresses = Dress.available_to_purchase.order('created_at DESC').limit 30
+    @dresses = Dress.available_to_purchase.order('created_at DESC').limit 32
     add_breadcrumb "Tramanta", :bazar_path
     add_breadcrumb 'New Arrivals!', dresses_new_arrivals_path
     @search_text = 'Busca por color, talla, tela, etc...'

@@ -10,11 +10,11 @@ class PurchasesController < ApplicationController
     redirect_unless_privilege('Vestidos')
     
     if params[:from].nil? or params[:to].nil?
-     @from = DateTime.now.beginning_of_week
-     @to = DateTime.now.end_of_week
+     @from = DateTime.now.utc.beginning_of_week
+     @to = DateTime.now.utc.end_of_week
     else
-     @from = Time.parse(params[:from])
-     @to = Time.parse(params[:to])
+     @from = Time.parse(params[:from]).utc
+     @to = Time.parse(params[:to]).utc
     end
     
     status = !params[:status].nil? ? params[:status] : 'all'
