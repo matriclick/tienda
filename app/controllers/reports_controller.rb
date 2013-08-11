@@ -13,8 +13,17 @@ class ReportsController < ApplicationController
       @to = Time.parse(params[:to])
     end
 
-    @p_sum = 0 #Purchase.sum('price')
-    
+    @p_sum = Purchase.sum(:price, :conditions => ['funds_received = ? and created_at >= ? and created_at <= ?', true, @from, @to])
+    @r_sum = Purchase.sum(:refund_value, :conditions => ['refunded = ? and created_at >= ? and created_at <= ?', true, @from, @to])
+    @count = Purchase.count(:conditions => ['created_at >= ? and created_at <= ?', @from, @to])
+    @prod_count = 0
+    Purchase.where('created_at >= ? and created_at <= ?', @from, @to).each do |p|
+      if p.purchasable_type == 'Dress'
+        @prod_count=+ 1
+      else
+        @prod_count = p.purchasable.shopping_cart_items.size + @prod_count
+      end
+    end
   end
   
   def salestool

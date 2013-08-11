@@ -6,7 +6,7 @@
 		<b>Hasta:</b><%= text_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
 	</div>
 	<div>
-		<% if !param.nil? %>
+		<% if !(defined? param).nil? %>
 			<%= hidden_field_tag :status, param %>
 		<% end %>
 	</div>
