@@ -74,7 +74,7 @@ Matri::Application.configure do
   config.action_mailer.asset_host = "http://www.tramanta.com"
   
   config.middleware.use ExceptionNotifier,
-    email_prefix: "[Error] ",
+    email_prefix: "[Error Tramanta] ",
     sender_address: "mensajes@tramanta.com",
-    exception_recipients: "soporte@tributosport.com"
+    exception_recipients: "soporte@matriclick.com"
 end

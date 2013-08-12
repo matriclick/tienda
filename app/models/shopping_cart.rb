@@ -39,7 +39,11 @@ class ShoppingCart < ActiveRecord::Base
   end
   
   def description
-    'Carrito de compras '
+    aux = ''
+    self.shopping_cart_items.each do |sci|
+      aux = '- '+sci.purchasable.introduction+'<br />'+aux
+    end
+    return 'CARRITO DE COMPRAS<br />'+aux
   end
   
   def supplier_account
