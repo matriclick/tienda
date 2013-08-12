@@ -34,8 +34,7 @@
 		<td>purchase.purchasable es nil!</td>
 	<% else %>
 		<td><b><%= purchase.created_at.strftime("%d-%m-%y") %></b><br />
-		<%= link_to image_tag(purchase.purchasable.small_image), 
-					purchase.purchasable.link_to_view(params[:country_url_path], purchase.id) %></td>
+		<%= link_to image_tag(purchase.purchasable.small_image), purchase %></td>
 		<td>
 			<%= !purchase.purchasable.supplier_account.nil? ? purchase.purchasable.supplier_account.fantasy_name : 'n/a' %><br />
 			<%= !purchase.purchasable.supplier_account.nil? ? purchase.purchasable.supplier_account.net_margin.to_s+'% + IVA' : '' %>

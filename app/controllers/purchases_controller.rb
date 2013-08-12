@@ -69,7 +69,7 @@ class PurchasesController < ApplicationController
     end
 
     if @purchase.user != current_user
-      redirect_to edit_user_registration_path
+      redirect_to user_profile_personalization_path
     end
   end
 

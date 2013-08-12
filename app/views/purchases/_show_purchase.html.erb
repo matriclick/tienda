@@ -1,7 +1,7 @@
 <div style="float:left; width:300px">
 	<% if @purchase.purchasable_type == 'Dress' %>
-		<%= link_to image_tag @purchasable.main_image, 
-				dress_ver_path(:type => @purchasable.dress_type.name, :slug => @purchasable.slug) %>
+		<%= link_to image_tag(@purchasable.main_image), 
+					dress_ver_path(:type => @purchasable.dress_type.name, :slug => @purchasable.slug) %>
 	<% end %>
 </div>
 
