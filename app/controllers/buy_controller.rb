@@ -2,7 +2,7 @@
 require "active_merchant/billing/integrations/action_view_helper"
 
 class BuyController < ApplicationController
-  before_filter :authenticate_user!, :only => [:index, :details, :confirm, :add_to_cart, :remove_from_cart, :view_cart]
+  before_filter :authenticate_user!, :only => [:index, :details, :confirm, :add_to_cart, :remove_from_cart, :view_cart, :refresh_cart]
   before_filter :get_order_and_log_user_back, :only => [:success, :failure]
 
   helper ActiveMerchant::Billing::Integrations::ActionViewHelper

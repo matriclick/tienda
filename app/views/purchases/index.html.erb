@@ -65,7 +65,7 @@
 			<div style="margin-left:15px">
 				<b><%= link_to sci.purchasable.introduction, 
 							dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></b> 
-				| Precio: <%= number_to_currency(sci.purchasable.price*sci.quantity) %> 
+				| Precio: <%= number_to_currency(sci.purchasable.price*sci.quantity) if !sci.purchasable.nil? and !sci.quantity.nil? %> 
 								<em>(<%= number_to_currency(sci.purchasable.price) %> c/u)</em>
 				| Cantidad: <%= sci.quantity %> 
 				| Talla: <%= sci.size %> 
