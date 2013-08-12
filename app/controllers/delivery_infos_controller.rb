@@ -1,6 +1,7 @@
 class DeliveryInfosController < ApplicationController
   before_filter :redirect_unless_admin, :only => [:index, :show]
-
+  before_filter :authenticate_user!
+  
   # GET /delivery_infos
   # GET /delivery_infos.json
   def index

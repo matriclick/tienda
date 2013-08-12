@@ -53,7 +53,7 @@ class DressesController < ApplicationController
 	  if !current_supplier.nil?
 	    sign_out current_supplier
     end
-    add_breadcrumb "INCIDIT", :bazar_path
+    add_breadcrumb "Tramanta", :bazar_path
   end
 	
 	def party_dress_menu
@@ -325,20 +325,17 @@ class DressesController < ApplicationController
   # GET /dresses/new
   # GET /dresses/new.json
   def new
-      
+    @dress = Dress.new
+    
     if !current_supplier.nil?
       @supplier_account = current_supplier.supplier_account
       @supplier = @supplier_account.supplier
+      @dress.supplier_account = @supplier_account
       set_supplier_layout
     else
-      @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).joins(:industry_categories).where("industry_categories.item_seller = 1").approved
-      if !@supplier_accounts.nil?
-        @supplier_accounts = @supplier_accounts.uniq
-        @supplier_accounts = @supplier_accounts.sort_by {|sa| sa[:fantasy_name]}
-      end
+      redirect_to bazar_path, notice: 'Solo puedes crear productos entrando como proveedor.'
     end
     
-    @dress = Dress.new
     @dress_types = DressType.all
     @colors = Color.all
     
