@@ -82,7 +82,7 @@ class BuyController < ApplicationController
     @shopping_cart_items = ShoppingCartItem.update(params[:shopping_cart_items].keys, params[:shopping_cart_items].values).reject { |shopping_cart_item| shopping_cart_item.errors.empty? }
     
     if @shopping_cart_items.empty?
-      if params[:commit] == 'COMPRAR ITEMS >>'
+      if params[:commit] == 'Pagar Productos'
         redirect_to buy_details_path(:purchasable_type => @shopping_cart.class, :purchasable_id => @shopping_cart.id)
       else
         redirect_to buy_view_cart_path
