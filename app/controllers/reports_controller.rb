@@ -9,8 +9,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
 
     @days_month = Time.days_in_month(Time.now.month)
@@ -38,8 +38,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     @llamada = ChallengeActivityType.find_by_name("Llamada")
@@ -52,8 +52,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
   end
   
@@ -62,8 +62,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     @wedding_type = DressType.find_by_name("vestidos-novia") 
@@ -76,8 +76,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     @industry_categories = IndustryCategory.all.joins(:countries).where("countries.id = ?", session[:country].id).sort_by {|ic| -SupplierAccount.where(:country_id => session[:country].id).from_industry(ic).joins(:conversations).approved.count }
@@ -89,8 +89,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     @industry_category = IndustryCategory.find params[:industry_category_id]
@@ -103,8 +103,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     @fijo = ContractType.find_by_name("Fijo")
@@ -137,8 +137,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     if !params[:industry_category_id].nil?
@@ -169,8 +169,8 @@ class ReportsController < ApplicationController
         @from = DateTime.now.beginning_of_week
         @to = DateTime.now.end_of_week
       else
-        @from = Time.parse(params[:from])
-        @to = Time.parse(params[:to])
+        @from = Time.parse(params[:from]).utc.beginning_of_day
+        @to = Time.parse(params[:to]).utc.end_of_day
       end
       
       if !params[:user_email].nil?
@@ -190,8 +190,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_year
       @to = DateTime.now.utc.end_of_year
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
 
     @users = User.joins(:conversations).where('conversations.created_at >= ? and conversations.created_at <= ?', @from, @to).uniq
@@ -217,8 +217,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
 
     if !params[:matriclicker_id].nil?
@@ -238,8 +238,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.utc.beginning_of_year
       @to = DateTime.now.utc.next_month
     else
-      @from = Time.parse(params[:from]).utc
-      @to = Time.parse(params[:to]).utc
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
 
   end
@@ -251,8 +251,8 @@ class ReportsController < ApplicationController
       @from = DateTime.now.beginning_of_month
       @to = DateTime.now.end_of_month
     else
-      @from = Time.parse(params[:from])
-      @to = Time.parse(params[:to])
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     @invoices = Invoice.where('issued_date >= ? and issued_date <= ?', @from, @to)
@@ -266,8 +266,8 @@ class ReportsController < ApplicationController
       @from = DateTime.parse("2012-01-01")
       @to = DateTime.now.end_of_month
     else
-      @from = Time.parse(params[:from])
-      @to = Time.parse(params[:to])
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
 
     @leads = Lead.joins(:invoices).where(:country_id => session[:country].id).where('invoices.issued_date >= ? and issued_date <= ?', @from, @to)
@@ -404,11 +404,11 @@ class ReportsController < ApplicationController
     redirect_unless_privilege('Finanzas')
     
     if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.beginning_of_week
-      @to = DateTime.now.end_of_week
+      @from = DateTime.now.utc.beginning_of_week
+      @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from])
-      @to = Time.parse(params[:to])
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     now = (DateTime.now + 4.hour).strftime("%Y-%m-%d %H:%M:%S")
@@ -426,11 +426,11 @@ class ReportsController < ApplicationController
   
   def dresses_details
    if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.beginning_of_week
-      @to = DateTime.now.end_of_week
+      @from = DateTime.now.utc.beginning_of_week
+      @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from])
-      @to = Time.parse(params[:to])
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     if params[:dress_type_id].nil?
@@ -445,11 +445,11 @@ class ReportsController < ApplicationController
   
   def purchases
     if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.beginning_of_week
-      @to = DateTime.now.end_of_week
+      @from = DateTime.now.utc.beginning_of_week
+      @to = DateTime.now.utc.end_of_week
     else
-      @from = Time.parse(params[:from])
-      @to = Time.parse(params[:to])
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
     end
     
   end

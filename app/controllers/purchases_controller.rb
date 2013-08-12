@@ -13,8 +13,8 @@ class PurchasesController < ApplicationController
      @from = DateTime.now.utc.beginning_of_week
      @to = DateTime.now.utc.end_of_week
     else
-     @from = Time.parse(params[:from]).utc
-     @to = Time.parse(params[:to]).utc
+     @from = Time.parse(params[:from]).utc.beginning_of_day
+     @to = Time.parse(params[:to]).utc.end_of_day
     end
     
     status = !params[:status].nil? ? params[:status] : 'all'
