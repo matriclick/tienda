@@ -8,10 +8,12 @@
 	<table>
 		<tr><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum %></td></tr>
 		<tr><th>Monto devuelto:</th><td><%= number_to_currency @r_sum %></td></tr>
-		<tr><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum - @r_sum) %></b></td></tr>
+		<tr><th>Costo productos:</th><td><%= number_to_currency @c_sum %></td></tr>
+		<tr><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum - @r_sum - @c_sum) %></b></td></tr>
 		<tr><th>Compras:</th><td><%= @count %></td></tr>
-		<tr><th>Productos vendidos:</th><td><%= @prod_count %></td></tr>
+		<tr><th>Compras pagadas:</th><td><%= @count_paid_pur %></td></tr>
 		<tr><th>Ticket promedio por compra:</th><td><%= number_to_currency(@p_sum / @count) if @count > 0 %></td></tr>
+		<tr><th>Productos vendidos:</th><td><%= @prod_count %></td></tr>
 		<tr><th>Precio promedio por producto:</th><td><%= number_to_currency(@p_sum / @prod_count) if @prod_count > 0 %></td></tr>
 	</table>
 	<br />
@@ -22,14 +24,16 @@
 		<h2>Información del mes actual</h2>
 		<tr><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum_month %></td></tr>
 		<tr><th>Monto devuelto:</th><td><%= number_to_currency @r_sum_month %></td></tr>
-		<tr><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum_month - @r_sum_month) %></b></td></tr>
+		<tr><th>Costo productos:</th><td><%= number_to_currency @c_sum_month %></td></tr>
+		<tr><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum_month - @r_sum_month - @c_sum_month) %></b></td></tr>
 
 		<tr><th>Días del mes:</th><td><%= @days_month %></td></tr>
 		<tr><th>Día actual:</th><td><%= @day_today %></td></tr>
 
-		<tr><th>RR Ventas realizadas:</th><td><%= number_to_currency @p_sum_month*@factor %></td></tr>
+		<tr>RR Ventas realizadas:<td><%= number_to_currency @p_sum_month*@factor %></td></tr>
 		<tr><th>RR Monto devuelto:</th><td><%= number_to_currency @r_sum_month*@factor %></td></tr>
-		<tr><td><b>RR Resultado:</b></td><td><b><%= number_to_currency((@p_sum_month - @r_sum_month)*@factor) %></b></td></tr>
+		<tr><th>RR Costo productos:</th><td><%= number_to_currency @c_sum_month*@factor %></td></tr>
+		<tr><td><b>RR Resultado:</b></td><td><b><%= number_to_currency((@p_sum_month - @r_sum_month - @c_sum_month)*@factor) %></b></td></tr>
 
 	</table>
 	<br />

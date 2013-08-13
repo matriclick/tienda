@@ -59,9 +59,8 @@
 	<%= f.label :refund_value, 'Monto devuelto' %> <%= f.number_field :refund_value %>
   </div>
   <br />
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit 'Actualizar' %> | <%= f.submit 'Actualizar y enviar correo' %>
+  <div class="clear"></div>
 <% end %>
 
 

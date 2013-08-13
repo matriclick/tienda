@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class Purchase < ActiveRecord::Base
+  before_create :check_quantity_size
+  
   has_one :order, :dependent => :destroy
   belongs_to :user
   belongs_to :delivery_info
@@ -12,7 +14,6 @@ class Purchase < ActiveRecord::Base
   
   validates :purchasable_id, :purchasable_type, :user_id, :price, :currency, :confirmed_terms, :delivery_cost, :presence => true
   validate :check_if_delivery_info_required
-  validate :check_quantity_size
   
   def store_payment_amount
     if self.purchasable_type == 'Dress'

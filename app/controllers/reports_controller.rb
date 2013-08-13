@@ -16,12 +16,16 @@ class ReportsController < ApplicationController
     @days_month = Time.days_in_month(Time.now.month)
     @day_today = Time.now.day
     @factor = @days_month.to_f/@day_today
+
+    @c_sum_month = Purchase.sum(:total_cost, :conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
     @p_sum_month = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
     @r_sum_month = Purchase.sum(:refund_value, :conditions => ['refunded = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
-    
+
+    @c_sum = Purchase.sum(:total_cost, :conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])    
     @p_sum = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
     @r_sum = Purchase.sum(:refund_value, :conditions => ['refunded = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
     
+    @count_paid_pur = Purchase.count(:conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
     @count = Purchase.count(:conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
     @prod_count = 0
     Purchase.where('funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to).each do |p|

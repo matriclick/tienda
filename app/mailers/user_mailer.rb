@@ -1,11 +1,17 @@
 # encoding: UTF-8
 class UserMailer < ActionMailer::Base
-  default from: "mensajes@tributosport.com"
+  default from: "mensajes@tramanta.com"
+  
+  def send_tracking_info(purchase, country_url_path)
+    @purchase = purchase
+    @country_url_path = country_url_path
+    mail to: "<#{@purchase.user.email}>", bcc: "mensajes@tramanta.com", subject: "Datos de despacho del producto | Tramanta.com"
+  end
   
   def user_email(user, password) # when a UserAccount add a new user to his people
   	@user = user
 		@password = password
-  	mail to: "<#{@user.email}>", bcc: "contacto@tramanta.com", subject: "[Matriclick.com] Se ha creado un nuevo usuario"
+  	mail to: "<#{@user.email}>", bcc: "mensajes@tramanta.com", subject: "[Matriclick.com] Se ha creado un nuevo usuario"
   end
   
   # LO QUIERO MAMÁ

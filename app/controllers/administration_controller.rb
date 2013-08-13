@@ -14,9 +14,13 @@ class AdministrationController < ApplicationController
     redirect_unless_privilege('Finanzas')
     @purchase = Purchase.find(params[:id])
     user = User.find_by_email(params[:user_email])
+    @purchase.user = user if !user.nil?
+    
     respond_to do |format|
       if !user.nil? and @purchase.update_attributes(params[:purchase])
-        @purchase.user = user
+        if !@purchase.logistic_provider.nil? and params[:commit] == 'Actualizar y enviar correo'
+          UserMailer.send_tracking_info(@purchase, params[:country_url_path]).deliver
+        end
         format.html { redirect_to purchases_path(:status => 'finalizado') }
         format.json { head :ok }
       else
