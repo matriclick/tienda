@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class PurchasesController < ApplicationController
+class PurchasesController < ApplicationController  
   before_filter :redirect_unless_admin, :hide_left_menu, :except => [:create, :show_for_user]
   before_filter :authenticate_user!, :only => [:show_for_user, :create]
   helper_method :sort_column, :sort_direction

@@ -7,6 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require autocomplete-rails
 //= require init_vendors
 //= require rails.validations
 //= require_directory .

@@ -1,18 +1,22 @@
 # encoding: UTF-8
 class AdministrationController < ApplicationController
+  autocomplete :user, :email
+    
   before_filter :redirect_unless_admin, :hide_left_menu
   
   def edit_purchase
     redirect_unless_privilege('Finanzas')
     @purchase = Purchase.find(params[:id])
+    @p_user_email = @purchase.user.email
   end
   
   def update_purchase
     redirect_unless_privilege('Finanzas')
     @purchase = Purchase.find(params[:id])
-    
+    user = User.find_by_email(params[:user_email])
     respond_to do |format|
-      if @purchase.update_attributes(params[:purchase])
+      if !user.nil? and @purchase.update_attributes(params[:purchase])
+        @purchase.user = user
         format.html { redirect_to purchases_path(:status => 'finalizado') }
         format.json { head :ok }
       else

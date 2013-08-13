@@ -474,7 +474,7 @@ Matri::Application.routes.draw do
     get "administration/edit_review/:id" => "administration#edit_review", as: "administration_edit_review"
     put "administration/update_review/:id" => "administration#update_review", as: "administration_update_review"
     delete "administration/destroy_review/:id" => "administration#destroy_review", as: "administration_destroy_review"
-    
+        
     # ADMINISTRATION PACK PROMOTIONS
     scope 'administration' do
       resources :pack_promotions do 
@@ -489,6 +489,8 @@ Matri::Application.routes.draw do
     	  
     get 'administration/edit_purchase/:id' => "administration#edit_purchase", as: 'administration_edit_purchase'
     put 'administration/update_purchase/:id' => "administration#update_purchase", as: 'administration_update_purchase'
+    
+    get 'administration/autocomplete_user_email' => 'administration#autocomplete_user_email'
     
   end # ENDING OF SCOPE COUNTRY_URL_PATH
   

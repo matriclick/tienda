@@ -16,6 +16,11 @@
   <h2><%= @purchase.purchasable.supplier_account.fantasy_name if !@purchase.purchasable.supplier_account.nil? %></h2>
 
   <div class="field">
+    Correo usuario comprador <%= autocomplete_field_tag :user_email, @p_user_email, administration_autocomplete_user_email_path %> 
+  </div>
+  <br />
+
+  <div class="field">
     <%= f.label :price, 'Monto pagado por el cliente' %> <%= f.number_field :price %> 
 	<%= f.label :funds_received, '¿Fondos recibidos?' %> <%= f.check_box :funds_received %>
   </div>

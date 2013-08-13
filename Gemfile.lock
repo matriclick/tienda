@@ -218,6 +218,8 @@ GEM
       railties (= 3.1.0)
     rails-translate-routes (0.1.3)
       activesupport (>= 3.1)
+    rails3-jquery-autocomplete (1.0.11)
+      rails (~> 3.0)
     railties (3.1.0)
       actionpack (= 3.1.0)
       activesupport (= 3.1.0)
@@ -299,6 +301,7 @@ DEPENDENCIES
   prawnto_2
   rails (= 3.1.0)
   rails-translate-routes
+  rails3-jquery-autocomplete
   rubyzip
   sass-rails (~> 3.1.0)
   sitemap_generator (~> 4.0)
