@@ -30,7 +30,7 @@
 		<tr><th>Días del mes:</th><td><%= @days_month %></td></tr>
 		<tr><th>Día actual:</th><td><%= @day_today %></td></tr>
 
-		<tr>RR Ventas realizadas:<td><%= number_to_currency @p_sum_month*@factor %></td></tr>
+		<tr><td>RR Ventas realizadas:</td><td><%= number_to_currency @p_sum_month*@factor %></td></tr>
 		<tr><th>RR Monto devuelto:</th><td><%= number_to_currency @r_sum_month*@factor %></td></tr>
 		<tr><th>RR Costo productos:</th><td><%= number_to_currency @c_sum_month*@factor %></td></tr>
 		<tr><td><b>RR Resultado:</b></td><td><b><%= number_to_currency((@p_sum_month - @r_sum_month - @c_sum_month)*@factor) %></b></td></tr>
