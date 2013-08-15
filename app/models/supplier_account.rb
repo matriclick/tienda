@@ -60,6 +60,45 @@ class SupplierAccount < ActiveRecord::Base
 	#http://railscasts.com/episodes/108-named-scope
 	scope :from_industry, lambda { |ic| { :joins => :industry_categories, :conditions => [ "industry_categories.id = ?", ic.id ] } }
   
+  def get_purchases_not_paid(from, to)
+    purchases = Array.new
+    self.dresses.each do |dress|
+      p_simple = Purchase.where('store_paid = ? and purchasable_id = ? and status = ? and created_at >= ? and created_at <= ?', false, dress.id, 'finalizado', from, to)      
+      p_shopping_cart = Purchase.joins('LEFT JOIN shopping_carts ON purchases.purchasable_id = shopping_carts.id').joins('LEFT JOIN shopping_cart_items ON shopping_carts.id = shopping_cart_items.shopping_cart_id').where('store_paid = ? and shopping_cart_items.purchasable_id = ? and status = ? and purchases.created_at >= ? and purchases.created_at <= ?', false, dress.id, 'finalizado', from, to)
+      purchases.concat(p_simple) if p_simple.size > 0
+      purchases.concat(p_shopping_cart) if p_shopping_cart.size > 0  
+    end
+    return purchases.uniq
+  end
+  
+  def get_money_owed(purchases)
+    debt = 0
+    purchases.each do |p|
+      if p.purchasable_type == 'Dress'
+        debt = debt + p.total_cost if (p.purchasable.supplier_account_id == self.id and !p.store_paid)
+      else
+        p.purchasable.shopping_cart_items.each do |sci|
+          debt = debt + sci.total_cost if (sci.purchasable.supplier_account_id == self.id and !p.store_paid)
+        end
+      end
+    end
+    return debt
+  end
+  
+  def get_supplier_products_not_paid(purchases)
+    products = Array.new
+    purchases.each do |p|
+      if p.purchasable_type == 'Dress'
+        products << p.purchasable if (p.purchasable.supplier_account_id == self.id and !p.store_paid)
+      else
+        p.purchasable.shopping_cart_items.each do |sci|
+          products << sci.purchasable if (sci.purchasable.supplier_account_id == self.id and !p.store_paid)
+        end
+      end
+    end
+    return products
+  end
+  
   def dresses_filtered(string_filter = nil, separator = ' ')
     if string_filter.nil?
       return self.dresses

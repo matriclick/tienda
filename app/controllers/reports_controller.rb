@@ -4,6 +4,18 @@ class ReportsController < ApplicationController
   before_filter { redirect_unless_privilege('Reportes') }
   helper_method :sort_column, :sort_direction
   
+  def products_payments
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.utc.beginning_of_year
+      @to = DateTime.now.utc.end_of_day
+    else
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
+    end
+    
+    @supplier_accounts = IndustryCategory.where(:name => 'vestidos_de_fiesta').first.supplier_accounts
+  end
+    
   def sales_dashboard
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_week

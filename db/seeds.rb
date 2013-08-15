@@ -838,8 +838,8 @@ puts "\n"
 
 puts "--> LogisticProvider:"
 aux = []
-aux << (LogisticProvider.find_by_name("Tramanta") || LogisticProvider.create(:name => 'Tramanta'))
-aux << (LogisticProvider.find_by_name("Chile Express") || LogisticProvider.create(:name => 'Chile Express'))
-aux << (LogisticProvider.find_by_name("Correos de Chile") || LogisticProvider.create(:name => 'Correos de Chile'))
+aux << (LogisticProvider.find_by_name("Tramanta") || LogisticProvider.create(:name => 'Tramanta', :website => 'http://www.tramanta.com/'))
+aux << (LogisticProvider.find_by_name("Chile Express") || LogisticProvider.create(:name => 'Chile Express', :website => 'http://www.chilexpress.cl/'))
+aux << (LogisticProvider.find_by_name("Correos de Chile") || LogisticProvider.create(:name => 'Correos de Chile', :website => 'http://www.correos.cl/'))
 aux.each { |x| puts x.name }
 puts "\n"

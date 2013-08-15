@@ -21,6 +21,9 @@
 	- <%= link_to 'Detalle de compras exitosas',  purchases_path(:status => 'finalizado') %><br />
 	- <%= link_to 'Detalle de intentos de compra en la página',  purchases_path(:status => 'all') %><br />
 	<br />
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Reportes de Pagos</div>
+	- <%= link_to 'Pagos a proveedores', reports_products_payments_path %><br />
+	<br />
 	<% end %>
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Webpage") %>
 	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de la página</div>

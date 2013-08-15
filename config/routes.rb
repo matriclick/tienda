@@ -99,7 +99,7 @@ Matri::Application.routes.draw do
     get "viajes/caribe" => "travel#caribe", as: 'caribe'    
     get "viajes/sudeste" => "travel#sudeste", as: 'sudeste'
     get "viajes/europa" => "travel#europa", as: 'europa'
-            
+
     get "reports/salestool" => "reports#salestool"
     get "reports/export" => "reports#export"
     get "reports/export_dress_info" => "reports#export_dress_info"
@@ -126,6 +126,7 @@ Matri::Application.routes.draw do
     get "reports/list_user_conversations" => "reports#list_user_conversations"
     get "reports/purchases" => "reports#purchases"
     get 'reports/sales_dashboard' => 'reports#sales_dashboard', as: 'reports_sales_dashboard'
+    get 'reports/products_payments' => 'reports#products_payments', as: 'reports_products_payments'
     resources :lead_contacts
     resources :challenge_activities
     resources :challenges

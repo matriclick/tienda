@@ -2,24 +2,24 @@
 	<% cart.shopping_cart_items.each do |item| %>
 		<div style="float:left;">
 			<div class="image" style="float:left">
-				<%= link_to image_tag(item.purchasable.main_image), 
+				<%= link_to image_tag(item.purchasable.small_image), 
 							dress_ver_path(:type => item.purchasable.dress_types.first.name, :slug => item.purchasable.slug) %>
 			</div>			
-			<div style="float:left; width:400px; margin-left:20px; margin-top:20px">
-				<h2><%= raw item.purchasable.introduction if !item.purchasable.introduction.nil? %></h2>
-				<p><%= raw item.purchasable.description.gsub(/\n/, '<br/>') if !item.purchasable.description.nil? %></p>
+			<div style="float:left; width:500px; margin-left:20px; margin-top:0px">
 				<table>
 					<tr>
-						<td>Precio Unitario</td>
-						<td><%= number_to_currency item.purchasable.price %></td>
+						<th>
+							<%= raw item.purchasable.introduction if !item.purchasable.introduction.nil? %>
+						</th>
 					</tr>
 					<tr>
-						<td>Talla</td>
-						<td><%= item.size %></td>
+						<td>Precio Unitario: <%= number_to_currency item.purchasable.price %></td>
 					</tr>
 					<tr>
-						<td>Cantidad</td>
-						<td><%= item.quantity.to_s %></td>
+						<td>Talla: <%= item.size %></td>
+					</tr>
+					<tr>
+						<td>Cantidad: <%= item.quantity.to_s %></td>
 					</tr>
 				</table>
 			</div>
