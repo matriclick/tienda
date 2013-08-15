@@ -1,16 +1,20 @@
 <h1>Bienvenido al Administrador</h1>
 
 <div style="font-size:13px; margin:20px 0px 0px 40px; line-height:20px; color:#AAA" class="no_underline">
+	<% if @matriclicker.privileges.include? Privilege.find_by_name("Webpage") %>
+	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de la página</div>
+	- <%= link_to 'Administrar Blog',  posts_path %><br />
+	- <%= link_to 'Administrar imágenes del slider', slider_images_path %><br />
+	<br />
+	<% end %>
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Salestool") %>
 	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración proveedores</div>
-	<!--- <%= link_to 'Matri-salestool',  leads_path(:q => @matriclicker.name) %><br />-->
-	- <%= link_to 'Ver los últimos 20 agregados', administration_suppliers_list_path %>	<br />
-	- <%= link_to 'Ver proveedores Bazar', administration_suppliers_list_path(:filter => "Active", :type => 'bazar') %>	<br />
+	- <%= link_to 'Ver los últimos 20 proveedores agregados', administration_suppliers_list_path %>	<br />
+	- <%= link_to 'Ver todos los proveedores activos', administration_suppliers_list_path(:filter => "Active", :type => 'bazar') %>	<br />
 	<br />
 	<% end %>
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Vestidos") %>
 	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de productos</div>
-	- <%= link_to 'Administrar productos', administration_dresses_path %><br />
 	- <%= link_to 'Solicitudes de devolución', refund_requests_path %><br />
 	- <%= link_to 'Administrador de tallas', sizes_path %><br />
 	- <%= link_to 'Administrador de costos por comuna', administration_edit_dispatch_costs_path %><br />
@@ -22,13 +26,7 @@
 	- <%= link_to 'Detalle de intentos de compra en la página',  purchases_path(:status => 'all') %><br />
 	<br />
 	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Reportes de Pagos</div>
-	- <%= link_to 'Pagos a proveedores', reports_products_payments_path %><br />
-	<br />
-	<% end %>
-	<% if @matriclicker.privileges.include? Privilege.find_by_name("Webpage") %>
-	<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Administración de la página</div>
-	- <%= link_to 'Administrar Blog',  posts_path %><br />
-	- <%= link_to 'Administrar imágenes del slider', slider_images_path %><br />
+	- <%= link_to 'Pagos de productos a proveedores', reports_products_payments_path %><br />
 	<br />
 	<% end %>
 	<% if @matriclicker.privileges.include? Privilege.find_by_name("Reportes") %>
