@@ -75,10 +75,10 @@ class SupplierAccount < ActiveRecord::Base
     debt = 0
     purchases.each do |p|
       if p.purchasable_type == 'Dress'
-        debt = debt + p.total_cost if (p.purchasable.supplier_account_id == self.id and !p.store_paid)
+        debt = debt + p.total_cost if (p.purchasable.supplier_account_id == self.id and !p.store_paid and !p.total_cost.nil?)
       else
         p.purchasable.shopping_cart_items.each do |sci|
-          debt = debt + sci.total_cost if (sci.purchasable.supplier_account_id == self.id and !p.store_paid)
+          debt = debt + sci.total_cost if (sci.purchasable.supplier_account_id == self.id and !p.store_paid and !p.total_cost.nil?)
         end
       end
     end
