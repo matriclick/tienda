@@ -12,16 +12,6 @@
 </div>
 
 <div class="supplier_page_in_data">
-	<% case @supplier.supplier_account.id %>
-		<% when 141 # Calabrese 141 %>
-			<div class="logo_soty_medium">
-				<%= image_tag 'supplier_exclusive/se_120x120_01.png' %>
-			</div>
-		<% when 784, 40 # Rinaldo Verdi Fotografía Profesional 784, TuMatriEsÚnico 40 %>
-			<div class="logo_soty_medium">
-				<%= image_tag 'supplier_of_the_year/soty_medium_03.png' %>
-			</div>
-	<% end %>
 	<h1 class="supplier_page_in_name"><%= "#{crop_if_longer @supplier.supplier_account.fantasy_name, 47}" %></h1>	
 	<ul class="supplier_page_in_supplier">
 		<li class="supplier_data">
@@ -38,24 +28,6 @@
 				<% end %>
 			<% end %>
 		</li>
-		<% if current_user.nil? -%>
-			<li class="button_in_product">
-				<%= link_to raw("<div class='image'></div><div class='message'>"+t('ask_reference')+"</div>"), "#sign_in_fancybox" , :id => "reference_request_button", :class => 'action_button fancybox_message' %>
-				<%= link_to raw("<div class='image'></div><div class='message'>Pedir una cotización</div>"), "#sign_in_fancybox" , :id => "send_message_button", :class => 'action_button fancybox_message' %>
-				<% if @supplier.supplier_account.online_payment %>
-						<%= link_to image_tag('pago_online.png', :alt => 'Pago Online Activado'), '#pago_online_description', :class => [:fancybox_message, :image_button] %>
-				<% end %>
-			</li>
-			<%= render "layouts/sign_in_fancybox" %>
-		<% else -%>
-			<li class="button_in_product">
-				<%= render 'layouts/reference_request' %>
-				<%= link_to raw("<div class='image'></div><div class='message'>Pedir una cotización</div>"), '#select_service', :id => "send_message_button", :class => 'action_button fancybox_message' %>
-				<% if @supplier.supplier_account.online_payment %>
-						<%= link_to image_tag('pago_online.png', :alt => 'Pago Online Activado'), '#pago_online_description', :class => [:fancybox_message, :image_button] %>
-				<% end %>
-			</li>
-		<% end %>
 	</ul>
 	<div class="supplier_page_in_links"></div>
 </div>
@@ -117,35 +89,3 @@
 		<%= render "products_and_services", :supplier => @supplier %>
 	</div>
 </div>
-
-<% if @supplier.supplier_account.online_payment %>
-	<div style="display:none"> <!-- fancy view -->
-		<div id="pago_online_description" style="width:950px;">
-			<div style="margin-bottom:10px; font-weight:bold; font-size:14px; text-align:center;">
-				¡Puedes reservar y pagar los servicios de de este proveedor Online!
-			</div>
-			<div style="margin-bottom:20px; text-align:center;">
-				Acumula puntos de tu tarjet de crédito | Podrás pagar en cuotas | Respaldo Matriclick.com
-			</div>
-			<div style="float:left">
-				<div style="margin-bottom:10px; font-weight:bold; font-size:14px; color:blue">Paso 1: Selecciona el servicio</div>
-				<div style="text-align:center">
-					<%= image_tag 'online_payment/selecciona_servicio.png', :alt => 'Selecciona el servicio' %>
-				</div>
-			</div>
-			<div style="float:right">
-				<div style="margin-bottom:10px; font-weight:bold; margin-left:20px; font-size:14px; color:blue">Paso 2: Coordina con el proveedor</div>
-				<div style="text-align:center">
-					<%= image_tag 'online_payment/selecciona_pagar_online.png', :alt => 'Coordina con el proveedor' %>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div style="text-align:center">
-				<div style="margin-bottom:10px; font-weight:bold; font-size:14px; color:blue">Paso 3: Paga el monto acordado con tus tarjetas</div>
-				<div style="text-align:center">
-					<%= image_tag 'online_payment/confirma_pago.png', :alt => 'Paga el monto acordado con tus tarjetas' %>
-				</div>
-			</div>
-		</div>
-	</div>
-<% end %>

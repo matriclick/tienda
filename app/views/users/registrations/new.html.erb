@@ -23,7 +23,7 @@
 				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 					Correo <%= f.email_field :email, :placeholder => t('email'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
 					Clave <%= f.password_field :password, :placeholder => t('password'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
-					<%= f.submit 'Ingresar a Matriclick', :class => "sign_in_tab_button" %>			
+					<%= f.submit 'Ingresar a Tramanta', :class => "sign_in_tab_button" %>			
 				<% end %>
 			</div>
 		</div>
@@ -47,11 +47,11 @@
 				</div>
 			</div>
 			<div style="margin:20px 0px 20px 20px">
-				o <b>crea</b> un nuevo usuario y clave Matriclick:<br /><br />
+				o <b>crea</b> un nuevo usuario y clave Tramanta:<br /><br />
 				<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 					Correo <%= f.email_field :email, :placeholder => t('email'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
 					Clave <%= f.password_field :password, :placeholder => t('password'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
-					<%= f.submit 'Crear una nueva cuenta en Matriclick', :class => "sign_in_tab_button" %>			
+					<%= f.submit 'Crear una nueva cuenta en Tramanta', :class => "sign_in_tab_button" %>			
 				<% end %>
 			</div>
 		</div>
