@@ -5,13 +5,13 @@ class UserMailer < ActionMailer::Base
   def send_tracking_info(purchase, country_url_path)
     @purchase = purchase
     @country_url_path = country_url_path
-    mail to: "<#{@purchase.user.email}>", bcc: "mensajes@tramanta.com", subject: "Datos de despacho del producto | Tramanta.com"
+    mail to: "<#{@purchase.user.email}>", bcc: "equipo-tramanta@matriclick.com", subject: "Datos de despacho del producto | Tramanta.com"
   end
   
   def user_email(user, password) # when a UserAccount add a new user to his people
   	@user = user
 		@password = password
-  	mail to: "<#{@user.email}>", bcc: "mensajes@tramanta.com", subject: "[Matriclick.com] Se ha creado un nuevo usuario"
+  	mail to: "<#{@user.email}>", bcc: "equipo-tramanta@matriclick.com", subject: "[Matriclick.com] Se ha creado un nuevo usuario"
   end
   
   # LO QUIERO MAMÁ
@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
     @dress_url = mail_inline.dress_url
     @dress_image_url = mail_inline.dress_image_url
 
-		mail to: "#{@recipient_email}", bcc: "contacto@tramanta.com", from: "#{@sender_name} #{@sender_last_name} <no-reply@matriclick.cl>", reply_to: "contacto@tramanta.com", subject: "¡#{@sender_name} #{@sender_last_name} quiere que le regales esto!"
+		mail to: "#{@recipient_email}", bcc: "equipo-tramanta@matriclick.com", from: "#{@sender_name} #{@sender_last_name} <no-reply@matriclick.cl>", reply_to: "tramanta@matriclick.com", subject: "¡#{@sender_name} #{@sender_last_name} quiere que le regales esto!"
 	end
 
 	#DRESS REQUEST
@@ -40,7 +40,7 @@ class UserMailer < ActionMailer::Base
       @name = contact.name
     end
     
-		mail to: "#{email}", bcc: %w{contacto@tramanta.com}, subject: "[Matriclick.com] Cotización de Vestido "+@dress.dress_type.name
+		mail to: "#{email}", bcc: %w{equipo-tramanta@matriclick.com}, subject: "[Matriclick.com] Cotización de Vestido "+@dress.dress_type.name
 	end
 	
 	def dress_request_to_buyer_email(dress, user, dress_url)
@@ -58,7 +58,7 @@ class UserMailer < ActionMailer::Base
       @phone_number = contact.phone_number
     end
     
-		mail to: "#{@user.email}", bcc: %w{contacto@tramanta.com}, subject: "[Matriclick.com] Cotización de Vestido "+@dress.dress_type.name
+		mail to: "#{@user.email}", bcc: %w{equipo-tramanta@matriclick.com}, subject: "[Matriclick.com] Cotización de Vestido "+@dress.dress_type.name
 	end
 
 	# SUELTA LA ROCA
@@ -116,14 +116,14 @@ class UserMailer < ActionMailer::Base
     @country_url_path = @message.conversation.supplier_account.country.url_path
   	@conversation = @message.conversation
   	@supplier_account = @conversation.supplier_account
-  	mail to: "<#{@user.email}>", bcc: "contacto@tramanta.com ", subject: "[Matriclick.com] El proveedor #{@supplier_account.fantasy_name} ha respondido a tu mensaje"
+  	mail to: "<#{@user.email}>", bcc: "tramanta@matriclick.com ", subject: "[Matriclick.com] El proveedor #{@supplier_account.fantasy_name} ha respondido a tu mensaje"
   end
   
 	# REMINDERS
   def reminder_email(activity_reminder)
    	@activity_reminder = activity_reminder
    	@country_url_path = @activity_reminder.activity.user_account.country.url_path
- 		mail to: "<#{@activity_reminder.mail}>", bcc: "contacto@tramanta.com ", subject: "[Matriclick.com] Recordatorio de Actividad en Checklist."
+ 		mail to: "<#{@activity_reminder.mail}>", bcc: "tramanta@matriclick.com ", subject: "[Matriclick.com] Recordatorio de Actividad en Checklist."
   end
 
 end
