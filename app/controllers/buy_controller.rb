@@ -291,7 +291,7 @@ class BuyController < ApplicationController
         generate_credit_reduction(@purchase)
     
         #GENERA LOS CRÉDITOS DE PREMIO EN EL CASO DE PAGO WEBPAY (acción success)
-        generate_credit(@purchase) #if action_name == 'success'
+        #generate_credit(@purchase) #if action_name == 'success'
         
         #ENVÍA EL CORREO PARA AVISAR QUE OCURRIÓ UNA COMPRA
         NoticeMailer.purchase_email(@purchase, params[:country_url_path]).deliver
