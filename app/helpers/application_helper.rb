@@ -1,4 +1,10 @@
 module ApplicationHelper
+  
+  def wish_list_link
+		link_to '('+current_user.dresses.size.to_s+') Wish List', user_profile_wish_list_path
+  end
+  
+  
   # Helpers to build sortable tables
   def sortable(column, title = nil)
     title ||= column.titleize

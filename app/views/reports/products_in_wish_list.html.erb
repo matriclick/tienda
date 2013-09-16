@@ -1,0 +1,36 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<b>Filtro por fecha en que se agregó el producto al Wish List</b>
+			<%= render 'date_range_selector' %>
+			<%= link_to 'Volver al menú de administración', administration_index_path %>
+			<br /><br />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<tr>
+					<th>Producto</th>
+					<th># Apariciones</th>
+					<th>% del total</th>
+				</tr>
+				<% @wlis.each do |wli| %>
+				<tr>
+					<th>
+						<div class="media">
+						<%= link_to image_tag(wli.dress.small_image, class: 'media-object'), 
+												dress_ver_path(:type => wli.dress.dress_type.name, :slug => wli.dress.slug), class: 'pull-left thumbnail' %>						
+							<div class="media-body">
+									<%= link_to wli.dress.introduction, dress_ver_path(:type => wli.dress.dress_type.name, :slug => wli.dress.slug) %>
+							</div>
+						</div>
+					</th>
+					<td><%= wli.count %></td>
+					<td><%= number_to_percentage(100 * wli.count / @wli_sum.to_f, :precision => 1) %></td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

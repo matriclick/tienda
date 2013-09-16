@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class DeliveryInfosController < ApplicationController
   before_filter :redirect_unless_admin, :only => [:index, :show]
   before_filter :authenticate_user!
@@ -33,11 +34,8 @@ class DeliveryInfosController < ApplicationController
   def new
     @delivery_info = DeliveryInfo.new
     @user = current_user
-    @object = eval(params[:purchasable_type] + '.find ' + params[:purchasable_id])
-    
-    respond_to do |format|
-      format.html { render :layout => false }  # new.html.erb
-      format.json { render json: @delivery_info }
+    if !params[:purchasable_type].nil?
+      @object = eval(params[:purchasable_type] + '.find ' + params[:purchasable_id])
     end
   end
 
@@ -45,10 +43,8 @@ class DeliveryInfosController < ApplicationController
   def edit
     @delivery_info = DeliveryInfo.find(params[:id])
     @user = current_user
-    @object = eval(params[:purchasable_type]+'.find '+params[:purchasable_id])
-    
-    respond_to do |format|
-      format.html { render :layout=> false }  # new.html.erb
+    if !params[:purchasable_type].nil?
+      @object = eval(params[:purchasable_type] + '.find ' + params[:purchasable_id])
     end
   end
 
@@ -57,13 +53,17 @@ class DeliveryInfosController < ApplicationController
   def create
     @delivery_info = DeliveryInfo.new(params[:delivery_info])
     @user = current_user
-    @object = eval(params[:purchasable][:type]+'.find '+params[:purchasable][:id])
+    if !params[:purchasable_type].nil?
+      @object = eval(params[:purchasable][:type]+'.find '+params[:purchasable][:id])
+    end
     
     respond_to do |format|
       if @delivery_info.save
-        #object = eval(''+@delivery_info.purchases.last.purchasable_type+'.find '+@delivery_info.purchases.last.purchasable_id.to_s)
-        format.html { redirect_to buy_details_path(:purchasable_id => params[:purchasable][:id], :purchasable_type => params[:purchasable][:type]) }
-        format.json { render json: @delivery_info, status: :created, location: @delivery_info }
+        if !@object.nil?
+          format.html { redirect_to buy_details_path(:purchasable_id => params[:purchasable][:id], :purchasable_type => params[:purchasable][:type]) }
+        else
+          format.html { redirect_to user_profile_information_path }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @delivery_info.errors, status: :unprocessable_entity }
@@ -78,10 +78,11 @@ class DeliveryInfosController < ApplicationController
     
     respond_to do |format|
       if @delivery_info.update_attributes(params[:delivery_info])
-        #object = eval(''+@delivery_info.purchases.last.purchasable_type+'.find '+@delivery_info.purchases.last.purchasable_id.to_s)
-        
-        format.html { redirect_to buy_details_path(:purchasable_id => params[:purchasable][:id], :purchasable_type => params[:purchasable][:type]) }
-        format.json { head :ok }
+        if !@object.nil?
+          format.html { redirect_to buy_details_path(:purchasable_id => params[:purchasable][:id], :purchasable_type => params[:purchasable][:type]) }
+        else
+          format.html { redirect_to user_profile_information_path }
+        end
       else
         format.html { render action: "edit" }
         format.json { render json: @delivery_info.errors, status: :unprocessable_entity }
@@ -93,11 +94,20 @@ class DeliveryInfosController < ApplicationController
   # DELETE /delivery_infos/1.json
   def destroy
     @delivery_info = DeliveryInfo.find(params[:id])
-    @delivery_info.destroy
+    
+    if @delivery_info.purchases.size == 0
+      @delivery_info.destroy
+      msg = 'Dirección eliminada sin problemas'
+    else 
+      msg = 'No podemos eliminar esta dirección ya que tiene compras relacionadas'
+    end
     
     respond_to do |format|
-      format.html { redirect_to buy_details_path(:purchasable_id => params[:purchasable_id], :purchasable_type => params[:purchasable_type]) }
-      format.json { head :ok }
+      if !params[:purchasable].nil?
+        format.html { redirect_to buy_details_path(:purchasable_id => params[:purchasable][:id], :purchasable_type => params[:purchasable][:type]), notice: msg }
+      else
+        format.html { redirect_to user_profile_information_path, notice: msg }
+      end
     end
   end
 end

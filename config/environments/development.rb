@@ -27,7 +27,7 @@ Matri::Application.configure do
 
 	# Expands the lines which load the assets
 	config.assets.debug = false
-
+  
 	# Mailer configuration required by Devise	
 	config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",

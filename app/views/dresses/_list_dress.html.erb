@@ -1,0 +1,20 @@
+<div class="col-md-3" style="height:371px; overflow:hidden;">
+	<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
+		dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+	<p style="font-size:12px"><strong><%= number_to_currency dress.price %></strong><br/>
+		 <%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></p>
+	<p>
+		<%= link_to raw('<span class="glyphicon glyphicon-shopping-cart"></span>'), 
+				buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), 
+				:method => :post, :class => 'btn btn-default btn-md', title: "Agregar al Carrito" %>							
+		<% if !current_user.nil? and current_user.dresses.include? dress %>
+			<%= link_to raw('<span class="glyphicon glyphicon-star"></span>'), 
+					user_profile_add_to_wish_list_path(:dress_id => dress.id), 
+					:method => :put, class: "btn btn-default btn-md", title: "Agregar a Wish List" %>
+		<% else %>
+		<%= link_to raw('<span class="glyphicon glyphicon-star-empty"></span>'), 
+				user_profile_add_to_wish_list_path(:dress_id => dress.id), 
+				:method => :put, class: "btn btn-default btn-md", title: "Agregar a Wish List" %>
+		<% end %>
+	</p>
+</div><!--/span--> 

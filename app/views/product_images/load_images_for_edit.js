@@ -1,1 +1,0 @@
-$("#images_for_edit").html("<%= escape_javascript(render('products/images_for_edit'))%>");

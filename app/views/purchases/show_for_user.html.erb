@@ -1,6 +1,6 @@
-<div class="left_menu">
+<div class="container">
 	<%= render 'user_profile/left_menu', :dresses => @dresses %>
-</div>
-<div style="width:750px; float:left; margin-left:20px;">
-	<%= render 'show_purchase', :purchase => @purchase, :purchasable => @purchasable, :subtotal => @subtotal %>
+	<div class="row">
+		<%= render 'show_purchase', :purchase => @purchase, :purchasable => @purchasable, :subtotal => @subtotal %>
+	</div>
 </div>

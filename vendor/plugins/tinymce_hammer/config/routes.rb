@@ -2,9 +2,7 @@ if Rails.version =~ /^3/
 
   # newer rails 3.0+ compat routes
   Rails.application.routes.draw do
-    scope ":country_url_path" do # BEGINING OF SCOPE COUNTRY_URL_PATH
-      match '/javascripts/tinymce_hammer.js' => 'tinymce/hammer#combine', :as => 'tinymce_hammer_js'
-    end # ENDING OF SCOPE COUNTRY_URL_PATH
+    match '/javascripts/tinymce_hammer.js' => 'tinymce/hammer#combine', :as => 'tinymce_hammer_js'
   end
 
 else

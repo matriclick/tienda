@@ -45,7 +45,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/new.json
   def new
     @opportunity = Opportunity.new
-    @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).approved.order 'fantasy_name'
+    @supplier_accounts = SupplierAccount.approved.order 'fantasy_name'
     
     respond_to do |format|
       format.html # new.html.erb
@@ -56,7 +56,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/1/edit
   def edit
     @opportunity = Opportunity.find(params[:id])
-    @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).approved.order 'fantasy_name'
+    @supplier_accounts = SupplierAccount.approved.order 'fantasy_name'
   end
 
   # POST /opportunities
@@ -69,7 +69,7 @@ class OpportunitiesController < ApplicationController
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully created.' }
         format.json { render json: @opportunity, status: :created, location: @opportunity }
       else
-        @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).approved.order 'fantasy_name'
+        @supplier_accounts = SupplierAccount.approved.order 'fantasy_name'
         
         format.html { render action: "new" }
         format.json { render json: @opportunity.errors, status: :unprocessable_entity }
@@ -87,7 +87,7 @@ class OpportunitiesController < ApplicationController
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
         format.json { head :ok }
       else
-        @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).approved.order 'fantasy_name'
+        @supplier_accounts = SupplierAccount.approved.order 'fantasy_name'
         
         format.html { render action: "edit" }
         format.json { render json: @opportunity.errors, status: :unprocessable_entity }

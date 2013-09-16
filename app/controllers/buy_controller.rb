@@ -53,7 +53,10 @@ class BuyController < ApplicationController
     user = current_user
     @shopping_cart = user.select_current_shopping_cart
     @shopping_cart_items = @shopping_cart.shopping_cart_items
-
+    
+    add_breadcrumb "Tramanta", :bazar_path
+    add_breadcrumb "Carrito", :buy_view_cart_path
+    
     @first_max = {}
     @stocks_for_js = '{'
     @shopping_cart_items.each do |shopping_cart_item|
@@ -82,7 +85,7 @@ class BuyController < ApplicationController
     @shopping_cart_items = ShoppingCartItem.update(params[:shopping_cart_items].keys, params[:shopping_cart_items].values).reject { |shopping_cart_item| shopping_cart_item.errors.empty? }
     
     if @shopping_cart_items.empty?
-      if params[:commit] == 'Pagar Productos'
+      if params[:commit] == 'Pagar carrito de compras'
         redirect_to buy_details_path(:purchasable_type => @shopping_cart.class, :purchasable_id => @shopping_cart.id)
       else
         redirect_to buy_view_cart_path
@@ -117,6 +120,9 @@ class BuyController < ApplicationController
     @purchase = Purchase.find params[:purchase_id]
     @purchasable = @purchase.purchasable
     
+    add_breadcrumb "Tramanta", :bazar_path
+    add_breadcrumb "Carrito", :buy_view_cart_path
+    
     if !@purchase.delivery_info.nil?
       @show_map = true
       @map = @purchase.delivery_info
@@ -139,6 +145,9 @@ class BuyController < ApplicationController
     @purchase = Purchase.new
     @purchasable = eval(params[:purchasable_type] + '.find ' + params[:purchasable_id])
     @subtotal = @purchasable.price
+    
+    add_breadcrumb "Tramanta", :bazar_path
+    add_breadcrumb "Carrito", :buy_view_cart_path
     
     if params[:purchasable_type] == 'Dress'
       @stocks_for_js = '{'
@@ -294,7 +303,7 @@ class BuyController < ApplicationController
         #generate_credit(@purchase) #if action_name == 'success'
         
         #ENVÍA EL CORREO PARA AVISAR QUE OCURRIÓ UNA COMPRA
-        NoticeMailer.purchase_email(@purchase, params[:country_url_path]).deliver
+        NoticeMailer.purchase_email(@purchase).deliver
       end
     end
   end

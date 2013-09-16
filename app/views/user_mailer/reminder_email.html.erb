@@ -11,7 +11,7 @@
 					"<%= sanitize @activity_reminder.activity.name.gsub(/\n/,"<br>"), :tags => %w(br) %>", que ha de ser realizada antes de <%= @activity_reminder.activity.done_by_date %>.
 					
 					<p style="color:#444;">
-						Revisa tu checklist <%= link_to "aquí", matrichecklist_index_url(:country_url_path => @country_url_path), :style => "color:#0071BC;text-decoration:none;" %>.
+						Revisa tu checklist <%= link_to "aquí", matrichecklist_index_url, :style => "color:#0071BC;text-decoration:none;" %>.
                     </p>
 					<br/>
 					Saludos cordiales,<br>

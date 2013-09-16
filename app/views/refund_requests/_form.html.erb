@@ -1,57 +1,67 @@
-<%= form_for(@refund_request) do |f| %>
-<% if @refund_request.errors.any? %>
-<div id="error_explanation">
-	<h2><%= pluralize(@refund_request.errors.count, "errores") %> hicieron que no fuera posible enviar la solicitud</h2>
-</div>
-<% end %>
-
-<h2>Producto</h2>
-<h4>Selecciona el producto que quieres devolver. Si son más de 1, selecciona cualquiera y en los comentarios describe el resto.<h4>
-<div class="field" style="margin-bottom:20px">
-	<% current_user.purchased_dresses.each do |pd| %>
-		<div style="float:left; margin-bottom:5px;">
-			<%= link_to(image_tag(pd.dress_images.first.dress.url(:tiny)), pd) if !pd.dress_images.first.nil? %>
-		</div>
-		<div style="float:left; margin:6px 0px 0px 5px">
-			<%= f.radio_button :dress_id, pd.id %>
-			<%= f.label :dress_id, pd.introduction %>
-		</div>
-		<div class="clear"></div>
+<%= form_for(@refund_request, :html => { role: "form" }) do |f| %>
+	<% if @refund_request.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@refund_request.errors.count, "errores") %> hicieron que no fuera posible enviar la solicitud</h2>
+	</div>
 	<% end %>
-</div>
 
-<h2>Razón de la devolución</h2>
-<div class="field" style="margin-bottom:20px">
-	<% RefundReason.all.each do |rr| %>
-	<%= f.radio_button :refund_reason_id, rr.id %>
-	<%= f.label :refund_reason_id, rr.name %><br /><em style="color:grey; font-size:11px"><%= rr.description %></em><br /><br />
-	<% end %>
-</div>
+	<h4>Selecciona el producto que quieres devolver<h4>
+	<div class="form-group">		
+		<% current_user.purchased_dresses.each do |pd| %>
+		<div class="panel panel-default">
+		  <div class="panel-body">
+				<div class="media">
+			    <%= link_to(image_tag(pd.dress_images.first.dress.url(:tiny)), pd, class: "pull-left") if !pd.dress_images.first.nil? %>
+					<div class="media-body">
+						<%= f.radio_button :dress_id, pd.id %>
+						<%= f.label :dress_id, pd.introduction %>
+					</div>
+				</div>
+		  </div>
+		</div>
+		<% end %>
+	</div>
 
-<h2>Datos de la cuenta</h2>
-<div class="field" style="margin-bottom:20px">
-	<%= f.label :account_owner_name, 'Nombre' %> <%= f.text_field :account_owner_name %><br />
-	<%= f.label :account_owner_id, 'RUT' %> <%= f.text_field :account_owner_id %><br />
-	<%= f.label :account_owner_email, 'Correo' %> <%= f.text_field :account_owner_email %><br />
-	<%= f.label :account_bank, 'Banco' %> <%= f.text_field :account_bank %><br />
-	<%= f.label :account_type, 'Tipo de cuenta' %> <%= f.text_field :account_type %><br />
-	<%= f.label :account_number, 'Número de cuenta' %> <%= f.text_field :account_number %>
-</div>
+	<h4>Razón de la devolución</h4>
+	<div class="form-group">
+			<% RefundReason.all.each do |rr| %>
+			<div class="panel panel-default">
+			  <div class="panel-body">
+					<div class="radio">
+					<label>
+						<%= f.radio_button :refund_reason_id, rr.id %>
+						<%= rr.name %><span class="help-block"><%= rr.description %></span>
+					</label>
+				</div>
+			</div>
+		</div>
+			<% end %>
+	</div>
 
-<h2><%= f.label :description, 'Comentarios adicionales' %></h2>
-<div class="field" style="margin-bottom:20px">
-	<%= f.text_area :description, :size => '1x10' %>
-</div>
+	<h4>Datos de la cuenta</h4>
+	<div class="form-group">
+		<%= f.label :account_owner_name, 'Nombre' %> <%= f.text_field :account_owner_name, class: "form-control" %><br />
+		<%= f.label :account_owner_id, 'RUT' %> <%= f.text_field :account_owner_id, class: "form-control" %><br />
+		<%= f.label :account_owner_email, 'Correo' %> <%= f.text_field :account_owner_email, class: "form-control" %><br />
+		<%= f.label :account_bank, 'Banco' %> <%= f.text_field :account_bank, class: "form-control" %><br />
+		<%= f.label :account_type, 'Tipo de cuenta' %> <%= f.text_field :account_type, class: "form-control" %><br />
+		<%= f.label :account_number, 'Número de cuenta' %> <%= f.text_field :account_number, class: "form-control" %>
+	</div>
 
-<div class="field">
-	<%= f.hidden_field :user_id, :value => @user_id %>
-</div>
-<div class="field">
-	Luego de que solicites la devolución, te responderemos con las instrucciones para devolver el producto.
-</div>
-<br />
-<div class="actions" style="margin-bottom:20px">
-	<%= f.submit 'Solicitar devolución', class: 'button_buy_dress_pink' %>
-</div>
+	<h4><%= f.label :description, 'Comentarios adicionales' %></h4>
+	<div class="form-group">
+		<%= f.text_area :description, class: "form-control", rows: '4' %>
+	</div>
+
+	<div class="field">
+		<%= f.hidden_field :user_id, :value => @user_id %>
+	</div>
+	<div class="field">
+		Luego de que solicites la devolución, te responderemos con las instrucciones para devolver el producto.
+	</div>
+	<br />
+	<div class="actions" style="margin-bottom:20px">
+		<%= f.submit 'Solicitar devolución', class: 'btn btn-default' %>
+	</div>
 
 <% end %>

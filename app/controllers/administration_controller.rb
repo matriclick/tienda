@@ -15,11 +15,21 @@ class AdministrationController < ApplicationController
     @purchase = Purchase.find(params[:id])
     user = User.find_by_email(params[:user_email])
     @purchase.user = user if !user.nil?
+
+    refunded_sci_ids = params[:refund_shopping_cart_items]
+    
+    if !refunded_sci_ids.nil?
+      refunded_sci_ids.each do |sci_id|
+        sci = ShoppingCartItem.find sci_id
+        sci.refunded = true
+        sci.save
+      end
+    end
     
     respond_to do |format|
       if !user.nil? and @purchase.update_attributes(params[:purchase])
         if !@purchase.logistic_provider.nil? and params[:commit] == 'Actualizar y enviar correo'
-          UserMailer.send_tracking_info(@purchase, params[:country_url_path]).deliver
+          UserMailer.send_tracking_info(@purchase).deliver
         end
         format.html { redirect_to purchases_path(:status => 'finalizado') }
         format.json { head :ok }
@@ -344,7 +354,7 @@ class AdministrationController < ApplicationController
   # GET
   def reviews
     redirect_unless_privilege('Webpage')
-  	@supplier_accounts = SupplierAccount.where(:country_id => session[:country].id)
+  	@supplier_accounts = SupplierAccount.all
   	@reviews = Review.order 'created_at DESC'
   end
   

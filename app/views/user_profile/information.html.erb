@@ -1,0 +1,49 @@
+<div class="container">
+	<%= render 'left_menu', :dresses => @dresses %>
+	
+	<div class="panel panel-default">
+	  <div class="panel-heading"><h3 class="panel-title">Créditos</h3></div>
+	  <div class="panel-body">
+			<% if @user.check_if_has_credits %>
+				¡Felicitaciones! Tienes <strong><%= number_to_currency @user.credit_amount %></strong> para comprar en Tramanta.com<br /><br />
+				En tu próxima descontaremos los créditos que tengas disponible del precio final
+			<% else %>
+				No tienes créditos abonados a tu cuenta
+			<% end %>
+		</div>
+	</div>
+	
+	<div class="panel panel-default">
+	  <div class="panel-heading"><h3 class="panel-title">Direcciones</h3></div>
+	  <div class="panel-body">
+			<% @user.delivery_infos.each do |di| %>
+				<% if @user.delivery_infos.first == di then checked = true else checked = false end %>
+				<div>
+					<b>
+						<%= di.street %>
+						<%= di.number %>
+						<%= ', depto/casa ' + di.apartment if !di.apartment.blank? %>
+
+						<% if !di.commune.nil? %>
+							<%= ', ' + di.commune.name %>
+							<%= ', ' + di.commune.region.name if !di.commune.region.nil? %>
+						<% end %>
+					</b> 
+					<%= link_to '(editar)', edit_delivery_info_path(di) %>
+					<%= link_to '(-)', delivery_info_path(di), confirm: '¿Estás seguro que quieres elminar esta dirección?', method: :delete %>
+				</div> 
+				<div style="margin:2px 0px 15px 25px; font-size:10px">
+					<%= di.name %> | <%= di.rut %> | <%= di.contact_phone %><br />
+					<% if !di.commune.nil? %>
+						<% if !di.commune.dispatch_cost.nil? %>
+							<%= link_to('Costo de despacho: ' + number_to_currency(di.commune.dispatch_cost), display_dispatch_costs_path, :id => 'form_inline') %>
+						<% else %>
+									No aplica despacho
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+			<%= link_to '(+) Nueva dirección de despacho', new_delivery_info_path %>
+	  </div>
+	</div>
+</div>

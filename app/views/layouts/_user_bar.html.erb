@@ -1,3 +1,73 @@
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	<%= link_to image_tag('el_bazar/logo_sm.png', alt: 'Tramanta.com'), root_path, class: "navbar-brand", style: 'padding:8px 5px 0px 0px' %>
+    </div>
+    <div class="navbar-collapse collapse" style="font-size:13px;">
+      <ul class="nav navbar-nav">
+        <li><%= link_to 'New Arrivals!', dresses_new_arrivals_path %></li>
+        <li><%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %></li>
+			  <li><%= link_to 'Leggings', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>				
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ropa de Mujer <b class="caret"></b></a>
+          <ul class="dropdown-menu" style="background-color:#f8f8f8; color:#777; border-top:none; font-size:12px">
+            <li><%= link_to 'Blusas / Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
+					  <li><%= link_to 'Chalecos / Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
+					  <li><%= link_to 'Chaquetas', dresses_ver_path(:type => "ropa-de-mujer-chaquetas") %></li>
+					  <li><%= link_to 'Pantalones / Leggings', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>
+					  <li><%= link_to 'Polleras', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
+					  <li><%= link_to 'Ropa Interior', dresses_ver_path(:type => "ropa-interior") %></li>
+          </ul>
+        </li>
+	  		<li><%= link_to 'Zapatos y Botas', dresses_ver_path(:type => "zapatos") %></li>
+				<li><%= link_to 'Blog', blog_el_bazar_path %></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+				<% if user_signed_in? %>
+	        <li><%= wish_list_link %></li>
+	        <li><%= carrito_compra_link %></li>
+					<li><%= link_to "Tu Cuenta", user_profile_personalization_path, :rel => 'nofollow' %></li>
+					<li><%= link_to 'Salir', destroy_user_session_path, method: :delete, :rel => 'nofollow' %></li>
+				<% else %>
+				<li>
+					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), 
+											:html => {class: "form-inline", role: "form", style: 'margin-top:12px'}) do |f| %>
+						<div class="form-group">
+					    <label class="sr-only" for="exampleInputEmail2">Correo</label>
+							<%= f.email_field :email, :placeholder => 'Correo', :class => "form-control input-sm", style: "width:130px;font-size:11px" %>
+					  </div>
+					  <div class="form-group">
+					    <label class="sr-only" for="exampleInputPassword2">Clave</label>
+							<%= f.password_field :password, :placeholder => 'Clave', :class => "form-control input-sm", style: "width:130px;font-size:11px" %>
+					  </div>
+						<%= f.submit 'Entrar', :class => "btn btn-default input-sm", style: "font-size:11px" %>
+					<% end %>
+				</li>
+				<%- if devise_mapping.omniauthable? %>
+					<%- devise_mapping.to.omniauth_providers.each do |provider| %>
+						<li>
+							<%= link_to image_tag('iconos_redes/'+provider.to_s+'-user-bar.png'), omniauth_authorize_path(resource_name, provider), 
+									style: "padding:10px 0px 0px 10px" %>
+						</li>
+					<% end -%>
+				<% end -%>
+				<!--
+					<li><%= link_to 'Ingresar', new_user_registration_path, :rel => 'nofollow' %></li>
+					<li><%= link_to 'Registro', new_user_registration_path, :rel => 'nofollow' %></li>
+				-->
+				<% end %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<!--
 <div style="left:830px; top:10px; position:absolute;">
 	<% if user_signed_in? %>
 		<%= link_to "Tu Cuenta | ", user_profile_personalization_path,  :class => 'no_underline_login', :rel => 'nofollow' %>
@@ -13,10 +83,10 @@
 </div>
 <div class="center box_nine_six_cero" style="margin-top:5px;">
 	<div style="position:absolute;">
-		<%= link_to (image_tag 'el_bazar/logo.png', :alt => "Tramanta.com"), root_country_path %>
+		<%= link_to (image_tag 'el_bazar/logo.png', :alt => "Tramanta.com"), root_path %>
 	</div>
 	<div style="position:absolute; text-align:center; color:#c136b2; left:40%; top:15px; font-size:13px">
-		<%= (user_signed_in? and current_user.check_if_has_credits) ? number_to_currency(current_user.credit_amount)+' créditos disponibles' : '' %>
+
 	</div>
 	<div class="right" style="border-bottom:1px solid #ccc; width:770px;">
 		<div>
@@ -24,4 +94,4 @@
 		</div>
 	</div>
 </div>
-
+-->

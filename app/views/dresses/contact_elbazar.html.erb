@@ -1,12 +1,9 @@
-<h1><%= t('contact') %></h1>
-<p>Recuerda antes de enviar el formulario revisar las <%= link_to 'preguntas frecuentes', faq_elbazar_path %> y no olvides que en Tramanta.com siempre <b>compras online</b>. Si no te queda bien completas el <%= link_to 'formulario de devolución', new_refund_request_path %> y rápidamente te devolveremos el dinero y gestionaremos el retorno del producto. Recuerda, no hay un lugar físico para probarse los productos, primero compras y si no te quedara bien, simplemente nos los devuelves. <b>¡Felices compras!</b></p>
-<div class="clear"></div>
-<div class="box">
-	<%= form_for(@contact) do |f| %>
+<div class="container">
+	<h1><%= t('contact') %></h1>
+	<%= form_for(@contact, :html => { role: "form" }) do |f| %>
 	  <% if @contact.errors.any? %>
 	    <div id="error_explanation">
 	      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
-
 	      <ul>
 	      <% @contact.errors.full_messages.each do |msg| %>
 	        <li><%= msg %></li>
@@ -15,24 +12,19 @@
 	    </div>
 	  <% end %>
 	<%= hidden_field_tag 'sent_from', 'el_bazar' %>
-	<table class="invisible">
-		<tr>
-			<td><%= f.label :name, "Nombre" %><br />
-		    <%= f.text_field :name %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :company, "Empresa (si aplica)" %><br />
-		    <%= f.text_field :company %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :email, "Email" %><br />
-		    <%= f.text_field :email %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :comment, "Comentario" %><br />
-		    <%= f.text_area :comment %></td>
-		</tr>
-	</table>
+	<p class="help-block">Recuerda antes de enviar el formulario revisar las <%= link_to 'preguntas frecuentes', faq_elbazar_path %> y no olvides que en Tramanta.com siempre <b>compras online</b>. Si no te queda bien completas el <%= link_to 'formulario de devolución', new_refund_request_path %> y rápidamente te devolveremos el dinero y gestionaremos el retorno del producto. Recuerda, no hay un lugar físico para probarse los productos, primero compras y si no te quedara bien, simplemente nos los devuelves. <b>¡Felices compras!</b></p>
+	<div class="form-group">
+			<%= f.label :name, "Nombre" %> <%= f.text_field :name, class: "form-control", placeholder: "Ingresa tu nombre" %>
+	</div>
+	<div class="form-group">
+			<%= f.label :company, "Empresa (si aplica)" %> <%= f.text_field :company, class: "form-control", placeholder: "Si nos contactas representando a una empresa, escribe su nombre acá" %>
+	</div>
+	<div class="form-group">
+			<%= f.label :email, "Email" %> <%= f.text_field :email, class: "form-control", placeholder: "Ingresa tu correo" %>
+	</div>
+	<div class="form-group">
+			<%= f.label :comment, "Comentario" %> <%= f.text_area :comment, class: "form-control" %>
+	</div>
 	<div class="holder">
 		<%= f.submit t('send'), :class => :button %>	
 	</div>

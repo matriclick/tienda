@@ -1,83 +1,93 @@
-<div style="float:left; width:300px">
-	<% if @purchase.purchasable_type == 'Dress' %>
-		<%= link_to image_tag(@purchasable.main_image), 
-					dress_ver_path(:type => @purchasable.dress_type.name, :slug => @purchasable.slug) %>
-	<% end %>
-</div>
-
-<div style="float:left; width:400px; margin-left:20px">
-	<h3><%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br /></h3>
-	<% if !@purchase.size.blank? %>
-		Talla: <%= @purchase.size %><br />
-	<% end %>
-	<br />
-	<table>
-		<% if @purchase.purchasable_type == 'Dress' %>
-			<tr>
-				<td>Precio Unitario</td>
-				<td><%= number_to_currency @purchasable.price %> </td>
-			</tr>
-			<% if !@purchase.quantity.blank? %>
-				<tr>
-					<td>Cantidad</td>
-					<td><%= @purchase.quantity.to_s %></td>
-				</tr>
-			<% end %>
-		<% end %>
-		<tr>
-			<td>Subtotal</td>
-			<td><%= number_to_currency(@purchase.quantity*@purchase.purchasable_price) %></td>
-		</tr>
-		<tr>
-			<td>Tipo de despacho</td>
-			<td><b><%= @purchase.delivery_method.name %></b>
-				<%= ' (suma '+number_to_currency(@purchase.delivery_method_cost)+')' if @purchase.delivery_method_cost > 0 %></td>
-		</tr>
-		<% if !@purchase.delivery_info.nil? %>
-		<tr>
-			<td><%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %></td>
-			<td>
-				<%= number_to_currency @purchase.delivery_cost %> 
-				<%= ' + '+number_to_currency(@purchase.delivery_method_cost) if @purchase.delivery_method_cost > 0 %>
-			</td>
-		</tr>
-		<% end %>
-		<% if @purchase.credits_used > 0 %>
-		<tr>
-			<td>Créditos usados</td>
-			<td><%= number_to_currency @purchase.credits_used %></td>
-		</tr>
-		<% end %>
-		<tr>
-			<td><b>Precio final</b></td>
-			<td><b><%= number_to_currency @purchase.price %></b></td>
-		</tr>
-	</table>	
-	<br />
-	<% if !@purchase.delivery_date.nil? %>
-		Fecha: <b><%= @purchase.delivery_date.strftime("%d %B %Y") %></b><br /><br />
-	<% end %>
-</div>
-<div class="clear"></div>
-<% if @purchase.purchasable_type == 'ShoppingCart' %>
-	<h2>Productos comprados</h2>
-	<%= render 'cart', cart: @purchasable %>
-<% end %>
-<div class="clear"></div>
-<% if !@purchase.delivery_info.nil? %>
-	<div style="margin-top:20px;">
-		<b>Despacho | Correo contacto: <%= @purchase.user.email %> </b>
-		<hr>
-		<%= @purchase.delivery_info.street %>
-		<%= @purchase.delivery_info.number %>
-		<%= ', depto/casa ' + @purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.blank? %>
-		
-		<% if !@purchase.delivery_info.commune.nil? %>
-			<%= ', ' + @purchase.delivery_info.commune.name %>
-			<%= ', ' + @purchase.delivery_info.commune.region.name if !@purchase.delivery_info.commune.region.nil? %>
-		<% end %>
-		<br /><br />
-		<div id="map" style="width:450px; height:300px;"></div>
+<div class="container">
+	<h3>Compra realizada el <%= @purchase.created_at.utc.strftime("%d/%m/%Y") %></h3>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Detalle pago</h3>
+				</div>
+				<div class="panel-body">
+					<table>
+						<tr>
+							<td>Subtotal</td>
+							<td><%= number_to_currency(@purchase.quantity*@purchase.purchasable_price) %></td>
+						</tr>
+						<tr>
+							<td>Tipo de despacho</td>
+							<td><b><%= @purchase.delivery_method.name %></b>
+								<%= ' (suma '+number_to_currency(@purchase.delivery_method_cost)+')' if @purchase.delivery_method_cost > 0 %></td>
+						</tr>
+						<% if !@purchase.delivery_info.nil? %>
+						<tr>
+							<td><%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %></td>
+							<td>
+								<%= number_to_currency @purchase.delivery_cost %> 
+								<%= ' + '+number_to_currency(@purchase.delivery_method_cost) if @purchase.delivery_method_cost > 0 %>
+							</td>
+						</tr>
+						<% end %>
+						<% if current_user.check_if_has_credits %>
+						<tr>
+							<td>Créditos a usar</td>
+							<td><%= number_to_currency @purchase.credits_used %></td>
+						</tr>
+						<% end %>
+						<tr>
+							<td><b>PRECIO FINAL</b></td>
+							<td><b><%= number_to_currency @purchase.price %></b></td>
+						</tr>
+					</table>	
+				</div>
+			</div>
+		</div>
 	</div>
-<% end %>
-
+	
+	<div class="row">
+	<% @purchasable.shopping_cart_items.each do |shopping_cart_item| %>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title"><%= link_to shopping_cart_item.purchasable.introduction, dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug) %></h3>
+			  </div>
+			  <div class="panel-body">
+					<div class="media">
+							<%= link_to image_tag(shopping_cart_item.purchasable.small_image, class: 'media-object'), 
+													dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), class: 'pull-left thumbnail' %>
+					  <div class="media-body">
+							<ul class="list-group">
+							  <li class="list-group-item"><strong>Precio:</strong> <%= number_to_currency shopping_cart_item.purchasable.price %></li>
+							  <li class="list-group-item"><strong>Talla:</strong> <%= shopping_cart_item.size.to_s %></li>
+							  <li class="list-group-item"><strong>Cantidad:</strong> <%= shopping_cart_item.quantity.to_s %></li>
+							</ul>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Información de despacho</h3>
+				</div>
+				<div class="panel-body">
+					<% if !@purchase.delivery_info.nil? %>
+							<%= @purchase.delivery_info.street %>
+							<%= @purchase.delivery_info.number %>
+							<%= ', depto/casa ' + @purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.blank? %>
+		
+							<% if !@purchase.delivery_info.commune.nil? %>
+								<%= ', ' + @purchase.delivery_info.commune.name %>
+								<%= ', ' + @purchase.delivery_info.commune.region.name if !@purchase.delivery_info.commune.region.nil? %>
+							<% end %>
+							<br /><br />
+							<div id="map" style="width:450px; height:300px;"></div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

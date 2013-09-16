@@ -1,31 +1,11 @@
 <% if params[:yield_fancybox] %>
 	<%= yield %>
 <% else %>
-	<% title("Matriclick", false) %>
 	<%= render "layouts/user_bar" %>
-	<div class="clear"></div>
-	<div class="center <%= @background ? 'background' : '' %>">
-		<% if @home || false %>
-			<div style="text-align:center; margin-top:200px; left:30%; position:absolute; z-index:99;">
-				<form action="<%= dresses_search_path %>" method="get">
-					<%= text_field_tag(:q, @search_term, size: '55x10', id: 'main_search', 
-						value: 'Ejemplo: Vestido azul', rel: 'Ejemplo: Vestido azul') %>
-					<%= submit_tag("Buscar", :name => nil, :class => 'button_filter_pink') %>
-				</form>
-			</div>
-			<div class="center" id="home_content">
-				<%= yield %>
-			</div>
-		<% else %>
-			<div class="main_content center">
-				<%= render "layouts/navigation" %>
-				<%= yield %>
-			</div>	
-		<% end %>
-	</div>
-	<div class="clear"></div>
-	<% if !(@home || false) %>
-		<br />
+	<% unless @not_breadcrumbs %>
+		<%= render "layouts/breadcrumbs" %>
 	<% end %>
+	<%= yield %>
 	<%= render "layouts/footer" %>
+	<%= render 'layouts/notice', notice: notice %>
 <% end %>

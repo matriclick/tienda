@@ -2,6 +2,34 @@
 class UserProfileController < ApplicationController
   before_filter :authenticate_user!
 	
+  def information
+    add_breadcrumb 'Tu cuenta', user_profile_personalization_path
+    add_breadcrumb 'Información Personal', user_profile_information_path
+    
+    @user = current_user
+  end
+  
+  def add_to_wish_list
+    user = current_user
+    dress = Dress.find params[:dress_id]
+    
+    if user.dresses.include? dress
+      user.dresses.delete dress
+    else
+      user.dresses << dress
+    end
+    user.save
+    
+    redirect_to session[:matriclick_last_url]
+  end
+  
+  def wish_list
+    add_breadcrumb 'Tu cuenta', user_profile_personalization_path
+    add_breadcrumb 'Wish List', user_profile_wish_list_path
+    
+    @dresses = current_user.dresses
+  end
+  
   def purchases
     add_breadcrumb 'Tu cuenta', user_profile_personalization_path
     add_breadcrumb 'Compras realizadas', user_profile_path

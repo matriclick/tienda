@@ -90,7 +90,7 @@ class ProductsAndServicesCatalogController < ApplicationController
   	                                where(:industry_category_id => @industry_category.id).
   	                                order(:corporate_name)
 	  
-      @supplier_with_accounts = SupplierAccount.where(:country_id => session[:country].id).
+      @supplier_with_accounts = SupplierAccount.
                                     by_industry_category(@industry_category.id).where(:supplier_account_type_id => @sat.id).
                                     approved.order(:corporate_name)
 
@@ -122,7 +122,7 @@ class ProductsAndServicesCatalogController < ApplicationController
       @album_photos = []
     
       supplier_account_type_regular = SupplierAccountType.find_by_name('Regular')
-      supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).by_industry_category(@industry_category.id).where(:supplier_account_type_id => supplier_account_type_regular.id).approved
+      supplier_accounts = SupplierAccount.by_industry_category(@industry_category.id).where(:supplier_account_type_id => supplier_account_type_regular.id).approved
 
       supplier_accounts.each do |supplier_account|
         supplier_account_photos = []

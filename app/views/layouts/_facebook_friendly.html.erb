@@ -7,7 +7,7 @@
       <meta property="og:title"       content= "<%= @post.title %>" />
       <meta property="og:description" content= "<%= @post.content.blank? ? "-" : @post.content.to_s.truncate(40) %>" />
       <% @post.post_images.each do |image| %>
-      	<meta property="og:image"       content= "<%= root_url(:country_url_path => nil)[0..root_url(:country_url_path => nil).size - 2] + image.photo.url %>" />
+      	<meta property="og:image"       content= "<%= image.photo.url %>" />
       <% end %>
 
 
@@ -19,7 +19,7 @@
       <meta property="og:url"         content= "<%= request.url %>" />
       <meta property="og:title"       content= "<%= (@campaign_user_account.present? && @campaign_user_account.user_account.bride.name.present? && @campaign_user_account.user_account.groom.name.present?) ? "Propuesta de: "+ @campaign_user_account.user_account.bride.name+ " y "+ @campaign_user_account.user_account.groom.name : "-" %>" />
       <meta property="og:description" content= "<%= (@campaign_user_account.present? && @campaign_user_account.description.present?) ? @campaign_user_account.description.to_s.truncate(40) : "-" %>" />
-      <meta property="og:image"       content= "<%= @campaign_user_account.campaign_user_image.present? ? root_url(:country_url_path => nil)[0..root_url(:country_url_path => nil).size - 2] + @campaign_user_account.campaign_user_image.url : "-" %>" />
+      <meta property="og:image"       content= "<%= @campaign_user_account.campaign_user_image.present? ? root_url + @campaign_user_account.campaign_user_image.url : "-" %>" />
 
 
 <% else %>

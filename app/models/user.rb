@@ -3,10 +3,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable, :confirmable
   devise :database_authenticatable, :registerable, :omniauthable, 
          :recoverable, :rememberable, :trackable, :validatable
-  
-  include CountryMethods
-
-  after_create :set_country_id_with_locale
+         
   after_create :check_if_is_matriclicker
   after_create :ensure_user_account_exists
 	
@@ -14,13 +11,14 @@ class User < ActiveRecord::Base
 	has_many :contest_travelites, :dependent => :destroy
 	has_many :refund_requests, :dependent => :destroy
 	has_one :matriclicker, :dependent => :destroy
-  belongs_to :country
 	belongs_to :role
 	has_many :reviews, :dependent => :destroy
 	belongs_to :user_account, :dependent => :destroy
 	belongs_to :cloth_measure, :dependent => :destroy
   has_and_belongs_to_many :tags
-  
+  has_many :dresses_users_wish_lists
+  has_many :dresses, :through => :dresses_users_wish_lists
+    
 	has_many :conversations, :dependent => :destroy
 	has_many :supplier_accounts, :through => :conversations
 	has_many :dress_requests, :dependent => :destroy
@@ -32,7 +30,7 @@ class User < ActiveRecord::Base
 	has_many :shopping_carts, :dependent => :destroy
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids, :dress_id
 	
 	def is_first_purchase
 	  self.purchases.where('purchases.status = "finalizado"').size == 1 ? true : false
@@ -62,20 +60,14 @@ class User < ActiveRecord::Base
     self.email[0..self.email.index('@')-1]
   end
   
-  def purchased_dresses
+  def purchased_dresses    
     products = Array.new
-    self.purchases.each do |pur|
+    self.purchases.where('status = "finalizado"').each do |pur|
       if pur.purchasable_type == 'Dress' and !pur.purchasable.nil?
-        unless pur.purchasable.nil?
-          products.push(pur.purchasable)
-        end
+        products.push(pur.purchasable)
       elsif pur.purchasable_type == 'ShoppingCart' and !pur.purchasable.nil?
-        unless pur.purchasable.shopping_cart_items.nil?
-          pur.purchasable.shopping_cart_items.each do |sci|
-            if pur.purchasable_type == 'Dress'
-              products.push(sci.purchasable)
-            end
-          end
+        pur.purchasable.shopping_cart_items.each do |sci|
+          products.push(sci.purchasable)
         end
       end
     end

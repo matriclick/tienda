@@ -117,26 +117,32 @@ class PurchasesController < ApplicationController
   def create
     @purchase = Purchase.new(params[:purchase])
     @object = eval(@purchase.purchasable_type + '.find ' + @purchase.purchasable_id.to_s)
-    
+  
     @purchase.transfer_type = params[:payment][:option]
     @purchase.delivery_method = DeliveryMethod.find_by_name params[:delivery][:option]
     @purchase.delivery_method_cost = @purchase.delivery_method.price
-    @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost if !@purchase.delivery_info.nil?
-    @purchase.purchasable_price = @object.price
     
+    if !@purchase.delivery_info.nil? and !@purchase.delivery_info.commune.dispatch_cost.nil?
+      @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost
+    else
+      @purchase.delivery_cost = 3200
+    end
+    
+    @purchase.purchasable_price = @object.price
+  
     if !@purchase.quantity.blank? and !@purchase.delivery_cost.nil?
         @purchase.price = @purchase.purchasable_price * @purchase.quantity + @purchase.delivery_cost + @purchase.delivery_method.price
     elsif !@purchase.delivery_cost.nil?
         @purchase.price = @purchase.purchasable_price + @purchase.delivery_cost + @purchase.delivery_method.price
         @purchase.quantity = 1
     end
-    
+  
     if current_user.credit_amount > @purchase.price
 			@purchase.credits_used = @purchase.price
 		else
 			@purchase.credits_used = current_user.credit_amount
 		end
-		
+	
 		@purchase.total_cost = 0
     if @purchase.purchasable_type == 'Dress'
       @purchase.total_cost = (@object.net_cost + @object.vat_cost)*@purchase.quantity
@@ -146,9 +152,9 @@ class PurchasesController < ApplicationController
         @purchase.total_cost = sci.total_cost + @purchase.total_cost
       end
     end
-    
+  
 		@purchase.price = (@purchase.price - @purchase.credits_used).ceil
-    
+  
     respond_to do |format|
       if @purchase.save
         format.html { redirect_to buy_confirm_path(:purchase_id => @purchase) }

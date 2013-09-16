@@ -750,7 +750,7 @@ aux << (DressStatus.find_by_name("Disponible") || DressStatus.create(:name => 'D
 aux << (DressStatus.find_by_name("Oculto") || DressStatus.create(:name => 'Oculto', :description => 'Queda stock pero no aparece en la página'))
 aux << (DressStatus.find_by_name("Vendido") || DressStatus.create(:name => 'Vendido', :description => 'No queda stock y aparece en la página'))
 aux << (DressStatus.find_by_name("Vendido y Oculto") || DressStatus.create(:name => 'Vendido y Oculto', :description => 'No queda stock y no aparece en la página'))
-aux << (DressStatus.find_by_name("Admin-Test") || DressStatus.create(:name => 'Admin-Test', :description => 'Estado para Admins, para probar problemas con pagos'))
+aux << (DressStatus.find_by_name("Vendido por Proveedor") || DressStatus.create(:name => 'Vendido por Proveedor', :description => 'El proveedor vendió el vestido y nos notificó para que lo saquemos de la página'))
 aux.each { |x| puts x.name}
 puts "\n"
 

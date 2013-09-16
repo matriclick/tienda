@@ -1,66 +1,157 @@
-<h1>Editar Información de Compra</h1>
-<%= form_for(@purchase, :url => administration_update_purchase_path(id: @purchase.id)) do |f| %>
-  <% if @purchase.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Editar Información de Compra</h1>
+			<%= form_for(@purchase, :url => administration_update_purchase_path(id: @purchase.id), html: {class: "form", role: "form"}) do |f| %>
+			  <% if @purchase.errors.any? %>
+			    <div id="error_explanation">
+			      <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
 
-      <ul>
-      <% @purchase.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+			      <ul>
+			      <% @purchase.errors.full_messages.each do |msg| %>
+			        <li><%= msg %></li>
+			      <% end %>
+			      </ul>
+			    </div>
+			  <% end %>
+				
+				<div class="panel panel-primary">
+				  <div class="panel-heading"><h3 class="panel-title">Productos comprados</h3></div>
+			  	<div class="panel-body">
+						<% if @purchase.purchasable_type == 'ShoppingCart' %>
+							<% @purchase.purchasable.shopping_cart_items.each do |shopping_cart_item| %>
+								<div class="col-md-4">
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									    <h3 class="panel-title"><%= link_to shopping_cart_item.purchasable.introduction, dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug) %></h3>
+									  </div>
+									  <div class="panel-body">
+											<div class="media">
+													<%= link_to image_tag(shopping_cart_item.purchasable.small_image, class: 'media-object'), 
+																			dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), class: 'pull-left thumbnail' %>
+											  <div class="media-body">
+													<ul class="list-group">
+													  <li class="list-group-item"><strong>Precio:</strong> <%= number_to_currency shopping_cart_item.purchasable.price %></li>
+													  <li class="list-group-item"><strong>Talla:</strong> <%= shopping_cart_item.size.to_s %></li>
+													  <li class="list-group-item"><strong>Cantidad:</strong> <%= shopping_cart_item.quantity.to_s %></li>
+													</ul>
+											  </div>
+											</div>
+											Tienda: <%= link_to(shopping_cart_item.purchasable.supplier_account.fantasy_name, supplier_description_path(:public_url => shopping_cart_item.purchasable.supplier_account.public_url)) if !shopping_cart_item.purchasable.supplier_account.nil? %>
+										</div>
+									</div>
+								</div>
+							<% end %>
+						<% else %>				
+							<div>
+								<%= image_tag(@purchase.purchasable.small_image) %>
+							</div>
+							Tienda: <%= @purchase.purchasable.supplier_account.fantasy_name if !@purchase.purchasable.supplier_account.nil? %>
+						<% end %>
+					</div>
+				</div>
+				
+				<div class="panel panel-primary">
+				  <div class="panel-heading"><h3 class="panel-title">Comprador</h3></div>
+				  <div class="panel-body">				
+				    Correo usuario comprador <%= autocomplete_field_tag :user_email, @p_user_email, administration_autocomplete_user_email_path, class: 'form-control' %> 
+					</div>
+				</div>
+				
+				<div class="panel panel-primary">
+				  <div class="panel-heading"><h3 class="panel-title">Precio y costo del producto</h3></div>
+				  <div class="panel-body">				
+						<div class="field">
+						<%= f.label :funds_received, '¿Fondos recibidos?' %> <%= f.check_box :funds_received %>
+						</div>
+						<br />
+					  <div class="field">
+					    <%= f.label :price, 'Monto pagado por el cliente' %> <%= f.text_field :price, class: 'form-control' %> 
+							<span class="help-block">Lo que pagó el cliente paga por el/los productos de la compra. Sin punos ni comas.</span>
+					  </div>
+					  <br />
+						<div class="field">
+							<%= f.label :store_paid, '¿Pagamos los productos a la tienda?' %> <%= f.check_box :store_paid %>
+						</div>
+						<br />
+					  <div class="field">
+					    <%= f.label :total_cost, 'Costo producto' %> <%= f.text_field :total_cost, class: 'form-control' %> 
+						<span class="help-block">Lo que Tramanta paga por el/los productos de la compra. Sin punos ni comas.</span>
+					  </div>
+						<br />
+					  <div class="field">
+					    <%= f.label :delivery_cost, 'Costo despacho cliente' %> <%= f.text_field :delivery_cost, class: 'form-control' %> 
+						<span class="help-block">Costo de delivery que paga el cliente por la compra. Sin punos ni comas.</span>
+					  </div>
+					</div>
+				</div>
 
-  <%= image_tag(@purchase.purchasable.small_image) %><br />
-  <h2><%= @purchase.purchasable.supplier_account.fantasy_name if !@purchase.purchasable.supplier_account.nil? %></h2>
+				<div class="panel panel-primary">
+				  <div class="panel-heading"><h3 class="panel-title">Información de despacho</h3></div>
+				  <div class="panel-body">
+					  <div class="field">
+							<%= f.label :dispatch_address, 'Dirección' %> <%= f.text_field :dispatch_address, class: 'form-control' %>
+					  </div>
+						<br />
+					  <div class="field">
+							<%= f.label :delivery_method_id, 'Tipo de despacho' %> 	<%= f.collection_select :delivery_method_id, DeliveryMethod.all, :id, :name, {:prompt => true, :allow_blank => false}, { :class=> "form-control", style: 'width:400px' } %>
 
-  <div class="field">
-    Correo usuario comprador <%= autocomplete_field_tag :user_email, @p_user_email, administration_autocomplete_user_email_path %> 
-  </div>
-  <br />
+					  </div>
+						<br />
+					  <div class="field">
+							<%= f.label :delivery_date, 'Fecha de envío' %> <%= f.text_field :delivery_date, class: 'form-control' %>
+					  </div>
+					  <br />
+					  <div class="field">
+					    <%= f.label :logistic_provider_id, '¿Quién realiza el despacho?' %> 	
+							<%= f.collection_select :logistic_provider_id, LogisticProvider.all, :id, :name, {:prompt => true, :allow_blank => false}, { :class=> "form-control", style: 'width:400px' } %>
+					  </div>
+						<br />
+						<div class="field">
+				    <%= f.label :actual_delivery_cost, 'Costo despacho tramanta' %> <%= f.text_field :actual_delivery_cost, class: 'form-control' %>
+						<span class="help-block">Costo de delivery que paga Tramanta para entregar el producto. Sin puntos ni comas.</span>
+						</div>
+					  <br />
+					  <div class="field">
+					    <%= f.label :tracking_number %> <%= f.text_field :tracking_number, class: 'form-control' %>
+					  </div>
+					</div>
+				</div>
+				
+				<div class="panel panel-primary">
+				  <div class="panel-heading"><h3 class="panel-title">Información de devolución</h3></div>
+				  <div class="panel-body">
+					  <div class="field">
+					    <%= f.label :refunded, '¿Compra generó devolución?' %> <%= f.check_box :refunded %>
+						</div>
+						<br />
+					  <div class="field">
+							<%= f.label :refund_value, 'Monto devuelto' %> <%= f.number_field :refund_value %>
+						</div>
+						<% if @purchase.purchasable_type == 'ShoppingCart' %>
+						<br />
+						<b>Productos devueltos:</b>
+						<br />
+							<% @purchase.purchasable.shopping_cart_items.each do |shopping_cart_item| %>
+								<br />
+							  <div class="field" style="margin-left:20px">
+									<%= check_box_tag('refund_shopping_cart_items[]', shopping_cart_item.id, shopping_cart_item.refunded) %> 
+									<%= link_to shopping_cart_item.purchasable.introduction, dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), target: '_blank' %>
+							  </div>
+							<% end %>
+						<% end %>
+						<br />
+					  <div class="field">
+							<%= f.label :refund_date, 'Fecha devolución' %> <%= f.text_field :refund_date %>
+					  </div>
+					</div>
+				</div>
 
-  <div class="field">
-    <%= f.label :price, 'Monto pagado por el cliente' %> <%= f.number_field :price %> 
-	<%= f.label :funds_received, '¿Fondos recibidos?' %> <%= f.check_box :funds_received %>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :total_cost, 'Costo producto' %> <%= f.number_field :total_cost %> 
-	<em>(lo que Tramanta paga por el/los productos de la compra)</em>
-    <%= f.label :store_paid, '¿Pagamos los productos?' %> <%= f.check_box :store_paid %>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :currency %> <%= f.text_field :currency %>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :delivery_cost, 'Costo despacho cliente' %> <%= f.number_field :delivery_cost %> 
-	<em>(costo de delivery que paga el cliente por la compra)</em>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :actual_delivery_cost, 'Costo despacho tramanta' %> <%= f.number_field :actual_delivery_cost %>
-	<em>(costo de delivery que paga Tramanta para entregar el producto)</em>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :tracking_number %> <%= f.text_field :tracking_number %>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :logistic_provider_id %> 
-	<%= f.collection_select :logistic_provider_id, LogisticProvider.all, :id, :name, :prompt => true, :allow_blank => false %>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :refunded, '¿Producto devuelto?' %> <%= f.check_box :refunded %> 
-	<%= f.label :refund_value, 'Monto devuelto' %> <%= f.number_field :refund_value %>
-  </div>
-  <br />
-  <%= f.submit 'Actualizar' %> | <%= f.submit 'Actualizar y enviar correo' %>
-  <div class="clear"></div>
-<% end %>
-
-
+			  <%= link_to 'Cancelar', purchases_path(:status => 'finalizado'), class: 'btn btn-default' %> | 
+				<%= f.submit 'Actualizar', class: 'btn btn-primary' %> | 
+				<%= f.submit 'Actualizar y enviar correo', class: "btn btn-danger" %>
+				
+			<% end %>
+		</div>
+	</div>
+</div>

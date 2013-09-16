@@ -190,8 +190,7 @@ class SuppliersCatalogController < ApplicationController
   def add_breadcrumbs
     supplier = check_supplier
 		if !supplier.nil?
-      add_breadcrumb "Catálogo", :products_and_services_catalog_select_industry_category_path
-      add_breadcrumb supplier.supplier_account.main_industry_category.get_name, products_and_services_catalog_index_path(:industry_category_ids => supplier.supplier_account.main_industry_category.slug)
+      add_breadcrumb "Administrador", :administration_index_path
       add_breadcrumb supplier.supplier_account.fantasy_name, supplier_products_and_services_path(:public_url => supplier.supplier_account.public_url)
     end
   end

@@ -19,9 +19,9 @@
 <% end -%>
 <% unless supplier.supplier_account.blank? %>
 	<td><%= link_to 'Nuevo review', administration_new_review_path(supplier.supplier_account.id) %> </td>
-	<td><%= link_to 'Productos', administration_show_supplier_products_path(supplier.supplier_account)  %><br /><hr>
+	<td><%= link_to 'Productos', administration_show_supplier_products_path(supplier.supplier_account)  %><hr>
 	<%= link_to 'Servicios', administration_show_supplier_services_path(supplier.supplier_account)  %></td>
-	<td><%= link_to 'Detalle', administration_show_supplier_account_path(supplier.supplier_account)  %></br><hr>
+	<td><%= link_to 'Detalle', administration_show_supplier_account_path(supplier.supplier_account)  %><hr>
 	<%= link_to 'Ingresar', supplier_account_path(supplier) %></td>
 <% end %>
 <td><%= link_to t('destroy'), administration_destroy_supplier_path(supplier), :method => :delete, confirm: t('are_you_sure') %></td>

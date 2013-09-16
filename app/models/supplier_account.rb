@@ -51,14 +51,31 @@ class SupplierAccount < ActiveRecord::Base
   # FGM: Needs a fix on client_side_validations
   # validates :rut, :uniqueness => true, :allow_blank => true
   validates :phone_number, :phone_number => true
-  validates :industry_category_ids, :presence => true
-  validate :validate_industry_category
 
 	accepts_nested_attributes_for :supplier_contacts, :allow_destroy => true, :reject_if => lambda { |a| (a[:name].blank? or a[:email].blank?) }
   accepts_nested_attributes_for :address
 
 	#http://railscasts.com/episodes/108-named-scope
 	scope :from_industry, lambda { |ic| { :joins => :industry_categories, :conditions => [ "industry_categories.id = ?", ic.id ] } }
+  
+  def get_sold_items(from, to)
+    quantity = 0
+    amount = 0
+    refund_quantity = 0
+    refund_amount = 0
+
+		Purchase.where('status = ? and purchasable_type = ? and created_at >= ? and created_at <= ?', "finalizado", "ShoppingCart", from.utc, to.utc).each do |p|
+			p.purchasable.shopping_cart_items.each do |sci|
+				if sci.get_store.id == self.id
+          quantity = quantity + 1
+					amount = amount + sci.price
+          refund_quantity = refund_quantity + 1 if sci.refunded
+          refund_amount = refund_amount + sci.price if sci.refunded
+				end
+			end
+		end
+    return {:quantity => quantity, :amount => amount, :refund_quantity => refund_quantity, :refund_amount => refund_amount}
+  end
   
   def get_purchases_not_paid(from, to)
     purchases = Array.new

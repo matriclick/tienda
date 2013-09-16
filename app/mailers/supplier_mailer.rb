@@ -11,7 +11,6 @@ class SupplierMailer < ActionMailer::Base
   # BOOKINGS
   def new_booking_email(booking)
   	@booking = booking
-    @country_url_path = @booking.supplier_account.country.url_path
   	@supplier_account = @booking.supplier_account
   	@bookable = @booking.bookable
   	mail to: "<#{@supplier_account.supplier.email}>", bcc: "tramanta@matriclick.com ", subject: "[Matriclick.com] Han reservado '#{@bookable.name}'"
@@ -29,7 +28,6 @@ class SupplierMailer < ActionMailer::Base
   def message_email_to_supplier(message, user)
   	@message = message
   	@user = user
-    @country_url_path = @message.conversation.supplier_account.country.url_path
 		@conversation = @message.conversation
 		@supplier_account = @message.conversation.supplier_account 
   	@email_to = @supplier_account.supplier.email

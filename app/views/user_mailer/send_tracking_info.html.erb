@@ -4,7 +4,7 @@
 			<td align="left">
 				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
 					¡Hola! Te queríamos volver a felicitar por tu compra en Tramanta... y darte los datos de tu despacho :)<br /><br />
-					<%= link_to 'Ver compra', @purchase.purchasable.full_link_to_view(@country_url_path, @purchase.id) %><br /><br />
+					<%= link_to 'Ver compra', @purchase.purchasable.full_link_to_view(@purchase.id) %><br /><br />
 					Tu compra fue despachada a la siguiente dirección: 
 					<% if !@purchase.delivery_info.nil? %>
 						<%= @purchase.delivery_info.street %> <%= @purchase.delivery_info.number %><%= ', depto/casa '+@purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.nil? %>, <%= @purchase.delivery_info.commune.name if !@purchase.delivery_info.commune.nil? %><br /><br />

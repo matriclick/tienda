@@ -1,14 +1,22 @@
-<%= form_tag(request.fullpath, :method => "get") do %>
-	<div style="margin:0px 0px 10px 5px">
-		<b>Desde:</b><%= text_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
+<%= form_tag(request.fullpath, :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+<div class="form-group">
+	<div class="input-group">
+	  <span class="input-group-addon">Desde</span>
+		<%= text_field_tag(:from, @from.strftime("%Y-%m-%d"), class: 'form-control') %>
 	</div>
-	<div style="margin:0px 0px 10px 5px">
-		<b>Hasta:</b><%= text_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
+</div>
+<div class="form-group">
+	<div class="input-group">
+	  <span class="input-group-addon">Hasta</span>
+		<%= text_field_tag(:to, @to.strftime("%Y-%m-%d"), class: 'form-control') %>
 	</div>
+</div>
+<div class="form-group">
 	<div>
 		<% if !(defined? param).nil? %>
 			<%= hidden_field_tag :status, param %>
 		<% end %>
 	</div>
-	<%= submit_tag("Actualizar Fechas") %>
+	<%= submit_tag("Actualizar Fechas",  class: "btn btn-default btn-sm") %>
+</div>
 <% end %>

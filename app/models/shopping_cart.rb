@@ -75,14 +75,14 @@ class ShoppingCart < ActiveRecord::Base
   end
   
   # For the methods "link_to_view" and "full_link_to_view", the line "include Rails.application.routes.url_helpers" must be present in the model in order to use the "_path" and "_url" methods.
-  def link_to_view(country_url_path, purchase_id = nil)
-    purchases_show_for_user_path(:country_url_path => country_url_path, :id => purchase_id)
+  def link_to_view(purchase_id = nil)
+    purchases_show_for_user_path(:id => purchase_id)
   end
   
-  def full_link_to_view(country_url_path, purchase_id = nil)
+  def full_link_to_view(purchase_id = nil)
     host = 'www.tramanta.com'
     
-    purchases_show_for_user_path(:only_path => false, :host => host, :country_url_path => country_url_path, :id => purchase_id)
+    purchases_show_for_user_path(:only_path => false, :host => host, :id => purchase_id)
   end
   # -------------- END PURCHASABLE METHODS -------------------
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130814215400) do
+ActiveRecord::Schema.define(:version => 20130916160805) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -89,17 +89,6 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.string   "attachable_type"
     t.integer  "attachable_id"
     t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "bank_accounts", :force => true do |t|
-    t.string   "owner_name"
-    t.string   "owner_id"
-    t.string   "owner_email"
-    t.string   "bank"
-    t.string   "account_type"
-    t.string   "account_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -659,6 +648,13 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.datetime "updated_at"
   end
 
+  create_table "dresses_users_wish_lists", :force => true do |t|
+    t.integer  "dress_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "events", :force => true do |t|
     t.integer  "service_id"
     t.string   "title"
@@ -1118,9 +1114,9 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.integer  "main_image_file_size"
     t.datetime "main_image_updated_at"
     t.boolean  "visible"
-    t.integer  "country_id",              :default => 1
     t.string   "post_type"
     t.string   "product_keywords"
+    t.integer  "country_id"
   end
 
   add_index "posts", ["slug"], :name => "index_posts_on_slug"
@@ -1231,6 +1227,7 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.float    "refund_value"
     t.float    "total_cost"
     t.float    "actual_delivery_cost"
+    t.date     "refund_date"
   end
 
   create_table "reference_requests", :force => true do |t|
@@ -1309,28 +1306,6 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "room_images", :force => true do |t|
-    t.integer  "room_id"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "active",             :default => true
-    t.integer  "image_index"
-  end
-
-  create_table "rooms", :force => true do |t|
-    t.string   "name"
-    t.integer  "max_capacity"
-    t.integer  "rent_cost"
-    t.integer  "rent_type_id"
-    t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1432,6 +1407,7 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.string   "size"
     t.integer  "quantity"
     t.float    "total_cost"
+    t.boolean  "refunded"
   end
 
   create_table "shopping_carts", :force => true do |t|
@@ -1560,13 +1536,13 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.string   "address_commune"
     t.integer  "address_id"
     t.boolean  "online_payment"
-    t.integer  "country_id",                :default => 1
     t.string   "account_owner_name"
     t.string   "account_number"
     t.string   "account_bank"
     t.string   "account_type"
     t.string   "account_owner_email"
     t.float    "net_margin"
+    t.integer  "country_id"
   end
 
   create_table "supplier_contacts", :force => true do |t|
@@ -1618,7 +1594,7 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "language",                              :default => "es"
-    t.integer  "country_id",                            :default => 1
+    t.integer  "country_id"
   end
 
   add_index "suppliers", ["email"], :name => "index_suppliers_on_email", :unique => true
@@ -1668,18 +1644,6 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.datetime "updated_at"
   end
 
-  create_table "user_account_activities", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.text     "comments"
-    t.date     "done_by_date"
-    t.boolean  "done"
-    t.integer  "default_activity_id"
-    t.integer  "user_account_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "user_account_images", :force => true do |t|
     t.integer  "user_account_id"
     t.string   "couple_file_name"
@@ -1710,7 +1674,7 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.boolean  "did_review",                  :default => false
     t.integer  "budget_distribution_type_id"
     t.integer  "invitees_quantity"
-    t.integer  "country_id",                  :default => 1
+    t.integer  "country_id"
   end
 
   create_table "user_contest_selections", :force => true do |t|
@@ -1742,8 +1706,8 @@ ActiveRecord::Schema.define(:version => 20130814215400) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.integer  "country_id",                            :default => 1
     t.integer  "cloth_measure_id"
+    t.integer  "country_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

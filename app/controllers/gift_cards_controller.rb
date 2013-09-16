@@ -94,7 +94,7 @@ class GiftCardsController < ApplicationController
     
     @gift_card = GiftCard.new
     @type = SupplierAccountType.find_by_name("Vestidos Boutique")
-    @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).where("supplier_account_type_id = ?", @type.id).approved
+    @supplier_accounts = SupplierAccount.where("supplier_account_type_id = ?", @type.id).approved
     
     respond_to do |format|
       format.html # new.html.erb
@@ -109,7 +109,7 @@ class GiftCardsController < ApplicationController
 
     @gift_card = GiftCard.find(params[:id])
     @type = SupplierAccountType.find_by_name("Vestidos Boutique")
-    @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).where("supplier_account_type_id = ?", @type.id).approved
+    @supplier_accounts = SupplierAccount.where("supplier_account_type_id = ?", @type.id).approved
   end
 
   # POST /gift_cards
@@ -126,7 +126,7 @@ class GiftCardsController < ApplicationController
         format.json { render json: @gift_card, status: :created, location: @gift_card }
       else
         @type = SupplierAccountType.find_by_name("Vestidos Boutique")
-        @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).where("supplier_account_type_id = ?", @type.id).approved
+        @supplier_accounts = SupplierAccount.where("supplier_account_type_id = ?", @type.id).approved
         
         format.html { render action: "new" }
         format.json { render json: @gift_card.errors, status: :unprocessable_entity }
@@ -148,7 +148,7 @@ class GiftCardsController < ApplicationController
         format.json { head :ok }
       else
         @type = SupplierAccountType.find_by_name("Vestidos Boutique")
-        @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).where("supplier_account_type_id = ?", @type.id).approved
+        @supplier_accounts = SupplierAccount.where("supplier_account_type_id = ?", @type.id).approved
         
         format.html { render action: "edit" }
         format.json { render json: @gift_card.errors, status: :unprocessable_entity }

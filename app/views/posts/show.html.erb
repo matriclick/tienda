@@ -1,4 +1,4 @@
-<div class="blog_show">
+<div class="container">
 	<h1><%= @post.title %></h1>
 	<div style="float:left; width:40px"><%= image_tag 'blog/quotes.png', :alt => @post.title %></div>	
 	<h2 class="blog_texto_introduction"><%= @post.introduction.html_safe %></h2>
@@ -39,14 +39,20 @@
 	</div>
 	<div class="clear sin_titulos"></div>
   	<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="4" data-width="950"></div>
-	<div style="margin:20px 0px 20px 0px; border-top:1px dotted #ccc">
-		<h3>Revisa estos productos que te podrían interesar:</h3>
-		<%= render 'dresses/related_dresses', related_dresses: @related_dresses %>
+	<hr>
+	<div class="row">
+		<div>
+			<h3>Revisa estos productos que te podrían interesar:</h3>
+			<%= render 'dresses/viewed_dresses', viewed_dresses: @related_dresses %>
+		</div>
 	</div>
-	<div style="margin:20px 0px 20px 0px; border-top:1px dotted #ccc">
-		<h3>Sigue leyendo artículos relacionados:</h3>
-		<% @related_posts.each do |post| %>
-			<%= render 'small_post', :post => post %>
-		<% end %>
+	<hr>
+	<div class="row">
+		<div>
+			<h3>Sigue leyendo artículos relacionados:</h3>
+			<% @related_posts.each do |post| %>
+				<%= render 'small_post', :post => post %>
+			<% end %>
+		</div>
 	</div>
 </div>

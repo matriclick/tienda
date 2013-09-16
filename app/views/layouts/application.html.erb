@@ -29,7 +29,6 @@
 		<meta name="keywords" content="<%= @meta_keywords_content %>">
 
 		<%= stylesheet_link_tag("application") %>
-		<%= stylesheet_link_tag("tipTip") %>
 		<%= javascript_include_tag('application') %>
 		<%= javascript_include_tag('http://maps.googleapis.com/maps/api/js?key=AIzaSyD9u2C5a_3Fueu5XbRXXL8YPPc12HRoESY&sensor=false') if @show_map %>
 		<%= csrf_meta_tag %>
@@ -53,20 +52,11 @@
 			})();
 		</script>
 		
-		<!-- Crazy EGG -->
-		<script type="text/javascript">
-		setTimeout(function(){var a=document.createElement("script");
-		var b=document.getElementsByTagName("script")[0];
-		a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0016/3417.js?"+Math.floor(new Date().getTime()/3600000);
-		a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
-		</script>
-		
 	</head>
 
 	<% (@show_map || false) ? (@msg = 'initialize('+@map.latitude.to_s+','+@map.longitude.to_s+',"'+@map.get_address_string.to_s+'");') : nil  %>
 
-	<body onload='<%= @subscriber_pop_up %><%= @msg %>'>
-		
+	<body onload='<%= @subscriber_pop_up %><%= @msg %>' style="padding-top: 70px;">
 		<div id="fb-root"></div>
 		
 		<script>

@@ -1,4 +1,10 @@
-<table class="invisible">
+<div class="row">
+	<div class="col-md-3">
+		<h3>Información General</h3>
+		<table>
+			<tr>
+				<td><hr></td>
+			</tr>
 			<tr>
 				<td>
 					<div class="old_image">
@@ -34,8 +40,13 @@
 				<td><%= f.label :phone_number %><%= mark_required @supplier_account, :phone_number %><br />
 				<%= f.text_field :phone_number, :serviceholder => "+56 2 324 3434" %></td>
 			</tr>
+		</table>
+	</div>
+	<div class="col-md-3">
+		<h3>Dirección</h3>
+		<table>
 			<tr>
-				<td><hr /><br /><b>DIRECCIÓN</b></td>
+				<td><hr></td>
 			</tr>
 			<tr>
 				<td>
@@ -63,14 +74,22 @@
 					<% end %>
 				</td>
 			</tr>
+		</table>
+	</div>
+	<div class="col-md-6">
+		<h3>Acuerdo Comercial</h3>
+		<table>
 			<tr>
-				<td><hr /><br /><b>ACUERDO COMERCIAL</b></td>
+				<td><hr></td>
 			</tr>
 			<tr>
 				<td><%= f.label :net_margin, 'Comisión' %>	<%= f.number_field :net_margin %>% + IVA</td>
 			</tr>
 			<tr>
-				<td><hr /><br /><b>DATOS BANCARIOS</b></td>
+				<td><hr></td>
+			</tr>
+			<tr>
+				<th>Datos Bancarios</th>
 			</tr>
 			<tr>
 				<td><span class="lucida small">Puede ser de la persona que tiene la cuenta o la empresa misma que tenga una cuenta</span><br />
@@ -96,28 +115,12 @@
 				<td><span class="lucida small">Cuenta corriente, cuenta de ahorros, cuenta vista u otras</span><br />
 				<%= f.label :account_type, 'Tipo de cuenta' %><%= f.text_field :account_type %></td>
 			</tr>
-			<tr>
-				<td><hr /><br /><b>CATEGORÍA</b></td>
-			</tr>			
-			<tr>
-				<td><%= f.label t('industry_categories') %><span class="tiptip" title="<%= t('helptip.supplier_account.industry_categories') %>"><%= mark_required @supplier_account, :industry_category_ids %><%= image_tag 'signo_pregunta.png', :alt => "pregunta", :class => "pregunta" %></span>
-					<br />
-					<span class="small"><i>Consulta por planes y tarifas especiales al inscribirte en más de un rubro enviando un correo a socios@tributosport.com.</i></span>
-					<br />
-					<br />
-					<% for ict in @industry_category_types %>
-						<span class="small"><%= t(ict.name) %></span>
-						<div class="holder">
-							<% for ic in @industry_categories.find_all_by_industry_category_type_id(ict.id) %>
-								<span><%= check_box_tag("supplier_account[industry_category_ids][]", ic.id, (@supplier_account.industry_categories.include? ic), :class => "ict_#{ict.id}", :onchange => 'is_bookable();') %></span>
-								<span class="lucida small"><%= ic.get_name %></span><br />
-							<% end %>
-						</div>
-						<br/>
-					<% end %>
-				</td>
-				</tr>
-</table>
-<div class="holder">
-	<%= f.submit t('save'), :class => "button check_size" %> <%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+		</table>
+	</div>
+</div>
+<div class="row" style="text-align:right">
+	<div class="col-md-12">
+		<%= f.submit t('save'), :class => "button check_size" %> 
+		<%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
+	</div>
 </div>

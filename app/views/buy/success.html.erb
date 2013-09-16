@@ -34,11 +34,11 @@
 			<%= link_to_function("Imprimir esta página", "javascript:print()", :style => 'color:blue') %>
 			<br /><br />
 			<% if @purchasable.class.to_s == 'GiftCardCode' %>
-				<%= link_to 'Ver Detalle del Cupón de Descuento e Imprimir', @purchasable.link_to_view(params[:country_url_path], @purchase.id), :style => 'color:blue' %>
+				<%= link_to 'Ver Detalle del Cupón de Descuento e Imprimir', @purchasable.link_to_view(@purchase.id), :style => 'color:blue' %>
 			<br /><br />
 			<% end %>
 			<% if @purchasable.class.to_s == 'Dress' %>
-				Tu producto será despachado según los plazos estipulados en el <%= link_to 'detalle', @purchasable.link_to_view(params[:country_url_path], @purchase.id), :style => 'color:blue' %>
+				Tu producto será despachado según los plazos estipulados en el <%= link_to 'detalle', @purchasable.link_to_view(@purchase.id), :style => 'color:blue' %>
 			<br /><br />
 			<% end %>
 		</div>

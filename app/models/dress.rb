@@ -11,6 +11,8 @@ class Dress < ActiveRecord::Base
 	has_many :dress_stock_sizes, :dependent => :destroy
 	has_many :sizes, :through => :dress_stock_sizes
   has_one :refund_request
+  has_many :dresses_users_wish_lists
+  has_many :users, :through => :dresses_users_wish_lists
   
   has_and_belongs_to_many :dress_types
   has_and_belongs_to_many :tags
@@ -29,24 +31,41 @@ class Dress < ActiveRecord::Base
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	
+  def self.check_sizes(dresses)
+    puts dresses.count
+    sizes = Array.new
+    dresses.each do |d|
+      d.sizes.each do |s|
+        unless sizes.include?(s)
+          sizes << s
+        end
+      end
+    end
+    return sizes
+  end
+  
 	def self.get_all_with_tag(start_date, end_date)
     joins(:tags).where('dresses.created_at >= ? and dresses.created_at <= ?', start_date, end_date).uniq
   end
   
-	def self.all_filtered(string_filter = nil, separator = ' ')
-    if string_filter.nil?
+	def self.all_filtered(string_filter = nil, sizes = nil, separator = ' ')
+    if string_filter.nil? and sizes.nil?
       return Dress.all
     else
-      keywords = string_filter.split(separator)
+      keywords = Array.new
+      keywords = keywords + string_filter.split(separator) if !string_filter.nil?
+      keywords = keywords + sizes if !sizes.nil?
+      
       query = ''
       keywords.each_with_index do |k, i|
         if i == 0
-          query = '(dress_types.name like "%'+k+'%" or dresses.description like "%'+k+'%" or dresses.introduction like "%'+k+'%")'
+          query = '(dress_types.name like "%'+k+'%" or dresses.description like "%'+k+'%" or dresses.introduction like "%'+k+'%" or sizes.name like "%'+k+'%")'
         else
-          query = '(dress_types.name like "%'+k+'%" or dresses.description like "%'+k+'%" or dresses.introduction like "%'+k+'%") and '+query
+          query = '(dress_types.name like "%'+k+'%" or dresses.description like "%'+k+'%" or dresses.introduction like "%'+k+'%" or sizes.name like "%'+k+'%") and '+query
         end
       end
-      return self.joins(:dress_types).where(query).available
+      
+      return self.joins(:dress_types).joins(:sizes).where(query).available
     end
   end
 	
@@ -60,9 +79,9 @@ class Dress < ActiveRecord::Base
     	    i > 0 ? like = like+' and ' : ''
     	    like = like+'description like "%'+keyword.strip+'%"'
         end
-    	  return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s+' and '+like).order('position').limit(4)
+    	  return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s+' and '+like).order('position').limit(5)
   	  elsif !self.dress_types.first.nil?
-  	    return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s).order('position').limit(4)
+  	    return self.dress_types.first.dresses.available_to_purchase.where('id <> '+self.id.to_s).order('position').limit(5)
 	    end
     end
     return Array.new
@@ -118,7 +137,7 @@ class Dress < ActiveRecord::Base
 	  
 	  where('dress_status_id <> ? and dress_status_id <> ?', oculto_id, vendido_oculto_id).order('position ASC')
   end
-
+      
 	def self.available_to_purchase
 	  disp = DressStatus.find_by_name("Disponible").id
 	  where('dress_status_id = ?', disp).order('position ASC')
@@ -184,14 +203,14 @@ class Dress < ActiveRecord::Base
   end
 
   # For the methods "link_to_view" and "full_link_to_view", the line "include Rails.application.routes.url_helpers" must be present in the model in order to use the "_path" and "_url" methods.
-  def link_to_view(country_url_path, purchase_id = nil)
-    purchases_show_for_user_path(:country_url_path => country_url_path, :id => purchase_id)
+  def link_to_view(purchase_id = nil)
+    purchases_show_for_user_path(:id => purchase_id)
   end
   
-  def full_link_to_view(country_url_path, purchase_id = nil)
+  def full_link_to_view(purchase_id = nil)
     host = 'www.tramanta.com'
     
-    purchases_show_for_user_path(:only_path => false, :host => host, :country_url_path => country_url_path, :id => purchase_id)
+    purchases_show_for_user_path(:only_path => false, :host => host, :id => purchase_id)
   end
   # -------------- END PURCHASABLE METHODS -------------------
   

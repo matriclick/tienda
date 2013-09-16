@@ -36,7 +36,7 @@ class ReviewsController < ApplicationController
 
 	def check_env
 		unless Rails.env == "development"
-			redirect_to root_country_path
+			redirect_to root_path
 		end
 	end
 

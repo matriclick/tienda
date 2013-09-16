@@ -1,0 +1,15 @@
+<form action="<%= dresses_search_path %>" method="get">
+	<%= submit_tag("Filtrar", :name => nil, class: "btn btn-primary btn-sm btn-block") %>
+	<% if @search_term %>
+		<%= hidden_field_tag(:q, @search_term) %>
+	<% end %>
+	
+	<ul class="nav nav-pills nav-stacked">
+		<% sizes.each do |size| %>
+		  <li><a href="#"><span class="badge pull-right"><%= size.count_matching(@all_dresses) %></span>
+				<%= check_box_tag('sizes[]', size.name, (!@search_sizes.nil? and @search_sizes.include?(size.name) ? true : false) ) %> <%= size.name %>
+					</a>
+			</li>
+		<% end %>
+	</ul>
+</form>

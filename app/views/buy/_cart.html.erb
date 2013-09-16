@@ -1,69 +1,40 @@
-<div>
-	<b>Carrito de Compras</b>
-	<div style="float:right; margin-right:30px;">
-		<%= link_to 'Modificar Carrito', buy_view_cart_path, :class => 'blue', :style => 'font-weight:bold' %>
-	</div>
-	<hr>
-	<% @purchasable.shopping_cart_items.each do |shopping_cart_item| %>
-		<div style="float:left;">
-			<div class="image" style="float:left">
-				<%= image_tag(shopping_cart_item.purchasable.small_image) %>
-			</div>			
-			<div style="float:left; margin-left:10px;">
-				<table>
-					<tr>
-						<th style="min-width:300px">Descripción</th>
-						<th style="width:100px">Precio</th>
-						<th style="width:100px">Cantidad</th>
-					</tr>
-					<tr>
-						<td><%= raw shopping_cart_item.purchasable.description.gsub(/\n/, '<br/>') if !shopping_cart_item.purchasable.description.nil? %></td>
-						<td><%= number_to_currency shopping_cart_item.purchasable.price %></td>
-						<td><%= shopping_cart_item.quantity.to_s %></td>
-					</tr>
-				</table>
+<div class="row">
+<% @purchasable.shopping_cart_items.each do |shopping_cart_item| %>
+	<div class="col-md-4">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><%= link_to shopping_cart_item.purchasable.introduction, dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug) %></h3>
+		  </div>
+		  <div class="panel-body">
+				<div class="media">
+						<%= link_to image_tag(shopping_cart_item.purchasable.small_image, class: 'media-object'), 
+												dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), class: 'pull-left thumbnail' %>
+				  <div class="media-body">
+						<ul class="list-group">
+						  <li class="list-group-item"><strong>Precio:</strong> <%= number_to_currency shopping_cart_item.purchasable.price %></li>
+						  <li class="list-group-item"><strong>Talla:</strong> <%= shopping_cart_item.size.to_s %></li>
+						  <li class="list-group-item"><strong>Cantidad:</strong> <%= shopping_cart_item.quantity.to_s %></li>
+						</ul>
+				  </div>
+				</div>
 			</div>
 		</div>
-		<div class="clear"></div>
-	<% end %>
-	
-	<% if current_user.check_if_has_credits %>
-	<table style="margin-top:20px">
-		<tr>
-			<td colspan="2">Subtotal: <%= number_to_currency @subtotal %></td>
-		</tr>
-		<tr>
-			<td colspan="2">Tienes <%= number_to_currency current_user.credit_amount %> en créditos</td>
-		</tr>
-		<tr>
-			<td colspan="2" style="font-weight:bold">
-				Precio final: <%= number_to_currency(@price) %> + <%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %>
-			</td>
-		</tr>
-	</table>
-	<% else %>
-	<table style="margin-top:20px">
-		<tr>
-			<td colspan="2" style="font-weight:bold">
-				Precio final: <%= number_to_currency(@price) %> + <%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %>
-			</td>
-		</tr>
-	</table>
-	<% end %>
+	</div>
+<% end %>
 </div>
 
-<div class="field">
-	<%= f.hidden_field :purchasable_id, :value => @purchasable.id %>
-</div>
-<div class="field">
-	<%= f.hidden_field :purchasable_type, :value => @purchasable.class %>
-</div>
-<div class="field">
-	<%= f.hidden_field :user_id, :value => @user.id %>
-</div>
-<div class="field">
-	<%= f.hidden_field :price, :value => @price %>
-</div>
-<div class="field">
-	<%= f.hidden_field :currency, :value => 'CLP' %>
+<div class="row">
+	<div class="col-md-12">
+		<ul class="list-group">
+			<% if current_user.check_if_has_credits %>
+				<li class="list-group-item">Subtotal: <%= number_to_currency @subtotal %></li>
+				<li class="list-group-item">Tienes <%= number_to_currency current_user.credit_amount %> en créditos</li>
+				<li class="list-group-item active">Total: <%= number_to_currency(@price) %> + 
+					<%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline', style: "color:white" %></li>
+			<% else %>
+				<li class="list-group-item active"><strong>Total: <%= number_to_currency(@price) %></strong> + 
+					<%= link_to 'Costo de despacho', display_dispatch_costs_path, :id => 'form_inline' %></li>
+			<% end %>
+		</ul>
+	</div>
 </div>

@@ -1,4 +1,4 @@
-<%= nested_form_for @dress, :validate => true, :html => {:multipart => true} do |f| %>
+<%= nested_form_for @dress, :validate => true, :html => {:multipart => true, role: "form"} do |f| %>
 	<% if @dress.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@dress.errors.count, "error") %> prohibited this dress from being saved:</h2>
@@ -16,32 +16,38 @@
 		</div>
 	<% end %>
 	<%= render 'image_fields', :f => f %>
-	<table class="invisible">
+	<table class="table">
 		<tr>
 			<td>
-				<%= f.label :dress_type, 'Tipo de producto' %><%= mark_required @dress, :dress_type_id %>
-				<table class="invisible">
-				<tr>
-					<% DressType.get_options(@supplier_account).each_with_index do |dt, i| %>
-			  		<td>
-						<%= check_box_tag("dress[dress_type_ids][]", dt.id, (@dress.dress_types.include? dt)) %> 
-						<span style="color:#555"><%= dt.name.gsub('-', ' ').capitalize %></span>
-					</td>
-						<% if i == DressType.get_options(@supplier_account).size - 1 %>
-				</tr>
-						<% elsif (i + 1) % 5 == 0 %>
-				</tr>
-				<tr>
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title"><%= f.label :dress_type, 'Tipo de producto' %><%= mark_required @dress, :dress_type_id %></h3>
+				  </div>
+				  <div class="panel-body">
+						<table>
+						<tr>
+							<% DressType.get_options(@supplier_account).each_with_index do |dt, i| %>
+					  		<td>
+								<%= check_box_tag("dress[dress_type_ids][]", dt.id, (@dress.dress_types.include? dt)) %> 
+								<span style="color:#555"><%= dt.name.gsub('-', ' ').capitalize %></span>
+							</td>
+								<% if i == DressType.get_options(@supplier_account).size - 1 %>
+						</tr>
+								<% elsif (i + 1) % 5 == 0 %>
+						</tr>
+						<tr>
+								<% end %>
 						<% end %>
-				<% end %>
-				</table>
+						</table>
+				  </div>
+				</div>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<div class="help_tip">
+				<p class="help-block">
 					Precio al que se publicará el producto en la página. Incluye IVA.
-				</div>
+				</p>
 				<%= f.label :price, 'Precio de Venta' %>
 				<%= mark_required @dress, :price %> 
 				CLP $<%= f.number_field :price, :onchange => 'update_cost(this.value,'+@dress.supplier_account.net_margin.to_s+')' %>
@@ -99,7 +105,7 @@
 					Este texto se mostrará cuando la persona revisa todos los items, poner máximo 30 caracteres.
 				</div>
 				<%= f.label :introduction, 'Introducción' %><%= mark_required @dress, :introduction %><br />
-		    	<%= f.text_area :introduction, :size => '8x3' %>		
+		    	<%= f.text_field :introduction, class: "form-control"  %>		
 			</td>
 		</tr>
 		<tr>
@@ -111,7 +117,7 @@
 					- Tallas disponibles
 				</div>
 				<%= f.label :description, 'Descripción' %><%= mark_required @dress, :description %><br />
-		    	<%= f.text_area :description, :size => '8x10' %>		
+		    	<%= f.text_area :description, rows: '6', class: "form-control" %>		
 			</td>
 		</tr>
 		<tr>
@@ -120,7 +126,7 @@
 					Política de devolución (días que se acepta, cómo funciona, etc.)
 				</div>
 				<%= f.label :refund, 'Política de devolución' %><%= mark_required @dress, :refund %><br />
-		    	<%= f.text_area :refund, :size => '8x10' %>		
+		    	<%= f.text_area :refund, rows: '6', class: "form-control" %>		
 			</td>
 		</tr>
 		<tr>

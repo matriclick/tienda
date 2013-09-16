@@ -1,7 +1,7 @@
 <div class="left_menu">
 	<ul class="menu bold">
 		<li class="menu_li">
-				<%= link_to (image_tag "home.png", :class => "image_home_center")+" Matriclick", user_signed_in? ? products_and_services_catalog_select_industry_category_path : root_country_path, :class => "left_link" %>
+				<%= link_to (image_tag "home.png", :class => "image_home_center")+" Matriclick", user_signed_in? ? products_and_services_catalog_select_industry_category_path : root_path, :class => "left_link" %>
 		</li>
 		<li class="menu_li">
 			<div class="<%= "hover_style" if params[:action] == "winners" %>">

@@ -1,29 +1,19 @@
-<% if defined? dresses and dresses.size > 0 %>
-	<% dresses.each do |dress| %>
-		<div class="dresses_album_box dresses_index_box left dresses_index_box_regular first_set_dress">
-			<% if @enable_edit %>
-				<div style="background:black; padding:2px; text-align:center;">
-					<%= link_to 'Editar', edit_supplier_account_dress_path(@supplier, dress), :class => 'edit_dress_link' %>
-				</div>
-			<% end %>
-			<% unless dress.dress_images.blank? %>
-				<% if dress.dress_status.name.include?('Vendido') %>
-					<div style="position:absolute;right:5px;">
-						<%= image_tag 'dresses_icons/sold.png' %>
-					</div>
-				<% end %>
-				<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
-							dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
-			<% end %>
-			<div style="text-align:left; width:170px; padding-left:15px;">
-				<span id="dress_intro"> <%= link_to((j(dress.introduction[0..30]) unless dress.introduction.nil?), 
-										dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug)) %></span><br />
-				<span id="dress_price"> <%= "#{number_to_currency dress.price}" %></span>
-				<br />
-			</div>
+<div class="row">
+	<div class="col-md-10">
+		<div class="row">
+		<% if defined? dresses and dresses.size > 0 %>
+		  <% dresses.each do |dress| %>
+				<%= render 'list_dress', dress: dress %>
+		  <% end %>
+		<% else %>
+			<%= render 'not_found' %>
+		<% end %>
 		</div>
-	<% end %>
-	<div id="infinite-scroll"></div>
-<% else %>
-	<%= render 'not_found' %>
-<% end %>
+		<div class="row" style="text-align:center">
+		 <%= render 'dresses/pagination', dresses: dresses %>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<%= render 'right_menu', sizes: @sizes %>
+	</div>
+</div><!--/row-->

@@ -1,61 +1,32 @@
-<% if(@dresses.size >= @scrolling_set) %>
-	<script>		
-		flag_up = false	
-		ids = '<%= @dresses_array_ids %>'
-		type = '<%= params[:type] %>'		
-		edit = '<%= @enable_edit %>'
-		supp = '<%=  @supplier ? @supplier.id : 0 %>'
-
-
- 		$(document).ready(function(){
- 		$('#albums_columns').masonry();
- 		load_album_endless_scrolling(next_dress_scroll_feed)
- 		});
-
-	</script>
-<% end %>
 <script>
-	$("#src_txt").live("blur", function(){
-		var default_value = $(this).attr("rel");
-		if ($(this).val() == ""){
-			$(this).val(default_value);
-		}
-	}).live("focus", function(){
-		var default_value = $(this).attr("rel");
-		if ($(this).val() == default_value){
-			$(this).val("");
-		}
-	});
+$("#main_search").live("blur", function(){
+	var default_value = $(this).attr("rel");
+	if ($(this).val() == ""){
+		$(this).val(default_value);
+		$(this).css('color', '#bbb')
+	}
+}).live("focus", function(){
+	var default_value = $(this).attr("rel");
+	if ($(this).val() == default_value){
+		$(this).val("");
+		$(this).css('color', 'black')
+	}
+});
 </script>
 
-<% if !@enable_edit %>
-	<% if @soldable %>
-	<div class="right_link_in_catalog_page">
-		<%= link_to t('sell_your_dress'), "#sell_dress", :id => 'form_inline', :class => 'button' %> 
+<div class="container">
+	<div class="row" style="padding-bottom:10px; margin-top:-10px">
+		<form action="<%= dresses_search_path %>" method="get">
+			<div class="col-md-12">
+			  <div class="input-group">
+						<%= text_field_tag(:q, @search_text, id: 'main_search', 
+			 				value: 'Encuentra lo que estás buscando', rel: 'Encuentra lo que estás buscando', class: "form-control") %>
+			       <span class="input-group-btn">
+							<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
+			  		 </span>
+			  </div><!-- /input-group -->
+			</div>
+		</form>
 	</div>
-	<% end %>
-<% else %>
-	<div class="right_link">
-		<%= link_to 'Agregar un nuevo item', new_supplier_account_dress_path(@supplier), :class => 'button' %>
-	</div>
-	<div class="clear"></div>
-	<div style="margin-bottom:10px;"></div>
-<% end %>
-<div style="float:right; margin-top:-30px; margin-right:30px;">
-	<form action="<%= dresses_search_path %>" method="get">
-		<%= text_field_tag(:q, @search_term, size: 55, id: 'src_txt', 
-			value: @search_text, rel: @search_text) %>	
-		<%= submit_tag("Buscar", :name => nil, :class => 'button_filter_pink') %>
-	</form>
-</div>
-<div class="left_menu">
-	<%= render 'dresses/left_menu', :dresses => @dresses %>
-</div>
-<div id="albums_columns" style="width:800px; float:left; margin-left:10px;">
-	<%= render 'dresses/view_dress_list', :dresses => @dresses %>
-</div>
-<% if(@dresses.size >= @scrolling_set) %>
-	<div class="loading"><%=image_tag "campaign/after_contest/1/loading.gif", :size =>'50x22' %></div>
-<% end %>
-
-<%= render 'sell_your_dress_message' %>
+  <%= render 'dresses/view_dress_list', :dresses => @dresses %>
+</div><!--/.container-->

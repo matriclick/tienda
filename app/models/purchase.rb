@@ -10,6 +10,7 @@ class Purchase < ActiveRecord::Base
   
   has_many :credits, :dependent => :destroy
   has_many :credit_reductions, :dependent => :destroy
+  
   belongs_to :delivery_method
   
   validates :purchasable_id, :purchasable_type, :user_id, :price, :currency, :confirmed_terms, :delivery_cost, :presence => true

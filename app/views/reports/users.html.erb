@@ -1,55 +1,52 @@
-<h1>Reporte Usuarios</h1>
-<%= render 'date_range_selector' %>
-
-<a href="https://twitter.com/matriclick" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @twitterapi</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<br />
-<br />
-<table style="width:900px">
-	<tr style="">
-		<th></th>
-		<% @init = @from %>
-		<% while @init < @to %>
-			<th><%= @init.strftime("%d %b %Y") %></th>
-		<% @init = @init + 1.day %>
-		<% end %>
-		<th>
-			<b>Total</b>
-		</th>
-	</tr>
-	<tr style="">
-		<td>Usuarios <br />(acumulado)</td>
-		<% @init = @from %>
-		<% while @init < @to %>
-			<td style="text-align:center">
-				<%= count_link_users(@init, @init + 1.day) %>
-			</td>
-		<% @init = @init + 1.day %>
-		<% end %>
-		<td style="text-align:center">
-			<b><%= count_link_users(@from, @to) %></b>
-		</td>
-	<tr>
-	<tr style="">
-		<td>Novios registrados <br />(acumulado)</td>
-		<% @init = @from %>
-		<% while @init < @to %>
-			<td style="text-align:center">
-				<%= count_link_couples(@init, @init + 1.day) %>
-			</td>
-		<% @init = @init + 1.day %>
-		<% end %>
-		<td style="text-align:center">
-			<b><%= count_link_couples(@from, @to) %></b>
-		</td>
-	<tr>
-</table>
-<div style="width:900px; text-align:right; margin-top:10px;">
-	<%= link_to 'Exportar Usuarios a Excel', reports_export_path(:exporting => 'users') %>
-	| 
-	<%= link_to 'Exportar Novios a Excel', reports_export_path(:exporting => 'novios') %>
-	| 
-	<%= link_to 'Exportar Novias a Excel', reports_export_path(:exporting => 'novias') %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Reporte Usuarios</h1>
+			<%= render 'date_range_selector' %>
+			<div style="float:right">
+			<a href="https://twitter.com/tramantaonline" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @twitterapi</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			</div>
+			<table class="table">
+				<tr style="">
+					<th></th>
+					<% @init = @from %>
+					<% while @init < @to %>
+						<th><%= @init.strftime("%d %b %Y") %></th>
+					<% @init = @init + 1.day %>
+					<% end %>
+					<th>
+						<b>Total</b>
+					</th>
+				</tr>
+				<tr style="">
+					<td>Usuarios <br />(acumulado)</td>
+					<% @init = @from %>
+					<% while @init < @to %>
+						<td style="text-align:center">
+							<%= count_link_users(@init, @init + 1.day) %>
+						</td>
+					<% @init = @init + 1.day %>
+					<% end %>
+					<td style="text-align:center">
+						<b><%= count_link_users(@from, @to) %></b>
+					</td>
+				<tr>
+				<tr style="">
+					<td>Novios registrados <br />(acumulado)</td>
+					<% @init = @from %>
+					<% while @init < @to %>
+						<td style="text-align:center">
+							<%= count_link_couples(@init, @init + 1.day) %>
+						</td>
+					<% @init = @init + 1.day %>
+					<% end %>
+					<td style="text-align:center">
+						<b><%= count_link_couples(@from, @to) %></b>
+					</td>
+				<tr>
+			</table>
+			<%= link_to 'Volver al menú de administración', administration_index_path %>
+		</div>
+	</div>
 </div>
-<br />
-<%= link_to 'Volver al menú de administración', administration_index_path %>

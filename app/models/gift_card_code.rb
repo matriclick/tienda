@@ -47,13 +47,13 @@ class GiftCardCode < ActiveRecord::Base
   end
   
   # For the methods "link_to_view" and "full_link_to_view", the line "include Rails.application.routes.url_helpers" must be present in the model in order to use the "_path" and "_url" methods.
-  def link_to_view(country_url_path, purchase_id = nil)
-    gift_cards_show_coupon_path(:id => self.id, :country_url_path => country_url_path)
+  def link_to_view(purchase_id = nil)
+    gift_cards_show_coupon_path(:id => self.id)
   end
   
-  def full_link_to_view(country_url_path, purchase_id = nil)
+  def full_link_to_view(purchase_id = nil)
     host = 'www.tramanta.com'
-    gift_cards_show_coupon_path(:id => self.id, :only_path => false, :host => host, :country_url_path => country_url_path)
+    gift_cards_show_coupon_path(:id => self.id, :only_path => false, :host => host)
   end
   # -------------- END PURCHASABLE METHODS -------------------
   

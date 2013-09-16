@@ -54,7 +54,7 @@ class RefundRequestsController < ApplicationController
     respond_to do |format|
       if @refund_request.save
         NoticeMailer.refund_request_email(@refund_request).deliver
-        format.html { redirect_to root_country_path, notice: 'Solicitud de devolución correctamente ingresada.' }
+        format.html { redirect_to root_path, notice: 'Solicitud de devolución correctamente ingresada.' }
         format.json { render json: @refund_request, status: :created, location: @refund_request }
       else
         format.html { render action: "new" }

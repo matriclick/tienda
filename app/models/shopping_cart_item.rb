@@ -4,6 +4,10 @@ class ShoppingCartItem < ActiveRecord::Base
   
   validate :check_quantity_size
   
+  def get_store
+    return self.purchasable.supplier_account
+  end
+  
   def update_costs
     vat = self.purchasable.vat_cost.nil? ? 0 : self.purchasable.vat_cost
     net = self.purchasable.net_cost.nil? ? 0 : self.purchasable.net_cost

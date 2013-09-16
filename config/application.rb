@@ -47,6 +47,9 @@ module Matri
     # With this, you could call "include ModuleName" inside the definition of a class (e.g. Model)
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    
+    # set per_page globally
+    WillPaginate.per_page = 4
   end
 end
 

@@ -7,7 +7,7 @@
 	- <b>950px x 1400px</b> es el tamaño ideal de las imágenes<br />
 	- Siempre preferir <b>fondo blanco</b><br />
 	- Si el tamaño de la imagen no permite esas dimensiones, completar con fondo blanco<br />
-	- Cada imagen por sí sola NO DEBE SUPERAR los <b><%= number_to_human_size(DressImage.validators.select {|i| i.to_s.include?('#<ActiveModel::Validations::InclusionValidator') }.first.options[:in].to_s.split('..').last.to_i) %></b><br />
+	- Cada imagen por sí sola NO DEBE SUPERAR los <b>2MB</b><br />
 	- La primera imagen que se sube será la principal<br />
 </div>
 <br />

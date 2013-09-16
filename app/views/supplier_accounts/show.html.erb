@@ -1,16 +1,14 @@
-<div id="profileBox">
-	<div class="right_link">
-		<%= link_to t("edit"), edit_supplier_account_path(@supplier), :class => :button %>
+<div class="container">
+	<div class="row">
+			<%= link_to t("edit"), edit_supplier_account_path(@supplier), :class => :button %>
 	</div>
-	<div class="titulos">
-		<%= t 'profile' %>
-	</div>
-	<div class="help_tip">
-		<%= "Te invitamos a completar tu perfil y mantenerlo lo más completo y actualizado posible, recuerda que a mayor información nos entregues más puntos Matriclick recibirás! Puntos que se traducen en premios, posiciones destacadas y muchas otras sorpresas que tenemos para ti." %>
-	</div>
-	<div class="box">
-		<div id="profileImage"><%= image_tag @supplier.supplier_account.image.url(:small) %></div>
-		<div class="profileInfo">
+	<div class="row">
+		<h2><%= t 'profile' %></h2>
+		<div class="col-md-4">
+			<div id="profileImage"><%= image_tag @supplier.supplier_account.image.url(:small) %></div>
+		</div>
+			
+		<div class="col-md-8">
 			<table>
 				<tr>
 					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.corporate_name' %></td>
@@ -87,28 +85,10 @@
 				</tr>
 			</table>
 		</div>
+	</div>
 		
-		<div class="profileNumbers">
-			<div class="dottedLine"><%= t 'you_have' %></div>
-			<div class="">
-				<span class="largeNumber"><%= @supplier.supplier_account.products.count %></span>
-				<%= link_to pluralize_without_number(@supplier.supplier_account.products.count, t('product')), supplier_account_products_path(@supplier) ,:class => "light gray" %>
-			</div>
-			<div class="">
-				<span class="largeNumber"><%= @supplier.supplier_account.services.count %></span>
-				<%= link_to pluralize_without_number(@supplier.supplier_account.services.count, t('service'), t('services')), supplier_account_services_path(@supplier) ,:class => "light gray" %>
-			</div>	
-		</div>
-		<div class="clear"></div>
-	</div>
-	<div class="titulos">
-		<%= t('your_account_status') %>
-	</div>
-	<div class="help_tip">
-		<%= "Una vez que completes tu perfil no olvides validarte en tu Vista Previa como “Estoy listo”, con esto estarás a sólo un paso de estar visible para los novios, ya que el Equipo Matriclick debe verificar si cumples con los criterios de ingreso, luego validarte y ¡Listo! Los novios ya te podrán ver y cotizar." %>
-	</div>
-	<div class="box">
-		<div class="profileInfo" style="width:70%;">
+	<div class="row">	
+			<h2><%= t('your_account_status') %></h2>
 			<table>
 				<tr>
 					<td>
@@ -135,9 +115,7 @@
 					</td>
 				</tr>
 			</table>
-			<%= content_tag :div, t('you_are_online'), :class => "you_online" if @supplier.supplier_account.is_approved? %>
-			<div class="clear"></div>
-		</div>
-		<div class="clear"></div>
+			<h3><%= content_tag :div, t('you_are_online'), :class => "you_online" if @supplier.supplier_account.is_approved? %></h3>
 	</div>
+		
 </div>

@@ -4,6 +4,48 @@ class ReportsController < ApplicationController
   before_filter { redirect_unless_privilege('Reportes') }
   helper_method :sort_column, :sort_direction
   
+  def sales_by_category
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.utc.beginning_of_year
+      @to = DateTime.now.utc.end_of_day
+    else
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
+    end
+    
+    @categories = DressType.all
+    @statuses = DressStatus.all
+    
+  end
+  
+  def sales_by_store
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.utc.beginning_of_week
+      @to = DateTime.now.utc.end_of_day
+    else
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
+    end
+    
+    @stores = SupplierAccount.all
+    
+  end
+  
+  def products_in_wish_list
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.utc.beginning_of_week
+      @to = DateTime.now.utc.end_of_day
+    else
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
+    end
+    @wlis = DressesUsersWishList.select("dress_id, count(user_id) as count").where('created_at >= ? and created_at <= ?', @from, @to).group("dress_id")
+    
+    @wli_sum = 0
+    @wlis.map { |wli| @wli_sum = @wli_sum + wli.count }
+    
+  end
+  
   def products_payments
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_year
@@ -31,11 +73,11 @@ class ReportsController < ApplicationController
 
     @c_sum_month = Purchase.sum(:total_cost, :conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
     @p_sum_month = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
-    @r_sum_month = Purchase.sum(:refund_value, :conditions => ['refunded = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
+    @r_sum_month = Purchase.sum(:refund_value, :conditions => ['refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
 
     @c_sum = Purchase.sum(:total_cost, :conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])    
     @p_sum = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
-    @r_sum = Purchase.sum(:refund_value, :conditions => ['refunded = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
+    @r_sum = Purchase.sum(:refund_value, :conditions => ['refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, 'finalizado', @from, @to])
     
     @count_paid_pur = Purchase.count(:conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
     @count = Purchase.count(:conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
@@ -96,7 +138,7 @@ class ReportsController < ApplicationController
       @to = Time.parse(params[:to]).utc.end_of_day
     end
     
-    @industry_categories = IndustryCategory.all.joins(:countries).where("countries.id = ?", session[:country].id).sort_by {|ic| -SupplierAccount.where(:country_id => session[:country].id).from_industry(ic).joins(:conversations).approved.count }
+    @industry_categories = IndustryCategory.all.joins(:countries).where("countries.id = ?", session[:country].id).sort_by {|ic| -SupplierAccount.from_industry(ic).joins(:conversations).approved.count }
   end
   
   def industry_category_details
@@ -110,7 +152,7 @@ class ReportsController < ApplicationController
     end
     
     @industry_category = IndustryCategory.find params[:industry_category_id]
-    @supplier_accounts = @industry_category.supplier_accounts.where(:country_id => session[:country].id).sort_by {|sa| -sa.conversations.count }
+    @supplier_accounts = @industry_category.supplier_accounts.sort_by {|sa| -sa.conversations.count }
   end
   
   def suppliers_with_contract
@@ -286,7 +328,7 @@ class ReportsController < ApplicationController
       @to = Time.parse(params[:to]).utc.end_of_day
     end
 
-    @leads = Lead.joins(:invoices).where(:country_id => session[:country].id).where('invoices.issued_date >= ? and issued_date <= ?', @from, @to)
+    @leads = Lead.joins(:invoices).where('invoices.issued_date >= ? and issued_date <= ?', @from, @to)
     @leads = @leads.uniq
     @leads.sort_by! {|lead| -lead.unpaid_invoices.size}
     
@@ -359,7 +401,7 @@ class ReportsController < ApplicationController
       @months_to_report_date_time << DateTime.parse(month_to_report_string)
     end
     
-    @leads = Lead.where(:country_id => session[:country].id)
+    @leads = Lead
   end
   
   def collections_email
@@ -499,7 +541,7 @@ class ReportsController < ApplicationController
     row_count = 1;     
     data.each do |value|
       row = sheet1.row(row_count)
-      header.each do |att|      
+      header.each do |att|
         row.push eval("value.#{att}")
       end
       row_count = row_count + 1

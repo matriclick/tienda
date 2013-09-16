@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<b>Filtro por fecha de creación del producto</b>
+			<%= render 'date_range_selector' %>
+			<%= link_to 'Volver al menú de administración', administration_index_path %>
+			<br /><br />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<tr><th>Categoría</th>
+				<% @statuses.each do |status| %>
+					<th><%= status.name %></th>
+				<% end %>
+				</tr>
+				<% @categories.each do |cat| %>
+				<tr><th><%= cat.get_human_name %></th>
+					<% @statuses.each do |status| %>
+						<td><%= cat.dresses.where('dresses.created_at >= ? and dresses.created_at <= ? and dress_status_id = ?', @from, @to, status.id).size %></td>
+					<% end %>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,26 +1,8 @@
-<div style="margin-top:-10px">
+<div class="container">
 	<h1 style="margin-left:10px"><%= @h1 %></h1>
-	<h2 style="margin-left:10px"><%= @h2 %></h2>
-	<div class="slider_blog" style="margin-left:10px">
-		<% @slider_images.each do |slider| %>
-			<div class="slider-item">
-				<% if !slider.link.nil? %>
-		       		<%= link_to (image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name), slider.link, 
-						:target => slider.target ? '_self' : '_blank' %>
-				<% else %>
-					<%= image_tag slider.slider_image(:original), :alt => slider.slider_image_file_name %>
-				<% end %>
-				<% unless slider.title.blank? %>
-		       	<div class="caption"><b><%= slider.title %></b><br /> 
-					<% unless slider.content.blank? %>
-						<%= slider.content.html_safe %>
-					<% end %>
-				</div>
-				<% end %>
-			</div>
-		<% end %>
-	</div>
-	<h3 style="margin-left:20px"><%= @h3 %></h3>
+	<h3 style="margin-left:10px"><%= @h2 %></h3>
+	<h4 style="margin-left:20px"><%= @h3 %></h4>
+
 	<div style="margin-left:25px">
 	<% @posts.each do |post| %>
 		<div class="post_container" style="width:370px; height:300px;">
@@ -37,6 +19,5 @@
 			</div>
 		</div>
 	<% end %>
-	<div class="clear"></div>
 	</div>
 </div>

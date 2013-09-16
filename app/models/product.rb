@@ -148,13 +148,13 @@ class Product < ActiveRecord::Base
   end
   
   # For the methods "link_to_view" and "full_link_to_view", the line "include Rails.application.routes.url_helpers" must be present in the model in order to use the "_path" and "_url" methods.
-  def link_to_view(country_url_path, purchase_id = nil)
-    products_and_services_catalog_description_path(:id => self.id, :object_class => self.class, :country_url_path => country_url_path)
+  def link_to_view(purchase_id = nil)
+    products_and_services_catalog_description_path(:id => self.id, :object_class => self.class)
   end
   
-  def full_link_to_view(country_url_path, purchase_id = nil)
+  def full_link_to_view(purchase_id = nil)
     host = 'www.tramanta.com'
-    products_and_services_catalog_description_path(:id => self.id, :object_class => self.class, :only_path => false, :host => host, :country_url_path => country_url_path)
+    products_and_services_catalog_description_path(:id => self.id, :object_class => self.class, :only_path => false, :host => host)
   end
   # -------------- END PURCHASABLE METHODS -------------------
 	

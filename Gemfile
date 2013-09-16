@@ -17,12 +17,13 @@ gem 'geocoder'
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
 
-gem 'paperclip', "~> 2.3", :git => "git://github.com/redvel-ltda/paperclip.git"
+gem "paperclip", "~> 3.0"
 # Mime Types for swfupload
 gem 'mime-types', :require => 'mime/types'
 gem 'cancan'
 gem 'nested_form', :git => "https://github.com/fxposter/nested_form.git"
-gem 'will_paginate', '~> 3.0'
+#gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
 gem 'spreadsheet'
 
 

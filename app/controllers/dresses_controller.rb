@@ -1,9 +1,19 @@
 # encoding: UTF-8
 class DressesController < ApplicationController
   around_filter :catch_not_found
-  before_filter :hide_left_menu
+  require 'will_paginate/array'
   
   @@scrolling_set = 12
+
+  # GET /dresses
+  # GET /dresses.json
+  def index 
+    if !params[:type].nil?
+      redirect_to dresses_ver_path :type => params[:type]
+    else
+      redirect_to bazar_path
+    end
+  end
   
   def refund_policy
     render :layout => false    
@@ -48,7 +58,11 @@ class DressesController < ApplicationController
 	
 	def bazar
 	  @home = true
+    @not_breadcrumbs = true
+    @dresses = Dress.limit 4
     @title_content = '¡Bienvenido!'
+    @search_text = 'Busca por color, talla, tela, etc...'
+    @subscriber = Subscriber.new
     @meta_description_content = 'Compra miles de productos de moda para la mujer: vestidos de fiesta, blusas, chaquetas, accesorios y muchas cosas más!'
 	  if !current_supplier.nil?
 	    sign_out current_supplier
@@ -67,7 +81,7 @@ class DressesController < ApplicationController
   def party_dress_boutique
     @ic = IndustryCategory.find_by_name('vestidos_de_fiesta')
     @supplier_account_type = SupplierAccountType.find_by_name('Vestidos Boutique')
-    @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).where("supplier_account_type_id = #{@supplier_account_type.id}").by_industry_category(@ic.id).approved.sort_by {|sa| sa.reviews.approved.size}.reverse		  	  
+    @supplier_accounts = SupplierAccount.where("supplier_account_type_id = #{@supplier_account_type.id}").by_industry_category(@ic.id).approved.sort_by {|sa| sa.reviews.approved.size}.reverse		  	  
     @vestido_boutique = true
     add_breadcrumb "El Bazar", :bazar_path
     add_breadcrumb "Vestidos boutique", :dresses_party_dress_boutique_path
@@ -76,7 +90,7 @@ class DressesController < ApplicationController
   def wedding_dress_stores
     @ic = IndustryCategory.find_by_name('vestidos_y_calzado_novia')
     @supplier_account_type = SupplierAccountType.find_by_name('Regular')
-    @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).where("supplier_account_type_id = #{@supplier_account_type.id}").by_industry_category(@ic.id).approved.sort_by {|sa| sa.reviews.approved.size}.reverse		  	  
+    @supplier_accounts = SupplierAccount.where("supplier_account_type_id = #{@supplier_account_type.id}").by_industry_category(@ic.id).approved.sort_by {|sa| sa.reviews.approved.size}.reverse		  	  
     add_breadcrumb "Vestidos de Novia", :dresses_wedding_dress_menu_path
     add_breadcrumb "Tiendas", :dresses_wedding_dress_stores_path
   end
@@ -88,29 +102,6 @@ class DressesController < ApplicationController
     @og_type = 'website' #FB Puede ser website, article
     @og_image = 'http://www.tramanta.com/images/emails/logo_matriclick_sin_caja.png' #FB Ruta completa a la imagen, por ejemplo http://www.tramanta.com/images/emails/logo_matriclick_sin_caja.png
     add_breadcrumb "Ropa de Bebe", :mibebe_menu_path
-  end
-
-  def endless_scrolling      
-    splited_ids = params[:ids].split(',')
-    pending_dresses_ids = splited_ids[@@scrolling_set..splited_ids.length-1]
-    @dresses_array_ids = pending_dresses_ids.to_s.gsub("\"","").gsub("[",'').gsub("]",'').gsub(" ",'')
-    pending_dresses_count = pending_dresses_ids.blank? ? 0 :  pending_dresses_ids.count
-    @last_set =  pending_dresses_count<=@@scrolling_set
-    @enable_edit = params[:edit] =='true' ? true : false
-    @supplier = params[:supp]
-      
-    if params[:supp] != "0"
-      sign_in(Supplier.find @supplier)
-      @dress_types = DressType.get_options(current_supplier.supplier_account)
-    end
-    
-    @dresses = Array.new
-
-    for d in 0..[@@scrolling_set-1,pending_dresses_count-1].min
-      @dresses.push(Dress.find(pending_dresses_ids[d]))    
-    end
-    
-    #Responde a  endless_scrolling.js.erb       
   end
 
   def supplier_view
@@ -132,21 +123,6 @@ class DressesController < ApplicationController
       
       @title_content = @dresses.size.to_s+' productos'
 
-      #IE v8 y anteriores no compatible con carga dinamica
-      user_agent = request.env['HTTP_USER_AGENT']
-      unless user_agent =~ /MSIE 8/ || user_agent =~ /MSIE 7/ || user_agent =~ /MSIE 6/ || user_agent =~ /MSIE 5/ 
-        @scrolling_set = @@scrolling_set
-        @dresses_array_ids ="";
-  
-        @dresses.each do |dress|
-          @dresses_array_ids += dress.id.to_s + ','
-        end
-  
-        @dresses = @dresses[0..@@scrolling_set-1]      
-      else
-        @scrolling_set = @dresses.length + 1
-      end
-
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @dresses }
@@ -165,68 +141,45 @@ class DressesController < ApplicationController
         format.json { head :ok }
       end
     else
-      @soldable = (@dress_types.first.name == 'vestidos-novia' and @dress_types.size == 1 ? true : false)
-    
-      @dresses = Array.new
-      @dress_types.each do |dt| 
-        @dresses.concat(dt.dresses.available)
-      end
-      @dresses.uniq!
-      @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
+      @all_dresses = Dress.joins(:dress_types).where('dress_types.name like "%'+params[:type]+'%"')
+      @dresses = @all_dresses.paginate(:page => params[:page]).order('position ASC')
+      @sizes = Dress.check_sizes(@all_dresses)
+      
+      #@dresses = Array.new
+      #@dress_types.each do |dt| 
+      #  @dresses.concat(dt.dresses.available)
+      #end
+      #@dresses.uniq!
+      #@dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
     
       @title_content = (params[:type]).gsub('-', ' ').capitalize
     	@meta_description_content = 'Compra '+(params[:type]).gsub('-', ' ')
-    
-      #IE v8 y anteriores no compatible con carga dinamica
-      user_agent = request.env['HTTP_USER_AGENT']
-      unless user_agent =~ /MSIE 8/ || user_agent =~ /MSIE 7/ || user_agent =~ /MSIE 6/ || user_agent =~ /MSIE 5/ 
-        @scrolling_set = @@scrolling_set
-        @dresses_array_ids ="";
-    
-        @dresses.each do |dress|
-          @dresses_array_ids += dress.id.to_s + ','
-        end
-    
-        @dresses = @dresses[0..@@scrolling_set-1]      
-      else
-        @scrolling_set = @dresses.length + 1
-      end
-
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @dresses }
-      end
     end    
   end
   
   def view_search
     @search_term = params[:q]
-    unless @search_term.nil?
-      @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
-      @dresses = Dress.all_filtered(@search_term) 
-      @dresses.uniq!
-      @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
-  
-      @title_content = 'Buscando '+@search_term.capitalize
-    	@meta_description_content = 'Compra '+@search_term.capitalize
-      add_breadcrumb "Tramanta", :bazar_path
-      add_breadcrumb @search_term, dresses_search_path(q: @search_term)
+    @search_sizes = params[:sizes]
     
-      #IE v8 y anteriores no compatible con carga dinamica
-      user_agent = request.env['HTTP_USER_AGENT']
-      unless user_agent =~ /MSIE 8/ || user_agent =~ /MSIE 7/ || user_agent =~ /MSIE 6/ || user_agent =~ /MSIE 5/ 
-        @scrolling_set = @@scrolling_set
-        @dresses_array_ids ="";
-  
-        @dresses.each do |dress|
-          @dresses_array_ids += dress.id.to_s + ','
-        end
-  
-        @dresses = @dresses[0..@@scrolling_set-1]      
-      else
-        @scrolling_set = @dresses.length + 1
-      end
+    unless @search_term.nil? and @search_sizes.nil?
+      @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
+      
+      @all_dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC').uniq
+      @dresses = @all_dresses.paginate(:page => params[:page])
+      @sizes = Dress.check_sizes(@all_dresses)
 
+      add_breadcrumb "Tramanta", :bazar_path    
+      if !@search_term.nil?
+        @title_content = 'Buscando '+@search_term.capitalize 
+      	@meta_description_content = 'Compra '+@search_term.capitalize
+        add_breadcrumb @search_term, dresses_search_path(q: @search_term)
+      else
+        txt = @search_sizes.join(", ")  
+        @title_content = 'Buscando por tallas: '+txt
+      	@meta_description_content = 'Compra productos de moda en distintas tallas: '+txt
+        add_breadcrumb 'Talla '+txt, dresses_search_path(sizes: @search_sizes)
+      end
+      
       render :view
     else
       respond_to do |format|
@@ -238,27 +191,15 @@ class DressesController < ApplicationController
   
   def new_arrivals
     disp = DressStatus.find_by_name("Disponible").id
-    @dresses = Dress.where('dress_status_id = ?', disp).order('created_at DESC').limit 32
+    @all_dresses = Dress.where('dress_status_id = ?', disp)
+    @dresses = @all_dresses.paginate(:page => params[:page]).order('created_at DESC')
+    @sizes = Dress.check_sizes(@all_dresses)
+    
     add_breadcrumb "Tramanta", :bazar_path
     add_breadcrumb 'New Arrivals!', dresses_new_arrivals_path
     @search_text = 'Busca por color, talla, tela, etc...'
     @title_content = 'New Arrivals'
   	@meta_description_content = 'Los últimos productos agregados: vestidos, leggings, blusas, chaquetas y muchas cosas más.'
-    
-    #IE v8 y anteriores no compatible con carga dinamica
-    user_agent = request.env['HTTP_USER_AGENT']
-    unless user_agent =~ /MSIE 8/ || user_agent =~ /MSIE 7/ || user_agent =~ /MSIE 6/ || user_agent =~ /MSIE 5/ 
-      @scrolling_set = @@scrolling_set
-      @dresses_array_ids ="";
-
-      @dresses.each do |dress|
-        @dresses_array_ids += dress.id.to_s + ','
-      end
-
-      @dresses = @dresses[0..@@scrolling_set-1]      
-    else
-      @scrolling_set = @dresses.length + 1
-    end
     
     render :view
   end
@@ -356,7 +297,7 @@ class DressesController < ApplicationController
     if !current_supplier.nil?
       set_supplier_layout
     else
-      @supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).joins(:industry_categories).where("industry_categories.item_seller = 1").approved
+      @supplier_accounts = SupplierAccount.joins(:industry_categories).where("industry_categories.item_seller = 1").approved
       if !@supplier_accounts.nil?
         @supplier_accounts = @supplier_accounts.uniq
         @supplier_accounts = @supplier_accounts.sort_by {|sa| sa[:fantasy_name]}
@@ -477,23 +418,13 @@ class DressesController < ApplicationController
     @regions = @regions.uniq
     render :layout => false
   end
-
-  # GET /dresses
-  # GET /dresses.json
-  def index 
-    if !params[:type].nil?
-      redirect_to dresses_ver_path :type => params[:type]
-    else
-      redirect_to bazar_path
-    end
-  end
   
   private
 
   def catch_not_found
     yield
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_country_url, :flash => { :error => "No encontramos lo que estabas buscando" }
+    redirect_to root_path_url, :flash => { :error => "No encontramos lo que estabas buscando" }
   end
   
   def generate_bread_crumbs(dress_type_param)

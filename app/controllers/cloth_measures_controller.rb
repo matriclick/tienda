@@ -38,7 +38,7 @@ class ClothMeasuresController < ApplicationController
       @id = params[:u]
       @size = Size.find(params[:size_id])
     else
-      redirect_to root_country_path
+      redirect_to root_path
     end
     
     respond_to do |format|

@@ -1,4 +1,41 @@
-<div id="notice"><%= notice %></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<%= render 'info_dress_images', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
+			<div class="addthis_toolbox addthis_default_style" style="margin-top:5px">
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+				<a class="addthis_button_tweet"></a>
+				<a class="addthis_button_pinterest_pinit"></a> 
+			</div>
+		</div>
+		<div class="col-md-5">
+			<h3><%= @dress.introduction %></h3>
+			<p><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
+			<p>Tallas disponibles: <b><%= @dress.dress_stock_sizes.map { |s| s.size.name if s.stock > 0 }.join ', '  %></b></p>
+			<% if @dress.dress_status.name == 'Disponible' %>
+				<div class="purchase_section" style="margin-top:30px;">
+					<%= render 'purchase_section', dress: @dress %>
+					<%= render 'info_delivery', dress: @dress %>
+				</div>
+			<% end %>
+		</div>
+		<% unless @related_dresses.blank? %>
+			<div class="col-md-3" style="text-align:right">
+				<p><strong>Otros productos relacionados</strong></p>
+				<%= render 'related_dresses', related_dresses: @related_dresses %>
+			</div>
+		<% end %>
+	</div>
+	<div class="row">
+	<% unless @viewed_dresses.blank? %>
+			<hr>
+			<div class="col-md-12"><p><strong>Productos que has visto recientemente:</strong></p></div>
+			<%= render 'viewed_dresses', viewed_dresses: @viewed_dresses %>
+	<% end %>
+	</div>
+</div><!--/.container-->
+
+<!--
 
 <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
 <div class="dress_box left">
@@ -39,3 +76,5 @@
 		<%= render 'related_dresses', related_dresses: @viewed_dresses %>
 	</div>
 <% end %>
+
+-->

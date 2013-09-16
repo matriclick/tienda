@@ -1,42 +1,50 @@
-<div style="float:left; width:200px">
-<h1>Sales Dashboard</h1>
-<%= render 'date_range_selector' %><br /><br />
-<%= link_to 'Volver al menú de administración', administration_index_path %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<%= render 'date_range_selector' %><br /><br />
+			<%= link_to 'Volver al menú de administración', administration_index_path %><br /><br />
+			<em>Los reportes consideran exclusivamente compras en las que hemos recibido los fondos</em><br /><br />
+			<em>El monto devuelto se calcula en función de la fecha de devolución</em>
+		</div>
+		<div class="col-md-4">
+			<h4>Información del período seleccionado</h4>	
+			Desde <%= @from.strftime("%Y-%m-%d") %> hasta <%= @to.strftime("%Y-%m-%d") %>
+			<table class="table">
+				<tr class="success"><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum %></td></tr>
+				<tr class="warning"><th>Monto devuelto:</th><td><%= number_to_currency @r_sum %></td></tr>
+				<tr><td><b>Ventas - Devoluciones:</b></td><td><b><%= number_to_currency(@p_sum - @r_sum) %></b></td></tr>
+				<tr class="danger"><th>Costo productos:</th><td><%= number_to_currency @c_sum %></td></tr>
+				<tr class="success"><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum - @r_sum - @c_sum) %></b></td></tr>
+			</table>
+			<h4>Estadísticas</h4>
+			<table class="table">
+				<tr><th>Compras:</th><td><%= @count %></td></tr>
+				<tr><th>Compras pagadas:</th><td><%= @count_paid_pur %></td></tr>
+				<tr><th>Ticket promedio por compra:</th><td><%= number_to_currency(@p_sum / @count) if @count > 0 %></td></tr>
+				<tr><th>Productos vendidos:</th><td><%= @prod_count %></td></tr>
+				<tr><th>Precio promedio por producto:</th><td><%= number_to_currency(@p_sum / @prod_count) if @prod_count > 0 %></td></tr>
+			</table>
+		</div>
+		
+		<div class="col-md-4">
+			<h4>Información del mes actual</h4>
+			Días del mes: <%= @days_month %> | 
+			Día actual:<%= @day_today %>
+			<table class="table">
+				<tr class="success"><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum_month %></td></tr>
+				<tr class="warning"><th>Monto devuelto:</th><td><%= number_to_currency @r_sum_month %></td></tr>
+				<tr><td><b>Ventas - Devoluciones:</b></td><td><b><%= number_to_currency(@p_sum_month - @r_sum_month) %></b></td></tr>
+				<tr class="danger"><th>Costo productos:</th><td><%= number_to_currency @c_sum_month %></td></tr>
+				<tr class="success"><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum_month - @r_sum_month - @c_sum_month) %></b></td></tr>
+			</table>
+			
+			<h4>Proyecciones</h4>
+			<table class="table">
+				<tr><th>RR Ventas realizadas:</th><td><%= number_to_currency @p_sum_month*@factor %></td></tr>
+				<tr><th>RR Monto devuelto:</th><td><%= number_to_currency @r_sum_month*@factor %></td></tr>
+				<tr><th>RR Costo productos:</th><td><%= number_to_currency @c_sum_month*@factor %></td></tr>
+				<tr><td><b>RR Resultado:</b></td><td><b><%= number_to_currency((@p_sum_month - @r_sum_month - @c_sum_month)*@factor) %></b></td></tr>
+			</table>
+		</div>
+	</div>
 </div>
-<div style="float:left; width:300px; margin-left:15px;">
-	<h2>Información del período seleccionado</h2>	
-	<table>
-		<tr><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum %></td></tr>
-		<tr><th>Monto devuelto:</th><td><%= number_to_currency @r_sum %></td></tr>
-		<tr><th>Costo productos:</th><td><%= number_to_currency @c_sum %></td></tr>
-		<tr><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum - @r_sum - @c_sum) %></b></td></tr>
-		<tr><th>Compras:</th><td><%= @count %></td></tr>
-		<tr><th>Compras pagadas:</th><td><%= @count_paid_pur %></td></tr>
-		<tr><th>Ticket promedio por compra:</th><td><%= number_to_currency(@p_sum / @count) if @count > 0 %></td></tr>
-		<tr><th>Productos vendidos:</th><td><%= @prod_count %></td></tr>
-		<tr><th>Precio promedio por producto:</th><td><%= number_to_currency(@p_sum / @prod_count) if @prod_count > 0 %></td></tr>
-	</table>
-	<br />
-	<em>El reporte considera solamente compras en las que hemos recibido los fondos</em>
-</div>
-<div style="float:left; width:300px; margin-left:15px;">	
-	<table>
-		<h2>Información del mes actual</h2>
-		<tr><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum_month %></td></tr>
-		<tr><th>Monto devuelto:</th><td><%= number_to_currency @r_sum_month %></td></tr>
-		<tr><th>Costo productos:</th><td><%= number_to_currency @c_sum_month %></td></tr>
-		<tr><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum_month - @r_sum_month - @c_sum_month) %></b></td></tr>
-
-		<tr><th>Días del mes:</th><td><%= @days_month %></td></tr>
-		<tr><th>Día actual:</th><td><%= @day_today %></td></tr>
-
-		<tr><td>RR Ventas realizadas:</td><td><%= number_to_currency @p_sum_month*@factor %></td></tr>
-		<tr><th>RR Monto devuelto:</th><td><%= number_to_currency @r_sum_month*@factor %></td></tr>
-		<tr><th>RR Costo productos:</th><td><%= number_to_currency @c_sum_month*@factor %></td></tr>
-		<tr><td><b>RR Resultado:</b></td><td><b><%= number_to_currency((@p_sum_month - @r_sum_month - @c_sum_month)*@factor) %></b></td></tr>
-
-	</table>
-	<br />
-	<em>El reporte considera solamente compras en las que hemos recibido los fondos</em>
-</div>
-<div class="clear"></div>

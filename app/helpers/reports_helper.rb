@@ -129,7 +129,7 @@ module ReportsHelper
     starting_short = (s + 4.hour).strftime("%Y-%m-%d")
     ending_short = (e + 4.hour).strftime("%Y-%m-%d")
     
-    supplier_accounts = SupplierAccount.where(:country_id => session[:country].id).from_industry(i).joins(:conversations).approved.where('conversations.created_at >= ? and conversations.created_at <= ?', starting_full, ending_full)
+    supplier_accounts = SupplierAccount.from_industry(i).joins(:conversations).approved.where('conversations.created_at >= ? and conversations.created_at <= ?', starting_full, ending_full)
     count = supplier_accounts.count #Cuento los proveedores con nuevas conversaciones
     
     alert = false
@@ -157,7 +157,7 @@ module ReportsHelper
     starting_short = (s + 4.hour).strftime("%Y-%m-%d")
     ending_short = (e + 4.hour).strftime("%Y-%m-%d")
 
-    count = SupplierAccount.where(:country_id => session[:country].id).joins(:conversations).approved.where('conversations.created_at >= ? and conversations.created_at <= ?', 
+    count = SupplierAccount.joins(:conversations).approved.where('conversations.created_at >= ? and conversations.created_at <= ?', 
             starting_full, ending_full).count
   
     if check_if_privilege('Mensajes')

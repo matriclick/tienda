@@ -1,20 +1,23 @@
-<div style="float:left">
-	<img src="<%= @dress.dress_images.first.dress.url(:main) %>" alt="<%= @dress.dress_images.first.name %>" />
-	<p>Mostrando solo la imagen principal del vestido</p>
-</div>
-<div style="float:left; margin-left:50px">
-	<h1>Definición de stock</h1>
-	<p>Ojo: primero debes definir las medidas y luego el stock por talla</p>
-	<%= nested_form_for @dress, :html => {:multipart => true}, :validate => true do |f| %>
-		<%= f.fields_for :dress_stock_sizes do |dress_stock_size_builder| %>
-			<%= dress_stock_size_builder.number_field :stock %> <b><%= dress_stock_size_builder.object.size.name %></b>
-			<%= link_cloth_measure(dress_stock_size_builder.object.size) %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<img src="<%= @dress.dress_images.first.dress.url(:main) %>" alt="<%= @dress.dress_images.first.name %>" />
+			<p>Mostrando solo la imagen principal del vestido</p>
+		</div>
+		<div class="col-md-8">
+			<h1>Definición de stock</h1>
+			<p>Ojo: primero debes definir las medidas y luego el stock por talla</p>
+			<%= nested_form_for @dress, :html => {:multipart => true}, :validate => true do |f| %>
+				<%= f.fields_for :dress_stock_sizes do |dress_stock_size_builder| %>
+					<%= dress_stock_size_builder.number_field :stock %> <b><%= dress_stock_size_builder.object.size.name %></b>
+					<%= link_cloth_measure(dress_stock_size_builder.object.size) %>
+				<% end %>
+				<br/>
+				<p>Revisa bien el stock por talla antes de continuar</p>
+				<div>
+			    	<%= f.submit 'Guardar', :class => "button" %>
+				</div>  
+			</div>
 		<% end %>
-		<br/>
-		<p>Revisa bien el stock por talla antes de continuar</p>
-		<div class="holder">
-	    	<%= f.submit 'Guardar', :class => "button" %>
-		</div>  
-		<div class="holder"></div>
-	<% end %>
+	</div>
 </div>

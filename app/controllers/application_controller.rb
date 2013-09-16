@@ -1,11 +1,11 @@
 # encoding: UTF-8
 class ApplicationController < ActionController::Base  
-  before_filter :set_user_language, :meta_content_default, :set_time_zone, :set_country, :save_matriclick_last_url_in_session, :set_locale_from_url, :subscriber_pop_up
+  before_filter :set_user_language, :meta_content_default, :set_time_zone, :save_matriclick_last_url_in_session, :set_locale_from_url, :subscriber_pop_up
   before_filter :set_type_param
 	protect_from_forgery
 
 	rescue_from CanCan::AccessDenied do |exception|
-	  redirect_to root_country_url, :alert => exception.message
+	  redirect_to root_path_url, :alert => exception.message
   end
 
 	def meta_content_default
@@ -37,11 +37,6 @@ class ApplicationController < ActionController::Base
     end
   end
 	
-	def default_url_options(options={})
-    logger.debug "default_url_options is passed options: #{options.inspect}\n"
-    { :country_url_path => params[:country_url_path].blank? ? 'chile' : params[:country_url_path] }
-  end
-  
   def find_product_or_service(slug)
     find_by_id = numeric? slug
     
@@ -276,34 +271,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
-	def set_country
-	  default_country = Country.where(:url_path => 'chile').first
-	  
-    if controller_name.include?('omniauth_callbacks')
-      params[:country_url_path] = default_country.url_path
-    end
     
-	  if !params[:country_url_path]
-	    params[:country_url_path] = default_country.url_path
-	    redirect_to root_country_path
-    else
-  	  if Country.where(:url_path => params[:country_url_path]).first.blank?
-  	    params[:country_url_path] = default_country.url_path
-  	    redirect_to root_country_path
-      end
-    end
-    
-  	session[:country] = Country.where(:url_path => params[:country_url_path]).first
-  	
-    case session[:country].url_path
-      when 'peru'
-    	  I18n.locale = :esPE
-      else
-    	  I18n.locale = I18n.default_locale
-    end
-  end
-  
 	def set_time_zone
     Time.zone = "Santiago"
   end
@@ -363,7 +331,7 @@ class ApplicationController < ActionController::Base
   			sign_out(:user)
   			supplier_home_path
   		else
-  			root_country_path
+  			root_path
   		end
 	end
 	
@@ -408,7 +376,7 @@ class ApplicationController < ActionController::Base
 
 	def redirect_unless_user_signed_in #This works as before_filter :authenticate_user!
 		unless user_signed_in? 
-			redirect_to root_country_path	
+			redirect_to root_path	
 		end
 	end
 	
@@ -557,20 +525,9 @@ class ApplicationController < ActionController::Base
 		end
   end
 
-	def load_budget_slots
-		if user_signed_in? and current_user.role_id != 3
-		  unless current_user.user_account.nil?
-			  if current_user.user_account.budget_slots.blank?
-				  current_user.user_account.update_attribute(:budget_distribution_type_id, BudgetDistributionType.where('name like "%Equitativo%"').first.id)
-				  IndustryCategory.all.joins(:countries).where("countries.id = ?", session[:country].id).each { |ic| current_user.user_account.budget_slots << BudgetSlot.create!(industry_category_id: ic.id, budget_distribution_type_id: BudgetDistributionType.where("name like '%Equitativo%'").first.id, budget_type_id: BudgetType.find_by_name("$$").id) }
-			  end
-		  end
-		end
-	end
-
 	def check_env
 		unless Rails.env == "development"
-			redirect_to root_country_path
+			redirect_to root_path
 		end
 	end
   

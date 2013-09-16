@@ -15,10 +15,9 @@ class NoticeMailer < ActionMailer::Base
   end
 
 	#PURCHASE
-  def purchase_email(purchase, country_url_path)
+  def purchase_email(purchase)
   	@purchase = purchase
   	@purchasable = purchase.purchasable
-  	@country_url_path = country_url_path
   	mail to: @purchase.user.email, bcc: "equipo-tramanta@matriclick.com", subject: "Compra en Tramanta.com"
   end
 

@@ -24,7 +24,7 @@ class HomeController < ApplicationController
 	end
 
 	def index
-	  redirect_to root_country_path
+	  redirect_to root_path
 	end
 	
 	def check_country

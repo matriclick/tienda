@@ -1,29 +1,33 @@
-<h1>Listado de solicitudes</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Listado de solicitudes</h1>
+			<table class="table">
+			  <tr>
+				<th>Fecha</th>
+			    <th>Usuario</th>
+			    <th>Producto</th>
+			    <th>Razón de devolución</th>
+			    <th>Banco</th>
+			    <th></th>
+			    <th></th>
+			    <th></th>
+			  </tr>
 
-<table>
-  <tr>
-	<th>Fecha</th>
-    <th>Usuario</th>
-    <th>Producto</th>
-    <th>Razón de devolución</th>
-    <th>Banco</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @refund_requests.each do |refund_request| %>
-  <tr>
-	<td><%= refund_request.created_at.strftime("%d-%m-%Y") %></td>
-    <td><%= refund_request.user.email %></td>
-    <td><%= refund_request.dress.introduction if !refund_request.dress.nil? %></td>
-    <td><%= refund_request.refund_reason.name %></td>
-    <td><%= refund_request.account_bank %></td>
-    <td><%= link_to 'Ver Detalle', refund_request %></td>
-    <td><%= link_to 'Editar', edit_refund_request_path(refund_request) %></td>
-    <td><%= link_to 'Eliminar', refund_request, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-<br />
-<%= link_to 'Crear una devolución', new_refund_request_path %> | <%= link_to 'Volver al Administrador', administration_index_path %>
+			<% @refund_requests.each do |refund_request| %>
+			  <tr>
+				<td><%= refund_request.created_at.strftime("%d-%m-%Y") %></td>
+			    <td><%= refund_request.user.email %></td>
+			    <td><%= refund_request.dress.introduction if !refund_request.dress.nil? %></td>
+			    <td><%= refund_request.refund_reason.name %></td>
+			    <td><%= refund_request.account_bank %></td>
+			    <td><%= link_to 'Ver Detalle', refund_request %></td>
+			    <td><%= link_to 'Editar', edit_refund_request_path(refund_request) %></td>
+			    <td><%= link_to 'Eliminar', refund_request, confirm: 'Are you sure?', method: :delete %></td>
+			  </tr>
+			<% end %>
+			</table>
+			<%= link_to 'Crear una devolución', new_refund_request_path %> | <%= link_to 'Volver al Administrador', administration_index_path %>
+		</div>
+	</div>
+</div>

@@ -2,7 +2,7 @@
 	<% if dress.has_stock? %>
 		<%= link_to "AGREGAR AL CARRITO", 
 					buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), 
-					:method => :post, :class => 'button_buy_dress_pink' %>
+					:method => :post, :class => 'btn btn-primary', :style => 'width:400px' %>
 	<% else %>
 		ITEM SIN STOCK DISPONIBLE<br />
 	<% end %>

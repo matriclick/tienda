@@ -1,10 +1,9 @@
-<div style="float:left; width:auto">
-	<b>Método de despacho</b>
-	<hr>
-	<div style="color:#545454; margin-left:20px;">
+<div class="panel panel-default">
+  <div class="panel-heading">Método de despacho</div>
+  <div class="panel-body">
 		<%= radio_button("delivery", "option", "Normal", :checked => true) %> 
 		Despacho estándar (considera desde 1 a 5 días hábiles para que tu compra esté en el lugar deseado)<br /><br />
 		<%= radio_button("delivery", "option", "Express") %>
-		Despacho ultra-rápido - <b>$3.000 de recargo</b> (1 a 2 días hábiles para que la compra esté en el lugar deseado) <br /><br />
+		Despacho ultra-rápido - <b>$3.000 de recargo</b> (1 a 2 días hábiles para que la compra esté en el lugar deseado)
 	</div>
 </div>

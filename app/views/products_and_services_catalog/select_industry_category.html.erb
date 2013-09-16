@@ -10,7 +10,7 @@
 				<% end %>
 			</div>			
 			<% # FGM: SupplierAccounts SPECIAL FILTER %>
-			<span class="gray"><%= "(#{ic.supplier_accounts.where(:country_id => session[:country].id).approved.count}) " %></span><%= link_to ic.get_name, products_and_services_catalog_index_path(:industry_category_ids => ic.slug) %>
+			<span class="gray"><%= "(#{ic.supplier_accounts.approved.count}) " %></span><%= link_to ic.get_name, products_and_services_catalog_index_path(:industry_category_ids => ic.slug) %>
 		</div>
 	<% end %>
 <% end %>

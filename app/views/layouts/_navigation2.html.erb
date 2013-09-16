@@ -1,6 +1,6 @@
 <div class="navigation">
 	<div class="navigation_links">
-		<div class="nav_home"><%= session[:preview] == true ? (image_tag('home.png')) : (link_to image_tag('home.png'), root_country_path) %></div>
+		<div class="nav_home"><%= session[:preview] == true ? (image_tag('home.png')) : (link_to image_tag('home.png'), root_path) %></div>
 		<% route = request.url %>
 		<% route_2 = route.gsub('http://','') %>
 		<% links = route_2.split('/') %>

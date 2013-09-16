@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<b>Filtro por fecha en que se realizó la compra</b>
+			<%= render 'date_range_selector' %>
+			<%= link_to 'Volver al menú de administración', administration_index_path %>
+			<br /><br />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<tr>
+					<th>Tienda</th>
+					<th># Productos Vendido</th>
+					<th>$ Vendido</th>
+					<th># Devuelto</th>
+					<th>$ Devuelto</th>
+				</tr>
+				<% @stores.each do |store| %>
+				<tr>
+					<th><%= store.fantasy_name %></th>
+					<td><%= store.get_sold_items(@from, @to)[:quantity] %></td>
+					<td><%= number_to_currency store.get_sold_items(@from, @to)[:amount] %></td>
+					<td><%= store.get_sold_items(@from, @to)[:refund_quantity] %></td>
+					<td><%= number_to_currency store.get_sold_items(@from, @to)[:refund_amount] %></td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

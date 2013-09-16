@@ -2,9 +2,8 @@
 class UserMailer < ActionMailer::Base
   default from: "mensajes@tramanta.com"
   
-  def send_tracking_info(purchase, country_url_path)
+  def send_tracking_info(purchase)
     @purchase = purchase
-    @country_url_path = country_url_path
     mail to: "<#{@purchase.user.email}>", bcc: "equipo-tramanta@matriclick.com", subject: "Datos de despacho del producto | Tramanta.com"
   end
   
@@ -64,7 +63,6 @@ class UserMailer < ActionMailer::Base
 	# SUELTA LA ROCA
 	def rock_email(rock, to_sender = false)
 		@rock = rock
-		@country_url_path = 'chile'
 		if to_sender
 			mail to: @rock.sender_email, subject: "[Matriclick.com] Has enviado esta postal a #{@rock.recipient_name} (#{@rock.recipient_email})"
 		else
@@ -75,7 +73,6 @@ class UserMailer < ActionMailer::Base
   # BOOKINGS
   def booking_confirmation_email(booking)
   	@booking = booking
-  	@country_url_path = @booking.supplier_account.country.url_path
   	@bookable = @booking.bookable
   	@supplier_account = @booking.supplier_account
   	mail to: "<#{@booking.user_account.users.first.email}>", bcc: "matriclick_notice@tributosport.com ", subject: "[Matriclick.com] Tu reserva por '#{@bookable.name}' ha sido confirmada"
@@ -113,7 +110,6 @@ class UserMailer < ActionMailer::Base
   def supplier_respond_message_email(message, user) #Cant get the user_email from message
   	@message = message
   	@user = user
-    @country_url_path = @message.conversation.supplier_account.country.url_path
   	@conversation = @message.conversation
   	@supplier_account = @conversation.supplier_account
   	mail to: "<#{@user.email}>", bcc: "tramanta@matriclick.com ", subject: "[Matriclick.com] El proveedor #{@supplier_account.fantasy_name} ha respondido a tu mensaje"
@@ -122,7 +118,6 @@ class UserMailer < ActionMailer::Base
 	# REMINDERS
   def reminder_email(activity_reminder)
    	@activity_reminder = activity_reminder
-   	@country_url_path = @activity_reminder.activity.user_account.country.url_path
  		mail to: "<#{@activity_reminder.mail}>", bcc: "tramanta@matriclick.com ", subject: "[Matriclick.com] Recordatorio de Actividad en Checklist."
   end
 

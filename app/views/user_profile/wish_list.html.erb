@@ -1,0 +1,25 @@
+<div class="container">
+	<%= render 'left_menu', :dresses => @dresses %>
+	<div class="row">
+		<div class="col-md-10">
+			<% if defined? @dresses and @dresses.size > 0 %>
+			  <% @dresses.each do |dress| %>
+					<%= render 'dresses/list_dress', dress: dress %>
+			  <% end %>
+			<% else %>	
+				<p><strong>No has agregado productos...</strong> ¡Busca alguno como estos para agregar a tu Wish List!</p>
+				<%= image_tag 'el_bazar/not-found.jpg', alt: 'búsqueda no encontrada', class: "img-responsive" %> <br />
+			<% end %>
+		</div>
+	</div><!--/row-->
+  <div class="row">
+		<form action="<%= dresses_search_path %>" method="get">
+		  <div class="input-group">
+					<%= text_field_tag(:q, 'Ejemplo: Polera Azul XS', placeholder: 'Ejemplo: Polera Azul XS', class: "form-control") %>
+		       <span class="input-group-btn">
+						<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
+		  		 </span>
+		  </div><!-- /input-group -->
+		</form>
+	</div>
+</div>

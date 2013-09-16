@@ -1,43 +1,183 @@
-<h1>Preguntas Frecuentes</h1>
+<div class="container">
+	<h1>Preguntas Frecuentes</h1>
+	
+	<div class="panel-group" id="accordion">
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+	          Tengo problemas para registrarme
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseOne" class="panel-collapse collapse in">
+	      <div class="panel-body">
+	        Ingresa a la <%= link_to 'página de registro', user_sign_up_path %> e intenta nuevamente. Si el error persiste, contacta a contacto@tramanta.com y resolveremos el problema.
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse11">
+	          ¿Puedo probarme los productos? ¿Tienen una tienda física?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse11" class="panel-collapse collapse">
+	      <div class="panel-body">
+					No. Somos una tienda online. No contamos con un lugar físico donde puedas probarte los productos.<br />
+					El sistema funciona con compra en línea y despacho a domicilio.<br />
+					Si el producto no te gustó o te quedó mal puedes completar <%= link_to 'este formulario', new_refund_request_path %> para realizar la devolución y realizaremos una transferencia bancaria devolviendo el monto pagado por el producto. 
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+	          ¿Cuáles son los métodos de pago?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseTwo" class="panel-collapse collapse">
+	      <div class="panel-body">
+	        Nuestros medios de pago son a través de sistema webpay (tarjetas de crédito) o transferencia electrónica. Estas dos opciones aparecerán, luego de hacer click en el botón “comprar ahora”.
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+	          ¿Cuáles son los plazos de entrega de los productos?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseThree" class="panel-collapse collapse">
+	      <div class="panel-body">
+					Nuestros plazos de entrega son a partir del momento en que efectúas tu compra. Si eres de Santiago o de Regiones, considera desde 1 a 5 días hábiles para que tu compra esté en el lugar deseado. 
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+	          ¿El costo de envío lo paga el cliente?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse6" class="panel-collapse collapse">
+	      <div class="panel-body">
+					El costo de envío lo paga el cliente y se carga automáticamente al monto total una vez que se ingresa la dirección al formulario de compra.
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+	          ¿Todos los productos se pueden devolver?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse7" class="panel-collapse collapse">
+	      <div class="panel-body">
+					Todos los productos tienen opción de devolución excepto los siguientes accesorios: collares, anillos, aros y pulseras. Y           tampoco se aceptarán de ropa interior.<br />
+					Los productos deberán ser devueltos en el mismo estado en que fueron entregados.
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+	          ¿Cuáles son los plazos para realizar una devolución?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse8" class="panel-collapse collapse">
+	      <div class="panel-body">
+					Se aceptan devoluciones desde 1 a 5 días desde la entrega del producto. A diferencia de los zapatos que tienen plazo de devolución de 2 días.
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse9">
+	          ¿Cómo se realiza la devolución?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse9" class="panel-collapse collapse">
+	      <div class="panel-body">
+					Para realizar una devolución debes completar <%= link_to 'este formulario', new_refund_request_path %>, 24 horas depsués de completado te contactaremos entregándote las dirección en la cual debes dejar el producto.
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse10">
+	          ¿Cómo y cuándo me harán la devolución del dinero?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse10" class="panel-collapse collapse">
+	      <div class="panel-body">
+					Luego de recibir el producto que fue devuelto, en las mismas condiciones que fue entregado, los plazos para realizar la devolución del dinero son entre 1 a 5 días hábiles.<br />
+					La devolución se hará directamente a la cuenta corriente del cliente. Esos datos puedes hacerlos llegar a través del <%= link_to 'formulario de devoluciones', new_refund_request_path %>.
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse12">
+	          ¿Cuál es el medio a través del que realizan los envíos?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse12" class="panel-collapse collapse">
+	      <div class="panel-body">
+					Los productos son enviados a través de Chilexpress o Correos de Chile. Te llegará un par de días después de haber realizado tu compra con los datos del despacho para que puedas realizarle seguimiento a tu orden.
+	      </div>
+	    </div>
+	  </div>
+		
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse13">
+	          ¿Cómo puedo saber el estado de mi envío?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse13" class="panel-collapse collapse">
+	      <div class="panel-body">
+					Si recibiste un correo con los datos de despacho 3 días después de haber realizado tu compra, comunícate con nosotros a través del formulario en la pestaña de “contacto” y te enviaremos el número de orden y las instrucciones para que la puedas rastrear.
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
-<div style="width:650px; margin-left:5px">
-	<h3 style="color:#ff07e5"><b>Tengo problemas para registrarme</b></h3>
-	Ingresa a la <%= link_to 'página de registro', user_sign_up_path, :class => :blue %> e intenta nuevamente. Si el error persiste, contacta a soporte@tributosport.com y resolveremos el problema.
-
-	<h3 style="color:#ff07e5"><b>¿Cuáles son los métodos de pago?</b></h3>
-	Nuestros medios de pago son a través de sistema webpay (tarjetas de crédito) o transferencia electrónica. Estas dos opciones aparecerán, luego de hacer click en el botón “comprar ahora”.
-
-	<h3 style="color:#ff07e5"><b>¿Cuáles son los plazos de entrega de los productos?</b></h3>
-	Nuestros plazos de entrega son a partir del momento en que efectúas tu compra 
-	Si eres de Santiago o de Regiones, considera desde 1 a 5 días hábiles para que tu compra esté en el lugar deseado. 
-
-	<h3 style="color:#ff07e5"><b>¿El costo de envío lo paga el cliente?</b></h3>
-	El costo de envío lo paga el cliente y se carga automáticamente al monto total una vez que se ingresa la dirección al formulario de compra.
-
-	<h3 style="color:#ff07e5"><b>¿Todos los productos se pueden devolver?</b></h3>
-	Todos los productos tienen opción de devolución excepto los siguientes accesorios: collares, anillos, aros y pulseras. Y           tampoco se aceptarán de ropa interior.
-	Además los productos deberán ser devueltos en el mismo estado en que fueron entregados.
-
-	<h3 style="color:#ff07e5"><b>¿Cuáles son los plazos para realizar una devolución?</b></h3>
-	Se aceptan devoluciones,  desde 1 a 5 días desde la entrega del producto. A diferencia de los zapatos que tienen plazo de devolución de 2 días.
-
-	<h3 style="color:#ff07e5"><b>¿Cómo se realiza la devolución?</b></h3>
-	La devolución la puedes hacer enviando el producto a través de Chilexpress o bien, personalmente, a nuestra oficina ubicada en Marberia 373, Las Condes, Santiago
-
-
-	<h3 style="color:#ff07e5"><b>¿Cómo y cuándo me harán la devolución del dinero?</b></h3>
-	Luego de recibir el producto que fue devuelto, en las mismas condiciones que fue entregado, los plazos para realizar la devolución del dinero son entre 1 a 5 días hábiles.
-	La devolución se hará directamente a la cuenta corriente del cliente. Esos datos puedes hacerlos llegar a través del formulario de “Contacto” o vía mail.
-
-	<h3 style="color:#ff07e5"><b>¿Puedo probarme los productos?</b></h3>
-	No. Somos una tienda online, por lo que no contamos con un lugar físico donde puedas probarte los productos. El sistema funciona con compra en línea y despacho a domicilio.
-
-	<h3 style="color:#ff07e5"><b>¿Cuál es el medio a través del que realizan los envíos?</b></h3>
-	Los productos son enviados a través de Chilexpress.
-
-	<h3 style="color:#ff07e5"><b>¿Cómo puedo saber el estado de mi envío?</b></h3>
-	Comunícate con nosotros a través del formulario en la pestaña de “Contacto” y te enviaremos el número de orden y las instrucciones para que la puedas rastrear.
-
-	<h3 style="color:#ff07e5"><b>Contacto</b></h3>
-	Escríbenos a contacto@tramanta.com o llámanos al +56 9 7615 5005
+	<div class="panel panel-primary" style="margin-top:30px">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">¿Algo no quedó claro o tienes más dudas?</h3>
+	  </div>
+	  <div class="panel-body">
+	    Contáctanos usando este <%= link_to 'formulario de contacto', contact_elbazar_path %>
+	  </div>
+	</div>
+	
 </div>

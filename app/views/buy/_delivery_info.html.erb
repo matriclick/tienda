@@ -1,7 +1,6 @@
-<div>
-	<b>Datos de Despacho</b>
-	<hr>
-	<div style="color:#545454; margin-left:20px;">
+<div class="panel panel-default">
+  <div class="panel-heading">Datos de Despacho</div>
+  <div class="panel-body">
 		<% @user.delivery_infos.each do |di| %>
 			<% if @user.delivery_infos.first == di then checked = true else checked = false end %>
 			<div>
@@ -16,16 +15,22 @@
 						<%= ', ' + di.commune.region.name if !di.commune.region.nil? %>
 					<% end %>
 				</b> 
-				<%= link_to '(editar)', edit_delivery_info_path(di, :purchasable_type => @purchasable.class, :purchasable_id => @purchasable.id), :id => 'form_inline' %>
+				<%= link_to '(editar)', edit_delivery_info_path(di, :purchasable_type => @purchasable.class, :purchasable_id => @purchasable.id) %>
 				<%= link_to '(-)', delivery_info_path(di, :purchasable_type => @purchasable.class, :purchasable_id => @purchasable.id), confirm: 'Estás seguro que quieres elminar esta dirección?', method: :delete %>
 			</div> 
 			<div style="margin:2px 0px 15px 25px; font-size:10px">
 				<%= di.name %> | <%= di.rut %> | <%= di.contact_phone %><br />
 				<% if !di.commune.nil? %>
-					<%= link_to('Costo de despacho: ' + number_to_currency(di.commune.dispatch_cost), display_dispatch_costs_path, :id => 'form_inline') %>
+					<% if !di.commune.dispatch_cost.nil? %>
+						<%= link_to('Costo de despacho: ' + number_to_currency(di.commune.dispatch_cost), 
+													display_dispatch_costs_path, :id => 'form_inline') %>
+					<% else %>
+								No aplica despacho
+					<% end %>
 				<% end %>
 			</div>
 		<% end %>
-		<%= link_to "(+) Haz click acá para agregar tu dirección de despacho", new_delivery_info_path(:purchasable_type => @purchasable.class, :purchasable_id => @purchasable.id), :id => 'form_inline', :class => 'blue' %>
-	</div>
+		<%= link_to '(+) Nueva dirección de despacho', 
+								new_delivery_info_path(:purchasable_type => @purchasable.class, :purchasable_id => @purchasable.id) %>
+  </div>
 </div>
