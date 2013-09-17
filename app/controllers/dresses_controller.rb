@@ -115,11 +115,13 @@ class DressesController < ApplicationController
       @search_term = params[:q]
       @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
       set_supplier_layout
+      
       @enable_edit = true
       @supplier = current_supplier
-      @dresses = @supplier.supplier_account.dresses_filtered(@search_term)
+      @all_dresses = @supplier.supplier_account.dresses_filtered(@search_term)
+      @dresses = @all_dresses.paginate(:page => params[:page]).order('created_at DESC')
       @dress_types = DressType.get_options(@supplier.supplier_account)
-      @dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
+      @sizes = Dress.check_sizes(@all_dresses)
       
       @title_content = @dresses.size.to_s+' productos'
 
