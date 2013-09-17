@@ -53,7 +53,8 @@ class DeliveryInfosController < ApplicationController
   def create
     @delivery_info = DeliveryInfo.new(params[:delivery_info])
     @user = current_user
-    if !params[:purchasable_type].nil?
+    
+    if !params[:purchasable][:type].nil?
       @object = eval(params[:purchasable][:type]+'.find '+params[:purchasable][:id])
     end
     
@@ -75,6 +76,10 @@ class DeliveryInfosController < ApplicationController
   # PUT /delivery_infos/1.json
   def update
     @delivery_info = DeliveryInfo.find(params[:id])
+    
+    if !params[:purchasable][:type].nil?
+      @object = eval(params[:purchasable][:type]+'.find '+params[:purchasable][:id])
+    end
     
     respond_to do |format|
       if @delivery_info.update_attributes(params[:delivery_info])

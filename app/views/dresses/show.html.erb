@@ -1,7 +1,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-4">
-			<%= render 'info_dress_images', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
+			<% if @mobile %>
+				<%= render 'info_dress_images_mobile', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
+			<% else %>
+				<%= render 'info_dress_images', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
+			<% end %>
 			<div class="addthis_toolbox addthis_default_style" style="margin-top:5px">
 				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 				<a class="addthis_button_tweet"></a>

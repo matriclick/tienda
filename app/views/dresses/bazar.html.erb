@@ -131,7 +131,7 @@
 				    <label for="inputComuna1" class="col-lg-2 control-label">Comuna</label>
 				    <div class="col-lg-10">
 							<%= f.grouped_collection_select(:commune_id, Region.order(:name), :communes, :name, :id, :name, 
-																							{ :prompt => t('select') }, { :class=> "form-control", style: 'width:400px' }) %>
+																							{ :prompt => t('select') }, { :class=> "form-control", style: 'width:100%' }) %>
 				    </div>
 				  </div>
 				  <div class="form-group">

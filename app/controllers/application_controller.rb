@@ -34,6 +34,8 @@ class ApplicationController < ActionController::Base
     	  @subscriber_pop_up = '$("a.subscription_popup").trigger("click");'
   	    cookies[:asked_to_subscribe] = { :value => true, :expires => 2.month.from_now }
       end
+    else
+      @mobile = true
     end
   end
 	

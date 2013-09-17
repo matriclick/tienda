@@ -3,6 +3,7 @@
 		<ul class="nav nav-pills">
 			<li <%= 'class=active' if action_name == 'information'%>><%= link_to 'Información General', user_profile_information_path %></li>
 		  <li <%= 'class=active' if action_name == 'wish_list'%>><%= link_to 'Wish List', user_profile_wish_list_path %></li>
+			<li <%= 'class=active' if action_name == 'view_cart'%>><%= link_to 'Tu Carrito', buy_view_cart_path %></li>
 		  <li <%= 'class=active' if action_name == 'purchases'%>><%= link_to 'Tus Compras', user_profile_path %></li>
 		  <li <%= 'class=active' if action_name == 'personalization'%>><%= link_to 'Personalización', user_profile_personalization_path %></li>
 		  <li <%= 'class=active' if action_name == 'edit'%>><%= link_to 'Claves', edit_user_registration_path %></li>

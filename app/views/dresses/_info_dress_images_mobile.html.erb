@@ -1,0 +1,11 @@
+<% if dress.dress_status.name.include?('Vendido') %>
+	<div style="position:absolute;">
+		<%= image_tag 'dresses_icons/sold.png' %>
+	</div>
+<% end %>
+
+<% unless (imgs = dress.dress_images).blank? %>
+	<% for image in imgs %>
+		<img src="<%= image.dress.url(:main) %>" alt="<%= image.name %>" /><br /><br />
+	<% end %>
+<% end %>

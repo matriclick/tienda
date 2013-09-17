@@ -1,10 +1,8 @@
 <style>
 	/*set a border on the images to prevent shifting*/
 	 #gallery_01 img{ border:2px solid white; }
- 
 	 /*Change the colour*/
 	 .active img{ border:1px solid #333 !important; }
-	
 </style>
 
 <% if enable_edit %>
@@ -35,7 +33,7 @@
 
 <script type="text/javascript">
 	//initiate the plugin and pass the id of the div containing gallery images
-	$("#zoom_03").elevateZoom({gallery:'gallery_01', cursor: 'pointer', galleryActiveClass: 'active', borderColour: '#FFF', zoomWindowWidth: 400 }); 
+	$("#zoom_03").elevateZoom({gallery:'gallery_01', cursor: 'pointer', galleryActiveClass: 'active', borderColour: '#FFF',  zoomWindowWidth: 400 }); 
 
 	//pass the images to Fancybox
 	$("#zoom_03").bind("click", function(e) {  

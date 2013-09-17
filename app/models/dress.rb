@@ -175,30 +175,28 @@ class Dress < ActiveRecord::Base
   end
   
   def mark_as_sold(size = nil, quantity = nil)
-    if self.dress_status_id != DressStatus.find_by_name('Admin-Test').id
-      if !size.blank? and !quantity.blank?
-        matri_size = Size.find_by_name(size)
-    
-        dress_stock_size = DressStockSize.where("size_id = ? and dress_id = ?", matri_size.id, self.id).first
-        dress_stock_size.stock = dress_stock_size.stock - quantity
-        dress_stock_size.save
-    
-        out_of_stock = true
-        self.dress_stock_sizes.each do |dress_stock_size|
-          if !dress_stock_size.stock.blank?
-            if dress_stock_size.stock > 0
-              out_of_stock = false
-            end
+    if !size.blank? and !quantity.blank?
+      matri_size = Size.find_by_name(size)
+  
+      dress_stock_size = DressStockSize.where("size_id = ? and dress_id = ?", matri_size.id, self.id).first
+      dress_stock_size.stock = dress_stock_size.stock - quantity
+      dress_stock_size.save
+  
+      out_of_stock = true
+      self.dress_stock_sizes.each do |dress_stock_size|
+        if !dress_stock_size.stock.blank?
+          if dress_stock_size.stock > 0
+            out_of_stock = false
           end
         end
-        if out_of_stock
-          self.dress_status_id = DressStatus.find_by_name('Vendido').id
-          self.save            
-        end
-      else
-        self.dress_status_id = DressStatus.find_by_name('Vendido').id
-        self.save
       end
+      if out_of_stock
+        self.dress_status_id = DressStatus.find_by_name('Vendido').id
+        self.save            
+      end
+    else
+      self.dress_status_id = DressStatus.find_by_name('Vendido').id
+      self.save
     end
   end
 

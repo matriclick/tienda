@@ -49,7 +49,7 @@ module Matri
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     
     # set per_page globally
-    WillPaginate.per_page = 4
+    WillPaginate.per_page = 20
   end
 end
 
