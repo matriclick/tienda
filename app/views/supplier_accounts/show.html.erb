@@ -5,37 +5,37 @@
 	<div class="row">
 		<h2><%= t 'profile' %></h2>
 		<div class="col-md-4">
-			<div id="profileImage"><%= image_tag @supplier.supplier_account.image.url(:small) %></div>
+			<div id="profileImage"><%= image_tag @supplier.supplier_account.image.url(:medium) %></div>
 		</div>
 			
 		<div class="col-md-8">
-			<table>
+			<table class="table">
 				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.corporate_name' %></td>
+					<td><%= t 'activerecord.attributes.supplier_account.corporate_name' %></td>
 					<td><%= (@supplier.supplier_account.corporate_name.blank?) ? 
 					content_tag(:span, t('activerecord.attributes.supplier_account.corporate_name'), :class => 'profileBlankField') : content_tag(:span, @supplier.supplier_account.corporate_name) %></td>
 				</tr>
 				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.fantasy_name' %></td>
+					<td><%= t 'activerecord.attributes.supplier_account.fantasy_name' %></td>
 					<td><%= (@supplier.supplier_account.fantasy_name.blank?) ? 
 					content_tag(:span, t('activerecord.attributes.supplier_account.fantasy_name'), :class => 'profileBlankField') : content_tag(:span, @supplier.supplier_account.fantasy_name) %></td>
 				</tr>
 				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.rut' %></td>
+					<td><%= t 'activerecord.attributes.supplier_account.rut' %></td>
 					<td><%= (@supplier.supplier_account.rut.blank?) ? 
 					content_tag(:span, t('activerecord.attributes.supplier_account.rut'), :class => 'profileBlankField') : content_tag(:span, number_to_rut(@supplier.supplier_account.rut)) %></td>
 				</tr>
 				<% if !@supplier.supplier_account.address.nil? %>
 					<% if !@supplier.supplier_account.address.street.blank? %>
 						<tr>
-							<td class="left_column"><%= t 'activerecord.attributes.supplier_account.address' %></td>
+							<td><%= t 'activerecord.attributes.supplier_account.address' %></td>
 							<td><%= content_tag(:span, @supplier.supplier_account.address.street + (@supplier.supplier_account.address.number.blank? ? '' : ' ' + @supplier.supplier_account.address.number)) %></td>
 						</tr>
 					<% end %>
 					<% if !@supplier.supplier_account.address.region.nil? %>
 						<% if !@supplier.supplier_account.address.region.name.blank? %>
 							<tr>
-								<td class="left_column"><%= t 'activerecord.attributes.address.region' %></td>
+								<td><%= t 'activerecord.attributes.address.region' %></td>
 								<td><%= content_tag(:span, @supplier.supplier_account.address.region.name) %></td>
 							</tr>
 						<% end %>
@@ -43,45 +43,31 @@
 					<% if !@supplier.supplier_account.address.commune.nil? %>
 						<% if !@supplier.supplier_account.address.commune.name.blank? %>
 							<tr>
-								<td class="left_column"><%= t 'activerecord.attributes.address.commune' %></td>
+								<td><%= t 'activerecord.attributes.address.commune' %></td>
 								<td><%= content_tag(:span, @supplier.supplier_account.address.commune.name) %></td>
 							</tr>
 						<% end %>
 					<% end %>
 				<% end %>
 				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.phone_number' %></td>
+					<td><%= t 'activerecord.attributes.supplier_account.phone_number' %></td>
 					<td><%= (@supplier.supplier_account.phone_number.blank?) ? 
 					content_tag(:span, t('activerecord.attributes.supplier_account.phone_number'), :class => 'profileBlankField') : content_tag(:span, @supplier.supplier_account.phone_number) %></td>
 				</tr>
 				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.web_page' %></td>
+					<td><%= t 'activerecord.attributes.supplier_account.web_page' %></td>
 					<td><%= (@supplier.supplier_account.web_page.blank?) ? 
 					content_tag(:span, t('activerecord.attributes.supplier_account.web_page'), :class => 'profileBlankField') : content_tag(:span, @supplier.supplier_account.web_page) %></td>
 				</tr>
 				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.facebook' %></td>
+					<td><%= t 'activerecord.attributes.supplier_account.facebook' %></td>
 					<td><%= (@supplier.supplier_account.facebook.blank?) ? 
 					content_tag(:span, t('activerecord.attributes.supplier_account.facebook'), :class => 'profileBlankField') : content_tag(:span, @supplier.supplier_account.facebook) %></td>
 				</tr>
 				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.twiter' %></td>
+					<td><%= t 'activerecord.attributes.supplier_account.twiter' %></td>
 					<td><%= (@supplier.supplier_account.twiter.blank?) ? 
 					content_tag(:span, t('activerecord.attributes.supplier_account.twiter'), :class => 'profileBlankField') : content_tag(:span, @supplier.supplier_account.twiter) %></td>
-				</tr>
-				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.bookable' %></td>
-					<td><%=  content_tag(:span, @supplier.supplier_account.bookable ? "✔" : "✘") %></td>
-				</tr>
-				<tr>
-					<td class="left_column"><%= t 'activerecord.attributes.supplier_account.industry_categories' %></td>
-					<td><% if @supplier.supplier_account.industry_categories.blank? %>
-					<%= content_tag(:span, t('activerecord.attributes.supplier_account.industry_categories'), :class => 'profileBlankField') %>
-					<% else %>
-						<% for ic in @supplier.supplier_account.industry_categories %>
-							<%= content_tag(:span, ic.get_name) %><br/>
-						<% end %>
-					<% end %></td>
 				</tr>
 			</table>
 		</div>
@@ -89,7 +75,7 @@
 		
 	<div class="row">	
 			<h2><%= t('your_account_status') %></h2>
-			<table>
+			<table class="table">
 				<tr>
 					<td>
 						<%= content_tag :span, t('self_approval')+":" %>

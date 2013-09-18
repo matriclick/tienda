@@ -15,7 +15,9 @@
 		<div class="col-md-5">
 			<h3><%= @dress.introduction %></h3>
 			<p><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
-			<p>Tallas disponibles: <b><%= @dress.dress_stock_sizes.map { |s| s.size.name if s.stock > 0 }.join ', '  %></b></p>
+			<p>Tallas disponibles: 
+				<b><%= DressStockSize.where('dress_id = ? and stock > 0', @dress.id).map { |s| s.size.name if s.stock > 0 }.join ', '  %></b>
+			</p>
 			<% if @dress.dress_status.name == 'Disponible' %>
 				<div class="purchase_section" style="margin-top:30px;">
 					<%= render 'purchase_section', dress: @dress %>

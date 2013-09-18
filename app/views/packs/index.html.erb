@@ -1,18 +1,17 @@
+<div class="sign_in_background">
 <div class="container">
-	<h1 style="margin-left:10px"><%= @h1 %></h1>
-	<h3 style="margin-left:10px"><%= @h2 %></h3>
-	<h4 style="margin-left:20px"><%= @h3 %></h4>
-
-	<div style="margin-left:25px">
+	<h1 style="margin-left:10px; font-size:25px; color:white"><%= @h1 %></h1>
+	<h3 style="margin-left:10px; font-size:20px; color:white"><%= @h2 %></h3>
+	<div class="row">
 	<% @posts.each do |post| %>
-		<div class="post_container" style="width:370px; height:300px;">
+		<div class="col-md-4" style="height:300px; width:400px; overflow:hidden; background-color:white; border:1px solid grey; margin:10px;">
 			<div style="margin:10px">
 				<%= link_to image_tag(post.main_image.url(:regular), :alt => post.title, :class => 'image_button'), 
 						post_path(post) %>
-				<div class="blog_titulos">
-					<%= link_to post.title, post_path(post) %>
+				<div style="margin-top:5px; background:black;">
+					<div style="margin:10px"><%= link_to post.title, post_path(post) %></div>
 				</div>
-				<div class="blog_texto">
+				<div style="margin:10px">
 					<%= (desc = strip_tags(post.introduction)).blank? ? 
 					'Próximamente en Matriclick.com' : content_tag(:span, (desc[0..180].gsub(/\n/, '<br/>')).html_safe + ("..." if desc.length > 180) ) %>
 				</div>
@@ -20,4 +19,5 @@
 		</div>
 	<% end %>
 	</div>
+</div>
 </div>

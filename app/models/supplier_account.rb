@@ -35,11 +35,11 @@ class SupplierAccount < ActiveRecord::Base
 
 	has_attached_file :image, 
 											:styles => {
+												:tiny => "40x40>",
 												:thumb => "100x100>",
-												:small => "200x150>",
-												:smaller => "120x90>",
-												:profile_info => "130x70>",
-												:tiny => "40x40>"
+												:small => "200x200>",
+                        :medium => "300x300>",
+                        :large => "400x400>"
 	}, :whiny => false
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/x-png', 'image/pjpeg']
   validates_attachment_size :image, :less_than => 1.megabyte

@@ -2,7 +2,7 @@
 	<%= yield %>
 <% else %>
 	<%= render "layouts/user_bar" %>
-	<% unless @not_breadcrumbs %>
+	<% unless @not_breadcrumbs or ['registrations', 'sessions', 'passwords', 'packs'].include? controller_name %>
 		<%= render "layouts/breadcrumbs" %>
 	<% end %>
 	<%= yield %>

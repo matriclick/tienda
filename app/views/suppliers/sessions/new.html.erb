@@ -1,33 +1,23 @@
-<div class="container">
-	<div class="row">
-		<h2><%= t 'sign_in_provider' %></h2>
-		<p><%= t 'new_to_matriclick' %>
-			<span class="bold"><%= link_to t('sign_up_here'), new_supplier_registration_path %></span>
-		</p>
-		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-			<div class="sign_boxes center">
-				<table class="">
-					<tr>
-						<td><%= f.text_field :email, :placeholder => t("email"), :required => true, size: 25, :class => "input_wrapper" %></td>
-						<td><%= f.password_field :password, :placeholder => t('password'), :required => true, size: 25, :class => "input_wrapper" %></td>
-					</tr>
-					<% if devise_mapping.rememberable? -%>
-					<tr>
-						<td><%= f.check_box :remember_me %> <%= f.label t('remember_me') %></td>
-					</tr>
+<div class="sign_in_background">
+	<div class="container">
+		<%= render 'layouts/notice', notice: notice %>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 style="color:white; margin:20px 0px 10px 10px">Ingreso Empresas Tramanta</h1>
+					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {role: 'form', class:'form-inline'} ) do |f| %>
+						<%= f.email_field :email, :placeholder => t('email'), style: 'width:200px; margin:10px', :class => "form-control" %>
+						<%= f.password_field :password, :placeholder => t('password'), style: 'width:200px; margin:10px', :class => "form-control" %>
+						<%= f.submit 'Ingresar', :class => "btn btn-default", style: 'width:200px; margin:10px' %>			
 					<% end %>
-					<tr>
-						<td><%= f.submit t("sign_in") %></td>
-					</tr>
-				</table>
-			</div>
-		<% end -%>
-		<br />
-		<div class="bottom_links">
-			<div class="box_nine_six_cero center">
-				<%= render :partial => "/users/shared/links" %>	
-			</div>
+
+					<div style="margin:10px">
+						<%= link_to '¿Se te olvidó tu clave?', new_password_path(resource_name) %>
+					</div>
+					
+					<div style="margin:10px">
+						<%= link_to 'Crear una nueva cuenta empresas', new_supplier_registration_path %>
+					</div>
+			</div>			
 		</div>
-		
 	</div>
 </div>

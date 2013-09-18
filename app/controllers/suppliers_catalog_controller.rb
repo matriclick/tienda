@@ -1,15 +1,15 @@
 # encoding: UTF-8
 class SuppliersCatalogController < ApplicationController
-	before_filter :new_feedback, :load_user_account, :load_reference, :add_breadcrumbs, :redirect_unless_admin
+	before_filter :add_breadcrumbs
+  before_filter :redirect_unless_admin, :except => ['supplier_description']
   	
   def supplier_description
-
+    if !current_supplier.nil?
+      set_supplier_layout
+    end
     @supplier = check_supplier
-    		
 		if !@supplier.nil?
 			@presentation = @supplier.supplier_account.presentation
-		  check_if_dress_store(@supplier)
-		  check_if_trousseau(@supplier)
       unless @supplier.supplier_account.nil?
         unless @supplier.supplier_account.address.nil?
           if !@supplier.supplier_account.address.latitude.nil? and !@supplier.supplier_account.address.longitude.nil?
@@ -164,23 +164,6 @@ class SuppliersCatalogController < ApplicationController
     return supplier
   end
   	
-	def check_if_dress_store(supplier)
-	  @vestido_boutique = false
-		
-		if !supplier.nil?
-		  if supplier.supplier_account.supplier_account_type_id == SupplierAccountType.find_by_name('Vestidos Boutique').id
-  		  @vestido_boutique = true
-  	  end
-    end
-  end
-
-	def check_if_trousseau(supplier)
-	  @trousseau = false
-	  if params[:matridream_ic] == '32' and true # LANZAMIENTO: Ajuar
-		  @trousseau = true
-	  end
-  end
-  
   def load_facebook_meta(supplier)
     @og_type = 'article'
     @og_image = 'http://www.tramanta.com'+supplier.supplier_account.image.url(:original)
@@ -189,9 +172,11 @@ class SuppliersCatalogController < ApplicationController
   
   def add_breadcrumbs
     supplier = check_supplier
-		if !supplier.nil?
+		if supplier.nil?
       add_breadcrumb "Administrador", :administration_index_path
-      add_breadcrumb supplier.supplier_account.fantasy_name, supplier_products_and_services_path(:public_url => supplier.supplier_account.public_url)
+    else
+      add_breadcrumb "Cuenta", supplier_account_path(supplier)
     end
+      add_breadcrumb supplier.supplier_account.fantasy_name, supplier_description_path(:public_url => supplier.supplier_account.public_url)
   end
 end

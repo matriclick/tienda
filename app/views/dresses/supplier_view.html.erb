@@ -1,11 +1,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-4">
-			<%= link_to 'Agregar un nuevo item', new_supplier_account_dress_path(@supplier), :class => 'button' %>
+			<%= link_to 'Agregar un nuevo item', new_supplier_account_dress_path(@supplier), :class => 'btn btn-default' %>
 		</div>
 		<div class="col-md-8">
-			<%= form_tag(supplier_account_dresses_path(@supplier), :method => "get") do %>
-				<%= text_field_tag(:q, @search_term, :size => 75) %> <%= submit_tag("Buscar", :class => 'button_filter_pink') %>
+			<%= form_tag(supplier_account_dresses_path(@supplier), :method => "get", html: {role: 'form', class: 'form'}) do %>
+				<%= text_field_tag(:q, @search_term, :size => 75, :class => 'fomr-control') %> <%= submit_tag("Buscar", :class => 'btn btn-default') %>
 			<% end %>
 		</div>
 	</div>

@@ -1,38 +1,19 @@
-<%= content_for :box_content do %>
-<div class="sign_boxes center">
-	<div class="h2 bold text_center"><%= t 'sign_up_provider' %></div>
-	<div class="text_center"><%= t 'already_have_an_account' %>
-		<span class="bold"><%= link_to t('sign_in_here'), new_supplier_session_path %></span>
+<div class="sign_in_background">
+	<div class="container">
+		<%= render 'layouts/notice', notice: notice %>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 style="color:white; margin:20px 0px 10px 10px">Nueva Cuenta Empresas</h1>
+					<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {role: 'form', class:'form-inline'} ) do |f| %>
+						<%= f.email_field :email, :placeholder => t('email'), style: 'width:200px; margin:10px', :class => "form-control" %>
+						<%= f.password_field :password, :placeholder => t('password'), style: 'width:200px; margin:10px', :class => "form-control" %>
+						<%= f.submit 'Registrarme', :class => "btn btn-default", style: 'width:200px; margin:10px' %>			
+					<% end %>
+
+					<div style="margin-top:20px">
+						<%= link_to '¿Ya tienes una cuenta creada?', new_session_path(resource_name) %>
+					</div>
+			</div>			
+		</div>
 	</div>
 </div>
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-	<div class="">
-		<table class="">
-			<tr>
-				<td><%= f.text_field :email, :placeholder => t("email"), :required => true, size: 25, :class => 'input_wrapper' %></td>
-			</tr>
-			<tr>
-				<td><%= f.password_field :password, :placeholder => t('password'), :required => true, size: 25, :class => 'input_wrapper' %></td>
-			</tr>
-			<tr>
-				<td><%= f.submit t("sign_up"), :class => "button_sign_in bold span_to_center" %></td>
-			</tr>
-		</table>		
-</div>
-<% end %>
-<br />
-<br />
-
-<% # FGM: Flag to differentiate different login layouts/funcitionalities %>
-<% @supplier_login_footer = true %>
-
-<div class="bottom_links">
-	<div class="box_nine_six_cero center">
-		<%= render :partial => "/users/shared/links" %>	
-	</div>
-</div>
-<% end %>
-
-<%= render "layouts/vimeo_tab" %>
-
-<%= render "layouts/login_layout" %>

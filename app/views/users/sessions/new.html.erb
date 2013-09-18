@@ -1,60 +1,27 @@
-<div class="container">
-	<%= render 'layouts/notice', notice: notice %>
-	<div class="row">
-		<!-- SIGN IN -->
-		<div class="col-md-4">
-			<div class="panel panel-default">
-	  		<div class="panel-heading">
-	    		<h3 class="panel-title">Ingresa con tu cuenta</h3>
-	  		</div>
-	  		<div class="panel-body">
-					<div style="margin-bottom:20px;"><b>Ingresa</b> usando tu cuenta de Facebook o Google</div>
-					<%- if devise_mapping.omniauthable? %>
-						<%- devise_mapping.to.omniauth_providers.each do |provider| %>
-							<div style="margin-left:20px; display:inline">
-								<%= link_to image_tag('sign_in/sign_in_'+provider.to_s+'.png'), omniauth_authorize_path(resource_name, provider), :class => [provider.to_s.titleize, 'image_button'] %>
-							</div>
-						<% end -%>
-					<% end -%>
+<div class="sign_in_background">
+	<div class="container">
+		<%= render 'layouts/notice', notice: notice %>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 style="color:white; margin:20px 0px 10px 10px">Ingresa a Tramanta.com</h1>
+					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {role: 'form', class:'form-inline'} ) do |f| %>
+						<%= f.email_field :email, :placeholder => t('email'), style: 'width:200px; margin:10px', :class => "form-control" %>
+						<%= f.password_field :password, :placeholder => t('password'), style: 'width:200px; margin:10px', :class => "form-control" %>
+						<%= f.submit 'Ingresar', :class => "btn btn-default", style: 'width:200px; margin:10px' %>			
+					<% end %>
 
-					<div style="margin:20px 0px 20px 20px">
-						o <b>entra</b> con tu usuario y clave:<br /><br />
-						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-							Correo <%= f.email_field :email, :placeholder => t('email'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
-							Clave <%= f.password_field :password, :placeholder => t('password'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
-							<%= f.submit 'Ingresar a Tramanta', :class => "sign_in_tab_button" %>			
-						<% end %>
-					</div>
-				</div>
-			</div>
-		</div>
-			
-		<div class="col-md-4">
-			<div class="panel panel-default">
-			  <div class="panel-heading">
-			    <h3 class="panel-title">Crea una nueva cuenta</h3>
-			  </div>
-			  <div class="panel-body">
-					<div style="margin-bottom:20px;"><b>Regístrate</b> usando tu cuenta de Facebook o Google</div>
 					<%- if devise_mapping.omniauthable? %>
-						<%- devise_mapping.to.omniauth_providers.each do |provider| %>
-							<div style="margin-left:20px; display:inline">
-								<%= link_to image_tag('sign_in/sign_in_'+provider.to_s+'.png'), omniauth_authorize_path(resource_name, provider), :class => [provider.to_s.titleize, 'image_button'] %>
-							</div>
-						<% end -%>
+						<div style="margin:10px">
+								<%= link_to 'Entra con tu cuenta de Facebook', omniauth_authorize_path(resource_name, 'facebook') %>
+						</div>
 					<% end -%>
+					<div style="margin:10px">
+						<%= link_to '¿Se te olvidó tu clave?', new_password_path(resource_name) %>
 					</div>
-					<div style="margin:20px 0px 20px 20px">
-						o <b>entra</b> con tu usuario y clave:<br /><br />
-						<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-							Correo <%= f.email_field :email, :placeholder => t('email'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
-							Clave <%= f.password_field :password, :placeholder => t('password'), style: 'width:200px', :class => "user_bar_form" %><br /><br />
-							<%= f.submit 'Crear una nueva cuenta en Tramanta', :class => "sign_in_tab_button" %>			
-						<% end %>
+					<div style="margin:10px">
+						<%= link_to '¿Nuevo en Tramanta? Crea una cuenta', new_password_path(resource_name) %>
 					</div>
-			  </div>
 			</div>			
 		</div>
-	<!-- EOF SIGN IN -->
-	<%= render :partial => "/users/shared/links" %>
+	</div>
 </div>

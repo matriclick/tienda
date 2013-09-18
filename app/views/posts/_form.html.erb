@@ -9,20 +9,9 @@
 			</ul>
 		</div>
 	<% end %>
-	<div class="field">
-  		<%= f.label :industry_category_id %><br />
-  		<%= f.collection_select :industry_category_id, IndustryCategory.all.joins(:countries).where("countries.id = ?", session[:country].id), :id, :get_name, :prompt => "Select", :allow_blank => true %>
-	</div>
 	<br />
 	<div class="field">
-  		<%= f.label :post_type %><br />
-		<%= f.radio_button(:post_type, 'Post', :checked => (@post.post_type == 'Post' or @post.post_type.blank?)) %> <%= 'Revista Matriclick' %><br />
-		<%= f.radio_button(:post_type, 'Pack', :checked => @post.post_type == 'Pack') %> <%= 'Casonas Matriclick' %><br />
-		<%= f.radio_button(:post_type, 'Lunas de Miel', :checked => @post.post_type == 'Lunas de Miel') %> <%= 'Lunas de Miel' %><br />
-		<%= f.radio_button(:post_type, 'El Bazar', :checked => @post.post_type == 'El Bazar') %> <%= 'El Bazar' %><br />
-		<%= f.radio_button(:post_type, 'Tu Casa', :checked => @post.post_type == 'Tu Casa') %> <%= 'Tu Casa' %><br />
-		<%= f.radio_button(:post_type, 'Viajes', :checked => @post.post_type == 'Viajes') %> <%= 'Viajes' %><br />
-		<%= f.radio_button(:post_type, 'Aguclick', :checked => @post.post_type == 'Aguclick') %> <%= 'Aguclick' %><br />
+		<%= f.radio_button(:post_type, 'El Bazar', :checked => true) %> <%= 'Blog Tramanta' %><br />
 	</div>
 	<br />
 	<div class="field">

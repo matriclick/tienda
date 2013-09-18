@@ -8,7 +8,7 @@ class SupplierAccountsController < ApplicationController
 	end
 	
   def edit
-		@industry_categories = IndustryCategory.joins(:countries).where("countries.id = ?", session[:country].id).order "name"
+		@industry_categories = IndustryCategory.joins(:countries).order "name"
 		
     @industry_category_types = IndustryCategoryType.all
 		@supplier_account = @supplier.supplier_account
@@ -46,7 +46,7 @@ class SupplierAccountsController < ApplicationController
 			  #saving back the industry_categories
 			  @supplier_account.industry_category_ids = @aux
 			  # Changed IndustryCategories to IndustryCategory DZF
-				@industry_categories = IndustryCategory.joins(:countries).where("countries.id = ?", session[:country].id).order "name"
+				@industry_categories = IndustryCategory.joins(:countries).order "name"
 				format.html { render "edit" }
 			end
 		end
