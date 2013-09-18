@@ -3,7 +3,7 @@ class SuppliersCatalogController < ApplicationController
 	before_filter :new_feedback, :load_user_account, :load_reference, :add_breadcrumbs, :redirect_unless_admin
   	
   def supplier_description
-    
+
     @supplier = check_supplier
     		
 		if !@supplier.nil?
@@ -22,7 +22,7 @@ class SuppliersCatalogController < ApplicationController
         load_facebook_meta(@supplier)
       end
     else
-      redirect_to products_and_services_catalog_select_industry_category_path
+      redirect_to root_path
     end
   end
   
