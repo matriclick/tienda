@@ -1,4 +1,4 @@
-<%= nested_form_for @dress, :validate => true, :html => {:multipart => true, role: "form"} do |f| %>
+<%= nested_form_for @dress, :validate => true, :html => {:multipart => true, role: "form", style: 'font-size:12px'} do |f| %>
 	<% if @dress.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@dress.errors.count, "error") %> prohibited this dress from being saved:</h2>
@@ -12,7 +12,7 @@
 	<% if defined? @supplier_accounts %>
 		<div style="margin-bottom:20px">
 			<%= f.label :supplier_account_id, 'Proveedor' %><%= mark_required @dress, :supplier_account_id %>
-		  	<%= f.collection_select :supplier_account_id, @supplier_accounts, :id, :fantasy_name, :prompt => true, :allow_blank => false %>
+	  	<%= f.collection_select :supplier_account_id, @supplier_accounts, :id, :fantasy_name, :prompt => true, :allow_blank => false %>
 		</div>
 	<% end %>
 	<%= render 'image_fields', :f => f %>
@@ -46,25 +46,56 @@
 		<tr>
 			<td>
 				<p class="help-block">
-					Precio al que se publicará el producto en la página. Incluye IVA.
+					Precio al que se publicará el producto en la página. Incluye IVA. Si es igual al original significa que no hay descuento asociado.
 				</p>
 				<%= f.label :price, 'Precio de Venta' %>
 				<%= mark_required @dress, :price %> 
-				CLP $<%= f.number_field :price, :onchange => 'update_cost(this.value,'+@dress.supplier_account.net_margin.to_s+')' %>
+				CLP $<%= f.number_field :price, :onchange => 'update_cost(this.value,'+@dress.supplier_account.net_margin.to_s+')', class: "form-control", style: 'width:200px' %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			  <div class="panel panel-default">
+			    <div class="panel-heading">
+			      <h4 class="panel-title">
+			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse11" style="font-size:12px">
+			          ¿Aplica descuento?
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapse11" class="panel-collapse collapse">
+			      <div class="panel-body">
+							<p class="help-block">
+							Precio original del vestido. Incluye IVA. Si es igual al de venta déjalo en blanco o pon el mismo número.
+							</p>
+							<%= f.label :original_price, 'Precio de Original' %>
+							<%= mark_required @dress, :original_price %> 
+							CLP $<%= f.number_field :original_price, :onchange => 'update_discount(this.value)', class: "form-control", style: 'width:200px' %> 
+							<%= f.label :discount, '% de Descuento' %> <%= f.number_field :discount, class: "form-control", style: 'width:200px' %>
+							<p class="help-block">
+							El % de descuento se calcula automáticamente. Descuento = 1 - (Precio Original / Precio Venta)
+							</p>
+							<p class="help-block">
+							Todos los productos con descuentos se mostrarán en la pestaña "liquidación".
+							</p>
+			      </div>
+			    </div>
+			  </div>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<div class="help_tip">
-					Si es de una tienda que está en modalidad comisión con nosotros, entonces el Costo Neto es lo que le tenemos que pagar a la tienda si vendemos el producto.<br /><br />
-					Margen cobrado a la tienda: <b><%= @dress.supplier_account.net_margin.to_s %>% + IVA</b><br />
+					Si es de una tienda que está en modalidad comisión con nosotros, entonces el Costo Neto es lo que le tenemos que pagar a la tienda si vendemos el producto.
+					<br />
+					- Margen cobrado a la tienda: <b><%= @dress.supplier_account.net_margin.to_s %>% + IVA</b>
 					<br />
 					Cobro neto: <b><span id="net_cost"></span></b> = precio x comisión<br />
 					- IVA: <b><span id="vat_cost"></span></b> = 19% x precio x comisión<br />
 					= Pagar al Socio: <b><span id="total_cost"></span></b> = precio venta - costo neto - IVA
 				</div>
 				<%= f.label :price, 'Costo Neto' %>
-				<%= mark_required @dress, :net_cost %> CLP $<%= f.number_field :net_cost %> 
+				<%= mark_required @dress, :net_cost %> CLP $<%= f.number_field :net_cost, class: "form-control", style: 'width:200px' %> 
 				<span class="help_tip">(lo que se le pagará a la tienda cuando se venda el producto)</span>
 
 			</td>
@@ -75,20 +106,14 @@
 					Solo aplica para los productos que compramos con facturas.<br />
 					Si es de una tienda que está en modalidad comisión con nosotros, entonces el Costo IVA es 0
 				</div>
-				<%= f.label :price, 'Costo IVA' %>
-				<%= mark_required @dress, :vat_cost %> CLP $<%= f.number_field :vat_cost %>
+				<%= f.label :vat_cost, 'Costo IVA' %>
+				<%= mark_required @dress, :vat_cost %> CLP $<%= f.number_field :vat_cost, class: "form-control", style: 'width:200px' %>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<%= f.label :dress_status_id, 'Estado del item' %><%= mark_required @dress, :dress_status_id %>
-	  			<%= f.collection_select :dress_status_id, DressStatus.all, :id, :name, :prompt => true, :allow_blank => false %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<%= f.label :color, 'Color' %><%= mark_required @dress, :color_id %>
-			  	<%= f.collection_select :color_id, Color.all, :id, :name, :prompt => true, :allow_blank => false %>			
+	  			<%= f.collection_select :dress_status_id, DressStatus.all, :id, :name, {:prompt => true, :allow_blank => false}, { :class=> "form-control", style: 'width:300px' } %>
 			</td>
 		</tr>
 		<tr>
@@ -96,7 +121,8 @@
 				<div class="help_tip">
 					Este campo define la posición en que aparecerá, 1 es lo más arriba, 999 lo más abajo.
 				</div>
-				<%= f.label :position, 'Posición en la página' %><%= mark_required @dress, :position %> <%= f.number_field :position %>
+				<%= f.label :position, 'Posición en la página' %><%= mark_required @dress, :position %> 
+				<%= f.number_field :position, class: "form-control", style: 'width:200px' %>
 			</td>
 		</tr>
 		<tr>
@@ -137,7 +163,7 @@
 					Las palabras hay que escribirlas con el siguiente formato: palabra1, palabra2, palabra3<br />
 					Ejemplo: vestido, blanco, peplum
 				</div>
-				<%= f.label :position, 'Keywords' %><%= mark_required @dress, :product_keywords %> <%= f.text_field :product_keywords %>
+				<%= f.label :position, 'Keywords' %><%= mark_required @dress, :product_keywords %> <%= f.text_field :product_keywords, class: "form-control", style: 'width:200px' %>
 			</td>
 		</tr>
 		<tr>
