@@ -129,24 +129,7 @@ class PostsController < ApplicationController
 	end
   
   def get_breadcrumb(post)
-    case @post.post_type    
-      when 'Post'
-        add_breadcrumb "Revista Matriclick", :blog_path
-      when 'Pack'
-        add_breadcrumb "Casonas y Centros de Eventos", :casonas_matriclick_path
-      when 'Lunas de Miel'
-        add_breadcrumb "Blog Lunas de miel", :lunas_de_miel_path
-      when 'El Bazar'
-        add_breadcrumb "Blog El Bazar", :blog_el_bazar_path
-      when 'Tu Casa'
-        add_breadcrumb "Blog Tu Casa", :blog_tu_casa_path
-      when 'Viajes'
-        add_breadcrumb "Blog Viajes", :blog_viajes_path
-      when 'Aguclick'
-        add_breadcrumb "Blog Aguclick", :blog_aguclick_path
-      else
-        add_breadcrumb "Revista Matriclick", :blog_path
-    end
+    add_breadcrumb "Blog Tramanta", :blog_el_bazar_path
     add_breadcrumb @post.title, @post   
   end
 end

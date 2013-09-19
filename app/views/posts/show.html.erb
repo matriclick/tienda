@@ -1,7 +1,7 @@
 <div class="container">
 	<h1><%= @post.title %></h1>
 	<div style="float:left; width:40px"><%= image_tag 'blog/quotes.png', :alt => @post.title %></div>	
-	<h2 class="blog_texto_introduction"><%= @post.introduction.html_safe %></h2>
+	<h2 style="font-size:16px"><%= @post.introduction.html_safe %></h2>
 	<div class="clear"></div>
 	<div class="blog_share_show">
 		<div class="addthis_toolbox addthis_default_style ">
@@ -42,14 +42,14 @@
 	<hr>
 	<div class="row">
 		<div>
-			<h3>Revisa estos productos que te podrían interesar:</h3>
+			<p><strong>Revisa estos productos que te podrían interesar:</strong></p>
 			<%= render 'dresses/viewed_dresses', viewed_dresses: @related_dresses %>
 		</div>
 	</div>
 	<hr>
 	<div class="row">
+		<h4>Sigue leyendo artículos relacionados:</h4>
 		<div>
-			<h3>Sigue leyendo artículos relacionados:</h3>
 			<% @related_posts.each do |post| %>
 				<%= render 'small_post', :post => post %>
 			<% end %>
