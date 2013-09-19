@@ -194,8 +194,9 @@ class DressesController < ApplicationController
   def new_arrivals
     disp = DressStatus.find_by_name("Disponible").id
     @all_dresses = Dress.where('dress_status_id = ?', disp)
-    @dresses = @all_dresses.paginate(:page => params[:page]).order('created_at DESC').limit 20
+    @dresses = @all_dresses.order('created_at DESC').limit 20
     @sizes = Dress.check_sizes(@all_dresses)
+    @not_paginate = true
     
     add_breadcrumb "Tramanta", :bazar_path
     add_breadcrumb 'New Arrivals!', dresses_new_arrivals_path

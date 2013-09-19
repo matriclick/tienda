@@ -9,9 +9,11 @@
 			<%= render 'not_found' %>
 		<% end %>
 		</div>
+		<% unless @not_paginate %>
 		<div class="row" style="text-align:center">
 		 <%= render 'dresses/pagination', dresses: dresses %>
 		</div>
+		<% end %>
 	</div>
 	<div class="col-md-2">
 		<%= render 'right_menu', sizes: @sizes %>
