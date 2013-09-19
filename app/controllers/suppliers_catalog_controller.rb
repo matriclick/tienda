@@ -172,11 +172,14 @@ class SuppliersCatalogController < ApplicationController
   
   def add_breadcrumbs
     supplier = check_supplier
-		if supplier.nil?
+    if !current_supplier.nil?
+      add_breadcrumb "Cuenta", supplier_account_path(current_supplier.supplier_account)
+      add_breadcrumb current_supplier.supplier_account.fantasy_name, supplier_description_path(:public_url => current_supplier.supplier_account.public_url)      
+    elsif !supplier.nil?
       add_breadcrumb "Administrador", :administration_index_path
+      add_breadcrumb supplier.supplier_account.fantasy_name, supplier_description_path(:public_url => supplier.supplier_account.public_url)      
     else
-      add_breadcrumb "Cuenta", supplier_account_path(supplier)
+      add_breadcrumb "Administrador", :administration_index_path
     end
-      add_breadcrumb supplier.supplier_account.fantasy_name, supplier_description_path(:public_url => supplier.supplier_account.public_url)
   end
 end
