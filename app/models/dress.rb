@@ -51,24 +51,44 @@ class Dress < ActiveRecord::Base
 	def self.all_filtered(string_filter = nil, sizes = nil, separator = ' ')
     if string_filter.nil? and sizes.nil?
       return Dress.all
-    else
+    end
+    
+    if !string_filter.nil?
       keywords = Array.new
       keywords = keywords + string_filter.split(separator) if !string_filter.nil?
-      keywords = keywords + sizes if !sizes.nil?
       
       query = ''
       keywords.each_with_index do |k, i|
         if i == 0
-          query = '(dress_types.name like "%'+k+'%" or dresses.description like "%'+k+'%" or dresses.introduction like "%'+k+'%" or sizes.name like "%'+k+'%")'
+          query = '(dress_types.name like "%'+k+'%" or dresses.description like "%'+k+'%" or dresses.introduction like "%'+k+'%")'
         else
-          query = '(dress_types.name like "%'+k+'%" or dresses.description like "%'+k+'%" or dresses.introduction like "%'+k+'%" or sizes.name like "%'+k+'%") and '+query
+          query = '(dress_types.name like "%'+k+'%" or dresses.description like "%'+k+'%" or dresses.introduction like "%'+k+'%") and '+query
         end
       end
-      
-      disp = DressStatus.find_by_name("Disponible").id
-      vend = DressStatus.find_by_name("Vendido").id
-      return self.joins(:dress_types).joins(:sizes).where(query).where('(dress_status_id = ? or dress_status_id = ?)', disp, vend).available
     end
+    
+    if !sizes.nil?
+      query_s = '('
+      sizes.each_with_index do |k, i|
+        if i == 0
+          query_s = 'sizes.name = "'+k+'"'
+        else
+          query_s = 'sizes.name = "'+k+'" or '+query_s
+        end
+      end
+      query_s+')'
+      
+      if query.nil?
+        query = query_s
+      else
+        query = query_s +' and '+query
+      end
+    end
+    
+    disp = DressStatus.find_by_name("Disponible").id
+    vend = DressStatus.find_by_name("Vendido").id
+    return self.joins(:dress_types).joins(:sizes).where(query).where('(dress_status_id = ? or dress_status_id = ?)', disp, vend).available
+    
   end
 	
 	def get_related_dresses
