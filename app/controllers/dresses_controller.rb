@@ -143,7 +143,9 @@ class DressesController < ApplicationController
         format.json { head :ok }
       end
     else
-      @all_dresses = Dress.joins(:dress_types).where('dress_types.name like "%'+params[:type]+'%"')
+      disp = DressStatus.find_by_name("Disponible").id
+      vend = DressStatus.find_by_name("Vendido").id
+      @all_dresses = Dress.joins(:dress_types).where('dress_types.name like "%'+params[:type]+'%" and (dress_status_id = ? or dress_status_id = ?)', disp, vend)
       @dresses = @all_dresses.paginate(:page => params[:page]).order('position ASC')
       @sizes = Dress.check_sizes(@all_dresses)
       

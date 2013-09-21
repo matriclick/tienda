@@ -65,7 +65,9 @@ class Dress < ActiveRecord::Base
         end
       end
       
-      return self.joins(:dress_types).joins(:sizes).where(query).available
+      disp = DressStatus.find_by_name("Disponible").id
+      vend = DressStatus.find_by_name("Vendido").id
+      return self.joins(:dress_types).joins(:sizes).where(query).where('(dress_status_id = ? or dress_status_id = ?)', disp, vend).available
     end
   end
 	
