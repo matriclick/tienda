@@ -1,4 +1,11 @@
 <div class="col-md-3" style="height:371px; overflow:hidden;">
+<% if dress.dress_status.name.include?('Vendido') %>
+	<div style="position:absolute; top:40px">
+		<div style="background-color:black; color:white; width:190px; text-align:center; padding:10px; opacity:0.7;">
+			Producto Agotado
+		</div>
+	</div>
+	<% end %>
 	<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
 		dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
 	<p style="font-size:12px"><strong><%= number_to_currency dress.price %></strong><br/>
