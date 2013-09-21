@@ -48,11 +48,17 @@ function update_cost(dress_price, net_margin) {
 }
 
 function update_discount(dress_original_price) {
-	
 	price = $("#dress_price").val();
 	discount = (1 - price / dress_original_price)*100
 
 	$("#dress_discount").val(discount);
+}
+
+function update_original_price(discount) {
+	price = $("#dress_price").val();
+	original_price = price*100/(100-discount)
+
+	$("#dress_original_price").val(original_price);
 	
 }
 

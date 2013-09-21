@@ -178,8 +178,6 @@ class SuppliersCatalogController < ApplicationController
     elsif !supplier.nil?
       add_breadcrumb "Administrador", :administration_index_path
       add_breadcrumb supplier.supplier_account.fantasy_name, supplier_description_path(:public_url => supplier.supplier_account.public_url)      
-    else
-      add_breadcrumb "Administrador", :administration_index_path
     end
   end
 end

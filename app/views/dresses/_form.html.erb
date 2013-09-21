@@ -71,10 +71,8 @@
 							<%= f.label :original_price, 'Precio de Original' %>
 							<%= mark_required @dress, :original_price %> 
 							CLP $<%= f.number_field :original_price, :onchange => 'update_discount(this.value)', class: "form-control", style: 'width:200px' %> 
-							<%= f.label :discount, '% de Descuento' %> <%= f.number_field :discount, class: "form-control", style: 'width:200px' %>
-							<p class="help-block">
-							El % de descuento se calcula automáticamente. Descuento = 1 - (Precio Original / Precio Venta)
-							</p>
+							<%= f.label :discount, '% de Descuento' %> 
+							<%= f.number_field :discount, :onchange => 'update_original_price(this.value)', class: "form-control", style: 'width:200px' %>
 							<p class="help-block">
 							Todos los productos con descuentos se mostrarán en la pestaña "liquidación".
 							</p>
