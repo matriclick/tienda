@@ -15,7 +15,7 @@ class SupplierAccount < ActiveRecord::Base
   belongs_to :country
 	belongs_to :supplier
   belongs_to :supplier_account_type
-	belongs_to :address
+	belongs_to :address, :dependent => :destroy
   has_many :albums, :dependent => :destroy
 	has_many :events, :dependent => :destroy
 	has_many :bookings, :dependent => :destroy
@@ -23,7 +23,7 @@ class SupplierAccount < ActiveRecord::Base
 	has_many :user_accounts, :through => :conversations
 	has_many :important_dates, :dependent => :destroy
 	has_many :reviews, :as => :reviewable, :dependent => :destroy
-  has_many :gift_cards
+  has_many :gift_cards, :dependent => :destroy
   has_many :dresses, :dependent => :destroy
 	has_many :reserved_dates, :dependent => :destroy
 	has_many :supplier_page_views, :dependent => :destroy
@@ -40,7 +40,8 @@ class SupplierAccount < ActiveRecord::Base
 												:small => "200x200>",
                         :medium => "300x300>",
                         :large => "400x400>"
-	}, :whiny => false
+	}, :whiny => false, :dependent => :destroy
+  
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/x-png', 'image/pjpeg']
   validates_attachment_size :image, :less_than => 1.megabyte
 
