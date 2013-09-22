@@ -7,13 +7,12 @@
 			</p>
 
 			<p>
-			  <b>Producto:</b><br />
-				<% unless @refund_request.dress.nil? %>
-			  	<%= link_to image_tag(@refund_request.dress.main_image), 
-					dress_ver_path(:type => @refund_request.dress.dress_types.first.name, :slug => @refund_request.dress.slug) %>
-				<% else %>
-					No se ha guardado la información del producto correctamente
-				<% end %>
+			  <b>Productos:</b><br />
+				<ul>
+					<% @refund_request.dresses.each do |dress| %>
+					<li><%= link_to image_tag(dress.small_image), dress_ver_path(:type => dress.dress_types.first.name, :slug => dress.slug) %>
+					<% end %>
+				</ul>
 			</p>
 
 			<p>
