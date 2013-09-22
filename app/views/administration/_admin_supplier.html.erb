@@ -18,7 +18,9 @@
   <td>N/A</td>
 <% end -%>
 <% unless supplier.supplier_account.blank? %>
-	<td><%= link_to 'Detalle', administration_show_supplier_account_path(supplier.supplier_account)  %><hr>
-	<%= link_to 'Ingresar', supplier_account_path(supplier) %></td>
+	<td>
+		<%= link_to 'Detalle', administration_show_supplier_account_path(supplier.supplier_account)  %> | 
+		<%= link_to 'Ingresar', supplier_account_path(supplier) %> | 
+		<%= link_to t('destroy'), administration_destroy_supplier_path(supplier), :method => :delete, confirm: t('are_you_sure') %>
+	</td>
 <% end %>
-<td><%= link_to t('destroy'), administration_destroy_supplier_path(supplier), :method => :delete, confirm: t('are_you_sure') %></td>
