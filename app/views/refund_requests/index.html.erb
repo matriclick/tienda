@@ -6,7 +6,7 @@
 			  <tr>
 				<th>Fecha</th>
 			    <th>Usuario</th>
-			    <th>Producto</th>
+			    <th>Productos</th>
 			    <th>Razón de devolución</th>
 			    <th>Banco</th>
 			    <th></th>
@@ -18,7 +18,12 @@
 			  <tr>
 				<td><%= refund_request.created_at.strftime("%d-%m-%Y") %></td>
 			    <td><%= refund_request.user.email %></td>
-			    <td><%= refund_request.dress.introduction if !refund_request.dress.nil? %></td>
+			    <td>
+						<% refund_request.dresses.each do |dress| %>
+							<%= link_to image_tag(dress.dress_images.first.dress.url(:tiny), :alt => dress.dress_images.first.name), 
+							dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+						<% end %>
+					</td>
 			    <td><%= refund_request.refund_reason.name %></td>
 			    <td><%= refund_request.account_bank %></td>
 			    <td><%= link_to 'Ver Detalle', refund_request %></td>
