@@ -1,5 +1,5 @@
 <div class="container">
-	<h1>Listado de cuentas de proveedores</h1>
+	<h3>Listado de cuentas de proveedores</h3>
 	<%= form_tag(administration_suppliers_list_path, :method => "get", role: 'form', class: 'form-inline') do %>
 		<div class="form-group">
 			<%= text_field_tag(:q, @search_term, :style => 'width:500px', class: 'form-control') %> 
@@ -7,7 +7,7 @@
 		<%= submit_tag("Buscar", class: 'btn btn-default btn-sm') %>
 	<% end %>
 	<br />
-	<table class="table">
+	<table class="table" style="font-size:12px">
 		<tr>
 			<th>Email</th>
 			<th>Nombre Cuenta</th>
@@ -27,9 +27,12 @@
 				<td style="text-align:center"><%= supplier.supplier_account.approved_by_supplier ? "✔" : '✘' %></td>
 				<td style="text-align:center"><%= supplier.supplier_account.approved_by_us ? "✔" : '✘' %></td>
 				<td>
-						<%= link_to 'Detalle', administration_show_supplier_account_path(supplier.supplier_account)  %> | 
-						<%= link_to 'Ingresar', supplier_account_path(supplier) %> | 
-						<%= link_to t('destroy'), administration_destroy_supplier_path(supplier), :method => :delete, confirm: t('are_you_sure') %>
+						<%= link_to 'Ver Información', supplier_description_path(:public_url => supplier.supplier_account.public_url) %> |
+						<%= link_to 'Editar Información', administration_edit_supplier_account_path(supplier.supplier_account)  %> |
+						<%= link_to 'Resetear Clave', administration_reset_supplier_password_path(supplier.supplier_account)  %> |
+						<% if current_user.email == 'hhanckes@gmail.com' %>
+							<%= link_to 'Eliminar', administration_destroy_supplier_path(supplier), :method => :delete, confirm: t('are_you_sure') %>
+						<% end %>
 				</td>
 			</tr>
 			<tr>

@@ -173,45 +173,21 @@ Matri::Application.routes.draw do
 
 	match '/supplier/main' => "supplier_accounts#show", as: :supplier_home
 
-	scope ':public_url' do #DZF this alows to search a supplier without crashing with resources in the "/ "
-		root :to => "suppliers_catalog#supplier_description"
-	end
-
   # ADMINISTRATION
-  get "administration/index" => "administration#index"
-  get "administration" => "administration#index"
+  get "administration" => "administration#index", as: 'administration_index'
   get "administration/webpage_contacts" => 'administration#webpage_contacts', as: 'administration_webpage_contacts'  
-  get "administration/old_dresses" => 'administration#old_dresses', as: 'administration_old_dresses'
-  get "administration/dresses" => 'administration#dresses', as: 'administration_dresses'
-  get "administration/dress" => 'administration#dress', as: 'administration_dress'
-  get "administration/dresses_list" => 'administration#dresses_list', as: 'administration_dresses_list'
-  get "administration/view_old_dress" => "administration#view_old_dress"
   get "administration/suppliers_list" => "administration#suppliers_list"
-  get "administration/show_supplier_account/:id" => 'administration#show_supplier_account', as: 'administration_show_supplier_account'
-  get "administration/show_supplier_products/:id" => 'administration#show_supplier_products', as: 'administration_show_supplier_products'
-  get "administration/show_supplier_services/:id" => 'administration#show_supplier_services', as: 'administration_show_supplier_services'
   get "administration/edit_supplier_account/:supplier_account_id" => 'administration#edit_supplier_account', as: 'administration_edit_supplier_account'
   get "administration/reset_supplier_password/:supplier_account_id" => 'administration#reset_supplier_password', as: 'administration_reset_supplier_password'
-  get "administration/edit_supplier_product/:product_id" => 'administration#edit_supplier_product', as: 'administration_edit_supplier_product'
-  get "administration/edit_supplier_service/:service_id" => 'administration#edit_supplier_service', as: 'administration_edit_supplier_service'
   get "administration/edit_dispatch_costs" => 'administration#edit_dispatch_costs', as: 'administration_edit_dispatch_costs'
   put "administration/update_dispatch_costs" => 'administration#update_dispatch_costs', as: 'administration_update_dispatch_costs'
   put "administration/update_supplier_account/:id" => 'administration#update_supplier_account', as: 'administration_update_supplier_account'
-  put "administration/update_supplier_product/:id" => 'administration#update_supplier_product', as: 'administration_update_supplier_product'
-  put "administration/update_supplier_service/:id" => 'administration#update_supplier_service', as: 'administration_update_supplier_service'
-  delete "administration/destroy_old_dress/:id" => 'administration#destroy_old_dress', as: 'administration_destroy_old_dress'
   delete "administration/destroy_supplier/:id" => 'administration#destroy_supplier', as: 'administration_destroy_supplier'
-  delete "administration/destroy_supplier_product/:id" => 'administration#destroy_supplier_product', as: 'administration_destroy_supplier_product'
-  delete "administration/destroy_supplier_service/:id" => 'administration#destroy_supplier_service', as: 'administration_destroy_supplier_service'
-
 	get "administration/mailing-tools" => "administration#mailing_tools", as: 'administration_mailing_tools'
 	get "administration/mailing_sent" => "administration#mailing_sent", as: 'administration_mailing_sent'
-  	  
   get 'administration/edit_purchase/:id' => "administration#edit_purchase", as: 'administration_edit_purchase'
   put 'administration/update_purchase/:id' => "administration#update_purchase", as: 'administration_update_purchase'
-  
   get 'administration/autocomplete_user_email' => 'administration#autocomplete_user_email'
-  
   get "administration/store_admin" => "administration#store_admin", as: 'administration_store_admin'
   get "administration/add_user_to_supplier/:sa_id" => "administration#add_user_to_supplier", as: 'administration_add_user_to_supplier'
   put "administration/assign_user_to_supplier" => "administration#assign_user_to_supplier", as: 'administration_assign_user_to_supplier'
@@ -219,10 +195,14 @@ Matri::Application.routes.draw do
   get "administration/new_store_payment" => "administration#new_store_payment", as: 'administration_new_store_payment'
   put "administration/create_store_payment" => "administration#create_store_payment", as: 'administration_create_store_payment'
     
+  scope ':public_url' do #DZF this alows to search a supplier without crashing with resources in the "/ "
+		root :to => "suppliers_catalog#supplier_description"
+	end
+
   get "/" => "dresses#bazar", as: 'bazar'
   
   root :to => "dresses#bazar"
-
+  
   #SEO: Realiza match con archivo routes.yml para cambio de nombre (alias) a la ruta - HAY QUE DEJARLO AL FINAL
   ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml')
 

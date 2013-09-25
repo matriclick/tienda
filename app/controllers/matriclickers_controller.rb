@@ -1,5 +1,5 @@
 class MatriclickersController < ApplicationController
-  before_filter :redirect_unless_admin, :hide_left_menu
+  before_filter :redirect_unless_admin, :generate_bread_crumbs
   before_filter { redirect_unless_privilege('Matriclickers') }
   
   # GET /matriclickers
@@ -84,4 +84,11 @@ class MatriclickersController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  private
+  
+  def generate_bread_crumbs
+    add_breadcrumb "Administrador", :administration_index_path
+  end
+  
 end

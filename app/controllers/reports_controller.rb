@@ -139,13 +139,5 @@ class ReportsController < ApplicationController
   def generate_bread_crumbs
     add_breadcrumb "Administrador", :administration_index_path
   end
-  
-  def sort_column
-    %w[conversations_count wedding_date last_conversation email].include?(params[:sort]) ? params[:sort] : "conversations_count"
-  end
-
-  def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-    end
     
 end
