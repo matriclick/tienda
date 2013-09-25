@@ -29,7 +29,8 @@ class ShoppingCart < ActiveRecord::Base
   def price
     price = 0
     self.shopping_cart_items.each do |shopping_cart_item|
-    	price = price + shopping_cart_item.price
+      shopping_cart_item.update_price
+    	price = price + shopping_cart_item.price*shopping_cart_item.quantity
   	end
   	return price
   end

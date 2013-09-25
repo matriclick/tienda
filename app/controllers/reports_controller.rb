@@ -48,14 +48,18 @@ class ReportsController < ApplicationController
   
   def products_payments
     if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.utc.beginning_of_year
-      @to = DateTime.now.utc.end_of_day
+      @from = DateTime.now.utc.beginning_of_month
+      @to = DateTime.now.utc.end_of_month
     else
       @from = Time.parse(params[:from]).utc.beginning_of_day
       @to = Time.parse(params[:to]).utc.end_of_day
     end
     
-    @supplier_accounts = IndustryCategory.where(:name => 'vestidos_de_fiesta').first.supplier_accounts
+    @supplier_accounts = SupplierAccount.approved
+    
+    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)
+    @purchased_products_data = @supplier_account.check_owned_products_purchased_from_purchases(@purchases)
+    
   end
     
   def sales_dashboard
