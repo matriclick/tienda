@@ -2,8 +2,28 @@
 class AdministrationController < ApplicationController
   autocomplete :user, :email
     
-  before_filter :redirect_unless_admin, :hide_left_menu
+  before_filter :redirect_unless_admin, :generate_bread_crumbs, :except => [:store_admin]
   
+  def assign_user_to_supplier
+    @u_ids = params[:user_ids]
+    @sa = SupplierAccount.find params[:sa_id]
+    @sa.users.clear
+    @u_ids.each do |u_id|
+      user = User.find u_id
+      @sa.users << user
+    end
+    @sa.save
+    
+    redirect_to administration_suppliers_list_path(:filter => "Active")
+  end
+  
+  def add_user_to_supplier
+    add_breadcrumb "Lista de Tiendas", administration_suppliers_list_path(:filter => "Active")
+    add_breadcrumb "Agregar Administrador", administration_add_user_to_supplier_path(:sa_id => params[:sa_id])
+    @users = User.where('role_id = ? or role_id = ?', 1, 2)
+    @supplier_account = SupplierAccount.find params[:sa_id]
+  end
+    
   def edit_purchase
     redirect_unless_privilege('Finanzas')
     @purchase = Purchase.find(params[:id])
@@ -418,4 +438,10 @@ class AdministrationController < ApplicationController
     end
   end
   
+  private
+  
+  def generate_bread_crumbs
+    add_breadcrumb "Administrador", :administration_index_path
+  end
+
 end

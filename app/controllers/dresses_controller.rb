@@ -357,9 +357,20 @@ class DressesController < ApplicationController
     if @stock_updated
       if !params[:dress].nil?
         if !params[:dress][:dress_stock_sizes_attributes].nil?
+          sold_by_store = true
           params[:dress][:dress_stock_sizes_attributes].each do |dress_stock_sizes|
             dsz = DressStockSize.find(dress_stock_sizes[1][:id])
             dsz.update_attributes(:stock => dress_stock_sizes[1][:stock])
+            if dress_stock_sizes[1][:stock].to_i > 0
+              sold_by_store = false
+            end
+          end
+          if sold_by_store
+            @dress.dress_status_id = DressStatus.find_by_name('Vendido por Proveedor').id
+            @dress.save
+          else
+            @dress.dress_status_id = DressStatus.find_by_name('Disponible').id
+            @dress.save
           end
         end
       end

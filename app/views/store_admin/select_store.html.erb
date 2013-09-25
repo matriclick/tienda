@@ -1,0 +1,12 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Mis Tiendas</h1>
+			<ul class="nav nav-pills nav-stacked">
+			<% @supplier_accounts.each do |sa| %>
+				<li><div class="well"><%= link_to sa.fantasy_name.upcase, store_admin_products_path(public_url: sa.public_url) %></div></li>
+			<% end %>
+			</ul>
+		</div>
+	</div>
+</div>

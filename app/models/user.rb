@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
   after_create :check_if_is_matriclicker
   after_create :ensure_user_account_exists
 	
-	has_one :wedding_planner_quote, :dependent => :destroy
 	has_many :contest_travelites, :dependent => :destroy
 	has_many :refund_requests, :dependent => :destroy
 	has_one :matriclicker, :dependent => :destroy
@@ -18,9 +17,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :tags
   has_many :dresses_users_wish_lists
   has_many :dresses, :through => :dresses_users_wish_lists
+
+  has_and_belongs_to_many :supplier_accounts
     
-	has_many :conversations, :dependent => :destroy
-	has_many :supplier_accounts, :through => :conversations
 	has_many :dress_requests, :dependent => :destroy
 	has_many :purchases, :dependent => :destroy
 	has_many :orders, :dependent => :destroy

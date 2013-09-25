@@ -1,0 +1,40 @@
+<div class="container">
+	<%= render 'menu', public_url: @supplier_account.public_url %>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-6">
+					<form action="<%= request.fullpath %>" method="get">
+					  <div class="input-group">
+								<%= text_field_tag(:code_q, @code_search_text, placeholder: @code_search_text, class: "form-control") %>
+					       <span class="input-group-btn">
+									<%= submit_tag("Buscar por Código", :name => nil, class: "btn btn-default") %>
+					  		 </span>
+					  </div><!-- /input-group -->
+					</form>
+				</div>
+				<div class="col-md-6">
+					<form action="<%= request.fullpath %>" method="get">
+					  <div class="input-group">
+								<%= text_field_tag(:q, @search_text, placeholder: @search_text, class: "form-control") %>
+					       <span class="input-group-btn">
+									<%= submit_tag("Buscar por Nombre", :name => nil, class: "btn btn-default") %>
+					  		 </span>
+					  </div><!-- /input-group -->
+					</form>
+				</div>
+			</div>
+			
+			<div class="row" style="margin-top:20px">
+			  <% @dresses.each do |dress| %>
+					<%= render 'store_list_dress', dress: dress %>
+			  <% end %>
+			</div>
+			
+			<div class="row" style="text-align:center">
+			 <%= render 'dresses/pagination', dresses: @dresses %>
+			</div>
+			
+		</div>
+	</div>
+</div>

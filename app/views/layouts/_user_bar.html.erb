@@ -35,7 +35,7 @@
 					<li><%= link_to "Tu Cuenta", user_profile_personalization_path, :rel => 'nofollow' %></li>
 					<li><%= link_to 'Salir', destroy_user_session_path, method: :delete, :rel => 'nofollow' %></li>
 				<% else %>
-				<li>
+					<li>
 					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), 
 											:html => {class: "form-inline", role: "form", style: 'margin-top:12px'}) do |f| %>
 						<div class="form-group">
@@ -48,48 +48,15 @@
 					  </div>
 						<%= f.submit 'Entrar', :class => "btn btn-default input-sm", style: "font-size:11px" %>
 					<% end %>
-				</li>
-				<%- if devise_mapping.omniauthable? %>
+					</li>
+					<%- if devise_mapping.omniauthable? %>
 					<li>
 						<%= link_to image_tag('iconos_redes/facebook-user-bar.png'), omniauth_authorize_path(resource_name, 'facebook'), 
 								style: "padding:10px 0px 0px 10px" %>
 					</li>
-				<% end -%>
-				<!--
-					<li><%= link_to 'Ingresar', new_user_registration_path, :rel => 'nofollow' %></li>
-					<li><%= link_to 'Registro', new_user_registration_path, :rel => 'nofollow' %></li>
-				-->
+					<% end -%>
 				<% end %>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
 </div>
-
-<!--
-<div style="left:830px; top:10px; position:absolute;">
-	<% if user_signed_in? %>
-		<%= link_to "Tu Cuenta | ", user_profile_personalization_path,  :class => 'no_underline_login', :rel => 'nofollow' %>
-		<%= carrito_compra_link %> |
-		<%= link_to 'Salir', destroy_user_session_path, method: :delete,  :class => 'no_underline_login', :rel => 'nofollow' %>
-	<% else %>
-		<%= link_to 'Ingresar', '#', :class => 'log_in_down', :rel => 'log_in_down' %> <div class="log_in_down">|</div>
-		<%= link_to 'Registro', new_user_registration_path, :class => 'no_underline_login', :rel => 'nofollow' %>
-	<% end %>
-</div>
-<div class="log_in sign_in_tab" style="left:680px; top:30px; position:absolute; z-index:999">
-	<%= render "layouts/sign_in_tab" %>
-</div>
-<div class="center box_nine_six_cero" style="margin-top:5px;">
-	<div style="position:absolute;">
-		<%= link_to (image_tag 'el_bazar/logo.png', :alt => "Tramanta.com"), root_path %>
-	</div>
-	<div style="position:absolute; text-align:center; color:#c136b2; left:40%; top:15px; font-size:13px">
-
-	</div>
-	<div class="right" style="border-bottom:1px solid #ccc; width:770px;">
-		<div>
-			<%= render 'layouts/main_menu' %>
-		</div>
-	</div>
-</div>
--->

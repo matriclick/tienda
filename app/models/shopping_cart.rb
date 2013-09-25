@@ -65,6 +65,9 @@ class ShoppingCart < ActiveRecord::Base
       case object.class.to_s
         when 'Dress'
           object.mark_as_sold(shopping_cart_item.size, shopping_cart_item.quantity)
+          shopping_cart_item.update_price
+          shopping_cart_item.update_costs
+          shopping_cart_item.save
         else
           object.mark_as_sold
       end

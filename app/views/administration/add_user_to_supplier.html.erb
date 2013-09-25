@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+		<h2>Administradores de <%= @supplier_account.fantasy_name %></h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+	<%= form_tag(administration_assign_user_to_supplier_path, :method => "put", role: 'form', class: 'form') do %>
+		<% @users.each do |user| %>
+		<div class="form-group">
+			<div class="checkbox">
+			  <label>
+			    <%= check_box_tag('user_ids[]', user.id, @supplier_account.users.include?(user)) %> <%= user.email %>
+			  </label>
+			</div>
+		</div>
+		<%= hidden_field_tag :sa_id, @supplier_account.id %>
+		<% end %>
+		<%= submit_tag("Asignar", class: 'btn btn-default btn-sm') %>
+	<% end %>
+		</div>
+	</div>
+</div>

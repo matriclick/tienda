@@ -14,6 +14,12 @@ class ShoppingCartItem < ActiveRecord::Base
     amount = self.quantity.nil? ? 0 : self.quantity
     
     self.total_cost = (vat+net)*amount
+    self.unit_cost = (vat+net)
+    self.save
+  end
+  
+  def update_price
+    self.price = self.purchasable.price
     self.save
   end
   
@@ -34,15 +40,6 @@ class ShoppingCartItem < ActiveRecord::Base
   
   def purchasable
     eval(self.purchasable_type.to_s + '.find ' + self.purchasable_id.to_s)
-  end
-  
-  def price
-    if !self.quantity.blank?
-      price = self.purchasable.price * self.quantity
-    else
-      price = self.purchasable.price
-    end
-    return price
   end
   
   def enough_stock?

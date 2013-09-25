@@ -32,6 +32,8 @@ class SupplierAccount < ActiveRecord::Base
 	has_many :supplier_contacts, :dependent => :destroy
 	has_and_belongs_to_many :industry_categories
 	has_and_belongs_to_many :sub_industry_categories
+  
+  has_and_belongs_to_many :users
 
 	has_attached_file :image, 
 											:styles => {
@@ -58,6 +60,29 @@ class SupplierAccount < ActiveRecord::Base
 
 	#http://railscasts.com/episodes/108-named-scope
 	scope :from_industry, lambda { |ic| { :joins => :industry_categories, :conditions => [ "industry_categories.id = ?", ic.id ] } }
+  
+  
+  def check_owned_products_purchased_from_purchases(purchases)
+    purchased_products_data = Array.new
+    
+    purchases.each do |p|
+      if p.purchasable_type == 'Dress'
+        if p.purchasable.supplier_account == self
+          purchased_products_data[] <<
+            Hash[:dress_id => p.purchasable_id, :date => p.created_at, :size => p.size, :quantity => p.quantity, :store_paid => p.store_paid, :refunded => p.refunded, :unit_cost => sci.total_cost/quantity, :price => p.purchasable_price]
+        end
+      else
+        p.purchasable.shopping_cart_items.each do |sci|
+          if sci.purchasable.supplier_account_id == self.id
+            purchased_products_data <<
+              Hash[:dress_id => sci.purchasable_id, :date => p.created_at, :size => sci.size, :quantity => sci.quantity, :store_paid => p.store_paid, :refunded => sci.refunded, :unit_cost => sci.unit_cost, :price => sci.price]
+          end
+          puts sci.price
+        end
+      end
+    end
+    return purchased_products_data
+  end
   
   def get_sold_items(from, to)
     quantity = 0

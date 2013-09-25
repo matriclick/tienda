@@ -1,5 +1,11 @@
 # encoding: UTF-8
 Matri::Application.routes.draw do
+
+  get "admin-tienda/seleccionar" => 'store_admin#select_store', :as => 'store_admin_select_store'
+  get "admin-tienda/productos/:public_url" => 'store_admin#products', :as => 'store_admin_products'
+  get "admin-tienda/ventas/:public_url" => 'store_admin#purchases', :as => 'store_admin_purchases'
+  get "admin-tienda/pagos/:public_url" => 'store_admin#payments', :as => 'store_admin_payments'
+
   get "mail_inline/i_want_it/:dress_id" => 'mail_inline#i_want_it', :as => 'mail_inline_i_want_it'
   post "mail_inline/send_i_want_it" => 'mail_inline#send_i_want_it'
 
@@ -215,6 +221,10 @@ Matri::Application.routes.draw do
   
   get 'administration/autocomplete_user_email' => 'administration#autocomplete_user_email'
   
+  get "administration/store_admin" => "administration#store_admin", as: 'administration_store_admin'
+  get "administration/add_user_to_supplier/:sa_id" => "administration#add_user_to_supplier", as: 'administration_add_user_to_supplier'
+  put "administration/assign_user_to_supplier" => "administration#assign_user_to_supplier", as: 'administration_assign_user_to_supplier'
+    
   get "/" => "dresses#bazar", as: 'bazar'
   
   root :to => "dresses#bazar"
@@ -235,5 +245,5 @@ Matri::Application.routes.draw do
       ['<script type="text/javascript" src="//connect.facebook.net/en_US/all.js"></script>']
     ]
   }
-  
+  match "*path" => redirect("/")  
 end

@@ -32,11 +32,18 @@
 					<li><%= link_to 'Política de devoluciones', refund_policy_path, :id => 'form_inline' %></li>
 					<li><%= link_to 'Solicitar devolución', new_refund_request_path %></li>
 					<li><%= link_to 'Contacto clientes', contact_elbazar_path %></li>
-					<% if !current_user.nil? and current_user.role_id == 1 %>
-						<li><%= link_to t('Administrador'), administration_index_path, :rel => 'nofollow' %></li>
-					<% end %>
 				</ul>
 			</div>
+			<% if !current_user.nil? and (current_user.role_id == 1 or current_user.role_id == 2) %>
+			<div class="col-md-3">
+				<ul class="footer_links">
+					<li class="footer_title">ADMINISTRACIÓN</li>
+					<li><%= link_to('Administrador Tramanta', administration_index_path, :rel => 'nofollow') if current_user.role_id == 1 %></li>
+					<li><%= link_to 'Mis Tiendas', store_admin_select_store_path, :rel => 'nofollow' %></li>
+				</ul>
+			</div>
+			<% end %>
+
 		</div>
 		<div class="row" style="text-align:center; margin-top:20px">
     	<p class="pull-right"><a href="#">Volver a arriba</a></p>

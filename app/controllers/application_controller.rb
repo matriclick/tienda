@@ -449,6 +449,14 @@ class ApplicationController < ActionController::Base
 		end
 	end
 	
+  def redirect_unless_store_admin
+		if user_signed_in?
+			redirect_to root_path unless (current_user.role_id == 1 or current_user.role_id == 2)
+		else
+			redirect_to root_path
+		end
+  end
+  
 	def redirect_unless_privilege(privilege_name)
 	  redirect = false
 	  if !current_user.matriclicker.nil?

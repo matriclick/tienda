@@ -1,8 +1,10 @@
 # encoding: UTF-8
 class Dress < ActiveRecord::Base
   include Rails.application.routes.url_helpers
-
   extend FriendlyId
+  
+  before_save :set_code
+  
   friendly_id :introduction, use: :slugged
 
 	has_many :dress_images, :dependent => :destroy
@@ -31,6 +33,16 @@ class Dress < ActiveRecord::Base
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	
+  def set_code
+    if self.code.blank?
+      code_s = 'TRA'
+      self.dress_type.name.split('-').each do |a|
+        code_s = code_s+a[0..1].upcase
+      end
+      self.code = code_s+self.id.to_s
+    end
+  end
+  
   def self.check_sizes(dresses)
     puts dresses.count
     sizes = Array.new

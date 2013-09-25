@@ -1,0 +1,25 @@
+<div class="col-md-3" style="height:391px; overflow:hidden;">
+<% if dress.dress_status.name.include?('Vendido') %>
+	<div style="position:absolute; top:40px">
+		<div style="background-color:black; color:white; width:190px; text-align:center; padding:10px; opacity:0.7;">
+			Producto Agotado
+		</div>
+	</div>
+	<% end %>
+	<p>
+		<% if dress.dress_stock_sizes.size > 0 %>
+			<% dress.dress_stock_sizes.each do |dsz| %>
+			<b><%= dsz.size.name %></b> <span class="badge"><%= dsz.stock %></span>
+			<% end %>
+		<% else %>
+			<b>Sin Stock</b>
+		<% end %>
+	</p>
+	<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
+		dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+	<p style="font-size:12px"><strong><%= number_to_currency dress.price %></strong><br/>
+		 <%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></p>
+		<%= link_to 'Modificar Stock', dresses_set_stock_path(:id => dress.id), 
+				:class => 'btn btn-default btn-xs', title: "Modificar Stock", style: 'margin-top:-10px' %>							
+	</p>
+</div><!--/span--> 

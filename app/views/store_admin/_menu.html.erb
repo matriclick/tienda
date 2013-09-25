@@ -1,0 +1,9 @@
+<div class="row" style="margin-top:-10px; margin-bottom:10px">
+	<div class="col-md-12">
+		<ul class="nav nav-pills">
+			<li <%= 'class=active' if action_name == 'products'%>><%= link_to 'Productos Publicados', store_admin_products_path(public_url: public_url) %></li>
+		  <li <%= 'class=active' if action_name == 'purchases'%>><%= link_to 'Ventas en Tramanta', store_admin_purchases_path(public_url: public_url) %></li>
+			<li <%= 'class=active' if action_name == 'payments'%>><%= link_to 'Pagos Realizados', store_admin_payments_path(public_url: public_url) %></li>
+		</ul>
+	</div>
+</div>

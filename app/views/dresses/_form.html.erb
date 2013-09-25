@@ -125,6 +125,27 @@
 		</tr>
 		<tr>
 			<td>
+			  <div class="panel panel-default">
+			    <div class="panel-heading">
+			      <h4 class="panel-title">
+			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse12" style="font-size:12px">
+			          ¿Tiene código externo?
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapse12" class="panel-collapse collapse">
+			      <div class="panel-body">
+							Código: <%= f.text_field :code, class: "form-control"  %>		
+							<p class="help-block">
+							Si no tiene un código proporcionado por la tienda, dejar el campo en blanco y una vez se guarde el vestido automáticamente se generará uno.
+							</p>
+			      </div>
+			    </div>
+			  </div>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<div class="help_tip">
 					Este texto se mostrará cuando la persona revisa todos los items, poner máximo 30 caracteres.
 				</div>
@@ -182,18 +203,7 @@
 		</tr>
 	</table>
 	<% if defined? @supplier_account %>
-		<% if !@supplier_account.supplier_account_type.nil? and @supplier_account.supplier_account_type.name == 'Vestidos de Novia Usados' %>
-			<br />
-			<b>Información del vendedor</b>
-			<hr>
-				<%= f.label :seller_name, 'Nombre del vendedor' %><%= mark_required @dress, :seller_name %> <%= f.text_field :seller_name %><br /><br />
-				<%= f.label :seller_email, 'Correo del vendedor' %><%= mark_required @dress, :seller_email %> <%= f.text_field :seller_email %><br /><br />
-				<%= f.label :seller_phone_number, 'Teléfono del vendedor' %><%= mark_required @dress, :seller_phone_number %> <%= f.text_field :seller_phone_number %>
-			<hr>
-		<% end %>
-		<% if !defined? @supplier_accounts %>
 			<%= f.hidden_field :supplier_account_id, :value => @supplier_account.id %>
-		<% end %>
 	<% end %>
 	<div class="holder">
 		<%= f.submit 'Guardar y definir stock', :class => "button" %>

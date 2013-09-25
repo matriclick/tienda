@@ -1,0 +1,37 @@
+<div class="container">
+	<%= render 'menu', public_url: @supplier_account.public_url %>
+	<%= render 'reports/date_range_selector' %>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-success">Total pagado: <%= number_to_currency @paid %></div>
+			<div class="alert alert-danger">Total por pagar: <%= number_to_currency @debt %></div>
+			<table class="table table-condensed report" style="font-size:11px">
+			  <tr>
+			    <th>Fecha Compra</th>
+			    <th>Producto</th>
+			    <th>Precio Vendido</th>
+					<th>Cantidad</th>
+					<th>Talla</th>
+			    <th>¿Producto Devuelto?</th>
+			    <th>Pago por Producto</th>
+			    <th>Pago Total</th>
+			    <th>¿Producto Pagado?</th>
+			  </tr>
+				<% @purchased_products_data.each do |val| %>
+				<tr>
+					<% dress = Dress.find val[:dress_id] %>
+					<td><%= val[:date].strftime("%Y-%m-%d") %><br /><%= dress.introduction %></td>
+					<td><%= link_to image_tag(dress.small_image), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></td>
+					<td><%= number_to_currency val[:price] %></td>
+					<td><%= val[:quantity] %></td>
+					<td><%= val[:size] %></td>
+					<td><%= val[:refunded] ? 'Sí' : 'No' %></td>
+					<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]) %></td>
+					<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]*val[:quantity]) %></td>
+					<td><%= val[:store_paid] ? 'Sí' : 'No' %></td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

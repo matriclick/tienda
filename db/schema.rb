@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130922194718) do
+ActiveRecord::Schema.define(:version => 20130924235307) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -632,6 +632,7 @@ ActiveRecord::Schema.define(:version => 20130922194718) do
     t.float    "vat_cost"
     t.integer  "original_price"
     t.float    "discount"
+    t.string   "code"
   end
 
   add_index "dresses", ["slug"], :name => "index_dresses_on_slug", :unique => true
@@ -1415,6 +1416,8 @@ ActiveRecord::Schema.define(:version => 20130922194718) do
     t.integer  "quantity"
     t.float    "total_cost"
     t.boolean  "refunded"
+    t.integer  "price"
+    t.integer  "unit_cost"
   end
 
   create_table "shopping_carts", :force => true do |t|
@@ -1550,6 +1553,11 @@ ActiveRecord::Schema.define(:version => 20130922194718) do
     t.string   "account_owner_email"
     t.float    "net_margin"
     t.integer  "country_id"
+  end
+
+  create_table "supplier_accounts_users", :id => false, :force => true do |t|
+    t.integer "supplier_account_id"
+    t.integer "user_id"
   end
 
   create_table "supplier_contacts", :force => true do |t|
