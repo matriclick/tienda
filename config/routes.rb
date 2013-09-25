@@ -244,6 +244,5 @@ Matri::Application.routes.draw do
       },
       ['<script type="text/javascript" src="//connect.facebook.net/en_US/all.js"></script>']
     ]
-  }
-  match "*path" => redirect("/")  
+  }  
 end
