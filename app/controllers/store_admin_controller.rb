@@ -37,7 +37,7 @@ class StoreAdminController < ApplicationController
     @supplier_account = SupplierAccount.find_by_public_url params[:public_url]
     add_breadcrumb "Ventas de "+@supplier_account.fantasy_name, store_admin_purchases_path(public_url: params[:public_url])
 
-    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)
+    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true).order('created_at DESC')
     @purchased_products_data = @supplier_account.check_owned_products_purchased_from_purchases(@purchases)
     
     @paid = 0
@@ -53,8 +53,16 @@ class StoreAdminController < ApplicationController
   end
 
   def payments
-    @supplier_account = SupplierAccount.find_by_public_url params[:public_url]
-    add_breadcrumb "Pagos de "+@supplier_account.fantasy_name, store_admin_payments_path(public_url: params[:public_url])
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.utc.beginning_of_year
+      @to = DateTime.now.utc.end_of_year
+    else
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
+    end
+    
+    @sa = SupplierAccount.find_by_public_url params[:public_url]
+    add_breadcrumb "Pagos de "+@sa.fantasy_name, store_admin_payments_path(public_url: params[:public_url])
   end
   
   private

@@ -67,7 +67,9 @@ Matri::Application.routes.draw do
   get 'reports/products_payments' => 'reports#products_payments', as: 'reports_products_payments'
   get 'reports/sales_by_category' => 'reports#sales_by_category', as: 'reports_sales_by_category'
   get 'reports/sales_by_store' => 'reports#sales_by_store', as: 'reports_sales_by_store'
-  get 'reports/products_in_wish_list' => 'reports#products_in_wish_list', as: 'reports_products_in_wish_list'  
+  get 'reports/products_in_wish_list' => 'reports#products_in_wish_list', as: 'reports_products_in_wish_list'
+  get 'reports/store_payments' => 'reports#store_payments', as: 'reports_store_payments'
+    
 
   resources :matriclickers
 

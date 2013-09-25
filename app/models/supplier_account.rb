@@ -16,6 +16,7 @@ class SupplierAccount < ActiveRecord::Base
 	belongs_to :supplier
   belongs_to :supplier_account_type
 	belongs_to :address, :dependent => :destroy
+
   has_many :albums, :dependent => :destroy
 	has_many :events, :dependent => :destroy
 	has_many :bookings, :dependent => :destroy
@@ -30,6 +31,8 @@ class SupplierAccount < ActiveRecord::Base
 	has_many :products, :dependent => :destroy
 	has_many :services, :dependent => :destroy
 	has_many :supplier_contacts, :dependent => :destroy
+  has_many :store_payments, :dependent => :destroy
+  
 	has_and_belongs_to_many :industry_categories
 	has_and_belongs_to_many :sub_industry_categories
   

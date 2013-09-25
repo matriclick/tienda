@@ -1,6 +1,8 @@
   # encoding: UTF-8
 class ShoppingCartItem < ActiveRecord::Base
   belongs_to :shopping_cart
+  has_and_belongs_to_many :store_payments
+  
   validate :check_quantity_size
   
   def get_store

@@ -1,9 +1,67 @@
 <div class="container">
-	<%= render 'menu', public_url: @supplier_account.public_url %>
+	<%= render 'menu', public_url: @sa.public_url %>
+	<%= render 'reports/date_range_selector' %>
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Proximamente</h1>
-			<p>Podrás ver los pagos que hemos realizado a tu cuenta y el detalle de cada uno de ellos</p>
+			<table class="table table-condensed report" style="font-size:11px">
+				<tr>
+					<th>Fecha Pago</th>
+					<th>Monto</th>
+					<th># Productos</th>
+					<th>Detalle</th>
+					<th>Comentarios</th>
+				</tr>
+			<% @sa.store_payments.where('created_at >= ? and created_at <= ?', @from, @to).order('created_at DESC').each do |sp| %>
+				<tr>
+					<td><%= sp.created_at.strftime("%Y-%m-%d") %></td>
+					<td><%= number_to_currency sp.amount %></td>
+					<td><%= sp.shopping_cart_items.size %></td>
+					<td>
+					  <!-- Button trigger modal -->
+					  <a data-toggle="modal" href="#myModal<%= sp.id %>" class="btn btn-primary btn-xs">Ver productos pagados</a>
+					  <!-- Modal -->
+					  <div class="modal fade" id="myModal<%= sp.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					          <h4 class="modal-title">Detalle Pago <%= sp.created_at.strftime("%Y-%m-%d") %></h4>
+					        </div>
+					        <div class="modal-body">
+										<h4>Productos Pagados</h4>
+										<table class="table table-condensed report" style="font-size:11px">
+										  <tr>
+										    <th>Imagen</th>
+										    <th>Precio Vendido</th>
+												<th>Cantidad</th>
+												<th>Talla</th>
+										    <th>Pago por Producto</th>
+										    <th>Pago Total</th>
+											</tr>
+											<% sp.shopping_cart_items.each do |sci| %>
+											<tr>
+												<td><%= link_to image_tag(sci.purchasable.small_image), dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></td>
+												<td><%= number_to_currency sci.price %></td>
+												<td><%= sci.quantity %></td>
+												<td><%= sci.size %></td>
+												<td><%= number_to_currency sci.unit_cost %></td>
+												<td><%= number_to_currency sci.total_cost %></td>
+											</tr>
+											<% end %>
+										</table>
+										Total pago: <%= number_to_currency sp.amount %>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					        </div>
+					      </div><!-- /.modal-content -->
+					    </div><!-- /.modal-dialog -->
+					  </div><!-- /.modal -->
+					</td>
+					<td><%= sp.comments %></td>
+				</tr>
+			<% end %>
+			</table>
 		</div>
 	</div>
 </div>

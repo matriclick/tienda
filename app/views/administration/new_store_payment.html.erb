@@ -59,6 +59,7 @@
 				<%= f.text_field :account_type, class: 'form-control', value: @sa.account_type %>
 				<p class="help-block">Cuenta corriente, cuenta de ahorros, cuenta vista u otras</p>
 			</div>
+			<%= f.hidden_field :supplier_account_id, :value => @sa.id %>
 			<div class="form-group">
 				<label>Comentarios para la Tienda</label>
 				<%= f.text_area(:comments, rows: '4', class: 'form-control', placeholder: 'Comentarios para la tienda') %>
