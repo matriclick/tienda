@@ -10,7 +10,7 @@ class UpdateSciCostAndPrice < ActiveRecord::Migration
         sci.total_cost = (vat+net)*amount
         sci.unit_cost = (vat+net)
         sci.price = sci.purchasable.price
-        sci.save
+        sci.save(:validate => false)
       else
         sci.destroy
       end
