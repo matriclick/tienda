@@ -2,9 +2,9 @@
 class ReportsController < ApplicationController
   before_filter :redirect_unless_admin, :generate_bread_crumbs
   before_filter { redirect_unless_privilege('Reportes') }
-  helper_method :sort_column, :sort_direction
   
   def store_payments
+    add_breadcrumb "Pagos realizados a tiendas", :reports_store_payments_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_year
       @to = DateTime.now.utc.end_of_year
@@ -17,6 +17,7 @@ class ReportsController < ApplicationController
   end
   
   def sales_by_category
+    add_breadcrumb "Ventas por categoría", :reports_sales_by_category_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_year
       @to = DateTime.now.utc.end_of_day
@@ -31,6 +32,7 @@ class ReportsController < ApplicationController
   end
   
   def sales_by_store
+    add_breadcrumb "Ventas por tienda", :reports_sales_by_store_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_day
@@ -44,6 +46,7 @@ class ReportsController < ApplicationController
   end
   
   def products_in_wish_list
+    add_breadcrumb "Productos en Wish List", :reports_products_in_wish_list_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_day
@@ -59,6 +62,7 @@ class ReportsController < ApplicationController
   end
   
   def products_payments
+    add_breadcrumb "Products Payments", :reports_products_payments_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_month
       @to = DateTime.now.utc.end_of_month
@@ -72,8 +76,9 @@ class ReportsController < ApplicationController
     @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)
     
   end
-    
+  
   def sales_dashboard
+    add_breadcrumb "Reporte de Ventas", :reports_sales_dashboard_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
@@ -106,76 +111,19 @@ class ReportsController < ApplicationController
     end
   end
   
-  def salestool
-    if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.utc.beginning_of_week
-      @to = DateTime.now.utc.end_of_week
-    else
-      @from = Time.parse(params[:from]).utc.beginning_of_day
-      @to = Time.parse(params[:to]).utc.end_of_day
-    end
-    
-    @llamada = ChallengeActivityType.find_by_name("Llamada")
-    @reunion = ChallengeActivityType.find_by_name("Reunion")
-    @matriclickers = Matriclicker.active
-  end
-  
   def users
+    add_breadcrumb "Reporte de Usuarios", :reports_users_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week
     else
       @from = Time.parse(params[:from]).utc.beginning_of_day
       @to = Time.parse(params[:to]).utc.end_of_day
-    end
-  end
-  
-  def dresses
-    if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.utc.beginning_of_week
-      @to = DateTime.now.utc.end_of_week
-    else
-      @from = Time.parse(params[:from]).utc.beginning_of_day
-      @to = Time.parse(params[:to]).utc.end_of_day
-    end
-    
-    @wedding_type = DressType.find_by_name("vestidos-novia") 
-    @party_type = DressType.find_by_name("vestidos-fiesta")
-    @bridesmaid_type = DressType.find_by_name("vestidos-madrina")
-  end
-    
-  def suppliers
-    if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.utc.beginning_of_week
-      @to = DateTime.now.utc.end_of_week
-    else
-      @from = Time.parse(params[:from]).utc.beginning_of_day
-      @to = Time.parse(params[:to]).utc.end_of_day
-    end
-    
-    @industry_categories = IndustryCategory.all.joins(:countries).where("countries.id = ?", session[:country].id).sort_by {|ic| -SupplierAccount.from_industry(ic).joins(:conversations).approved.count }
-  end
-  
-  def dresses_details
-   if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.utc.beginning_of_week
-      @to = DateTime.now.utc.end_of_week
-    else
-      @from = Time.parse(params[:from]).utc.beginning_of_day
-      @to = Time.parse(params[:to]).utc.end_of_day
-    end
-    
-    if params[:dress_type_id].nil?
-      @dresses = Dress.joins(:dress_requests).where('dress_requests.created_at >= ? and dress_requests.created_at <= ?', @from, @to)
-                  .uniq.sort_by {|dr| -dr.dress_requests.count }
-    else
-      @dress_type = DressType.find params[:dress_type_id]
-      @dresses = Dress.joins(:dress_requests).where('dress_requests.created_at >= ? and dress_requests.created_at <= ?', @from, @to)
-                  .joins(:dress_types).where(:dress_types => { id: @dress_type.id }).uniq.sort_by {|dr| -dr.dress_requests.count }
     end
   end
   
   def purchases
+    add_breadcrumb "Evolución de compras", :reports_purchases_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_week
       @to = DateTime.now.utc.end_of_week

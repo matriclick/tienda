@@ -51,17 +51,6 @@ Matri::Application.routes.draw do
   resources :gift_cards
   
   get "reports/users" => "reports#users"
-  get "reports/suppliers" => "reports#suppliers"
-  get "reports/activity_details" => "reports#activity_details"
-  get "reports/contracts_expiration" => "reports#contracts_expiration"
-  get "reports/contracts_details" => "reports#contracts_details"
-  get "reports/industry_category_details" => "reports#industry_category_details"
-  get "reports/conversations_details" => "reports#conversations_details"
-  get "reports/conversations_without_reply" => "reports#conversations_without_reply"
-  get "reports/dresses" => "reports#dresses"
-  get "reports/dresses_details" => "reports#dresses_details"
-  get "reports/user_conversations" => "reports#user_conversations"
-  get "reports/list_user_conversations" => "reports#list_user_conversations"
   get "reports/purchases" => "reports#purchases"
   get 'reports/sales_dashboard' => 'reports#sales_dashboard', as: 'reports_sales_dashboard'
   get 'reports/products_payments' => 'reports#products_payments', as: 'reports_products_payments'
