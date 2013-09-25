@@ -224,6 +224,9 @@ Matri::Application.routes.draw do
   get "administration/store_admin" => "administration#store_admin", as: 'administration_store_admin'
   get "administration/add_user_to_supplier/:sa_id" => "administration#add_user_to_supplier", as: 'administration_add_user_to_supplier'
   put "administration/assign_user_to_supplier" => "administration#assign_user_to_supplier", as: 'administration_assign_user_to_supplier'
+
+  get "administration/new_store_payment" => "administration#new_store_payment", as: 'administration_new_store_payment'
+  put "administration/create_store_payment" => "administration#create_store_payment", as: 'administration_create_store_payment'
     
   get "/" => "dresses#bazar", as: 'bazar'
   

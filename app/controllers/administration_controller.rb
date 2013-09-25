@@ -4,6 +4,33 @@ class AdministrationController < ApplicationController
     
   before_filter :redirect_unless_admin, :generate_bread_crumbs, :except => [:store_admin]
   
+  def new_store_payment
+    @store_payment = StorePayment.new
+    @sci_ids = params[:sci_ids]
+    @sa = ShoppingCartItem.find(@sci_ids.first).purchasable.supplier_account
+  end
+  
+  def create_store_payment
+    @store_payment = StorePayment.new(params[:store_payment])
+    @sci_ids = params[:sci_ids]
+    
+    respond_to do |format|
+      if @store_payment.save
+        @sci_ids.each do |id|
+          sci = ShoppingCartItem.find id
+          sci.store_paid = true
+          @store_payment.shopping_cart_items << sci
+          sci.save
+          @store_payment.save
+        end
+        format.html { redirect_to reports_products_payments_path, notice: 'Pago OK' }
+      else
+        format.html { redirect_to reports_products_payments_path, notice: 'Error al generar el Pago' }
+      end
+    end
+    
+  end
+  
   def assign_user_to_supplier
     @u_ids = params[:user_ids]
     @sa = SupplierAccount.find params[:sa_id]

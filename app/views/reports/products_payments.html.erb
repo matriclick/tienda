@@ -3,90 +3,61 @@
 		<div class="col-md-12">
 			<h1>Pago a Proveedores</h1>
 			<%= render 'date_range_selector' %>
-			<div style="margin:0px 0px 10px 40px;">
-			<% @supplier_accounts.each do |sa| %>
-				<% purchases = sa.get_purchases_not_paid(@from, @to) %>
-				<h3><%= sa.public_url.nil? ? sa.fantasy_name : link_to(sa.fantasy_name, supplier_description_path(:public_url => sa.public_url)) %></h3>
-				<p style="margin-left:5px; margin-top:-5px">
-					Deuda Actual: <%= number_to_currency sa.get_money_owed(purchases) %> | 
-					Productos no pagados <%= sa.get_supplier_products_not_paid(purchases).size %> | 
-					<span id="hide_show_button_<%= sa.id %>" onclick="$('#hide_show_section_<%= sa.id %>').toggle('slow')" style="cursor:pointer">
-						Ver/ocultar detalle
-					</span>
-				</p>
-				<div id="hide_show_section_<%= sa.id %>" style="display:none">
-				<table style="width:950px;" class="report">
-				  <tr>
-				    <th>Fecha</th>
-				    <th>Tienda</th>
-				    <th>Tipo</th>
-				    <th>Usuario</th>
-				    <th>Total $</th>
-				    <th>Estado</th>
-				    <th>Créditos usados</th>
-				    <th>Tracking #</th>
-				    <th>3PL</th>
-				    <th>¿Fondos recibidos?</th>
-				    <th>¿Tienda pagada?</th>
-				    <th>¿Devolución realizada?</th>
-				  </tr>
-
-				<% purchases.each do |purchase| %>
-				  <tr <%= purchase.funds_received ? raw('style="background-color:#f5fffa"') : raw('style="background-color:#ffe4e1"') %>>
-					<% if purchase.purchasable.nil? %>
-						<td><%= purchase.created_at.strftime("%d-%m-%y") %></td>
-						<td>purchase.purchasable es nil!</td>
-					<% else %>
-						<td><b><%= purchase.created_at.strftime("%d-%m-%y") %></b><br />
-						<%= link_to image_tag(purchase.purchasable.small_image), purchase %></td>
-						<td>
-							<%= !purchase.purchasable.supplier_account.nil? ? purchase.purchasable.supplier_account.fantasy_name : 'n/a' %><br />
-							<%= !purchase.purchasable.supplier_account.nil? ? purchase.purchasable.supplier_account.net_margin.to_s+'% + IVA' : '' %>
-						</td>
+			<div>
+				<% @supplier_accounts.each do |sa| %>
+					<%= form_tag(administration_new_store_payment_path, :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse11">
+				          <%= sa.fantasy_name %>
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapse11" class="panel-collapse collapse">
+				      <div class="panel-body">
+								<table class="table table-condensed report" style="font-size:11px">
+								  <tr>
+										<th>Pagar</th>
+								    <th>Fecha Compra</th>
+								    <th>Producto</th>
+								    <th>Precio Vendido</th>
+										<th>Cantidad</th>
+										<th>Talla</th>
+								    <th>¿Producto Devuelto?</th>
+								    <th>Pago por Producto</th>
+								    <th>Pago Total</th>
+								    <th>¿Producto Pagado?</th>
+								  </tr>
+									<% debt = 0 %>
+									<% sa.check_owned_products_purchased_from_purchases(@purchases).each do |val| %>
+									<tr>
+										<% dress = Dress.find val[:dress_id] %>
+										<td><%= check_box_tag 'sci_ids[]', val[:sci_id], false, 
+														:onchange => 'update_amount_to_pay('+sa.id.to_s+', '+(val[:unit_cost]*val[:quantity]).to_s+', self)' %></td>
+										<td><%= val[:date].strftime("%Y-%m-%d") %><br /><%= dress.introduction %></td>
+										<td><%= link_to image_tag(dress.small_image), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></td>
+										<td><%= number_to_currency val[:price] %></td>
+										<td><%= val[:quantity] %></td>
+										<td><%= val[:size] %></td>
+										<td><%= val[:refunded] ? 'Sí' : 'No' %></td>
+										<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]) %></td>
+										<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]*val[:quantity]) %></td>
+										<td><%= val[:store_paid] ? 'Sí' : 'No' %></td>
+									</tr>
+									<% debt = debt + (val[:unit_cost].nil? ? 0 : val[:unit_cost]*val[:quantity]) %>
+									<% end %>
+								</table>
+								<p>Total seleccionado = <b>$ <span id="<%= sa.id %>">0</span></b> <%= submit_tag("Generar Pago",  class: "btn btn-default btn-xs") %><p>
+								<p>Total adeudado = <b><%= number_to_currency debt %></b></p>
+				      </div>
+				    </div>
+				  </div>
 					<% end %>
-				    <td><%= purchase.purchasable_type %></td>
-				    <td><%= purchase.user.email_name %> <%= raw '<br />('+purchase.delivery_info.name+')' if !purchase.delivery_info.nil? %></td>
-				    <td><%= purchase.transfer_type %><br /><%= number_to_currency purchase.price %> <%= purchase.currency %></td>
-				    <td><%= purchase.status == 'finalizado' ? 'OK' : 'No OK' %></td>
-				    <td><%= number_to_currency(purchase.credits_used) if !purchase.credits_used.nil? %></td>
-				    <td>
-						<%= purchase.tracking_number %><br />
-						<%= !purchase.delivery_cost.nil? ? 'P: '+number_to_currency(purchase.delivery_cost) : '' %><br />
-						<%= !purchase.actual_delivery_cost.nil? ? 'C: '+number_to_currency(purchase.actual_delivery_cost) : '' %>
-					</td>
-				    <td><%= purchase.logistic_provider.name  if !purchase.logistic_provider.nil? %></td>
-				    <td><%= purchase.funds_received ? 'Sí' : 'No' %></td>
-				    <td><%= purchase.store_paid ? 'Sí' : 'No' %><br /><%= number_to_currency(purchase.total_cost) %></td>
-				    <td><%= purchase.refunded ? raw('Sí <br />'+number_to_currency(purchase.refund_value)) : 'No' %></td>
-					<td><%= link_to 'Editar', administration_edit_purchase_path(purchase) %> | 
-						<%= link_to 'Eliminar', purchase, confirm: 'Seguro?', method: :delete %>
-					</td>
-				  </tr>
-				  <% if purchase.purchasable_type == 'ShoppingCart' %>
-					<% purchase.purchasable.shopping_cart_items.each do |sci| %>
-					<tr>
-						<td colspan="16">
-							<div style="margin-left:15px">
-								<b><%= link_to sci.purchasable.introduction, 
-											dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></b> 
-								| Precio: <%= number_to_currency(sci.purchasable.price*sci.quantity) if !sci.purchasable.nil? and !sci.quantity.nil? %> 
-												<em>(<%= number_to_currency(sci.purchasable.price) %> c/u)</em>
-								| Cantidad: <%= sci.quantity %> 
-								| Talla: <%= sci.size %> 
-								| Tienda: <%= link_to sci.purchasable.supplier_account.fantasy_name, 
-												supplier_description_path(:public_url => sci.purchasable.supplier_account.public_url) %> 
-								| Pago a tienda: <em>(<%= number_to_currency(sci.total_cost) %>)</em>
-							</div>
-						</td>
-					</tr>
-					<% end %>
-				  <% end %>
 				<% end %>
-				</table>
-				</div>
-			<% end %>
 			</div>
-			<%= link_to 'Volver al menú de administración', administration_index_path %>
 		</div>
 	</div>
 </div>
+
+<%= render 'layouts/notice', notice: notice %>

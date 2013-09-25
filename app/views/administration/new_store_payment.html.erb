@@ -1,0 +1,70 @@
+<div class="container">
+	<%= form_for(@store_payment, url: administration_create_store_payment_path, :method => "put", :html => {role: 'form'}) do |f| %>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<p>Productos que se pagarán</p>
+				<table class="table table-condensed report" style="font-size:11px">
+				  <tr>
+				    <th>Imagen</th>
+				    <th>Precio Vendido</th>
+						<th>Cantidad</th>
+						<th>Talla</th>
+				    <th>Pago por Producto</th>
+				    <th>Pago Total</th>
+					</tr>
+					<% debt = 0 %>
+					<% @sci_ids.each do |id| %>
+					<% sci = ShoppingCartItem.find id %>
+					<tr>
+						<td><%= link_to image_tag(sci.purchasable.small_image), dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></td>
+						<td><%= number_to_currency sci.price %></td>
+						<td><%= sci.quantity %></td>
+						<td><%= sci.size %></td>
+						<td><%= number_to_currency sci.unit_cost %></td>
+						<td><%= number_to_currency sci.total_cost %></td>
+					</tr>
+					<% debt = debt + sci.total_cost %>
+					<%= hidden_field_tag 'sci_ids[]', id %>
+					<% end %>
+					<td colspan="6"><b>Deuda total = <%= number_to_currency debt %></b></td>
+				</table>
+			</div>
+			<div class="form-group">
+				<%= f.label :amount, 'Monto Transferido' %>
+				<%= f.text_field(:amount, class: 'form-control', value: debt.to_i) %>
+			</div>
+			<div class="form-group">
+				<%= f.label :rut, 'RUT del dueño de la cuenta' %>
+				<%= f.text_field :rut, :placeholder => "23.456.345-3", :onblur => 'format_rut(this)', class: 'form-control', value: @sa.rut %>
+			</div>
+			<div class="form-group">
+				<%= f.label :account_owner_name, 'Nombre dueño de la cuenta' %>
+				<%= f.text_field :account_owner_name, class: 'form-control', value: @sa.account_owner_name %>
+			</div>
+			<div class="form-group">
+				<%= f.label :account_owner_email, 'Correo del dueño de la cuenta' %>
+				<%= f.text_field :account_owner_email, class: 'form-control', value: @sa.account_owner_email %>
+			</div>
+			<div class="form-group">
+				<%= f.label :account_bank, 'Banco de la cuenta' %>
+				<%= f.text_field :account_bank, class: 'form-control', value: @sa.account_bank %>
+			</div>
+			<div class="form-group">
+				<%= f.label :account_number, 'Número de cuenta' %> 
+				<%= f.text_field :account_number, class: 'form-control', value: @sa.account_number %>
+			</div>
+			<div class="form-group">
+				<%= f.label :account_type, 'Tipo de cuenta' %>
+				<%= f.text_field :account_type, class: 'form-control', value: @sa.account_type %>
+				<p class="help-block">Cuenta corriente, cuenta de ahorros, cuenta vista u otras</p>
+			</div>
+			<div class="form-group">
+				<label>Comentarios para la Tienda</label>
+				<%= f.text_area(:comments, rows: '4', class: 'form-control', placeholder: 'Comentarios para la tienda') %>
+			</div>
+			<%= f.submit("Crear Pago",  class: "btn btn-default") %>
+		</div>
+	</div>
+	<% end %>
+</div>

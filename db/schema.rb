@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925155816) do
+ActiveRecord::Schema.define(:version => 20130925184019) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -1418,6 +1418,12 @@ ActiveRecord::Schema.define(:version => 20130925155816) do
     t.boolean  "refunded"
     t.integer  "price"
     t.integer  "unit_cost"
+    t.boolean  "store_paid"
+  end
+
+  create_table "shopping_cart_items_store_payments", :id => false, :force => true do |t|
+    t.integer "shopping_cart_item_id"
+    t.integer "store_payment_id"
   end
 
   create_table "shopping_carts", :force => true do |t|
@@ -1477,6 +1483,12 @@ ActiveRecord::Schema.define(:version => 20130925155816) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "rut"
+    t.string   "account_owner_name"
+    t.string   "account_owner_email"
+    t.string   "account_bank"
+    t.string   "account_number"
+    t.string   "account_type"
   end
 
   create_table "sub_industry_categories", :force => true do |t|

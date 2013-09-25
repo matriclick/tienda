@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ReportsController < ApplicationController
-  before_filter :redirect_unless_admin, :hide_left_menu
+  before_filter :redirect_unless_admin, :generate_bread_crumbs
   before_filter { redirect_unless_privilege('Reportes') }
   helper_method :sort_column, :sort_direction
   
@@ -56,9 +56,8 @@ class ReportsController < ApplicationController
     end
     
     @supplier_accounts = SupplierAccount.approved
-    
+
     @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)
-    @purchased_products_data = @supplier_account.check_owned_products_purchased_from_purchases(@purchases)
     
   end
     
@@ -615,6 +614,10 @@ class ReportsController < ApplicationController
    
   private
 
+  def generate_bread_crumbs
+    add_breadcrumb "Administrador", :administration_index_path
+  end
+  
   def sort_column
     %w[conversations_count wedding_date last_conversation email].include?(params[:sort]) ? params[:sort] : "conversations_count"
   end
