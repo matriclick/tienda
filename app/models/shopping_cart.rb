@@ -30,6 +30,7 @@ class ShoppingCart < ActiveRecord::Base
     price = 0
     self.shopping_cart_items.each do |shopping_cart_item|
       shopping_cart_item.update_price
+      shopping_cart_item.quantity = 1 if shopping_cart_item.quantity.blank?
     	price = price + shopping_cart_item.price*shopping_cart_item.quantity
   	end
   	return price
