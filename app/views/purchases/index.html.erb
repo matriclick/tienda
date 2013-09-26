@@ -59,7 +59,7 @@
 							</td>
 						<% end %>
 					    <td><%= purchase.purchasable_type %></td>
-					    <td><%= purchase.user.email_name %> <%= raw '<br />('+purchase.delivery_info.name+')' if !purchase.delivery_info.nil? %></td>
+					    <td><%= purchase.user.email %> <%= raw '<br />('+purchase.delivery_info.name+')' if !purchase.delivery_info.nil? %></td>
 					    <td><%= purchase.transfer_type %><br /><%= number_to_currency purchase.price %> <%= purchase.currency %></td>
 					    <td><%= purchase.status == 'finalizado' ? 'OK' : 'No OK' %></td>
 					    <td><%= number_to_currency(purchase.credits_used) if !purchase.credits_used.nil? %></td>
