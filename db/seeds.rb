@@ -1,238 +1,10 @@
 # coding: utf-8
-
-puts "--> Tipos de industria:"
-aux = []
-aux << IndustryCategoryType.find_or_create_by_name("Productos")
-aux << IndustryCategoryType.find_or_create_by_name("Servicios")
-aux << IndustryCategoryType.find_or_create_by_name("Servicios a Domicilio")
-aux << IndustryCategoryType.find_or_create_by_name("Especiales")
-aux.each { |x| puts x.name }
-puts "\n"
-
 puts "--> Roles:"
 aux = []
 aux << Role.find_or_create_by_name("admin")
 aux << Role.find_or_create_by_name("user")
 aux << Role.find_or_create_by_name("guest")
 aux.each { |x| puts x.name }
-puts "\n"
-
-puts "--> Contact Types:"
-aux = []
-aux << ContactType.find_or_create_by_name("Gerente")
-aux << ContactType.find_or_create_by_name("Ventas")
-aux << ContactType.find_or_create_by_name("Relaciones Públicas")
-aux << ContactType.find_or_create_by_name("Reclamos")
-aux << ContactType.find_or_create_by_name("Dueño")
-aux << ContactType.find_or_create_by_name("Otro")
-aux.each { |x| puts x.name }
-puts "\n"
-
-puts "--> Days:"
-aux = []
-aux << Day.find_or_create_by_day_number("1")
-aux << Day.find_or_create_by_day_number("2")
-aux << Day.find_or_create_by_day_number("3")
-aux << Day.find_or_create_by_day_number("4")
-aux << Day.find_or_create_by_day_number("5")
-aux << Day.find_or_create_by_day_number("6")
-aux << Day.find_or_create_by_day_number("7")
-aux.each { |x| puts x.day_number }
-puts "\n"
-
-puts "--> Shedule Day Types:"
-aux = []
-aux << ScheduleDayType.find_or_create_by_name("Oficina")
-aux.each { |x| puts x.name }
-puts "\n"
-
-puts "--> Rent Types:"
-aux = []
-aux << RentType.find_or_create_by_name("Total")
-aux << RentType.find_or_create_by_name("Por Persona")
-aux.each { |x| puts x.name }
-puts "\n"
-
-# FGM: Event colors
-puts "--> Color Types:"
-aux = []
-aux << ColorType.find_or_create_by_name("Rojo")
-aux << ColorType.find_or_create_by_name("Azul")
-aux << ColorType.find_or_create_by_name("Verde")
-aux << ColorType.find_or_create_by_name("Amarillo")
-aux << ColorType.find_or_create_by_name("Morado")
-aux << ColorType.find_or_create_by_name("Naranjo")
-aux.each { |x| puts x.name }
-puts "\n"
-
-#RLS: Age ranges
-puts "--> Ages:"
-aux = []
-aux << Age.find_or_create_by_range("0 - 14")
-aux << Age.find_or_create_by_range("15 - 18")
-aux << Age.find_or_create_by_range("19 - 25")
-aux << Age.find_or_create_by_range("26 - 35")
-aux << Age.find_or_create_by_range("36 - 45")
-aux << Age.find_or_create_by_range("45 +")
-aux.each { |x| puts x.range }
-puts "\n"
-
-#RLS: Genders
-puts "--> Genders:"
-aux = []
-aux << Gender.find_or_create_by_gender("H")
-aux << Gender.find_or_create_by_gender("M")
-aux.each { |x| puts x.gender }
-puts "\n"
-
-#RLS:InviteeStatus statuses
-puts "--> Statuses:"
-aux = []
-aux << Status.find_or_create_by_status("Participación")
-aux << Status.find_or_create_by_status("Comida")
-aux << Status.find_or_create_by_status("Sólo Fiesta")
-aux << Status.find_or_create_by_status("Por definir")
-aux.each { |x| puts x.status }
-puts "\n"
-
-#RLS: Couples names
-puts "--> Couples:"
-aux = []
-aux << Couple.find_or_create_by_name("Marido")
-aux << Couple.find_or_create_by_name("Señora")
-aux << Couple.find_or_create_by_name("+1")
-aux << Couple.find_or_create_by_name("Sin Pareja")
-aux.each { |x| puts x.name }
-puts "\n"
-
-#RLS: Invitee Hosts names
-puts "--> Invitee Hosts:"
-aux = []
-aux << InviteeHost.find_or_create_by_name("Novia")
-aux << InviteeHost.find_or_create_by_name("Novio")
-aux << InviteeHost.find_or_create_by_name("Papás Novia")
-aux << InviteeHost.find_or_create_by_name("Papás Novio")
-aux.each { |x| puts x.name }
-puts "\n"
-
-#InviteeGroup names
-puts "--> Default Invitee Groups:"
-aux = []
-aux << DefaultInviteeGroup.find_or_create_by_name("Familia")
-aux << DefaultInviteeGroup.find_or_create_by_name("Mejores Amigos")
-aux << DefaultInviteeGroup.find_or_create_by_name("Oficina")
-aux << DefaultInviteeGroup.find_or_create_by_name("Universidad")
-aux << DefaultInviteeGroup.find_or_create_by_name("Colegio")
-aux << DefaultInviteeGroup.find_or_create_by_name("Ninguno")
-aux.each { |x| puts x.name }
-puts "\n"
-
-puts "--> Invitee Roles:"
-aux = []
-aux << InviteeRole.find_or_create_by_name("Madrina")
-aux << InviteeRole.find_or_create_by_name("Padrino")
-aux << InviteeRole.find_or_create_by_name("Mamá del Novio")
-aux << InviteeRole.find_or_create_by_name("Papá del Novio")
-aux << InviteeRole.find_or_create_by_name("Mamá de la Novia")
-aux << InviteeRole.find_or_create_by_name("Papá de la Novia")
-aux << InviteeRole.find_or_create_by_name("Hermano del Novio")
-aux << InviteeRole.find_or_create_by_name("Hermana del Novio")
-aux << InviteeRole.find_or_create_by_name("Hermano de la Novia")
-aux << InviteeRole.find_or_create_by_name("Hermana de la Novia")
-aux << InviteeRole.find_or_create_by_name("Ninguno")
-aux.each { |x| puts x.name }
-puts "\n"
-
-puts "--> Budget Types: "
-aux = []
-aux << BudgetType.find_or_create_by_name("$")
-aux << BudgetType.find_or_create_by_name("$$")
-aux << BudgetType.find_or_create_by_name("$$$")
-aux.each { |x| puts x.name }
-puts "\n"
-
-puts "--> Budget Invitation Types: "
-aux = []
-aux << BudgetInvitationType.find_or_create_by_name("Por persona invitada a la fiesta")
-aux << BudgetInvitationType.find_or_create_by_name("Por persona invitada a la comida")
-aux << BudgetInvitationType.find_or_create_by_name("Valor Total")
-aux.each { |x| puts x.name }
-puts "\n"
-
-puts "--> Budget Ranges:"
-aux = []
-aux << BudgetRange.find_or_create_by_range("Menos de 3 millones")
-aux << BudgetRange.find_or_create_by_range("De 3 a 7 millones")
-aux << BudgetRange.find_or_create_by_range("De 7 a 10 millones")
-aux << BudgetRange.find_or_create_by_range("De 10 a 15 millones")
-aux << BudgetRange.find_or_create_by_range("De 15 a 20 millones")
-aux << BudgetRange.find_or_create_by_range("20 + millones")
-aux.each { |x| puts x.range }
-puts "\n"
-
-# HH Default activities for matrichecklist
-puts "--> Default Activities:"
-aux = []
-aux << (DefaultActivity.find_by_name("Inscríbete en alguna multitienda (para empezar desde ya juntar puntos!)") or DefaultActivity.create(:name => 'Inscríbete en alguna multitienda (para empezar desde ya juntar puntos!)', :weeks_length =>'1', :position => '1', :description =>'Es importante que aprovechen todos estos meses previos para tener ahorros, una forma es inscribiendose cuanto antes con alguna multitienda, de esta forma les podrán dar a sus conocido el autoadhesivo con su código de novios, para que cada compra que ellos realicen a ustedes les reporte!'))
-aux << (DefaultActivity.find_by_name("Haz una lista tentativa de los invitados.") or DefaultActivity.create(:name => 'Haz una lista tentativa de los invitados.', :weeks_length =>'0,5', :position => '2', :description =>'Definan entre los dos una lista tentativa de invitados, piensen que en el camino siempre puede ir apareciendo nuevos, pero para comenzar a buscar centro de eventos e iglesia, deben tener un rango estimado. '))
-aux << (DefaultActivity.find_by_name("Define un Presupuesto estimado.") or DefaultActivity.create(:name => 'Define un Presupuesto estimado.', :weeks_length =>'1', :position => '3', :description =>'Definan entre los dos cual es el presupuesto que manejan y cuanto están dispuesto a destinar para su matrimonio, recuerden que aún quedan algunos meses donde pueden crear una cuenta conjunta e ir ahorrando mes a mes'))
-aux << (DefaultActivity.find_by_name("Decide una fecha tentativa para la ceremonia religiosa.") or DefaultActivity.create(:name => 'Decide una fecha tentativa para la ceremonia religiosa.', :weeks_length =>'0,5', :position => '4', :description =>'La iglesia debe ser la parroquia de uno de los dos novios. Si desean celebrar su matrimonio en otra iglesia, necesitan una carta de autorización de los párrocos correspondientes. '))
-aux << (DefaultActivity.find_by_name("Busca y reserva iglesia  y un sacerdote, pastor o rabino que oficie tu ceremonia.") or DefaultActivity.create(:name => 'Busca y reserva iglesia  y un sacerdote, pastor o rabino que oficie tu ceremonia.', :weeks_length =>'0,5', :position => '5', :description =>'Juntos deben decidir una fecha tentativa para el día de la ceremonia religiosa, piensen siempre en una fecha en la cual tengan tiempo suficiente para organizar todo el matrimonio como lo tenian pensado.'))
-aux << (DefaultActivity.find_by_name("Cotiza y reserva el Centro de Eventos.") or DefaultActivity.create(:name => 'Cotiza y reserva el Centro de Eventos.', :weeks_length =>'1', :position => '6', :description =>'Puede verificar en la herramienta "Calendario", la disponibilidad de los proveedores que estén inscritos en Matriclick. Recuerda que  debe coincidir tanto con la cantidad de invitados estimada y la fecha tentativa de la Iglesia.'))
-aux << (DefaultActivity.find_by_name("Cotiza y contrata un servicio de banquetería.") or DefaultActivity.create(:name => 'Cotiza y contrata un servicio de banquetería.', :weeks_length =>'0,5', :position => '7', :description =>'Muchas veces este puede venir en convenio exclusivo con el centro de eventos  de no ser así busca el que esté disponible en la fecha tentativa, y comienza a cotizar pregunta por los diferentes menús y el precio por persona.'))
-aux << (DefaultActivity.find_by_name("Cotiza y contrata Música para la Fiesta.") or DefaultActivity.create(:name => 'Cotiza y contrata Música para la Fiesta.', :weeks_length =>'0,5', :position => '8', :description =>'La Música puede ser un elemento clave en tu Matrimonio!, por esto busca y cotiza para tu fecha tentativa. También puedes incorporar a este presupuesto una orquesta, animación en vivo o algún elemento especial que quieras en tu matrimonio'))
-aux << (DefaultActivity.find_by_name("Define una fecha para el matrimonio civil y pide hora en el Registro Civil.") or DefaultActivity.create(:name => 'Define una fecha para el matrimonio civil y pide hora en el Registro Civil.', :weeks_length =>'1', :position => '9', :description =>'El Matrimonio Civil se celebra ante un funcionario señalado legalmente con dos testigos mayores de edad y se deberá acreditar previamente que se reúnen los requisitos de capacidad exigidos legalmente. Pueden coordinar para que sea en el registro civil o en tu domicilio. A partir de está unión ya pueden empezar a ver un plan de isapre conjunto.'))
-aux << (DefaultActivity.find_by_name("Fija fecha y lugar para la postura de argollas. También debes buscar un sacerdotes que las bendiga.") or DefaultActivity.create(:name => 'Fija fecha y lugar para la postura de argollas. También debes buscar un sacerdotes que las bendiga.', :weeks_length =>'1', :position => '10', :description =>'Definan entre los dos la fecha en la cual se pondrán las argollas, esto puede ser una pequeña o gran  ceremonia en el lugar que ustedes eligan, donde un sacerdote bendiga las argollas.'))
-aux << (DefaultActivity.find_by_name("Cotiza y manda a hacer las argollas.") or DefaultActivity.create(:name => 'Cotiza y manda a hacer las argollas.', :weeks_length =>'1', :position => '11', :description =>'Deben buscar argollas que sean del gusto de los dos, y ojo con las medidas de cada uno!'))
-aux << (DefaultActivity.find_by_name("Cotiza y contrata un Fotográfo y Video para el día del Matrimonio.") or DefaultActivity.create(:name => 'Cotiza y contrata un Fotográfo y Video para el día del Matrimonio.', :weeks_length =>'1', :position => '12', :description =>'Las fotos y el video el día de tu matrimonio es fundamental, ya que plasmará ese día en imagen y será el único recuerdo que tendrán para sus hijos y nietos!'))
-aux << (DefaultActivity.find_by_name("Cotiza y contrata Coro para la ceremonia religiosa.") or DefaultActivity.create(:name => 'Cotiza y contrata Coro para la ceremonia religiosa.', :weeks_length =>'1', :position => '13', :description =>'Definan juntos como quieren que sea el coro de la ceremonia religiosa, cuantos instrumentos, cuantas voces, y que ambiente quieren crear; alegre, solemne, etc.'))
-aux << (DefaultActivity.find_by_name("Cotiza y contrata Flores para la Ceremonia Religiosa y el Ramo.") or DefaultActivity.create(:name => 'Cotiza y contrata Flores para la Ceremonia Religiosa y el Ramo.', :weeks_length =>'1', :position => '14', :description =>'En la mayoría de los casos la banquetera se encarga de la decoración de la mesas y el espacio. No así de la Iglesia por esto eligan las flores que más les gustan y hagan juego con el  ramo de la novia.'))
-aux << (DefaultActivity.find_by_name("Reserva hora a la peluquería y maquillador.") or DefaultActivity.create(:name => 'Reserva hora a la peluquería y maquillador.', :weeks_length =>'2', :position => '15', :description =>'Empieza a cotizar peluquerias y maquilladoras que estén disponibles para el día de tu matrimonio, cómo aún no sabes cómo será el vestido, no eligas el peinado o tocado, simplemente busca alguién que te acomode y entienda lo que buscas.'))
-aux << (DefaultActivity.find_by_name("Cotiza partes de matrimonio, tarjetas de agradecimiento y recuerdos de matrimonio.") or DefaultActivity.create(:name => 'Cotiza partes de matrimonio, tarjetas de agradecimiento y recuerdos de matrimonio.', :weeks_length =>'2', :position => '16', :description =>'Matriclick te ofrece la alternativa de enviar partes virtuales sincronizando con la lista de invitados, y de esta forma también permitirles confirmar online. De todas formas siempre van a existir los que prefieren el parte físico, busca el diseño que más te guste y también el material es importante, busquen algo de ustedes, que los represente como pareja.'))
-aux << (DefaultActivity.find_by_name("Cotiza y define dónde irán de luna de miel.") or DefaultActivity.create(:name => 'Cotiza y define dónde irán de luna de miel.', :weeks_length =>'3', :position => '17', :description =>'Reviza tu presupuesto, revisa tus puntos, tus millas! Todo sirve, toma en cuenta que los puntos que empieces a juntar con tu código novios también aportan. Muchas veces es mejor comprar anticipadamente ya que pueden aprovechar alguna oferta puntual.'))
-aux << (DefaultActivity.find_by_name("Descanso.") or DefaultActivity.create(:name => 'Descanso.', :weeks_length =>'4', :position => '18', :description =>'Quisimos darte este decsanso ya que los  2 primeros meses, pueden ser un poco estresantes, poder coordinar todo lo que tiene relación con la fecha  principalmente, y empezar a cotizar y reservar.  '))
-aux << (DefaultActivity.find_by_name("Cotiza y contrata Transporte para el día del Matrimonio.") or DefaultActivity.create(:name => 'Cotiza y contrata Transporte para el día del Matrimonio.', :weeks_length =>'1', :position => '19', :description =>'Llegó el día del matrimonio, todos están nerviosos, es mejor contratar un servicio externo para que lleve a la novia. Pueden elegir el auto, carreta, burrita o la modalidad que ustedes quieran.'))
-aux << (DefaultActivity.find_by_name("Coordina la compra del vino y los licores para el matrimonio.") or DefaultActivity.create(:name => 'Coordina la compra del vino y los licores para el matrimonio.', :weeks_length =>'1', :position => '20', :description =>'Las banqueteras por lo general se encargan de este rubro, pero en la mayoria de los casos, el Whisky y el Vino lo deben coordinar los novios de forma externa. '))
-aux << (DefaultActivity.find_by_name("Cotiza y coordina las fechas para la pruebas del vestido de novia.") or DefaultActivity.create(:name => 'Cotiza y coordina las fechas para la pruebas del vestido de novia.', :weeks_length =>'1', :position => '21', :description =>'El día que te entregaron el anillo, quizás estabamos con unos kilitos de más, es por esto que no debes dejar este punto para el comienzo. Recuerda que es muy importante elegir un vestido  que te guste pero también que te quede espectacular!, muchas veces el vestido de tus sueños no es el que mejor te queda, por esto tomate el tiempo para probarte diferentes opciones. '))
-aux << (DefaultActivity.find_by_name("Coordina qué tipo de traje usará el novio.") or DefaultActivity.create(:name => 'Coordina qué tipo de traje usará el novio.', :weeks_length =>'1', :position => '22', :description =>'El novio debe buscar el estilo que más le acomode, puede ser un traje convencional, smoking, frac, pingüino, etc. Y decidir  si lo va a comprar, mandar a hacer o bien arrendar.'))
-aux << (DefaultActivity.find_by_name("Empieza a realizar las charlas matrimoniales.") or DefaultActivity.create(:name => 'Empieza a realizar las charlas matrimoniales.', :weeks_length =>'1', :position => '23', :description =>'Antes del matrimonio, ambos deben asistir a charlas de preparación dictadas por parejas de la misma parroquia, cuya duración mínima es de cuatro sesiones.'))
-aux << (DefaultActivity.find_by_name("Cotiza y reserva hora en centros de estética.") or DefaultActivity.create(:name => 'Cotiza y reserva hora en centros de estética.', :weeks_length =>'1', :position => '24', :description =>'Es importante que para el día de su matrimonio estén impecables; con un buen color de piel, una piel suave y exfoliada, y que los nervios no les ganen ese día. Verifiquen en los centros de estética las infinitas opciones que tienen.'))
-aux << (DefaultActivity.find_by_name("Cotiza y adquiere los accesorios necesarios.") or DefaultActivity.create(:name => 'Cotiza y adquiere los accesorios necesarios.', :weeks_length =>'1', :position => '25', :description =>'Detalles como las joyas que utilizarás ese día, ropa interior, zapatos, y todo los que te hará lucir radiante!'))
-aux << (DefaultActivity.find_by_name("Define dónde vivirán una vez casados.") or DefaultActivity.create(:name => 'Define dónde vivirán una vez casados.', :weeks_length =>'5', :position => '26', :description =>'Comprar o arrendar?, casa o departamento?, cerca del metro?...y todas esas preguntas que deben hacerse para comenzar a vivir juntos! Recuerda que en caso de que quisieran arrendar una propiedad deben cumplir con una serie de requisitos, como demostrar renta 3 veces mayor al valor del arriendo, 3 últimas liquidaciones de sueldo etc.'))
-aux << (DefaultActivity.find_by_name("Define y cotiza servicios opcionales para tu matrimonio.") or DefaultActivity.create(:name => 'Define y cotiza servicios opcionales para tu matrimonio.', :weeks_length =>'1', :position => '27', :description =>'Servicios opcionales cómo, carritos de comida, cordero, cabina de garbación de mensajes e incluso clases de vals o bailes para aquellos novios más descordinados.'))
-aux << (DefaultActivity.find_by_name("Haz la lista definitiva de invitados y de participaciones.") or DefaultActivity.create(:name => 'Haz la lista definitiva de invitados y de participaciones.', :weeks_length =>'1,5', :position => '28', :description =>'Ya cada vez queda menos tiempo, y deben empezar a cerrar los presupuestis definitivos. Con la Herramienta "Invitados" pueden empezar a armar su lista final de invitados. Participación no es lo mismo que la invitación, ésta sólo comunica la Feliz unión entre ustedes, entregando los detalles de la ceremonia religiosa.'))
-aux << (DefaultActivity.find_by_name("Manda a hacer los partes y tarjetas de agradecimiento.") or DefaultActivity.create(:name => 'Manda a hacer los partes y tarjetas de agradecimiento.', :weeks_length =>'1', :position => '29', :description =>'Recuerda que los partes siempren deben llevar  los nombres de los novios, los de sus padres, el lugar, la fecha y la hora de la ceremonia, las direcciones y/o los teléfonos de ambas familias y opcionalmente la petición de confirmación de asistencia, en este caso si envías los partes por Matriclick podrás agregar el link para confirmar online. Puedes incluir en la misma tarjeta el lugar de la celebración, con un pequeño mapa de referencia.'))
-aux << (DefaultActivity.find_by_name("Cotiza y reserva Hotel para tu noche de bodas.") or DefaultActivity.create(:name => 'Cotiza y reserva Hotel para tu noche de bodas.', :weeks_length =>'2', :position => '30', :description =>'Busca un lugar agradable y romántico para pasar tu noche de bodas, les recomendamos que no tengan que recorrer mucho desde el el centro de eventos hasta este lugar.'))
-aux << (DefaultActivity.find_by_name("Envía los partes.") or DefaultActivity.create(:name => 'Envía los partes.', :weeks_length =>'1', :position => '31', :description =>'Los partes por lo general se deben enviar 45 días antes del día del Matrimonio. En el caso de que envien partes al extranjero recuerden de enviarlos con mayor anticipación. Si envian partes virtuales, es importante verificar que los mails estén correctos.'))
-aux << (DefaultActivity.find_by_name("Elige el repertorio del coro y de la música para la fiesta.") or DefaultActivity.create(:name => 'Elige el repertorio del coro y de la música para la fiesta.', :weeks_length =>'2', :position => '32', :description =>'En la ceremonia religiosa la música será el elemento clave para emocionar a nuestros invitados y hacerlos participar, es por esto que la elección tanto del coro como de las canciones es muy importante. Del mismo modo la música en la fiesta siempre debe "hacerlos bailar toda la noche"'))
-aux << (DefaultActivity.find_by_name("Confirma fecha y hora de todos los servicios ya contratados.") or DefaultActivity.create(:name => 'Confirma fecha y hora de todos los servicios ya contratados.', :weeks_length =>'1', :position => '33', :description =>'Recuerda que los proveedores es muy importantes que estén coordinados entre ellos, y que se hagan cargo de los tiempos, por ejemplo, el coro debe saber cuando empezar, la banquetera cuando servir, el Dj el vals, y así tu matrimonio funcionará como un reloj!'))
-aux << (DefaultActivity.find_by_name("Haz la prueba final y confirma la fecha y hora de entrega del vestido y sus accesorios.") or DefaultActivity.create(:name => 'Haz la prueba final y confirma la fecha y hora de entrega del vestido y sus accesorios.', :weeks_length =>'2', :position => '34', :description =>'Está será la prueba  final del vestido, todo debe quedar perfecto, es por esto que "habla ahora o calla para siempre". Si ya tienes los accesorios recuerda llevarlos para ver como se ven con el vestido.'))
-aux << (DefaultActivity.find_by_name("Visita el lugar de la celebración para coordinar el protocolo y afina últimos detalles.") or DefaultActivity.create(:name => 'Visita el lugar de la celebración para coordinar el protocolo y afina últimos detalles.', :weeks_length =>'1', :position => '35', :description =>'Ya conoces el lugar pero siempre hay detalles mínimo que afinar antes del día del matrimonio, por ejemplo por dónde entrarán los novios, por que mesa comenzarán a saludar a sus invitados y miles de detallitos, que es mejor dejarlos listos.'))
-aux << (DefaultActivity.find_by_name("Recuerda a quien oficiará la ceremonia, la fecha y el lugar en que se realizará.") or DefaultActivity.create(:name => 'Recuerda a quien oficiará la ceremonia, la fecha y el lugar en que se realizará.', :weeks_length =>'1', :position => '36', :description =>'Confirma con la persona que oficiara tu matrimonio, el día y la hora, ya que entre tantas cosas algo se le podría pasar!'))
-aux << (DefaultActivity.find_by_name("Confirma la hora y fecha con el maquillador y peluquero.") or DefaultActivity.create(:name => 'Confirma la hora y fecha con el maquillador y peluquero.', :weeks_length =>'1', :position => '37', :description =>'El día del matrimonio, tu también debes funcionar acorde a tus tiempos y ser puntual con cada servicio que contrataste, es por esto que te conviene confirmar los horarios, no andes corriendo! Siempre es mejor hacer las cosas con calma.'))
-aux << (DefaultActivity.find_by_name("Confirma la asistencia de tus invitados y coordina con la banquetera.") or DefaultActivity.create(:name => 'Confirma la asistencia de tus invitados y coordina con la banquetera.', :weeks_length =>'2', :position => '38', :description =>'Entre  2 y 1  semana  antes del día del matrimonio, los novios  ya debieran saber quienes asistirán a su matrimonio'))
-aux << (DefaultActivity.find_by_name("Descanso.") or DefaultActivity.create(:name => 'Descanso.', :weeks_length =>'1,5', :position => '39', :description =>'Descansa y relájate hasta el día de tu matrimonio ¡ya está todo listo!'))
-aux.each { |x| puts x.name }
-puts "\n"
-
-
-puts "--> Payer Types:"
-aux = []
-aux << PayerType.find_or_create_by_name("Novio")
-aux << PayerType.find_or_create_by_name("Novia")
-aux << PayerType.find_or_create_by_name("Padres novio")
-aux << PayerType.find_or_create_by_name("Padres novia")
-aux << PayerType.find_or_create_by_name("Otro")
-aux.each { |x| puts x.name }
-puts "\n"
-
-puts "--> Ceremony Types:"
-aux = []
-aux << CeremonyType.find_or_create_by_name("Civil")
-aux << CeremonyType.find_or_create_by_name("Católica")
-aux << CeremonyType.find_or_create_by_name("Judía")
-aux << CeremonyType.find_or_create_by_name("Evangélica")
-aux.each { |x| puts x.name}
 puts "\n"
 
 puts "--> Regions and Communes:"
@@ -601,21 +373,6 @@ aux << (Commune.find_by_name("General Lagos") || Commune.create(:id => 15202, :n
 aux.each { |x| puts x.name}
 puts "\n"
 
-puts "--> Trading Houses:"
-aux = []
-aux << TradingHouse.find_or_create_by_name("Falabella")
-aux << TradingHouse.find_or_create_by_name("Paris")
-aux << TradingHouse.find_or_create_by_name("Ripley")
-aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> Budget Distribution Types:"
-aux = []
-aux << BudgetDistributionType.find_or_create_by_name("Prorrateo según cantidad de invitados")
-aux << BudgetDistributionType.find_or_create_by_name("Equitativo (25% cada uno)")
-aux.each { |x| puts x.name}
-puts "\n"
-
 puts "--> Dress Types:"
 aux = []
 aux << (DressType.find_by_name("ropa-interior") || DressType.create(:name => 'ropa-interior', :description => "Ropa interior"))
@@ -641,51 +398,14 @@ aux << (DressType.find_by_name("ropa-de-mujer-polleras") || DressType.create(:na
 aux << (DressType.find_by_name("ropa-de-mujer-abrigados-chalecos") || DressType.create(:name => 'ropa-de-mujer-abrigados-chalecos', :description => "Chalecos mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-abrigados-polerones") || DressType.create(:name => 'ropa-de-mujer-abrigados-polerones', :description => "Polerones mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-chaquetas") || DressType.create(:name => 'ropa-de-mujer-chaquetas', :description => "Chaquetas mujer"))
-
 aux << (DressType.find_by_name("ropa-deportiva") || DressType.create(:name => 'ropa-deportiva', :description => "Ropa deportiva general"))
 
-aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> View Count Types:"
-aux = []
-aux << (ViewCountType.find_by_name("Presentacion") || ViewCountType.create(:name => 'Presentacion', :description => "Cuando las personas revisan la presentación del proveedor"))
-aux << (ViewCountType.find_by_name("Contacto") || ViewCountType.create(:name => 'Contacto', :description => "Cuando las personas piden el contacto del proveedor"))
 aux.each { |x| puts x.name}
 puts "\n"
 
 puts "--> Slider Image Types:"
 aux = []
 aux << (SliderImageType.find_by_name("El Bazar") || SliderImageType.create(:name => 'El Bazar', :description => "Se muestra en el inicio de El Bazar Blog"))
-aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> Contract Types:"
-aux = []
-aux << (ContractType.find_by_name("Fijo") || ContractType.create(:name => 'Fijo', :description => "Contrato fijo"))
-aux << (ContractType.find_by_name("Mixto") || ContractType.create(:name => 'Mixto', :description => "Contrato mixto"))
-aux << (ContractType.find_by_name("Variable") || ContractType.create(:name => 'Variable', :description => "Contrato variable"))
-aux << (ContractType.find_by_name("Especial") || ContractType.create(:name => 'Especial', :description => "Contrato especial"))
-aux << (ContractType.find_by_name("GiftCard") || ContractType.create(:name => 'GiftCard', :description => "Contrato GiftCard"))
-aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> Colors:"
-aux = []
-aux << (Color.find_by_name("Azul") || Color.create(:name => 'Azul', :description => "Color azul"))
-aux << (Color.find_by_name("Verde") || Color.create(:name => 'Verde', :description => "Color verde"))
-aux << (Color.find_by_name("Amarillo") || Color.create(:name => 'Amarillo', :description => "Color amarillo"))
-aux << (Color.find_by_name("Blanco") || Color.create(:name => 'Blanco', :description => "Color blanco"))
-aux << (Color.find_by_name("Negro") || Color.create(:name => 'Negro', :description => "Color negro"))
-aux << (Color.find_by_name("Rojo") || Color.create(:name => 'Rojo', :description => "Color rojo"))
-aux << (Color.find_by_name("Coral") || Color.create(:name => 'Coral', :description => "Color coral"))
-aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> Contract State:"
-aux = []
-aux << (ContractState.find_by_name("Activo") || ContractState.create(:name => 'Activo', :description => "Contracto activo"))
-aux << (ContractState.find_by_name("Moroso") || ContractState.create(:name => 'Moroso', :description => "Contrato moroso"))
 aux.each { |x| puts x.name}
 puts "\n"
 
@@ -703,29 +423,6 @@ aux << (SupplierAccountType.find_by_name("Tu Casa") || SupplierAccountType.creat
 aux << (SupplierAccountType.find_by_name("Ropa de Mujer") || SupplierAccountType.create(:name => 'Ropa de Mujer', :description => "Tiendas que ofrecen productos de Ropa de Mujer"))
 aux << (SupplierAccountType.find_by_name("Viajes") || SupplierAccountType.create(:name => 'Viajes', :description => "Proveedores para modelar las ofertas de viajes"))
 aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> Countries:"
-aux = []
-aux << (Country.find_by_name("Chile") || Country.create(:name => 'Chile', :url_path => 'chile'))
-aux << (Country.find_by_name("Colombia") || Country.create(:name => 'Colombia', :url_path => 'colombia'))
-aux << (Country.find_by_name("Perú") || Country.create(:name => 'Perú', :url_path => 'peru'))
-aux << (Country.find_by_name("Argentina") || Country.create(:name => 'Argentina', :url_path => 'argentina'))
-aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> ChallengeActivityType:"
-aux = []
-aux << (ChallengeActivityType.find_by_name("Llamada") || ChallengeActivityType.create(:name => 'Llamada'))
-aux << (ChallengeActivityType.find_by_name("Reunión") || ChallengeActivityType.create(:name => 'Reunión'))
-aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> WebpageContactState:"
-aux = []
-aux << (WebpageContactState.find_by_status("Pendiente") || WebpageContactState.create(:status => 'Pendiente'))
-aux << (WebpageContactState.find_by_status("Cerrado") || WebpageContactState.create(:status => 'Cerrado'))
-aux.each { |x| puts x.status}
 puts "\n"
 
 puts "--> Privilege:"
@@ -759,26 +456,6 @@ aux = []
 aux << (MatriclickerStatus.find_by_name("Activo") || MatriclickerStatus.create(:name => 'Activo', :description => 'Aparece en los reportes'))
 aux << (MatriclickerStatus.find_by_name("Oculto") || MatriclickerStatus.create(:name => 'Oculto', :description => 'No aparece en los reportes'))
 aux << (MatriclickerStatus.find_by_name("Inactivo") || MatriclickerStatus.create(:name => 'Inactivo', :description => 'No aparece en el reporte y ya no trabaja en Matriclick'))
-aux.each { |x| puts x.name}
-puts "\n"
-
-puts "--> InvoiceMonth"
-aux = []
-current_date = DateTime.now - 2.months
-final_date = current_date + 24.months
-
-while current_date < final_date do
-  aux << (InvoiceMonth.where('month = ? and year = ?', current_date.month, current_date.year).first || InvoiceMonth.create(:month => current_date.month, :year => current_date.year))  
-  current_date = current_date + 1.months
-end
-aux.each { |x| puts(x.month.to_s+" "+x.year.to_s) }
-puts "\n"
-
-puts "--> GiftCardStatus:"
-aux = []
-aux << (GiftCardStatus.find_by_name("Activa") || GiftCardStatus.create(:name => 'Activa', :description => 'Gift Card Activa que se puede comprar'))
-aux << (GiftCardStatus.find_by_name("Agotada") || GiftCardStatus.create(:name => 'Agotada', :description => 'Gift Card Agotada que no se puede comprar'))
-aux << (GiftCardStatus.find_by_name("Inactiva") || GiftCardStatus.create(:name => 'Inactiva', :description => 'Gift Card Inactiva que no se puede comprar y no está agotada'))
 aux.each { |x| puts x.name}
 puts "\n"
 
