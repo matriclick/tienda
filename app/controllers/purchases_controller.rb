@@ -1,41 +1,61 @@
 # encoding: UTF-8
 class PurchasesController < ApplicationController  
-  before_filter :redirect_unless_admin, :hide_left_menu, :except => [:create, :show_for_user]
+  before_filter :redirect_unless_admin, :generate_bread_crumbs, :except => [:create, :show_for_user]
   before_filter :authenticate_user!, :only => [:show_for_user, :create]
-  helper_method :sort_column, :sort_direction
     
   # GET /purchases
   # GET /purchases.json
   def index
     redirect_unless_privilege('Vestidos')
     
-    if params[:from].nil? or params[:to].nil?
-     @from = DateTime.now.utc.beginning_of_week
-     @to = DateTime.now.utc.end_of_week
+    if params[:product_q].blank? and params[:user_q].blank?
+      if params[:from].nil? or params[:to].nil?
+       @from = DateTime.now.utc.beginning_of_week
+       @to = DateTime.now.utc.end_of_week
+      else
+       @from = Time.parse(params[:from]).utc.beginning_of_day
+       @to = Time.parse(params[:to]).utc.end_of_day
+      end
     else
-     @from = Time.parse(params[:from]).utc.beginning_of_day
-     @to = Time.parse(params[:to]).utc.end_of_day
+      @from = Time.parse("2000-01-01").utc.beginning_of_year
+      @to = Time.parse("2020-12-01").utc.end_of_year
     end
     
-    status = !params[:status].nil? ? params[:status] : 'all'
-    
-    if status == 'all'
-      @purchases = Purchase.where('created_at >= ? and created_at <= ?', @from, @to)      
+    if !params[:product_q].blank?
+      @producto_search_text = params[:product_q]
+      dresses = Dress.joins(:dress_types).where('dress_types.name like "%'+params[:product_q]+'%" or dresses.description like "%'+params[:product_q]+'%" or dresses.introduction like "%'+params[:product_q]+'%"').uniq
+      query_sci = ''
+      dresses.each_with_index do |d, i|
+        if i == 0
+          query_sci = 'purchasable_id = '+d.id.to_s
+        else
+          query_sci = 'purchasable_id = '+d.id.to_s+' or '+query_sci
+        end
+      end
+      scis = ShoppingCartItem.where('purchasable_type = "Dress" and ('+query_sci+')') 
+      query_p = ''
+      scis.each_with_index do |sci, i|    
+        if i == 0
+          query_p = 'purchasable_id = '+sci.shopping_cart.id.to_s
+        else
+          query_p = 'purchasable_id = '+sci.shopping_cart.id.to_s+' or '+query_p
+        end
+      end
+      @purchases = Purchase.where('purchasable_type = "ShoppingCart" and ('+query_p+')') 
+    elsif !params[:user_q].blank?
+      @user_search_text = params[:user_q]
+      @purchases = Purchase.joins(:user).joins(:delivery_info).where('users.email like "%'+params[:user_q]+'%" or delivery_infos.name like "%'+params[:user_q]+'%"')
     else
-      @purchases = Purchase.where('created_at >= ? and created_at <= ? and status = ?', @from, @to, status)      
+      @purchases = Purchase
+    end
+    
+    status = !params[:status].blank? ? params[:status] : 'finalizado'
+    if status == 'all'
+      @purchases = @purchases.where('purchases.created_at >= ? and purchases.created_at <= ?', @from, @to).order('purchases.created_at DESC')
+    else
+      @purchases = @purchases.where('purchases.created_at >= ? and purchases.created_at <= ? and status = ?', @from, @to, status).order('purchases.created_at DESC')    
     end
      
-    sort = sort_column
-    order = sort_direction
-    
-    if sort == 'store'
-      order == 'desc' ? @purchases.sort_by! {|u| u.purchasable.supplier_account.fantasy_name } : @purchases.sort_by! {|u| u.purchasable.supplier_account.fantasy_name }.reverse!
-    elsif sort == 'user'
-      order == 'desc' ? @purchases.sort_by! {|u| u.user.email } : @purchases.sort_by! {|u| u.user.email }.reverse!      
-    else
-      @purchases = @purchases.order(sort + " " + sort_direction)
-    end
-    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @purchases }
@@ -210,12 +230,9 @@ class PurchasesController < ApplicationController
   
   private
 
-  def sort_column
-    %w[created_at store purchasable_type user price].include?(params[:sort]) ? params[:sort] : "created_at"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  def generate_bread_crumbs
+    add_breadcrumb "Administrador", :administration_index_path
+    add_breadcrumb "Lista de compras", purchases_path(:status => 'finalizado')
   end
     
 end
