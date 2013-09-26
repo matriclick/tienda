@@ -37,9 +37,11 @@ class AdministrationController < ApplicationController
     @u_ids = params[:user_ids]
     @sa = SupplierAccount.find params[:sa_id]
     @sa.users.clear
-    @u_ids.each do |u_id|
-      user = User.find u_id
-      @sa.users << user
+    if !@u_ids.blank?
+      @u_ids.each do |u_id|
+        user = User.find u_id
+        @sa.users << user
+      end
     end
     @sa.save
     
