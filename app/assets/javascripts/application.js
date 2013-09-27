@@ -13,6 +13,10 @@
 //= require_directory .
 // ALERT: FETCHING THIS DIRECTORY ONLY, NOT THE HOLE TREE
 
+$(function() {
+  $("#purchase_delivery_date").datepicker({ dateFormat: 'yy-mm-dd', firstDay: 1 });
+});
+
 function remove_fields_post(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest(".to_hide").hide();
