@@ -34,8 +34,8 @@
 										<% if !val[:store_paid] %>
 										<tr>
 											<% dress = Dress.find val[:dress_id] %>
-											<td><%= check_box_tag 'sci_ids[]', val[:sci_id], false, 
-															:onchange => 'update_amount_to_pay('+sa.id.to_s+', '+(val[:unit_cost]*val[:quantity]).to_s+', self)' %></td>
+											<td><%= check_box_tag 'sci_ids[]', val[:sci_id], false, id: val[:sci_id],
+															:onchange => 'update_amount_to_pay('+sa.id.to_s+', '+(val[:unit_cost]*val[:quantity]).to_s+', '+val[:sci_id].to_s+')' %></td>
 											<td><%= val[:date].strftime("%Y-%m-%d") %><br /><%= dress.introduction %></td>
 											<td><%= link_to image_tag(dress.small_image), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></td>
 											<td><%= number_to_currency val[:price] %></td>

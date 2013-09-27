@@ -22,7 +22,9 @@ class AdministrationController < ApplicationController
           sci.update_attribute(:store_paid, true)
           @store_payment.shopping_cart_items << sci
           @store_payment.save
+          sci.shopping_cart.update_purchase_paid_status()
         end
+        
         format.html { redirect_to reports_products_payments_path, notice: 'Pago OK' }
       else
         format.html { redirect_to reports_products_payments_path, notice: 'Error al generar el Pago' }

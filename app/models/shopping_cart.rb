@@ -5,6 +5,19 @@ class ShoppingCart < ActiveRecord::Base
   belongs_to :user
   has_many :shopping_cart_items
   
+  def update_purchase_paid_status
+    purchase = Purchase.where('purchasable_type = "ShoppingCart" and purchasable_id = ?', self.id).first
+    completely_paid = true
+    if !purchase.blank?
+      self.shopping_cart_items.each do |sci|
+        if !sci.store_paid
+          completely_paid = false
+        end
+      end
+    end
+    purchase.update_attribute(:store_paid, true) if completely_paid
+  end
+  
   def net_cost
     aux = 0
     self.shopping_cart_items.each do |sci|
