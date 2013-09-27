@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
   before_filter { redirect_unless_privilege('Reportes') }
   
   def purchases_to_be_delivered
+    add_breadcrumb "Productos por despachar", :reports_purchases_to_be_delivered_path
     redirect_unless_privilege('Vestidos')
   
     @purchases = Purchase.where('purchases.logistic_provider_id = ? and funds_received = ?', nil, true).order('purchases.created_at DESC')
