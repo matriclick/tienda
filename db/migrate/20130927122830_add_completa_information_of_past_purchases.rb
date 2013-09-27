@@ -6,7 +6,7 @@ class AddCompletaInformationOfPastPurchases < ActiveRecord::Migration
         sci.update_price if sci.price.blank?
         sci.update_costs if sci.unit_cost.blank? or sci.unit_cost == 0
         sci.store_paid = true
-        sci.save
+        sci.save(:validate => false)
       end
     end
   end
