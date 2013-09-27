@@ -1,5 +1,4 @@
 <div class="container">
-	<h3>Listado de cuentas de proveedores</h3>
 	<%= form_tag(administration_suppliers_list_path, :method => "get", role: 'form', class: 'form-inline') do %>
 		<div class="form-group">
 			<%= text_field_tag(:q, @search_term, :style => 'width:500px', class: 'form-control') %> 
@@ -9,11 +8,11 @@
 	<br />
 	<table class="table table-striped" style="font-size:12px">
 		<tr>
-			<th>Email</th>
 			<th>Nombre Cuenta</th>
-			<th>Tipo de Cuenta</th>
-			<th>¿Aprobado Proveedor?</th>
-			<th>¿Aprobado Tramanta?</th>
+			<th>Email</th>
+			<th>Productos Disponibles</th>
+			<th>Comisión</th>
+			<th>¿Aprobado?</th>
 			<th></th>
 			<th></th>
 			<th></th>
@@ -21,11 +20,14 @@
 		</tr>
 		<% @suppliers.each do |supplier| %>
 			<tr>
-				<td style="color:#285e8e; font-weight:bold"><%= supplier.email %></td>
-				<td><%= supplier.supplier_account.fantasy_name %></td>
-				<td><%= supplier.supplier_account.supplier_account_type.name %></td>
-				<td style="text-align:center"><%= supplier.supplier_account.approved_by_supplier ? "✔" : '✘' %></td>
-				<td style="text-align:center"><%= supplier.supplier_account.approved_by_us ? "✔" : '✘' %></td>
+				<td style="color:#285e8e; font-weight:bold"><%= supplier.supplier_account.fantasy_name.upcase %></td>
+				<td><%= supplier.email %></td>
+				<td><%= supplier.supplier_account.dresses.available_to_purchase.size %></td>
+				<td><%= number_to_percentage supplier.supplier_account.net_margin, precision: 1 %> + IVA</td>
+				<td style="text-align:center">
+					<%= supplier.supplier_account.approved_by_supplier ? "✔" : '✘' %> | 
+					<%= supplier.supplier_account.approved_by_us ? "✔" : '✘' %>
+				</td>
 				<td>
 						<%= link_to 'Ver Información', supplier_description_path(:public_url => supplier.supplier_account.public_url) %> |
 						<%= link_to 'Editar Información', administration_edit_supplier_account_path(supplier.supplier_account)  %> |
