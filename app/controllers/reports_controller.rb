@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     add_breadcrumb "Productos por despachar", :reports_purchases_to_be_delivered_path
     redirect_unless_privilege('Vestidos')
   
-    @purchases = Purchase.where('purchases.logistic_provider_id = ? and funds_received = ?', nil, true).order('purchases.created_at DESC')
+    @purchases = Purchase.where('logistic_provider_id is null and funds_received = true').order('purchases.created_at DESC')
   
   end
   
