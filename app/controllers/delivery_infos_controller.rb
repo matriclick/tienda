@@ -54,7 +54,7 @@ class DeliveryInfosController < ApplicationController
     @delivery_info = DeliveryInfo.new(params[:delivery_info])
     @user = current_user
     
-    if !params[:purchasable][:type].nil?
+    if !params[:purchasable].blank? and !params[:purchasable][:type].blank?
       @object = eval(params[:purchasable][:type]+'.find '+params[:purchasable][:id])
     end
     

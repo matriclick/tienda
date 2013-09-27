@@ -3,7 +3,6 @@ class SupplierAccountsController < ApplicationController
 	load_and_authorize_resource
 	
 	def show
-		@unread_bookings = true if @supplier.supplier_account.unread_bookings?
 		@supplier_account = @supplier.supplier_account
 	end
 	

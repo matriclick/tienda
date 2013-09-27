@@ -337,14 +337,6 @@ class ApplicationController < ActionController::Base
   		end
 	end
 	
-	def current_ability
-		if user_signed_in?
-			@current_ability ||= Ability.new(current_user)
-		elsif supplier_signed_in?
-			@current_ability ||= Ability.new(current_supplier)
-		end
-	end
-	
   # This sets the default language for a single session
   def set_user_language
     I18n.locale = current_user.language if user_signed_in?
