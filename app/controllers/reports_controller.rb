@@ -70,7 +70,7 @@ class ReportsController < ApplicationController
   end
   
   def products_payments
-    add_breadcrumb "Products Payments", :reports_products_payments_path
+    add_breadcrumb "Pago a tiendas", :reports_products_payments_path
     if params[:from].nil? or params[:to].nil?
       @from = DateTime.now.utc.beginning_of_month
       @to = DateTime.now.utc.end_of_month
@@ -80,8 +80,7 @@ class ReportsController < ApplicationController
     end
     
     @supplier_accounts = SupplierAccount.approved
-
-    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)
+    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ? and store_paid = ?', @from, @to, true, false)
     
   end
   

@@ -1,10 +1,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Pago a Proveedores</h1>
 			<%= render 'date_range_selector' %>
 			<div>
 				<% @supplier_accounts.each do |sa| %>
+				<% products = sa.check_owned_products_purchased_from_purchases(@purchases) %>
+				<% not_paid = false %>
+				<% products.map {|val| (not_paid = true; puts [:store_paid]) if !val[:store_paid] } %>
+				<% if not_paid %>
 					<%= form_tag(administration_new_store_payment_path, :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
@@ -30,7 +33,7 @@
 								    <th>¿Producto Pagado?</th>
 								  </tr>
 									<% debt = 0 %>
-									<% sa.check_owned_products_purchased_from_purchases(@purchases).each do |val| %>
+									<% products.each do |val| %>
 										<% if !val[:store_paid] %>
 										<tr>
 											<% dress = Dress.find val[:dress_id] %>
@@ -55,6 +58,7 @@
 				      </div>
 				    </div>
 				  </div>
+					<% end %>
 					<% end %>
 				<% end %>
 			</div>
