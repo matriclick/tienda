@@ -14,14 +14,12 @@ class ShoppingCartItem < ActiveRecord::Base
     net = self.purchasable.net_cost.nil? ? 0 : self.purchasable.net_cost
     amount = self.quantity.nil? ? 0 : self.quantity
     
-    self.total_cost = (vat+net)*amount
-    self.unit_cost = (vat+net)
-    self.save
+    self.update_attribute(:unit_cost => (vat+net))
+    self.update_attribute(:unit_cost => (vat+net)*amount)
   end
   
   def update_price
-    self.price = self.purchasable.price
-    self.save
+    self.update_attribute(:price => self.purchasable.price)
   end
   
   def check_quantity_size
