@@ -22,6 +22,9 @@
 		- <%= link_to 'Detalle de intentos de compra en la página',  purchases_path(:status => 'all') %><br />
 		- <%= link_to 'Historial de compras en la página',  reports_purchases_path %><br />
 		<br />
+		<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Despacho</div>
+		- <%= link_to 'Productos por despachar',  reports_purchases_to_be_delivered_path %><br />
+		<br />
 		<div style="border-bottom:solid 1px #AAA; margin-bottom:5px;" />Pagos a Tiendas</div>
 		- <%= link_to 'Pagos de productos a tiendas', reports_products_payments_path %><br />
 		- <%= link_to 'Historial de pagos a tiendas', reports_store_payments_path %><br />

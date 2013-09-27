@@ -39,6 +39,7 @@
 				<ul class="footer_links">
 					<li class="footer_title">ADMINISTRACIÓN</li>
 					<li><%= link_to('Administrador Tramanta', administration_index_path, :rel => 'nofollow') if current_user.role_id == 1 %></li>
+					<li><%= link_to('Compras exitosas', purchases_path(:status => 'finalizado'), :rel => 'nofollow') if current_user.role_id == 1 %></li>
 					<li><%= link_to 'Mis Tiendas', store_admin_select_store_path, :rel => 'nofollow' %></li>
 				</ul>
 			</div>

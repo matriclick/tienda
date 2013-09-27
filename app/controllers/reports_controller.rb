@@ -3,6 +3,13 @@ class ReportsController < ApplicationController
   before_filter :redirect_unless_admin, :generate_bread_crumbs
   before_filter { redirect_unless_privilege('Reportes') }
   
+  def purchases_to_be_delivered
+    redirect_unless_privilege('Vestidos')
+  
+    @purchases = Purchase.where('purchases.logistic_provider_id = ? and funds_received = ?', nil, true).order('purchases.created_at DESC')
+  
+  end
+  
   def store_payments
     add_breadcrumb "Pagos realizados a tiendas", :reports_store_payments_path
     if params[:from].nil? or params[:to].nil?
