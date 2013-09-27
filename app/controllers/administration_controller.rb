@@ -18,10 +18,9 @@ class AdministrationController < ApplicationController
     respond_to do |format|
       if @store_payment.save
         @sci_ids.each do |id|
-          sci = ShoppingCartItem.find id
-          sci.store_paid = true
+          sci = ShoppingCartItem.find(id)
+          sci.update_attribute(:store_paid, true)
           @store_payment.shopping_cart_items << sci
-          sci.save
           @store_payment.save
         end
         format.html { redirect_to reports_products_payments_path, notice: 'Pago OK' }

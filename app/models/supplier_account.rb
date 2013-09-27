@@ -79,7 +79,6 @@ class SupplierAccount < ActiveRecord::Base
             purchased_products_data <<
               Hash[:sci_id => sci.id, :dress_id => sci.purchasable_id, :date => p.created_at, :size => sci.size, :quantity => sci.quantity, :store_paid => sci.store_paid, :refunded => sci.refunded, :unit_cost => sci.unit_cost, :price => sci.price]
           end
-          puts sci.price
         end
       end
     end

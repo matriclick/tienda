@@ -31,21 +31,23 @@
 								  </tr>
 									<% debt = 0 %>
 									<% sa.check_owned_products_purchased_from_purchases(@purchases).each do |val| %>
-									<tr>
-										<% dress = Dress.find val[:dress_id] %>
-										<td><%= check_box_tag 'sci_ids[]', val[:sci_id], false, 
-														:onchange => 'update_amount_to_pay('+sa.id.to_s+', '+(val[:unit_cost]*val[:quantity]).to_s+', self)' %></td>
-										<td><%= val[:date].strftime("%Y-%m-%d") %><br /><%= dress.introduction %></td>
-										<td><%= link_to image_tag(dress.small_image), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></td>
-										<td><%= number_to_currency val[:price] %></td>
-										<td><%= val[:quantity] %></td>
-										<td><%= val[:size] %></td>
-										<td><%= val[:refunded] ? 'Sí' : 'No' %></td>
-										<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]) %></td>
-										<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]*val[:quantity]) %></td>
-										<td><%= val[:store_paid] ? 'Sí' : 'No' %></td>
-									</tr>
-									<% debt = debt + (val[:unit_cost].nil? ? 0 : val[:unit_cost]*val[:quantity]) %>
+										<% if !val[:store_paid] %>
+										<tr>
+											<% dress = Dress.find val[:dress_id] %>
+											<td><%= check_box_tag 'sci_ids[]', val[:sci_id], false, 
+															:onchange => 'update_amount_to_pay('+sa.id.to_s+', '+(val[:unit_cost]*val[:quantity]).to_s+', self)' %></td>
+											<td><%= val[:date].strftime("%Y-%m-%d") %><br /><%= dress.introduction %></td>
+											<td><%= link_to image_tag(dress.small_image), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></td>
+											<td><%= number_to_currency val[:price] %></td>
+											<td><%= val[:quantity] %></td>
+											<td><%= val[:size] %></td>
+											<td><%= val[:refunded] ? 'Sí' : 'No' %></td>
+											<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]) %></td>
+											<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]*val[:quantity]) %></td>
+											<td><%= val[:store_paid] ? 'Sí' : 'No' %></td>
+										</tr>
+										<% debt = debt + (val[:unit_cost].nil? ? 0 : val[:unit_cost]*val[:quantity]) %>
+										<% end %>
 									<% end %>
 								</table>
 								<p>Total seleccionado = <b>$ <span id="<%= sa.id %>">0</span></b> <%= submit_tag("Generar Pago",  class: "btn btn-default btn-xs") %><p>
