@@ -146,7 +146,7 @@ class DressesController < ApplicationController
       disp = DressStatus.find_by_name("Disponible").id
       vend = DressStatus.find_by_name("Vendido").id
       @all_dresses = Dress.joins(:dress_types).where('dress_types.name like "%'+params[:type]+'%" and (dress_status_id = ? or dress_status_id = ?)', disp, vend)
-      @dresses = @all_dresses.paginate(:page => params[:page]).order('position ASC')
+      @dresses = @all_dresses.paginate(:page => params[:page]).order('position ASC, created_at DESC')
       @sizes = Dress.check_sizes(@all_dresses)
       
       #@dresses = Array.new
@@ -168,7 +168,7 @@ class DressesController < ApplicationController
     unless @search_term.nil? and @search_sizes.nil?
       @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
       
-      @all_dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC').uniq
+      @all_dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC, created_at DESC').uniq
       @dresses = @all_dresses.paginate(:page => params[:page])
       @sizes = Dress.check_sizes(@all_dresses)
 
