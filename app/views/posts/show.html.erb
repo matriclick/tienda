@@ -1,58 +1,81 @@
 <div class="container">
-	<h1><%= @post.title %></h1>
-	<div style="float:left; width:40px"><%= image_tag 'blog/quotes.png', :alt => @post.title %></div>	
-	<h2 style="font-size:16px"><%= @post.introduction.html_safe %></h2>
-	<div class="clear"></div>
-	<div class="blog_share_show">
-		<div class="addthis_toolbox addthis_default_style ">
-			<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-			<a class="addthis_button_tweet"></a>
-			<a class="addthis_button_pinterest_pinit"></a> 
+	<div class="row" style="margin-top:-30px">
+		<div class="col-md-12">
+			<h1><%= @post.title %></h1>
 		</div>
-		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
 	</div>
-	<div>
-		<%= image_tag @post.main_image.url(:main), :alt => strip_tags(@post.introduction.html_safe), class: "img-responsive" %>
+
+	<div class="row">
+		<div class="col-md-12">	
+			<div style="float:left; width:40px; margin-right:10px;"><%= image_tag 'blog/quotes.png', :alt => @post.title %></div>	
+			<p><%= @post.introduction.html_safe %></p>
+		</div>
 	</div>
-	<div class="blog_fecha_show">
-		<%= l(@post.date) %> <%= if !@post.industry_category.nil? then '-  ' + @post.industry_category.get_name end %>
-	</div>
-	<div class="blog_texto_content">
-		<% @post.post_contents.each do |post_content| %>
-			<div>
-				<%= raw post_content.content.gsub(/\n/, '<br/>') %>
+	
+	<div class="row" style="margin-bottom:20px">
+		<div class="col-md-12">	
+			<div class="blog_share_show">
+				<div class="addthis_toolbox addthis_default_style ">
+					<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+					<a class="addthis_button_tweet"></a>
+					<a class="addthis_button_pinterest_pinit"></a> 
+				</div>
+				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
 			</div>
-			<% post_count = post_content.post_images.count %>
-			<% post_content.post_images.each do |post_image| %>
-				<% if post_count == 1 %>
-					<div style="text-align:center; margin:10px">
-						<%= link_to image_tag(post_image.photo.url(:original), :alt => post_image.name, :style => 'max-width:550px'), post_image.photo.url(:original), :class => "img-responsive", :rel => :gallery %>
-					</div>		
-				<% else %>
-					<div style="float:left; margin:10px">
-						<%= link_to image_tag(post_image.photo.url(:small), :alt => post_image.name), post_image.photo.url(:original), :class => "img-responsive", :rel => :gallery %>
-					</div>	
-				<% end %>
-			<% end %>
-		 	<div class="clear"></div>
+			<div>
+				<%= image_tag @post.main_image.url(:main), :alt => strip_tags(@post.introduction.html_safe), class: "img-responsive" %>
+			</div>
+			<div class="blog_fecha_show">
+				<%= l(@post.date) %> <%= if !@post.industry_category.nil? then '-  ' + @post.industry_category.get_name end %>
+			</div>
+		</div>
+	</div>
+
+	<% @post.post_contents.each do |post_content| %>
+	<div class="row" style="margin-top:20px">
+		<div class="col-md-12">	
+					<div>
+						<%= raw post_content.content %>
+					</div>
+					<% post_count = post_content.post_images.count %>
+					<% post_content.post_images.each do |post_image| %>
+						<% if post_count == 1 %>
+							<div style="float:left; margin:10px">
+								<%= link_to image_tag(post_image.photo.url(:original), :alt => post_image.name), post_image.photo.url(:original), 
+										:class =>  [:fancybox, "img-responsive"], :rel => :gallery %>
+							</div>		
+						<% else %>
+							<div style="float:left; margin:10px">
+								<%= link_to image_tag(post_image.photo.url(:show_in_post), :alt => post_image.name), post_image.photo.url(:original), 
+										:class =>  [:fancybox, "img-responsive"], :rel => :gallery %>
+							</div>	
+						<% end %>
+					<% end %>
+			</div>
+		</div>
 		<% end %>
-	</div>
-	<div class="clear sin_titulos"></div>
-  	<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="4" data-width="950"></div>
-	<hr>
+
 	<div class="row">
-		<div>
-			<p><strong>Revisa estos productos que te podrían interesar:</strong></p>
-			<%= render 'dresses/viewed_dresses', viewed_dresses: @related_dresses %>
+		<div class="col-md-12">					
+			<div class="clear sin_titulos"></div>
+			 	<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="4" data-width="950"></div>
+			<hr>
+			<div class="row">
+				<div>
+					<p><strong>Revisa estos productos que te podrían interesar:</strong></p>
+					<%= render 'dresses/viewed_dresses', viewed_dresses: @related_dresses %>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<h4>Sigue leyendo artículos relacionados:</h4>
+				<div>
+					<% @related_posts.each do |post| %>
+						<%= render 'small_post', :post => post %>
+					<% end %>
+				</div>
+			</div>			
 		</div>
 	</div>
-	<hr>
-	<div class="row">
-		<h4>Sigue leyendo artículos relacionados:</h4>
-		<div>
-			<% @related_posts.each do |post| %>
-				<%= render 'small_post', :post => post %>
-			<% end %>
-		</div>
-	</div>
+	
 </div>

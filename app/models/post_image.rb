@@ -5,6 +5,7 @@ class PostImage < ActiveRecord::Base
 		:thumb => "100x100>",
 		:smaller => "120x90>",
 		:small => "200x150>",
+		:show_in_post => "300x>",
 		:tiny => "40x40>"
 	}, :whiny => false, :dependent => :destroy
   
