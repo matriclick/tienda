@@ -11,12 +11,10 @@ class Post < ActiveRecord::Base
   has_and_belongs_to_many :pack_promotions
   
   has_attached_file :main_image, :styles => {
+                 :tiny => "40x40>",
                  :thumb => "100x100>",
-                 :smaller => "120x90>",
-                 :small => "200x150>",
                  :home_page => "300x200>",
-                 :regular => "350x250>",
-                 :tiny => "40x40>"
+                 :main => "1140x>",
   }, :whiny => false, :dependent => :destroy
   validates_attachment_size :main_image, :less_than => 7.megabytes
   

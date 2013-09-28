@@ -12,7 +12,7 @@
 		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
 	</div>
 	<div>
-		<%= image_tag @post.main_image.url(:original), :alt => strip_tags(@post.introduction.html_safe) %>
+		<%= image_tag @post.main_image.url(:main), :alt => strip_tags(@post.introduction.html_safe), class: "img-responsive" %>
 	</div>
 	<div class="blog_fecha_show">
 		<%= l(@post.date) %> <%= if !@post.industry_category.nil? then '-  ' + @post.industry_category.get_name end %>
@@ -26,11 +26,11 @@
 			<% post_content.post_images.each do |post_image| %>
 				<% if post_count == 1 %>
 					<div style="text-align:center; margin:10px">
-						<%= link_to image_tag(post_image.photo.url(:original), :alt => post_image.name, :style => 'max-width:550px'), post_image.photo.url(:original), :class => [:fancybox, :image_button], :rel => :gallery %>
+						<%= link_to image_tag(post_image.photo.url(:original), :alt => post_image.name, :style => 'max-width:550px'), post_image.photo.url(:original), :class => "img-responsive", :rel => :gallery %>
 					</div>		
 				<% else %>
 					<div style="float:left; margin:10px">
-						<%= link_to image_tag(post_image.photo.url(:small), :alt => post_image.name), post_image.photo.url(:original), :class => [:fancybox, :image_button], :rel => :gallery %>
+						<%= link_to image_tag(post_image.photo.url(:small), :alt => post_image.name), post_image.photo.url(:original), :class => "img-responsive", :rel => :gallery %>
 					</div>	
 				<% end %>
 			<% end %>

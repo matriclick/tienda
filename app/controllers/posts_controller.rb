@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class PostsController < ApplicationController
-  before_filter :redirect_unless_admin, :hide_left_menu, :except => [:blog, :show]
+  before_filter :redirect_unless_admin, :except => [:blog, :show]
   include ActionView::Helpers::SanitizeHelper
   
   def blog
@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   
   def index
     @posts = Post.order 'created_at DESC'
+    add_breadcrumb "Listado de posts", :posts_path
     
     respond_to do |format|
       format.html # index.html.erb
@@ -53,6 +54,8 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
+    add_breadcrumb "Listado de posts", :posts_path
+    add_breadcrumb "Nuevo post", :new_post_path
     @post = Post.new
 	  3.times do
 		 post_content = @post.post_contents.build
@@ -67,6 +70,9 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
+    add_breadcrumb "Listado de posts", :posts_path
+    add_breadcrumb "Editar post", edit_post_path(@post)
+    
   end
 
   # POST /posts

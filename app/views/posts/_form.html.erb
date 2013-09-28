@@ -1,4 +1,4 @@
-<%= form_for @post, :html => {:multipart => true } do |f| %>
+<%= form_for @post, :html => {:multipart => true, :class => 'from', :role => 'form' } do |f| %>
 	<% if @post.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -9,41 +9,35 @@
 			</ul>
 		</div>
 	<% end %>
-	<br />
-	<div class="field">
-		<%= f.radio_button(:post_type, 'El Bazar', :checked => true) %> <%= 'Blog Tramanta' %><br />
-	</div>
-	<br />
 	<div class="field">
   		<%= f.label :visible, '¿El post estará visible?' %> <%= f.check_box :visible %>
 	</div>
 	<br />
-	<div class="help_tip">
+	<div class="field">
+		<%= f.label :main_image, "Imagen Principal" %><br />
+		<%= f.file_field :main_image, class: "form-control" %>
+		<p class="help-block">
+			Solo subir imágenes panorámicas, el sistema va a alargarla hasta 1140px por lo que si es muy alta quedará gigante<br />
+			Recuerda ponerle un nombre que alguien buscaría en google, separando las palabras por un guión, ejemplo: luna-de-miel-en-brasil.jpg
+		</p>
+	</div>
+	<br />
+	<div class="field">
+  		<%= f.label :title, 'Título' %><br />
+  		<%= f.text_field :title, class: "form-control", placeholder: "¡Tiene que ser un título que alguien buscaría en google!" %>
+	</div>
+	<br />
+	<%= f.label :position, 'Keywords' %><%= mark_required @post, :product_keywords %> 
+	<%= f.text_field :product_keywords, class: "form-control", placeholder: "Ingresa las palabras claves" %>
+	<p class="help-block">
 		IMPORTANTE: este campo define los productos que se mostrarán como relacionados<br />
-		Los productos relacionados son los que contengan todas estas palabras claves en la descripción del vestido<br />
 		Las palabras hay que escribirlas con el siguiente formato: palabra1, palabra2, palabra3<br />
 		Ejemplo: vestido, blanco, peplum
-	</div>
-	<%= f.label :position, 'Keywords' %><%= mark_required @post, :product_keywords %> <%= f.text_field :product_keywords %>
+	</p>
 	<br />	
 	<div class="field">
-		<div class="help_tip">
-			Solo subir imágenes de este tamaño: 700px de ancho x 350px de largo <br />
-			Recuerda ponerle un nombre que alguien buscaría en google, separando las palabras por un guión, ejemplo: luna-de-miel-en-brasil.jpg
-		</div>
-		<%= f.label :main_image, "Imagen Principal" %><br />
-		<%= f.file_field :main_image %>
-	</div>
-	<br />
-
-	<div class="field">
-  		<%= f.label :title %><br />
-  		<%= f.text_field :title, :size => '100x1' %>
-	</div>
-	<br />
-	<div class="field">
   		<%= f.label :introduction, "Bajada" %><br />
-  		<%= f.tinymce :introduction, :rows => 5 %>
+  		<%= f.tinymce :introduction, :rows => 5, class: "form-control" %>
 	</div>
 	<br />
 	<div id="contents_for_posts">

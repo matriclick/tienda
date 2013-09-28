@@ -2,7 +2,7 @@
 	<div class="field">
 		<%= f.label :content, "Parrafo " %>
 		(<%= link_to_remove_post "Eliminar", f %>)<br />
-		<%= f.tinymce :content, :rows => 10 %>
+		<%= f.tinymce :content, :rows => 10, class: "form-control" %>
 	</div>
 	<%= f.fields_for :post_images do |builder| %>
 		<%= render 'post_image_fields', :f => builder %>
