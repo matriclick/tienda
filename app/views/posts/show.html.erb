@@ -41,13 +41,13 @@
 					<% post_content.post_images.each do |post_image| %>
 						<% if post_count == 1 %>
 							<div style="float:left; margin:10px">
-								<%= link_to image_tag(post_image.photo.url(:original), :alt => post_image.name), post_image.photo.url(:original), 
-										:class =>  [:fancybox, "img-responsive"], :rel => :gallery %>
+								<%= link_to image_tag(post_image.photo.url(:original), :alt => post_image.name, class: "img-responsive"), post_image.photo.url(:original), 
+										:class =>  [:fancybox], :rel => :gallery %>
 							</div>		
 						<% else %>
 							<div style="float:left; margin:10px">
-								<%= link_to image_tag(post_image.photo.url(:show_in_post), :alt => post_image.name), post_image.photo.url(:original), 
-										:class =>  [:fancybox, "img-responsive"], :rel => :gallery %>
+								<%= link_to image_tag(post_image.photo.url(:show_in_post), :alt => post_image.name, class: "img-responsive"), post_image.photo.url(:original), 
+										:class =>  [:fancybox], :rel => :gallery %>
 							</div>	
 						<% end %>
 					<% end %>
