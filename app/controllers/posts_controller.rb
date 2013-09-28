@@ -26,17 +26,9 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-    @related_dresses = Dress.get_related_dresses_by_string(@post.product_keywords)
-    
-    case @post.post_type
-      when 'Post'
-        @related_posts = Post.by_industry_category(@post.industry_category_id).not_id(@post.id)
-        sa_type = SupplierAccountType.find_by_name("Regular");
-        @related_supplier_accounts = SupplierAccount.where(:country_id => session[:country].id, :supplier_account_type_id => sa_type.id).by_industry_category(@post.industry_category_id).approved.sort_by {|sa| sa.reviews.approved.size}.reverse
-      else
-        @related_posts = Post.where(:post_type => @post.post_type).is_visible.order('created_at DESC')
-        @related_posts = @related_posts - [@post]
-    end
+    @related_dresses = Dress.get_related_dresses_by_string(@post.product_keywords)   
+    @related_posts = Post.is_visible.order('created_at DESC').limit 6
+    @related_posts = @related_posts - [@post]
     
     @title_content = @post.title
   	@meta_description_content = @post.introduction
