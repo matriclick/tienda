@@ -1,13 +1,13 @@
 <div class="container">
 	<h3>Compra realizada el <%= @purchase.created_at.utc.strftime("%d/%m/%Y") %></h3>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-8">
 			<div class="panel panel-default">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Detalle pago</h3>
 				</div>
 				<div class="panel-body">
-					<table>
+					<table class="table table-striped">
 						<tr>
 							<td>Subtotal</td>
 							<td><%= number_to_currency(@purchase.quantity*@purchase.purchasable_price) %></td>
@@ -68,12 +68,17 @@
 	</div>
 	
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-8">
 			<div class="panel panel-default">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Información de despacho</h3>
 				</div>
 				<div class="panel-body">
+					<p>
+			    <%= purchase.user.email %> 
+					<%= raw ' - ('+purchase.delivery_info.name+')' if !purchase.delivery_info.nil? %>
+					<%= raw ' - ('+purchase.delivery_info.contact_phone+')' if !purchase.delivery_info.nil? %>					
+					</p>
 					<% if !@purchase.delivery_info.nil? %>
 							<%= @purchase.delivery_info.street %>
 							<%= @purchase.delivery_info.number %>
