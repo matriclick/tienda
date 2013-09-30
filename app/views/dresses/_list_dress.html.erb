@@ -5,11 +5,22 @@
 			Producto Agotado
 		</div>
 	</div>
-	<% end %>
+<% end %>
+<% if !dress.discount.blank? and dress.discount > 9 %>
+	<div style="position:absolute; top:40px">
+		<div style="background-color:yellow; color:black; width:190px; text-align:center; padding:10px; opacity:0.7;">
+			¡<%= dress.discount.to_i %>% de descuento!
+		</div>
+	</div>
+<% end %>
+
 	<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
 		dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
-	<p style="font-size:12px"><strong><%= number_to_currency dress.price %></strong><br/>
-		 <%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></p>
+	<p style="font-size:12px">
+		<span style="margin-right:5px; text-decoration:line-through"><%= number_to_currency dress.original_price %></span> 
+		<strong><%= number_to_currency dress.price %></strong><br/>
+		<%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+	 </p>
 	<p>
 		<%= link_to raw('<span class="glyphicon glyphicon-shopping-cart"></span>'), 
 				buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), 

@@ -89,6 +89,7 @@ Matri::Application.routes.draw do
   get 'dresses/buscar' => 'dresses#view_search', :as => 'dresses_search'
   post "dresses/dresses/endless_scrolling" => 'dresses#endless_scrolling'
   get 'dresses/new-arrivals'	=> 'dresses#new_arrivals', as: 'dresses_new_arrivals'
+  get 'dresses/clearing'	=> 'dresses#clearing', as: 'dresses_clearing'
   get 'dresses/browse'	=> 'dresses#browse', as: 'dresses_browse'
   get 'dresses/details'	=> 'dresses#details', as: 'dresses_details'
   

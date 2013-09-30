@@ -209,6 +209,22 @@ class DressesController < ApplicationController
     render :view
   end
   
+  def clearing
+    disp = DressStatus.find_by_name("Disponible").id
+    @all_dresses = Dress.where('dress_status_id = ?', disp)
+    @dresses = @all_dresses.where('discount > 0').order('created_at DESC').limit 20
+    @sizes = Dress.check_sizes(@all_dresses)
+    @not_paginate = true
+    
+    add_breadcrumb "Tramanta", :bazar_path
+    add_breadcrumb 'Liquidación!', :dresses_clearing_path
+    @search_text = 'Busca por color, talla, tela, etc...'
+    @title_content = 'New Arrivals'
+  	@meta_description_content = 'Los últimos productos agregados: vestidos, leggings, blusas, chaquetas y muchas cosas más.'
+    
+    render :view
+  end
+  
   # GET /dresses/1
   # GET /dresses/1.json
   def show
@@ -253,6 +269,10 @@ class DressesController < ApplicationController
 
         @title = params[:type]
         generate_bread_crumbs(params[:type])
+			  
+        if !@dress.discount.blank? and @dress.discount > 9
+          add_breadcrumb 'Liquidación!', :dresses_clearing_path
+        end
         add_breadcrumb @dress.introduction.capitalize, dress_ver_path(:type => params[:type], :slug => params[:slug])
       
         respond_to do |format|

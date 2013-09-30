@@ -17,7 +17,12 @@
 				</div>
 				<div class="col-md-7">
 					<h1 style="font-size:22px; margin-bottom:5px"><%= @dress.introduction %></h2>
-					<h2 style="font-size:18px; margin-top:0px; color:#285e8e"><%= number_to_currency @dress.price %></h2>
+					<h2 style="font-size:18px; margin-top:0px; color:#285e8e">
+						<% if !@dress.discount.blank? and @dress.discount > 9 %>
+						<span style="margin-right:5px; text-decoration:line-through"><%= number_to_currency @dress.original_price %></span> 
+						<% end %>
+						<%= number_to_currency @dress.price %>
+					</h2>
 					<p><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
 					<p>Tallas disponibles: 
 						<b><%= DressStockSize.where('dress_id = ? and stock > 0', @dress.id).map { |s| s.size.name if s.stock > 0 }.join ', '  %></b>
