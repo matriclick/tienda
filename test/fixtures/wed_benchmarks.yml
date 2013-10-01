@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
-
-one:
-  industry_category_id: 1
-  precentage: 9.99
-
-two:
-  industry_category_id: 1
-  precentage: 9.99

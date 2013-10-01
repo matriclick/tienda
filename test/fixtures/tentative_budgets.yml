@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
-
-one:
-  budget_range_id: 1
-  user_account_id: 1
-
-two:
-  budget_range_id: 1
-  user_account_id: 1
