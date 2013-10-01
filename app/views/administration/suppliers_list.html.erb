@@ -20,16 +20,18 @@
 		</tr>
 		<% @suppliers.each do |supplier| %>
 			<tr>
-				<td style="color:#285e8e; font-weight:bold"><%= supplier.supplier_account.fantasy_name.upcase %></td>
+				<td style="color:#285e8e; font-weight:bold">
+					<%= supplier.supplier_account.fantasy_name.upcase if !supplier.supplier_account.fantasy_name.blank? %>
+				</td>
 				<td><%= supplier.email %></td>
-				<td><%= supplier.supplier_account.dresses.available_to_purchase.size %></td>
-				<td><%= number_to_percentage supplier.supplier_account.net_margin, precision: 1 %> + IVA</td>
+				<td><%= supplier.supplier_account.dresses.available_to_purchase.size if supplier.supplier_account.dresses.size > 0 %></td>
+				<td><%= number_to_percentage(supplier.supplier_account.net_margin, precision: 1) %> + IVA</td>
 				<td style="text-align:center">
 					<%= supplier.supplier_account.approved_by_supplier ? "✔" : '✘' %> | 
 					<%= supplier.supplier_account.approved_by_us ? "✔" : '✘' %>
 				</td>
 				<td>
-						<%= link_to 'Ver Información', supplier_description_path(:public_url => supplier.supplier_account.public_url) %> |
+						<%= link_to 'Ver Información', supplier_description_path(:public_url => supplier.supplier_account.public_url) if !supplier.supplier_account.public_url.blank? %> |
 						<%= link_to 'Editar Información', administration_edit_supplier_account_path(supplier.supplier_account)  %> |
 						<%= link_to 'Resetear Clave', administration_reset_supplier_password_path(supplier.supplier_account)  %> |
 						<% if current_user.email == 'hhanckes@gmail.com' %>

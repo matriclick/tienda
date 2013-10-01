@@ -172,7 +172,6 @@ class AdministrationController < ApplicationController
     add_breadcrumb "Editar información", :administration_edit_supplier_account_path
     redirect_unless_privilege('Proveedores')
   	@supplier_account = SupplierAccount.find params[:supplier_account_id]
-    @industry_category_types = IndustryCategoryType.all
   end
   
   def reset_supplier_password
