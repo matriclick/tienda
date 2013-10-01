@@ -6,9 +6,6 @@ class SupplierAccountsController < ApplicationController
 	end
 	
   def edit
-		@industry_categories = IndustryCategory.joins(:countries).order "name"
-		
-    @industry_category_types = IndustryCategoryType.all
 		@supplier_account = @supplier.supplier_account
   end
 
@@ -30,11 +27,7 @@ class SupplierAccountsController < ApplicationController
       redirect_to :back
       return
     end
-
-		@aux = @supplier_account.industry_category_ids
-		#DZF this is saving even when a supplier don't have any industry_category
-		@supplier_account.industry_category_ids = params[:supplier_account][:industry_category_ids] ||= []
-
+    
 		respond_to do |format|
 			if @supplier_account.update_attributes params[:supplier_account]
         format.html { redirect_to supplier_account_path(@supplier), :notice => "#{t('activerecord.successful.messages.updated', :model => @supplier_account.class.model_name.human)}" }

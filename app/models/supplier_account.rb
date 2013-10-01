@@ -6,8 +6,6 @@ class SupplierAccount < ActiveRecord::Base
   
   after_create :set_country_id_with_locale
   after_create :add_address_if_nil
-  after_create :assign_type
-	after_update :delete_sub_ics_when_no_ic
   before_validation :correct_rut_format
 	before_validation :correct_phone_number_format
   	
@@ -17,23 +15,10 @@ class SupplierAccount < ActiveRecord::Base
   belongs_to :supplier_account_type
 	belongs_to :address, :dependent => :destroy
 
-	has_many :events, :dependent => :destroy
-	has_many :bookings, :dependent => :destroy
-	has_many :conversations, :dependent => :destroy
 	has_many :user_accounts, :through => :conversations
-	has_many :important_dates, :dependent => :destroy
-	has_many :reviews, :as => :reviewable, :dependent => :destroy
-  has_many :gift_cards, :dependent => :destroy
   has_many :dresses, :dependent => :destroy
-	has_many :reserved_dates, :dependent => :destroy
-	has_many :supplier_page_views, :dependent => :destroy
-	has_many :products, :dependent => :destroy
-	has_many :services, :dependent => :destroy
 	has_many :supplier_contacts, :dependent => :destroy
   has_many :store_payments, :dependent => :destroy
-  
-	has_and_belongs_to_many :industry_categories
-	has_and_belongs_to_many :sub_industry_categories
   
   has_and_belongs_to_many :users
 
@@ -251,11 +236,6 @@ class SupplierAccount < ActiveRecord::Base
 		supplier_page_view.save
 	end
 		
-	def assign_type
- 	  supplier_account_type = SupplierAccountType.find_by_name('Regular')
- 	  self.update_attribute(:supplier_account_type_id, supplier_account_type.id)
-  end
- 	
 	private
 	# Correct format for Rut (a string without "." or "-")
 	def correct_rut_format
