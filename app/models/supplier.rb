@@ -1,11 +1,8 @@
 class Supplier < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable
 
-  include CountryMethods
-
-  after_create :set_country_id_with_locale
 	after_create :ensure_supplier_account_exists
-	after_create :send_welcome_email
+#	after_create :send_welcome_email
 
 	has_one :supplier_account, :dependent => :destroy
 	belongs_to :country

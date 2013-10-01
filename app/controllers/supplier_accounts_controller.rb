@@ -1,6 +1,5 @@
 class SupplierAccountsController < ApplicationController
   before_filter :check_supplier, :set_supplier_layout, :find_supplier
-	load_and_authorize_resource
 	
 	def show
 		@supplier_account = @supplier.supplier_account

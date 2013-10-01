@@ -34,7 +34,7 @@ class SuppliersCatalogController < ApplicationController
   	@supplier = check_supplier
 
   	if @supplier.nil?
-			redirect_to products_and_services_catalog_select_industry_category_path
+			redirect_to root_path
 		else
   		# FGM: Increase Page Views counter
   		@supplier.supplier_account.add_supplier_page_view(request.ip)

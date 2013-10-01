@@ -12,7 +12,11 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li><%= link_to 'Cuenta', supplier_account_path(@supplier) %></li>
-				<li><%= link_to 'Ver Datos',	supplier_description_path(:public_url => @supplier.supplier_account.public_url) %> </li>
+				<% if !@supplier.supplier_account.public_url.blank? %>
+					<li><%= link_to 'Ver Datos',	supplier_description_path(:public_url => @supplier.supplier_account.public_url) %> </li>
+				<% else %>
+					<li><%= link_to 'Completar Datos', edit_supplier_account_path(@supplier) %> </li>
+				<% end %>
 				<li><%= link_to 'Productos', supplier_account_dresses_path(@supplier) %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

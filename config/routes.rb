@@ -124,7 +124,7 @@ Matri::Application.routes.draw do
 		get "supplier_reviews" => 'suppliers_catalog#supplier_reviews', as: 'supplier_reviews'
 		get "supplier_calendar" => 'suppliers_catalog#supplier_calendar', as: 'supplier_calendar'
   end
-
+  
   devise_for :suppliers
 
 	devise_scope :supplier do
@@ -149,8 +149,6 @@ Matri::Application.routes.draw do
       get 'dresses/set_stock/:id' => 'dresses#set_stock', as: 'dresses_set_stock'
     	post 'dresses/update_stock' => 'dresses#update_stock', as: 'dresses_update_stock'
 	  	post "dresses/endless_scrolling" => 'dresses#endless_scrolling'
-			# GIFT CARDS
-      resources :gift_cards
 			resources :supplier_contacts
 			resource :presentation do
 				resources :presentation_images
@@ -171,8 +169,6 @@ Matri::Application.routes.draw do
 	get '/wedding_tools' => "home#wedding_tools"
 	get '/suscribirse' => 'home#subscription', as: 'subscription'
 	post '/subscription_create' => 'home#subscription_create',	 as: 'subscription_create'	
-
-	match '/supplier/main' => "supplier_accounts#show", as: :supplier_home
 
   # ADMINISTRATION
   get "administration" => "administration#index", as: 'administration_index'
@@ -195,11 +191,13 @@ Matri::Application.routes.draw do
 
   get "administration/new_store_payment" => "administration#new_store_payment", as: 'administration_new_store_payment'
   put "administration/create_store_payment" => "administration#create_store_payment", as: 'administration_create_store_payment'
-    
+  
+  match '/supplier/main' => "supplier_accounts#show", as: :supplier_home	
+  
   scope ':public_url' do #DZF this alows to search a supplier without crashing with resources in the "/ "
 		root :to => "suppliers_catalog#supplier_description"
 	end
-
+  
   get "/" => "dresses#bazar", as: 'bazar'
   
   root :to => "dresses#bazar"

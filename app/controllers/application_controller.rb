@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery
 
 	rescue_from CanCan::AccessDenied do |exception|
-	  redirect_to root_path_url, :alert => exception.message
+	  redirect_to blog_el_bazar_path, :notice => exception.message
   end
 
 	def meta_content_default
@@ -327,7 +327,7 @@ class ApplicationController < ActionController::Base
   			if !!session[:matriclick_last_url]
   				session[:matriclick_last_url]
   			else
-  				products_and_services_catalog_select_industry_category_path
+  				root_path
   			end
   		elsif resource.kind_of? Supplier
   			sign_out(:user)
