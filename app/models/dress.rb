@@ -24,8 +24,6 @@ class Dress < ActiveRecord::Base
 	belongs_to :supplier_account
 	belongs_to :color
 	
-	has_and_belongs_to_many :gift_cards
-	  
 	accepts_nested_attributes_for :dress_images, :reject_if => proc { |a| a[:dress].blank? }, :allow_destroy => true
 	accepts_nested_attributes_for :dress_stock_sizes, :reject_if => proc { |a| a[:dress].blank? }, :allow_destroy => true
 	

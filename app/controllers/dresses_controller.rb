@@ -59,7 +59,8 @@ class DressesController < ApplicationController
 	def bazar
 	  @home = true
     @not_breadcrumbs = true
-    @dresses = Dress.order('created_at DESC').limit 4
+    disp = DressStatus.find_by_name("Disponible").id
+    @dresses = Dress.where('dress_status_id = ?', disp).order('created_at DESC').limit 4
     @title_content = '¡Bienvenido!'
     @search_text = 'Busca por color, talla, tela, etc...'
     @subscriber = Subscriber.new
