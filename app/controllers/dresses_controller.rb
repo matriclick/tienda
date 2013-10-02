@@ -246,8 +246,6 @@ class DressesController < ApplicationController
           format.json { head :ok }
         end
       else 
-        @sa_type = @dress.supplier_account.supplier_account_type.name
-
         if !current_supplier.nil?
           set_supplier_layout
           @supplier = current_supplier
