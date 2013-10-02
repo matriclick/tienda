@@ -322,7 +322,7 @@ class DressesController < ApplicationController
     if !current_supplier.nil?
       set_supplier_layout
     else
-      @supplier_accounts = SupplierAccount.joins(:industry_categories).where("industry_categories.item_seller = 1").approved
+      @supplier_accounts = SupplierAccount.approved
       if !@supplier_accounts.nil?
         @supplier_accounts = @supplier_accounts.uniq
         @supplier_accounts = @supplier_accounts.sort_by {|sa| sa[:fantasy_name]}
