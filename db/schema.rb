@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131001143915) do
+ActiveRecord::Schema.define(:version => 20131001230233) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -574,6 +574,12 @@ ActiveRecord::Schema.define(:version => 20131001143915) do
   create_table "shopping_carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "site_configurations", :force => true do |t|
+    t.boolean  "clearance_menu"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

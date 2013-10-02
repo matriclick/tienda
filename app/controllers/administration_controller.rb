@@ -3,6 +3,25 @@ class AdministrationController < ApplicationController
   autocomplete :user, :email
   before_filter :redirect_unless_admin, :generate_bread_crumbs
   
+  def configuration
+    @conf = SiteConfiguration.find_or_create_by_id(1)
+    add_breadcrumb "Configuración general del sitio", :administration_configuration_path
+  end
+  
+  def save_configuration
+    @conf = SiteConfiguration.find(params[:id])
+
+    respond_to do |format|
+      if @conf.update_attributes(params[:site_configuration])
+        format.html { redirect_to administration_configuration_path, notice: 'Configuración Actualizada' }
+        format.json { head :ok }
+      else
+        format.html { render action: "configuration", notice: @conf.errors }
+        format.json { render json: @conf.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+    
   def new_store_payment
     add_breadcrumb "Nuevo pago a Tienda", :administration_new_store_payment_path
     @store_payment = StorePayment.new

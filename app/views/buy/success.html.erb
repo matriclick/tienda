@@ -1,52 +1,47 @@
-<div style="line-height:20px">
-	FELICITACIONES. Tu transacción ha sido <b>finalizada exitosamente y ya recibimos tu pago.</b><br/>
-	El número de tu orden de compra es: <%= params['TBK_ORDEN_COMPRA'] %><br/>
-	Tipo de Transacción: VENTA<br/>
-</div>
-<div>
-	<% if !@purchase.nil? %><br/>
-		<% if !@oc.nil? %><br/>
-		<div style="float:left">
-			<%= image_tag @purchasable.main_image %>
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-12">
+			<p>FELICITACIONES. Tu transacción ha sido <b>finalizada exitosamente y ya recibimos tu pago.</b></p>
+			<ul>
+				<li>El número de tu orden de compra es: <%= params['TBK_ORDEN_COMPRA'] %></li>
+				<li>Tipo de Transacción: VENTA</li>
+			</ul>
 		</div>
-		<div style="float:left; margin-left:20px; width:450px; line-height:20px">
-			<b>Descripción:</b><br />
-			<hr>
-			<%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br />
-			<% if !@purchase.size.blank? %>
-				Talla: <%= @purchase.size %><br />
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+		<% if !@purchase.nil? %><br/>
+			<% if !@oc.nil? %><br/>
+				<p><b>Detalle de la compra:</b></p>
+				<ul>
+					<li><%= 'Usuario: ' + @purchase.user.email %></li>
+					<li><%= 'Tarjeta: xxxxxxxxx' + @oc.tbk_final_numero_tarjeta unless @oc.tbk_final_numero_tarjeta.nil? %></li>
+					<li><%= 'Tipo de Pago: ' + @tipo_pago %></li>
+					<li><%= 'Tipo de Cuotas: ' + @tipo_cuotas %></li>
+					<li><%= 'Número de Cuotas: ' + @numero_cuotas %></li>
+					<li><%= 'Monto Pagado: ' + number_to_currency(@oc.tbk_monto.to_f, :delimiter => '.').to_s  + ' pesos' %></li>
+					<li><%= 'Fecha de Pago: ' + @oc.tbk_orden_compra[0..3] + '/' + @oc.tbk_orden_compra[4..5] + '/' + @oc.tbk_orden_compra[6..7] %></li>
+					<li><%= 'Código de Autorización: ' + @oc.tbk_codigo_autorizacion %></li>
+				</ul>
+				<p>¿Consultas o Dudas?, envíanos un correo a mensajes@tramanta.com</p>
+				<p><%= link_to_function("Imprimir esta página", "javascript:print()", :style => 'color:blue') %></p>
+			<% else %><br/>
+				<p>No se pudo rescatar la información de compra</p>
+				<p>Por favor contáctanos a mensajes@tramanta.com</p>
 			<% end %>
-			<% if !@purchase.quantity.blank? %>
-				Cantidad: <%= @purchase.quantity.to_s %><br />
-			<% end %>
-			<br />
-			<b>Detalle de la compra:</b><br />
-			<hr>
-			<%= 'Usuario: ' + @purchase.user.email %><br/>
-			<%= 'Tarjeta: xxxxxxxxx' + @oc.tbk_final_numero_tarjeta unless @oc.tbk_final_numero_tarjeta.nil? %><br/>
-			<%= 'Tipo de Pago: ' + @tipo_pago %><br/>
-			<%= 'Tipo de Cuotas: ' + @tipo_cuotas %><br/>
-			<%= 'Número de Cuotas: ' + @numero_cuotas %><br/>
-			<%= 'Monto Pagado: ' + number_to_currency(@oc.tbk_monto.to_f, :delimiter => '.').to_s  + ' pesos' %><br/>
-			<%= 'Fecha de Pago: ' + @oc.tbk_orden_compra[0..3] + '/' + @oc.tbk_orden_compra[4..5] + '/' + @oc.tbk_orden_compra[6..7] %><br/>
-			<%= 'Código de Autorización: ' + @oc.tbk_codigo_autorizacion %><br/><br/>
-			¿Consultas o Dudas?, envíanos un correo a mensajes@tramanta.com<br/><br/>
-			<%= link_to_function("Imprimir esta página", "javascript:print()", :style => 'color:blue') %>
-			<br /><br />
-			<% if @purchasable.class.to_s == 'GiftCardCode' %>
-				<%= link_to 'Ver Detalle del Cupón de Descuento e Imprimir', @purchasable.link_to_view(@purchase.id), :style => 'color:blue' %>
-			<br /><br />
-			<% end %>
-			<% if @purchasable.class.to_s == 'Dress' %>
-				Tu producto será despachado según los plazos estipulados en el <%= link_to 'detalle', @purchasable.link_to_view(@purchase.id), :style => 'color:blue' %>
-			<br /><br />
-			<% end %>
-		</div>
-		<% else %><br/>
-			No se pudo rescatar la información de compra
+		<% else %>
+			<p>No se pudo rescatar la información de compra</p>
+			<p>Por favor contáctanos a mensajes@tramanta.com</p>
 		<% end %>
-	<% else %>
-		No se pudo rescatar la información de compra
-	<% end %>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<p><%= link_to 'Revisa el detalle de tus compras', user_profile_path %></p>
+		</div>
+	</div>
+
 </div>
-<div class="clear"></div>

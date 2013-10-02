@@ -1,13 +1,19 @@
-<b>LA TRANSACCION NO SE PUDO REALIZAR</b><br/><br/>
-<div style="line-height:20px">
-El número de la orden de compra es: <%= params['TBK_ORDEN_COMPRA'] %><br/><br/>
-Transacción Fracasada. Las posibles causas de este rechazo son:<br/><br/>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<b>LA TRANSACCION NO SE PUDO REALIZAR</b><br/><br/>
+			<div style="line-height:20px">
+			El número de la orden de compra es: <%= params['TBK_ORDEN_COMPRA'] %><br/><br/>
+			Transacción Fracasada. Las posibles causas de este rechazo son:<br/><br/>
 
-- Error en el ingreso de los datos de su tarjeta de crédito (fecha y/o código de seguridad).<br/>
-- Su tarjeta de crédito no cuenta con el cupo necesario para cancelar la compra.<br/>
-- Tarjeta aún no habilitada en el sistema financiero.<br/>
-- Si el problema persiste favor comunicarse con su Banco emisor.<br/><br/>
+			- Error en el ingreso de los datos de su tarjeta de crédito (fecha y/o código de seguridad).<br/>
+			- Su tarjeta de crédito no cuenta con el cupo necesario para cancelar la compra.<br/>
+			- Tarjeta aún no habilitada en el sistema financiero.<br/>
+			- Si el problema persiste favor comunicarse con su Banco emisor.<br/><br/>
 
-¿Consultas o Dudas?, envíanos un correo a mensajes@tramanta.com<br/><br/>
-<%= link_to 'Volver al Inicio', root_path %>
+			¿Consultas o Dudas?, envíanos un correo a mensajes@tramanta.com<br/><br/>
+			<%= link_to 'Volver al Inicio', root_path %>
+			</div>
+		</div>
+	</div>
 </div>

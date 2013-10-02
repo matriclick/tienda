@@ -8,7 +8,7 @@
 <% service.cancel_return_url failure_url %>
 <% service.session oc.tbk_id_sesion %>
 
-<%= submit_tag 'Confirmar Compra', :class => 'btn btn-default' %>
+<%= submit_tag 'Confirmar Compra', :class => 'btn btn-primary' %>
 <%= link_to 'o edita la información', buy_details_path(:purchasable_type => purchasable.class, :purchasable_id => purchasable.id) %> 
 	<br /><br />
 	<span style="float:right; margin-top:10px; margin-right:20px">

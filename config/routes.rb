@@ -192,6 +192,9 @@ Matri::Application.routes.draw do
   get "administration/new_store_payment" => "administration#new_store_payment", as: 'administration_new_store_payment'
   put "administration/create_store_payment" => "administration#create_store_payment", as: 'administration_create_store_payment'
   
+  get "administration/configuration" => "administration#configuration", as: 'administration_configuration'
+  put "administration/save_configuration" => "administration#save_configuration", as: 'administration_save_configuration'
+  
   match '/supplier/main' => "supplier_accounts#show", as: :supplier_home	
   
   scope ':public_url' do #DZF this alows to search a supplier without crashing with resources in the "/ "

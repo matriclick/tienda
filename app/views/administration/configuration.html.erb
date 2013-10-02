@@ -1,0 +1,14 @@
+<div class="container">
+	<%= render 'layouts/notice', notice: notice %>
+	<%= form_for(@conf, url: administration_save_configuration_path(id: @conf), :method => "put", :html => {role: 'form', class: 'form'}) do |f| %>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				¿Activar Menú Liquidación? <%= f.check_box :clearance_menu %>
+			</div>
+			<%= f.submit("Guardar",  class: "btn btn-default") %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>
