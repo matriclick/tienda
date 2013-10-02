@@ -55,7 +55,7 @@ class SupplierAccount < ActiveRecord::Base
     purchases.each do |p|
       if p.purchasable_type == 'Dress'
         if p.purchasable.supplier_account == self
-          purchased_products_data[] <<
+          purchased_products_data <<
             Hash[:dress_id => p.purchasable_id, :date => p.created_at, :size => p.size, :quantity => p.quantity, :store_paid => p.store_paid, :refunded => p.refunded, :unit_cost => sci.total_cost/quantity, :price => p.purchasable_price]
         end
       else
