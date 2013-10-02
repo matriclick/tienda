@@ -56,7 +56,7 @@ class SupplierAccount < ActiveRecord::Base
       if p.purchasable_type == 'Dress'
         if p.purchasable.supplier_account == self
           purchased_products_data <<
-            Hash[:dress_id => p.purchasable_id, :date => p.created_at, :size => p.size, :quantity => p.quantity, :store_paid => p.store_paid, :refunded => p.refunded, :unit_cost => p.total_cost/p.quantity, :price => p.purchasable_price]
+            Hash[:dress_id => p.purchasable_id, :date => p.created_at, :size => p.size, :quantity => p.quantity, :store_paid => p.store_paid, :refunded => p.refunded, :unit_cost => (p.total_cost.nil? ? 0 : p.total_cost/p.quantity), :price => p.purchasable_price]
         end
       else
         p.purchasable.shopping_cart_items.each do |sci|
