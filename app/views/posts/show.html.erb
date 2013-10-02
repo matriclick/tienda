@@ -26,7 +26,7 @@
 				<%= image_tag @post.main_image.url(:main), :alt => strip_tags(@post.introduction.html_safe), class: "img-responsive" %>
 			</div>
 			<div class="blog_fecha_show">
-				<%= l(@post.date) %> <%= if !@post.industry_category.nil? then '-  ' + @post.industry_category.get_name end %>
+				<%= l(@post.date) %>
 			</div>
 		</div>
 	</div>
