@@ -49,7 +49,6 @@ class StoreAdminController < ApplicationController
         @debt = @debt + val[:unit_cost]*val[:quantity] if !val[:unit_cost].nil? and !val[:quantity].nil?
       end
     end
-
   end
 
   def payments
