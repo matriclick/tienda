@@ -9,6 +9,15 @@
 						<a class="addthis_button_tweet"></a>
 						<a class="addthis_button_pinterest_pinit"></a> 
 					</div>
+					<% if @enable_edit %>
+					<div style="background:black; padding:2px; text-align:center;">
+						<%= link_to 'Información | ', edit_supplier_account_dress_path(@supplier, @dress), :class => 'edit_dress_link' %>
+						<%= link_to 'Stock', dresses_set_stock_path(:id => @dress.id), :class => 'edit_dress_link' %>
+						<% if developer? %>
+							<%= link_to ' | Eliminar', @dress, confirm: '¿Estás seguro?', method: :delete, :class => 'edit_dress_link' %>
+						<% end %>
+					</div>
+					<% end %>
 					<% if @mobile %>
 						<% cache ['mobile', @dress] do %>
 							<%= render 'info_dress_images_mobile', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
