@@ -14,7 +14,7 @@
 					<%= link_to image_tag(pd.dress_images.first.dress.url(:tiny), :alt => pd.dress_images.first.name), 
 					dress_ver_path(:type => pd.dress_type.name, :slug => pd.slug), class: "pull-left" %>
 					<div class="media-body" style="padding-left:10px; height:50px;">
-						<%= f.check_box :dress_ids %> <%= pd.introduction %>
+					  <%= check_box_tag "refund_request[dress_ids][]", pd.id %> <%= pd.introduction.capitalize %>
 					</div>
 				</div>
 		  </div>

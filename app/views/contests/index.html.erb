@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Competencias</h1>
+
+			<table class="table table-striped">
+			  <tr>
+			    <th>Nombre</th>
+			    <th>Instrucciones</th>
+					<th># Competidores</th>
+			    <th></th>
+			    <th></th>
+			    <th></th>
+			    <th></th>
+			  </tr>
+
+			<% @contests.each do |contest| %>
+			  <tr>
+			    <td><%= contest.name %></td>
+			    <td><%= raw truncate(contest.instructions.gsub(/\n/, '<br/>'), length: 180) %></td>
+					<td><%= link_to contest.contestants.size, contestants_path(contest_id: contest.id) %></td>
+			    <td><%= link_to 'Agregar competidor', new_contestant_path(contest_id: contest.id) %></td>
+			    <td><%= link_to 'Ver', contest %></td>
+			    <td><%= link_to 'Editar', edit_contest_path(contest) %></td>
+			    <td><%= link_to 'Eliminar', contest, confirm: '¿Estás seguro?', method: :delete %></td>
+			  </tr>
+			<% end %>
+			</table>
+
+			<br />
+
+			<%= link_to 'Crear nueva competencia', new_contest_path %>
+		</div>
+	</div>
+</div>

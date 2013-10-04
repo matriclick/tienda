@@ -1,6 +1,10 @@
 # encoding: UTF-8
 Matri::Application.routes.draw do
 
+  resources :contests
+
+  resources :contestants
+
   get "admin-tienda/seleccionar" => 'store_admin#select_store', :as => 'store_admin_select_store'
   get "admin-tienda/productos/:public_url" => 'store_admin#products', :as => 'store_admin_products'
   get "admin-tienda/ventas/:public_url" => 'store_admin#purchases', :as => 'store_admin_purchases'

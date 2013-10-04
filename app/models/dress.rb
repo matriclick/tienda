@@ -12,7 +12,7 @@ class Dress < ActiveRecord::Base
 	has_many :purchases, :as => :purchasable
 	has_many :dress_stock_sizes, :dependent => :destroy
 	has_many :sizes, :through => :dress_stock_sizes
-  has_one :refund_request
+  has_and_belongs_to_many :refund_request
   has_many :dresses_users_wish_lists
   has_many :users, :through => :dresses_users_wish_lists
   

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   after_create :check_if_is_matriclicker
   after_create :ensure_user_account_exists
 	
+  has_many :contestants, :dependent => :destroy
 	has_many :contest_travelites, :dependent => :destroy
 	has_many :refund_requests, :dependent => :destroy
 	has_one :matriclicker, :dependent => :destroy

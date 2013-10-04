@@ -1,0 +1,18 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p id="notice"><%= notice %></p>
+			<p><%= @contestant.name %></p>
+			<p><%= @contestant.introduction %></p>
+		</div>
+	</div>
+	<div class="row">
+		<% unless (imgs = @contestant.contestant_images).blank? %>
+			<% for image in imgs %>
+				<div class="col-md-3" style="margin:20px">
+					<img src="<%= image.image.url(:main) %>" alt="<%= image.name %>" /><br /><br />
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>

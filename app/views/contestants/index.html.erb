@@ -1,0 +1,31 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Competidores</h1>
+
+			<table class="table table-striped">
+			  <tr>
+			    <th>Competencia</th>
+			    <th>Correo</th>
+			    <th>Nombre</th>
+			    <th>Introducción</th>
+			    <th></th>
+			    <th></th>
+			    <th></th>
+			  </tr>
+
+			<% @contestants.each do |contestant| %>
+			  <tr>
+					<td><%= contestant.contest.nil? ? 'No Asignado' : contestant.contest.name %></td>
+			    <td><%= contestant.user.email %></td>
+			    <td><%= contestant.name %></td>
+			    <td><%= raw (truncate contestant.introduction.gsub(/\n/, '<br/>'), length: 50) %></td>
+			    <td><%= link_to 'Ver', contestant %></td>
+			    <td><%= link_to 'Editar', edit_contestant_path(contestant) %></td>
+			    <td><%= link_to 'Eliminar', contestant, confirm: 'Are you sure?', method: :delete %></td>
+			  </tr>
+			<% end %>
+			</table>
+		</div>
+	</div>
+</div>

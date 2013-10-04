@@ -1,0 +1,39 @@
+<%= nested_form_for(@contestant, html: {:multipart => true, role: 'form', class: 'form'}) do |f| %>
+  <% if @contestant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contestant.errors.count, "error") %> prohibited this contestant from being saved:</h2>
+
+      <ul>
+      <% @contestant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+		Competencia: <%= @contest.nil? ? 'No Asignado' : @contest.name %>
+    <%= f.hidden_field :contest_id, value: @contest.id %>
+  </div>
+  <div class="form-group">
+    <%= f.label :user_id, 'Correo Usuario' %><br />
+		<%= autocomplete_field_tag :user_email, (@contestant.user.nil? ? '' : @contestant.user.email), 
+				administration_autocomplete_user_email_path, class: 'form-control' %> 
+		<p class="help-block">El correo del usuario debe existir, de lo contrario arrojará error y Tramanta morirá.</p>
+  </div>
+  <div class="form-group">
+    <%= f.label :name, 'Nombre' %><br />
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+		<%= render 'image_fields', :f => f %>
+		<p class="help-block">Recomendamos agregar mínimo 2 imágenes, máximo 3</p>
+	</div>
+  <div class="form-group">
+    <%= f.label :introduction, 'Descripción' %><br />
+    <%= f.text_area :introduction, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.submit 'Guardar', class: "btn btn-default" %>
+  </div>
+<% end %>
