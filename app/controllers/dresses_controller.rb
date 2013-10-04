@@ -298,16 +298,15 @@ class DressesController < ApplicationController
       @supplier = @supplier_account.supplier
       @dress.supplier_account = @supplier_account
       set_supplier_layout
+      @dress_types = DressType.all
+      @colors = Color.all
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @dress }
+      end
     else
       redirect_to bazar_path, notice: 'Solo puedes crear productos entrando como proveedor.'
-    end
-    
-    @dress_types = DressType.all
-    @colors = Color.all
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @dress }
     end
   end
 
