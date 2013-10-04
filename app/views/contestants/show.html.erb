@@ -4,7 +4,7 @@
 		<div class="col-md-12">
 			<h1><%= @contestant.contest_votes.size %> <span class="glyphicon glyphicon-thumbs-up"></span> <%= @contestant.name %></h1>
 			<p class="help-block">
-			<% if !current_user.nil? and !current_user.contest_votes.nil? and 
+			<% if !current_user.nil? and current_user.contest_votes.where(:contest_id => @contestant.contest.id).size > 0 and 
 				current_user.contest_votes.where(:contest_id => @contestant.contest.id).first.contestant_id == @contestant.id %>
 				Ya votaste por este concursante
 			<% elsif !current_user.nil? and !current_user.contest_votes.nil? %>
