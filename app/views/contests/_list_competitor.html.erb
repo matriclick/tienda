@@ -7,7 +7,7 @@
 			<% if !current_user.nil? and current_user.contest_votes.where(:contest_id => contestant.contest.id).size > 0 and 
 				current_user.contest_votes.where(:contest_id => contestant.contest.id).first.contestant_id == contestant.id %>
 				Ya votaste
-			<% elsif !current_user.nil? and !current_user.contest_votes.nil? %>
+			<% elsif !current_user.nil? and current_user.contest_votes.where(:contest_id => contestant.contest.id).size > 0 %>
 				<%= link_to 'Cambiar voto', contestants_add_vote_path(id: contestant.id), method: 'put' %>
 			<% else %>
 				<%= link_to '¡Votar!', contestants_add_vote_path(id: contestant.id), method: 'put' %>
