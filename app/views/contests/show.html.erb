@@ -1,23 +1,27 @@
 <div class="container">
-	<div class="row">
+	<%= render 'layouts/notice', notice: notice %>
+	<div class="row" style="padding-bottom:10px; margin-top:-30px">
 		<div class="col-md-12">
-			<p id="notice"><%= notice %></p>
-
-			<p>
-			  <b>Name:</b>
-			  <%= @contest.name %>
-			</p>
-
-			<p>
-			  <b>Instructions:</b>
-			  <%= @contest.instructions %>
-			</p>
-
-			<p>
-			  <b>Slug:</b>
-			  <%= @contest.slug %>
-			</p>
-
+			<h1><%= @contest.name %></h1>
+			<img src="<%= @contest.image.url(:xl) %>" alt="<%= @contest.name %>" /><br /><br />
 		</div>
+	</div>
+	<div class="row" style="padding-bottom:10px; margin-top:-30px">
+		<div class="col-md-12">			
+			<h3>Las reglas del juego</h3>
+			<p>
+		    <%= raw @contest.instructions.gsub(/\n/, '<br/>') %>
+			</p>
+		</div>
+	</div>
+	<div class="row" style="padding-bottom:10px; margin-top:-20px">
+		<div class="col-md-12">
+			<h3>Los competidores</h3>
+		</div>
+	</div>
+	<div class="row" style="padding-bottom:20px;">
+    <% @contest.contestants.each do |contestant| %>
+				<%= render 'list_competitor', contestant: contestant %>
+		<% end %>
 	</div>
 </div>

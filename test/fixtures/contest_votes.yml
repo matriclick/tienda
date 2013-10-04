@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  contestant_id: 1
+  contest_id: 1
+
+two:
+  user_id: 1
+  contestant_id: 1
+  contest_id: 1

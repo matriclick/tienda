@@ -1,6 +1,19 @@
+# encoding: UTF-8
 class ContestantsController < ApplicationController
   autocomplete :user, :email
-  before_filter :redirect_unless_admin, :generate_bread_crumbs#, :except => [:show]
+  before_filter :redirect_unless_admin, :generate_bread_crumbs, :except => [:show, :add_vote]
+  before_filter :authenticate_user!, :only => [:add_vote]
+    
+  def add_vote
+    @contestant = Contestant.find(params[:id])
+    
+    @cv = ContestVote.find_or_create_by_contest_id_and_user_id(@contestant.contest.id, current_user.id)
+    @cv.contestant_id = @contestant.id
+    @cv.save
+    
+    redirect_to contest_path(@contestant.contest), notice: '¡Felicitaciones! Votaste por '+@contestant.name.capitalize
+  end
+  
   # GET /contestants
   # GET /contestants.json
   def index
@@ -10,6 +23,8 @@ class ContestantsController < ApplicationController
     else
       @contestants = contest.contestants
     end
+
+    @contestants.sort_by{|c| c.contest_votes.size}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,6 +36,16 @@ class ContestantsController < ApplicationController
   # GET /contestants/1.json
   def show
     @contestant = Contestant.find(params[:id])
+
+    add_breadcrumb "Tramanta", :root_path
+    add_breadcrumb @contestant.contest.name.capitalize, @contestant.contest
+    add_breadcrumb @contestant.name.capitalize, @contestant
+    
+    @title_content = @contestant.name
+  	@meta_description_content = @contestant.introduction
+    @og_type = 'article'
+    @og_image = 'http://www.tramanta.com'+@contestant.contestant_images.first.image.url(:main)
+    @og_description = @contestant.name+' - '+@contestant.introduction
 
     respond_to do |format|
       format.html # show.html.erb

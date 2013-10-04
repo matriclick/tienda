@@ -6,21 +6,19 @@ class User < ActiveRecord::Base
          
   after_create :check_if_is_matriclicker
   after_create :ensure_user_account_exists
-	
+
+	belongs_to :role
+	belongs_to :user_account, :dependent => :destroy
+	belongs_to :cloth_measure, :dependent => :destroy
+  
+	has_one :matriclicker, :dependent => :destroy
+
+	has_many :reviews, :dependent => :destroy
   has_many :contestants, :dependent => :destroy
 	has_many :contest_travelites, :dependent => :destroy
 	has_many :refund_requests, :dependent => :destroy
-	has_one :matriclicker, :dependent => :destroy
-	belongs_to :role
-	has_many :reviews, :dependent => :destroy
-	belongs_to :user_account, :dependent => :destroy
-	belongs_to :cloth_measure, :dependent => :destroy
-  has_and_belongs_to_many :tags
   has_many :dresses_users_wish_lists
-  has_many :dresses, :through => :dresses_users_wish_lists
-
-  has_and_belongs_to_many :supplier_accounts
-    
+  has_many :dresses, :through => :dresses_users_wish_lists    
 	has_many :dress_requests, :dependent => :destroy
 	has_many :purchases, :dependent => :destroy
 	has_many :orders, :dependent => :destroy
@@ -28,6 +26,10 @@ class User < ActiveRecord::Base
 	has_many :user_contest_selections, :dependent => :destroy
 	has_many :credits, :dependent => :destroy
 	has_many :shopping_carts, :dependent => :destroy
+	has_many :contest_votes, :dependent => :destroy
+  
+  has_and_belongs_to_many :supplier_accounts
+  has_and_belongs_to_many :tags
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids, :dress_id

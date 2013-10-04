@@ -8,6 +8,7 @@
 			    <th>Competencia</th>
 			    <th>Correo</th>
 			    <th>Nombre</th>
+			    <th>Votos</th>
 			    <th>Introducción</th>
 			    <th></th>
 			    <th></th>
@@ -18,6 +19,7 @@
 			  <tr>
 					<td><%= contestant.contest.nil? ? 'No Asignado' : contestant.contest.name %></td>
 			    <td><%= contestant.user.email %></td>
+			    <td><%= contestant.contest_votes.size %></td>
 			    <td><%= contestant.name %></td>
 			    <td><%= raw (truncate contestant.introduction.gsub(/\n/, '<br/>'), length: 50) %></td>
 			    <td><%= link_to 'Ver', contestant %></td>

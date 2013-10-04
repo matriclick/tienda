@@ -1,18 +1,58 @@
 <div class="container">
-	<div class="row">
+	<%= render 'layouts/notice', notice: notice %>
+	<div class="row" style="margin-top:-30px">
 		<div class="col-md-12">
-			<p id="notice"><%= notice %></p>
-			<p><%= @contestant.name %></p>
+			<h1><%= @contestant.contest_votes.size %> <span class="glyphicon glyphicon-thumbs-up"></span> <%= @contestant.name %></h1>
+			<p class="help-block">
+			<% if !current_user.nil? and !current_user.contest_votes.nil? and 
+				current_user.contest_votes.where(:contest_id => @contestant.contest.id).first.contestant_id == @contestant.id %>
+				Ya votaste por este concursante
+			<% elsif !current_user.nil? and !current_user.contest_votes.nil? %>
+				<%= link_to 'Cambiar tu voto por este concursante', contestants_add_vote_path(id: @contestant.id), method: 'put' %>
+			<% else %>
+				<%= link_to '¡Votar!', contestants_add_vote_path(id: @contestant.id), method: 'put' %>
+			<% end %>
+			</p>
 			<p><%= @contestant.introduction %></p>
 		</div>
 	</div>
+	
 	<div class="row">
+		<div class="col-md-12">
+			<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+				<a class="addthis_button_tweet"></a>
+				<a class="addthis_button_pinterest_pinit"></a> 
+			</div>
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ecbca393feb795f"></script>
+		</div>
+	</div>
+	
+	<div class="row" style="">
+		<div class="col-md-12">		
 		<% unless (imgs = @contestant.contestant_images).blank? %>
 			<% for image in imgs %>
-				<div class="col-md-3" style="margin:20px">
-					<img src="<%= image.image.url(:main) %>" alt="<%= image.name %>" /><br /><br />
+				<div class="col-md-3" style="margin-right:30px">
+					<img src="<%= image.image.url(:main) %>" alt="<%= image.image.name %>" />
 				</div>
 			<% end %>
 		<% end %>
+		</div>
 	</div>
+	
+	<div class="row" style="margin-top:15px">
+		<div class="col-md-12">
+	 		<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="4" data-width="1100"></div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<p>Recuerda las reglas del juego:</p>
+			<p><%= raw @contestant.contest.instructions.gsub(/\n/, '<br/>') %></p>
+			<p><%= link_to 'Volver a '+@contestant.contest.name.capitalize, @contestant.contest%></p>
+		</div>
+	</div>
+	
+	
 </div>

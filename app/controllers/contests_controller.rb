@@ -1,10 +1,11 @@
+# encoding: UTF-8
 class ContestsController < ApplicationController
-  before_filter :redirect_unless_admin, :generate_bread_crumbs#, :except => [:show]
+  before_filter :redirect_unless_admin, :generate_bread_crumbs, :except => [:show]
   # GET /contests
   # GET /contests.json
   def index
     @contests = Contest.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @contests }
@@ -15,6 +16,15 @@ class ContestsController < ApplicationController
   # GET /contests/1.json
   def show
     @contest = Contest.find(params[:id])
+    
+    add_breadcrumb "Tramanta", :root_path
+    add_breadcrumb @contest.name.capitalize, @contest
+
+    @title_content = @contest.name
+  	@meta_description_content = @contest.instructions
+    @og_type = 'article'
+    @og_image = 'http://www.tramanta.com'+@contest.image.url(:xl)
+    @og_description = @contest.name+' - '+@contest.instructions
 
     respond_to do |format|
       format.html # show.html.erb
