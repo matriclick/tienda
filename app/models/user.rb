@@ -60,9 +60,17 @@ class User < ActiveRecord::Base
     self.email[0..self.email.index('@')-1]
   end
   
-  def purchased_dresses    
+  def purchased_dresses(for_refund = false)
+    
+    if !for_refund
+      purchases = self.purchases.where('status = "finalizado"')
+    else
+      @from = (DateTime.now - 5.days).utc
+      purchases = self.purchases.where('status = "finalizado" and created_at >= ?', @from)
+    end
+    
     products = Array.new
-    self.purchases.where('status = "finalizado"').each do |pur|
+    purchases.each do |pur|
       if pur.purchasable_type == 'Dress' and !pur.purchasable.nil?
         products.push(pur.purchasable)
       elsif pur.purchasable_type == 'ShoppingCart' and !pur.purchasable.nil?

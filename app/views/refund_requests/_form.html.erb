@@ -7,7 +7,7 @@
 
 	<h4>Selecciona el/los productos que quieres devolver<h4>
 	<div class="form-group">		
-		<% current_user.purchased_dresses.each do |pd| %>
+		<% current_user.purchased_dresses(true).each do |pd| %>
 		<div class="panel panel-default">
 		  <div class="panel-body">
 				<div class="media">
