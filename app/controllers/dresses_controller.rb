@@ -239,7 +239,8 @@ class DressesController < ApplicationController
       @related_dresses = @dress.get_related_dresses
       set_dresses_viewed_cookies(@dress)
       @viewed_dresses = get_dresses_viewed(@dress)
-      
+      @dress_stock_text = DressStockSize.where('dress_id = ? and stock > 0', @dress.id).map { |s| s.size.name if s.stock > 0 }.join(', ')
+
       if @dress.supplier_account.nil? or @dress.dress_images.first.nil?
         respond_to do |format|
           format.html { redirect_to bazar_path }

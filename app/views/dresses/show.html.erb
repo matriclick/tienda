@@ -28,7 +28,7 @@
 						<% end %>
 					<% end %>
 				</div>
-				<% cache ['purchase__delivery_section', @dress] do %>
+				<% cache [@dress_stock_text, @dress] do %>
 				<div class="col-md-7">
 					<h1 style="font-size:22px; margin-bottom:5px"><%= @dress.introduction %></h2>
 					<h2 style="font-size:18px; margin-top:0px; color:#285e8e">
@@ -39,7 +39,7 @@
 					</h2>
 					<p><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
 					<p>Tallas disponibles: 
-						<b><%= DressStockSize.where('dress_id = ? and stock > 0', @dress.id).map { |s| s.size.name if s.stock > 0 }.join ', '  %></b>
+						<b><%= @dress_stock_text %></b>
 					</p>
 					<% if @dress.dress_status.name == 'Disponible' %>
 						<div class="purchase_section" style="margin-top:30px;">
