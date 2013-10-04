@@ -4,7 +4,7 @@
 		<%= link_to image_tag(contestant.contestant_images.first.image.url(:index_dress), :alt => contestant.contestant_images.first.name), contestant %>
 		<p style="text-align:center">
 			<%= contestant.contest_votes.size %> <span style="font-size:18px" class="glyphicon glyphicon-thumbs-up"></span> - 
-			<% if !current_user.nil? and !current_user.contest_votes.nil? and 
+			<% if !current_user.nil? and current_user.contest_votes.where(:contest_id => @contestant.contest.id).size > 0 and 
 				current_user.contest_votes.where(:contest_id => contestant.contest.id).first.contestant_id == contestant.id %>
 				Ya votaste
 			<% elsif !current_user.nil? and !current_user.contest_votes.nil? %>
