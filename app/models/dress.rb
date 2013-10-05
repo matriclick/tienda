@@ -12,10 +12,10 @@ class Dress < ActiveRecord::Base
 	has_many :purchases, :as => :purchasable
 	has_many :dress_stock_sizes, :dependent => :destroy
 	has_many :sizes, :through => :dress_stock_sizes
-  has_and_belongs_to_many :refund_request
   has_many :dresses_users_wish_lists
   has_many :users, :through => :dresses_users_wish_lists
-  
+
+  has_and_belongs_to_many :refund_request
   has_and_belongs_to_many :dress_types
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :cloth_measures
@@ -25,7 +25,7 @@ class Dress < ActiveRecord::Base
 	belongs_to :color
 	
 	accepts_nested_attributes_for :dress_images, :reject_if => proc { |a| a[:dress].blank? }, :allow_destroy => true
-	accepts_nested_attributes_for :dress_stock_sizes, :reject_if => proc { |a| a[:dress].blank? }, :allow_destroy => true
+	accepts_nested_attributes_for :dress_stock_sizes, :allow_destroy => true
 	
 	validates :dress_status_id, :introduction, :description, :presence => true	
 	validates :dress_images, :presence => true

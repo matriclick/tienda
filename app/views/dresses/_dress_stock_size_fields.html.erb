@@ -1,0 +1,11 @@
+<div class="field">
+<%= f.fields_for :dress_stock_sizes do |dress_stock_size_builder| %>
+<div class="row" style="padding-bottom:10px">
+	<div class="col-md-3"><%= dress_stock_size_builder.number_field :stock, :class => "form-control" %></div>
+	<div class="col-md-3"><%= dress_stock_size_builder.collection_select :size_id, @sizes, :id, :name, {:prompt => true, :allow_blank => false}, 
+					{ :class => "form-control" } %></div>
+	<div class="col-md-3"><%= dress_stock_size_builder.text_field :color, :class => "form-control" %></div>
+	<div class="col-md-3"><%= dress_stock_size_builder.link_to_remove 'Eliminar' %></div>
+</div>
+<% end %>
+</div>

@@ -239,7 +239,7 @@ class DressesController < ApplicationController
       @related_dresses = @dress.get_related_dresses
       set_dresses_viewed_cookies(@dress)
       @viewed_dresses = get_dresses_viewed(@dress)
-      @dress_stock_text = DressStockSize.where('dress_id = ? and stock > 0', @dress.id).map { |s| s.size.name if s.stock > 0 }.join(', ')
+      @dress_stock_text = DressStockSize.where('dress_id = ? and stock > 0', @dress.id).map { |s| '<li>'+s.size.name+((!s.color.nil? and s.color != "") ? ' - '+s.color : '') if s.stock > 0 }.join('</li>')
 
       if @dress.supplier_account.nil? or @dress.dress_images.first.nil?
         respond_to do |format|
@@ -355,13 +355,12 @@ class DressesController < ApplicationController
     
     @dress = Dress.find(params[:id])
     @sizes = @dress.dress_types.first.sizes
-    @cloth_measures = @dress.cloth_measures
 
-    @sizes.each do |size|
-      if DressStockSize.where('size_id = ? and dress_id = ?', size.id, @dress.id).size == 0
-        DressStockSize.create(:dress_id => @dress.id, :stock => 0, :size_id => size.id)
-      end
-    end
+#    @sizes.each do |size|
+#      if DressStockSize.where('size_id = ? and dress_id = ?', size.id, @dress.id).size == 0
+#        DressStockSize.create(:dress_id => @dress.id, :stock => 0, :size_id => size.id)
+#      end
+#    end
     
   end
   
@@ -373,28 +372,6 @@ class DressesController < ApplicationController
     
     @stock_updated = (params[:commit] == 'Guardar')
     
-    if @stock_updated
-      if !params[:dress].nil?
-        if !params[:dress][:dress_stock_sizes_attributes].nil?
-          sold_by_store = true
-          params[:dress][:dress_stock_sizes_attributes].each do |dress_stock_sizes|
-            dsz = DressStockSize.find(dress_stock_sizes[1][:id])
-            dsz.update_attributes(:stock => dress_stock_sizes[1][:stock])
-            if dress_stock_sizes[1][:stock].to_i > 0
-              sold_by_store = false
-            end
-          end
-          if sold_by_store
-            @dress.dress_status_id = DressStatus.find_by_name('Vendido por Proveedor').id
-            @dress.save
-          else
-            @dress.dress_status_id = DressStatus.find_by_name('Disponible').id
-            @dress.save
-          end
-        end
-      end
-    end
-
     respond_to do |format|
       if @dress.update_attributes(params[:dress])
         if !@stock_updated
@@ -459,7 +436,7 @@ class DressesController < ApplicationController
   def catch_not_found
     yield
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path_url, :flash => { :error => "No encontramos lo que estabas buscando" }
+    redirect_to root_url, :flash => { :error => "No encontramos lo que estabas buscando" }
   end
   
   def generate_bread_crumbs(dress_type_param)

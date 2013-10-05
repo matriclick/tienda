@@ -28,7 +28,7 @@
 		</div>
 	</div>
 	
-	<div class="row" style="">
+	<div class="row">
 		<div class="col-md-12">		
 		<% unless (imgs = @contestant.contestant_images).blank? %>
 			<% for image in imgs %>
@@ -45,11 +45,28 @@
 	 		<div class="fb-comments" data-href="<%= request.url %>/" data-num-posts="4" data-width="1100"></div>
 		</div>
 	</div>
-	
+
+	<div class="row" style="padding-bottom:10px;">
+		<div class="col-md-12">
+		  <div class="panel panel-default">
+		    <div class="panel-heading">
+		      <h4 class="panel-title">
+		        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse11">
+		          Ver las reglas del juego
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapse11" class="panel-collapse collapse">
+		      <div class="panel-body">
+						<%= raw @contestant.contest.instructions.gsub(/\n/, '<br/>') %>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+		
 	<div class="row">
 		<div class="col-md-12">
-			<p>Recuerda las reglas del juego:</p>
-			<p><%= raw @contestant.contest.instructions.gsub(/\n/, '<br/>') %></p>
 			<p><%= link_to 'Volver a '+@contestant.contest.name.capitalize, @contestant.contest%></p>
 		</div>
 	</div>

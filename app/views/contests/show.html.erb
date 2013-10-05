@@ -6,14 +6,26 @@
 			<img src="<%= @contest.image.url(:xl) %>" alt="<%= @contest.name %>" /><br /><br />
 		</div>
 	</div>
-	<div class="row" style="padding-bottom:10px; margin-top:-30px">
-		<div class="col-md-12">			
-			<h3>Las reglas del juego</h3>
-			<p>
-		    <%= raw @contest.instructions.gsub(/\n/, '<br/>') %>
-			</p>
+
+	<div class="row" style="padding-bottom:10px; margin-top:-20px">
+		<div class="col-md-12">
+		  <div class="panel panel-default">
+		    <div class="panel-heading">
+		      <h4 class="panel-title">
+		        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse11">
+		          Ver las reglas del juego
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapse11" class="panel-collapse collapse">
+		      <div class="panel-body">
+						<%= raw @contest.instructions.gsub(/\n/, '<br/>') %>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 	</div>
+	
 	<div class="row" style="padding-bottom:10px; margin-top:-20px">
 		<div class="col-md-12">
 			<h3>Los competidores</h3>

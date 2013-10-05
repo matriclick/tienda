@@ -5,18 +5,27 @@
 			<p>Mostrando solo la imagen principal del vestido</p>
 		</div>
 		<div class="col-md-8">
-			<h1>Definición de stock</h1>
-			<p>Ojo: primero debes definir las medidas y luego el stock por talla</p>
-			<%= nested_form_for @dress, :html => {:multipart => true}, :validate => true do |f| %>
-				<%= f.fields_for :dress_stock_sizes do |dress_stock_size_builder| %>
-					<%= dress_stock_size_builder.number_field :stock %> <b><%= dress_stock_size_builder.object.size.name %></b>
-					<%= link_cloth_measure(dress_stock_size_builder.object.size) %>
-				<% end %>
-				<br/>
-				<p>Revisa bien el stock por talla antes de continuar</p>
-				<div>
-			    	<%= f.submit 'Guardar', :class => "button" %>
-				</div>  
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Definición de stock</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">Stock</div>
+				<div class="col-md-3">Talla</div>
+				<div class="col-md-3">Color</div>
+				<div class="col-md-3"></div>
+			</div>
+
+			<%= nested_form_for @dress, :html => {:multipart => true, role: 'form', class: 'form-inline'}, :validate => true do |f| %>
+					<%= render 'dress_stock_size_fields', :f => f  %>
+					<%= f.link_to_add 'Agregar Nueva Talla', :dress_stock_sizes, :class => 'btn btn-default btn-sm' %>
+
+			<div class="row">
+				<div class="col-md-12">
+					<p class="help-block">Revisa bien el stock por talla antes de continuar</p>
+					<div><%= f.submit 'Guardar', :class => "btn btn-primary" %></div>  
+				</div>
 			</div>
 		<% end %>
 	</div>

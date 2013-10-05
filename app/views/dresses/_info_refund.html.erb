@@ -2,44 +2,9 @@
 	CONDICIONES ESPECÍFICAS<br /><br />
 	<%= raw dress.refund.gsub(/\n/, '<br/>') %><br /><br />
 <% end %>
-<% case dress.supplier_account.supplier_account_type.name %>
-	<% when 'Accesorios' %>
-		CONDICIONES GENERALES<br /><br />
-		No se aceptan devoluciones de accesorios.
-	<% when 'Zapatos' %>
-		CONDICIONES GENERALES<br /><br />
-		Se aceptan devoluciones hasta 2 días corridos desde la entrega del producto.<br /><br />
-		Para efectuar la devolución del producto, tiene que estar en las mismas condiciones que fue entregado.<br /><br />
-		Para hacer efectiva la devolución debes devolver el producto ya sea enviándolo por correo o dejándolo en horario hábil en las oficinas de Matriclick.<br /><br />
-		No se aceptarán devoluciones fuera de plazo.
-	<% when 'Vestidos Boutique' %>
-		CONDICIONES GENERALES<br /><br />
-		Se aceptan devoluciones hasta 1 mes desde comprado el Cupón de Descuento.<br /><br />
-		Para hacer efectiva la devolución debes enviar un correo a contacto@tramanta.com con el código del Cupón de Descuento.<br /><br />
-		No se aceptarán devoluciones fuera de plazo.
-	<% when 'Tu Casa' %>
-		CONDICIONES GENERALES<br /><br />
-		1) Sólo se aceptan cambios 5 días después de entregado en caso que el producto tenga alguna falla de fabricación.<br /><br />
-		2) Para efectuar la devolución el producto tiene que estar en las mismas condiciones que fue entregado.<br /><br />
-		3) Para hacer efectiva la devolución debes dejar el producto durante horario hábil en las oficinas de Matriclick.<br /><br />
-		4) No se aceptarán devoluciones fuera de plazo
-	<% when 'Vestidos de Novia Usados' %>
-		CONDICIONES GENERALES<br /><br />
-		A convenir con la dueña del vestido.
-	<% else %>
-		<% case dress.dress_type.name %>
-			<% when 'Ajuar' %>
-				CONDICIONES GENERALES<br /><br />
-				Se aceptan devoluciones hasta 5 días corridos desde la entrega de la prenda. NO SE ACEPTAN DEVOLUCIONES DE ROPA INTERIOR.<br /><br />
-				Para efectuar la devolución la prenda tiene que estar en las mismas condiciones que fue entregado.<br /><br />
-				Para hacer efectiva la devolución debes devolver la prenda ya sea enviándolo por correo o dejándolo en horario hábil en las oficinas de Matriclick.<br /><br />
-				No se aceptarán devoluciones fuera de plazo.
-			<% else %>
-				CONDICIONES GENERALES<br /><br />
-				Se aceptan devoluciones hasta 5 días corridos desde la entrega del vestido.<br /><br />
-				Para efectuar la devolución la prenda tiene que estar en las mismas condiciones que fue entregado.<br /><br />
-				Para hacer efectiva la devolución debes devolver la prenda ya sea enviándolo por correo o dejándolo en horario hábil en las oficinas de Matriclick.<br /><br />
-				No se aceptarán devoluciones fuera de plazo.
-		<% end %>
-<% end %>
-
+CONDICIONES GENERALES<br /><br />
+Se aceptan devoluciones hasta 5 días corridos desde la entrega del vestido.<br /><br />
+Para efectuar la devolución la prenda tiene que estar en las mismas condiciones que fue entregado.<br /><br />
+Para hacer efectiva la devolución debes devolver la prenda ya sea enviándolo por correo o dejándolo en horario hábil en las oficinas de Matriclick.
+<br /><br />
+No se aceptarán devoluciones fuera de plazo.

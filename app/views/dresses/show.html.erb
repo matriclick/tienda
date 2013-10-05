@@ -28,7 +28,7 @@
 						<% end %>
 					<% end %>
 				</div>
-				<% cache [@dress_stock_text, @dress] do %>
+				<% #cache [@dress_stock_text, @dress] do %>
 				<div class="col-md-7">
 					<h1 style="font-size:22px; margin-bottom:5px"><%= @dress.introduction %></h2>
 					<h2 style="font-size:18px; margin-top:0px; color:#285e8e">
@@ -38,8 +38,8 @@
 						<%= number_to_currency @dress.price %>
 					</h2>
 					<p><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
-					<p>Tallas disponibles: 
-						<b><%= @dress_stock_text %></b>
+					<p>Tallas y colores disponibles:</p>
+					<ul><%= raw @dress_stock_text %></ul>
 					</p>
 					<% if @dress.dress_status.name == 'Disponible' %>
 						<div class="purchase_section" style="margin-top:30px;">
@@ -48,7 +48,7 @@
 						</div>
 					<% end %>
 				</div>
-				<% end %>
+				<% #end %>
 			</div>
 			<div class="row">
 			<% unless @viewed_dresses.blank? %>
