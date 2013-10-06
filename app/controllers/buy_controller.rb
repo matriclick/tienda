@@ -24,20 +24,28 @@ class BuyController < ApplicationController
     user = current_user
     purchasable_id = params[:purchasable_id]
     purchasable_type = params[:purchasable_type]
-    color = params[:shopping_cart_item][:color]
-    size = params[:shopping_cart_item][:size]
+    color = params[:shopping_cart_item][:color] if !params[:shopping_cart_item].nil?
+    size = params[:shopping_cart_item][:size] if !params[:shopping_cart_item].nil?
     shopping_cart = user.select_current_shopping_cart
     
-    shopping_cart_item = 
-      ShoppingCartItem.where(:purchasable_id => purchasable_id, :purchasable_type => purchasable_type, :shopping_cart_id => shopping_cart.id,
-      :size => size, :color => color).first
+    if !size.blank? and !DressStockSize.where(dress_id: purchasable_id, size_id: Size.find_by_name(size).id, color: color).first.nil?
+      shopping_cart_item = 
+        ShoppingCartItem.where(:purchasable_id => purchasable_id, :purchasable_type => purchasable_type, :shopping_cart_id => shopping_cart.id,
+        :size => size, :color => color).first
     
-    if shopping_cart_item.nil?
-      shopping_cart_item = ShoppingCartItem.create(:purchasable_id => purchasable_id, :purchasable_type => purchasable_type, :shopping_cart_id => shopping_cart.id,
-      :size => size, :color => color)
+      if shopping_cart_item.nil?
+        shopping_cart_item = ShoppingCartItem.create(:purchasable_id => purchasable_id, :purchasable_type => purchasable_type, :shopping_cart_id => shopping_cart.id,
+        :size => size, :color => color)
+      end
+    
+      redirect_to buy_view_cart_path
+    else
+      @dress = Dress.find purchasable_id
+      respond_to do |format|
+        format.html { redirect_to dress_ver_path(type: @dress.dress_types.first.name, slug: @dress.slug), notice: 'La combinación talla/color que seleccionaste no está disponible' }
+        format.json { head :ok }
+      end
     end
-    
-    redirect_to buy_view_cart_path
   end
   
   #POST

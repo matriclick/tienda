@@ -8,8 +8,7 @@
 			  </div>
 			  <div class="panel-body">
 					<div class="media">
-							<%= link_to image_tag(purchase.purchasable.small_image), class: 'media-object'), 
-													dress_ver_path(:type => purchase.purchasable.dress_type.name, :slug => purchase.purchasable.slug), class: 'pull-left thumbnail' %>
+							<%= link_to(image_tag(purchase.purchasable.small_image, class: 'media-object'), dress_ver_path(:type => purchase.purchasable.dress_type.name, :slug => purchase.purchasable.slug), class: 'pull-left thumbnail') %>
 					  <div class="media-body">
 							<ul class="list-group">
 								<li class="list-group-item"><%= link_to purchase.purchasable.introduction, dress_ver_path(:type => purchase.purchasable.dress_type.name, :slug => purchase.purchasable.slug) %></li>

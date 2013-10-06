@@ -16,6 +16,10 @@
     <%= f.text_field :name, class: 'form-control' %>
   </div>
   <div class="form-group">
+    <%= f.label :status, 'Estado de la competencia' %><br />
+    <%= f.select :status, options_for_select(["", "Activo", "Finalizado"]), {}, {class: 'form-control'} %>
+  </div>
+  <div class="form-group">
     <%= f.label :image, 'Imagen de la competencia' %><br />
     <%= f.file_field :image, class: 'form-control' %>
 		<p class="help-block">La imagen debe ser alargada, el tamaño óptimo sería de alrededor 1140px x 350px. No más de 2MB.</p>

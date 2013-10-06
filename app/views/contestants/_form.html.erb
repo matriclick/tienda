@@ -15,12 +15,17 @@
 		Competencia: <%= @contest.nil? ? 'No Asignado' : @contest.name %>
     <%= f.hidden_field :contest_id, value: @contest.id %>
   </div>
-  <div class="form-group">
-    <%= f.label :user_id, 'Correo Usuario' %><br />
-		<%= autocomplete_field_tag :user_email, (@contestant.user.nil? ? '' : @contestant.user.email), 
-				administration_autocomplete_user_email_path, class: 'form-control' %> 
-		<p class="help-block">El correo del usuario debe existir, de lo contrario arrojará error y Tramanta morirá.</p>
-  </div>
+	<% if current_user.role_id == 1 %>
+	  <div class="form-group">
+	    <%= f.label :user_id, 'Correo Usuario' %><br />
+			<%= autocomplete_field_tag :user_email, (@contestant.user.nil? ? '' : @contestant.user.email), 
+					administration_autocomplete_user_email_path, class: 'form-control' %> 
+			<p class="help-block">El correo del usuario debe existir, de lo contrario arrojará error y Tramanta morirá.</p>
+	  </div>
+	<% else %>
+		<%= hidden_field_tag :user_email, current_user.email %>
+	<% end %>
+	
   <div class="form-group">
     <%= f.label :name, 'Nombre' %><br />
     <%= f.text_field :name, class: 'form-control' %>
@@ -30,7 +35,8 @@
 		<p class="help-block">Recomendamos agregar mínimo 2 imágenes, máximo 3</p>
 	</div>
   <div class="form-group">
-    <%= f.label :introduction, 'Descripción' %><br />
+    <%= f.label :introduction, 'Descripción' %>
+		<p class="help-block">La idea es que escribas sobre lo que te gusta hacer y te presentes al resto del mundo para que voten por ti</p>
     <%= f.text_area :introduction, class: 'form-control' %>
   </div>
   <div class="form-group">

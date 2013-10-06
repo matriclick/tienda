@@ -4,7 +4,7 @@
 				:method => "post", :html => {class: 'form-horizontal', role: 'form'}) do %>
 		  <div class="form-group">
 		    <label>Selecciona la talla:</label>
-				<%= collection_select('shopping_cart_item', 'size', Size.all, :name, :name, {include_blank: true}, 
+				<%= select('shopping_cart_item', 'size', dress.get_available_sizes, {include_blank: true}, 
 						{ :class => "form-control", style: 'width:100%' }) %>
 		  </div>
 		  <div class="form-group">

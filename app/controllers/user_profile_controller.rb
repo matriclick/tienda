@@ -2,6 +2,11 @@
 class UserProfileController < ApplicationController
   before_filter :authenticate_user!
 	
+  def contests
+    add_breadcrumb 'Tu cuenta', user_profile_personalization_path
+    add_breadcrumb 'Concursos', user_profile_contests_path
+  end
+  
   def information
     add_breadcrumb 'Tu cuenta', user_profile_personalization_path
     add_breadcrumb 'Información Personal', user_profile_information_path

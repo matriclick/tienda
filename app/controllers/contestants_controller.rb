@@ -1,8 +1,9 @@
 # encoding: UTF-8
 class ContestantsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   autocomplete :user, :email
-  before_filter :redirect_unless_admin, :generate_bread_crumbs, :except => [:show, :add_vote]
-  before_filter :authenticate_user!, :only => [:add_vote]
+  before_filter :redirect_unless_admin, :only => [:index, :destroy]
+  before_filter :authenticate_user!, :except => [:show]
     
   def add_vote
     @contestant = Contestant.find(params[:id])
@@ -17,6 +18,9 @@ class ContestantsController < ApplicationController
   # GET /contestants
   # GET /contestants.json
   def index
+    add_breadcrumb "Administrador", :administration_index_path
+    add_breadcrumb "Competencias", :contests_path
+    
     contest = Contest.find(params[:contest_id]) if !params[:contest_id].nil?
     if contest.nil?
       @contestants = Contestant.all
@@ -44,7 +48,7 @@ class ContestantsController < ApplicationController
     @title_content = @contestant.name
   	@meta_description_content = @contestant.introduction
     @og_type = 'article'
-    @og_image = 'http://www.tramanta.com'+@contestant.contestant_images.first.image.url(:main)
+    @og_image = 'http://www.tramanta.com'+@contestant.contestant_images.first.image.url(:main) unless @contestant.contestant_images.first.nil?
     @og_description = @contestant.name+' - '+@contestant.introduction
 
     respond_to do |format|
@@ -57,8 +61,11 @@ class ContestantsController < ApplicationController
   # GET /contestants/new.json
   def new
     @contestant = Contestant.new
-    @contest = Contest.find params[:contest_id]
-    
+    @contest = Contest.find(params[:contest_id])
+
+    add_breadcrumb "Tramanta", :root_path
+    add_breadcrumb @contest.name.capitalize, @contest
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @contestant }
@@ -68,8 +75,11 @@ class ContestantsController < ApplicationController
   # GET /contestants/1/edit
   def edit
     @contestant = Contestant.find(params[:id])
-    
     @contest = @contestant.contest
+    redirect_if_not_owner_or_admin(@contest)
+    add_breadcrumb "Tramanta", :root_path
+    add_breadcrumb @contest.name.capitalize, @contest
+    add_breadcrumb @contestant.name.capitalize, @contestant
     
   end
 
@@ -79,7 +89,9 @@ class ContestantsController < ApplicationController
     @contestant = Contestant.new(params[:contestant])
     user = User.find_by_email(params[:user_email])
     @contestant.user = user if !user.nil?
-
+    
+    @contest = @contestant.contest
+    
     respond_to do |format|
       if @contestant.save
         format.html { redirect_to @contestant, notice: 'Contestant was successfully created.' }
@@ -97,7 +109,10 @@ class ContestantsController < ApplicationController
     @contestant = Contestant.find(params[:id])
     user = User.find_by_email(params[:user_email])
     @contestant.user = user if !user.nil?
-
+    
+    @contest = @contestant.contest
+    redirect_if_not_owner_or_admin(@contest)
+    
     respond_to do |format|
       if @contestant.update_attributes(params[:contestant])
         format.html { redirect_to @contestant, notice: 'Contestant was successfully updated.' }
@@ -123,8 +138,16 @@ class ContestantsController < ApplicationController
   
   private
   
-  def generate_bread_crumbs
-    add_breadcrumb "Administrador", :administration_index_path
-    add_breadcrumb "Competencias", :contests_path
+  def redirect_if_not_owner_or_admin(contest)
+		if user_signed_in?
+			redirect_to root_path unless current_user.role_id == 1 or !current_user.contestants.where(contest_id: contest.id).nil?
+		else
+			redirect_to root_path
+		end    
   end
+  
+  def record_not_found
+    redirect_to root_path, notice: '¡Tramposín!'
+  end
+  
 end

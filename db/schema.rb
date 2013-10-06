@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131006000110) do
+ActiveRecord::Schema.define(:version => 20131006020517) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(:version => 20131006000110) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "status"
   end
 
   add_index "contests", ["slug"], :name => "index_competitions_on_slug", :unique => true
@@ -629,6 +630,7 @@ ActiveRecord::Schema.define(:version => 20131006000110) do
     t.boolean  "clearance_menu"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "contest_id"
   end
 
   create_table "sizes", :force => true do |t|

@@ -119,7 +119,8 @@ Matri::Application.routes.draw do
   get 'user_profile/wish_list'		       	=> 'user_profile#wish_list',	      	as: 'user_profile_wish_list'
   put "user_profile/add_to_wish_list"     => "user_profile#add_to_wish_list",   as: 'user_profile_add_to_wish_list'
   get 'user_profile/information'		     	=> 'user_profile#information',	     	as: 'user_profile_information'
-
+  get 'user_profile/contests'		     	    => 'user_profile#contests',	         	as: 'user_profile_contests'
+  
 	# SUPPLIERS CATALOG
 	scope ":public_url" do
 		get "supplier_description" => 'suppliers_catalog#supplier_description', as: 'supplier_description'

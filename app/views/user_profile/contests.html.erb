@@ -1,0 +1,36 @@
+<div class="container">
+	<%= render 'left_menu', :dresses => @dresses %>
+	<% Contest.where('status = "Activo" or status = "Finalizado"').order('created_at DESC').each do |contest| %>	
+	<div class="panel panel-default">
+	  <div class="panel-heading"><h3 class="panel-title"><%= link_to contest.name.capitalize, contest %></h3></div>
+	  <div class="panel-body">
+			<div class="row">
+				<div class="col-md-4">
+					<%= link_to image_tag(contest.image.url(:m)), contest %>
+				</div>
+				<div class="col-md-8">
+					<p><b>¡El concurso está <%= contest.status.downcase %>!</b></p>
+					<% if contest.status == 'Finalizado' %>
+						<p>El concurso ya finalizó<p>
+						<p>
+							Si quieres revisar las reglas y detalles del concurso, las puedes <%= link_to 'ver acá', contest %>
+						</p>
+					<% elsif contest.status == 'Activo' and !current_user.contestants.where(:contest_id => contest.id).first.nil? %>
+						<p>
+							Ya estás participando, puedes <%= link_to 'ver tu participación', current_user.contestants.where(:contest_id => contest.id).first %> 
+							o <%= link_to 'editar tu participación', edit_contestant_path(current_user.contestants.where(:contest_id => contest.id).first) %>
+						</p>
+						<p>
+							Si quieres revisar las reglas del concurso, las puedes <%= link_to 'ver acá', contest %>
+						</p>
+					<% elsif contest.status == 'Activo' %>
+						<p>¿Qué estás esperando?</p>
+						<p><%= link_to '¡Participa acá!', new_contestant_path(contest_id: contest.id) %></p>
+						<p>Si quieres revisar las reglas del concurso, las puedes <%= link_to 'ver acá', contest %></p>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>

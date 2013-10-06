@@ -37,10 +37,18 @@ class Dress < ActiveRecord::Base
     return !dress_stock_size.nil? ? dress_stock_size.stock : 0
   end
   
+  def get_available_sizes
+    sizes = Array.new
+    self.dress_stock_sizes.each do |dsz|
+      sizes << dsz.size.name if !dsz.size.nil? and dsz.stock > 0
+    end
+    return sizes
+  end
+  
   def get_available_colors
     colors = Array.new
     self.dress_stock_sizes.each do |dsz|
-      colors << dsz.color if !dsz.color.nil? and dsz.color != ''
+      colors << dsz.color if !dsz.color.nil? and dsz.color != '' and dsz.stock > 0
     end
     return colors
   end

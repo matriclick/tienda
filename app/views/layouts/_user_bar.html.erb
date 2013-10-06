@@ -18,45 +18,38 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ropa de Mujer <b class="caret"></b></a>
           <ul class="dropdown-menu" style="background-color:#f8f8f8; color:#777; border-top:none; font-size:12px">
-		        <li><%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %></li>
-					  <li><%= link_to 'Leggings / Calzas', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>				
-            <li><%= link_to 'Blusas / Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
-					  <li><%= link_to 'Chalecos / Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
-					  <li><%= link_to 'Chaquetas', dresses_ver_path(:type => "ropa-de-mujer-chaquetas") %></li>
-					  <li><%= link_to 'Faldas / Shorts', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
-					  <li><%= link_to 'Ropa Interior', dresses_ver_path(:type => "ropa-interior") %></li>
+		        <li style="padding-top:5px"><%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %></li>
+					  <li style="padding-top:5px"><%= link_to 'Leggings / Calzas', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>				
+            <li style="padding-top:5px"><%= link_to 'Blusas / Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
+					  <li style="padding-top:5px"><%= link_to 'Chalecos / Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
+					  <li style="padding-top:5px"><%= link_to 'Chaquetas', dresses_ver_path(:type => "ropa-de-mujer-chaquetas") %></li>
+					  <li style="padding-top:5px"><%= link_to 'Faldas / Shorts', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
+					  <li style="padding-top:5px"><%= link_to 'Ropa Interior', dresses_ver_path(:type => "ropa-interior") %></li>
           </ul>
         </li>
 	  		<li><%= link_to 'Zapatos y Botas', dresses_ver_path(:type => "zapatos") %></li>
+				<% if (contest = SiteConfiguration.find(1).contest) %>
+					<li><%= link_to contest.name.capitalize, contest %></li>
+				<% end %>
 				<li><%= link_to 'Blog', blog_el_bazar_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 				<% if user_signed_in? %>
-	        <li><%= wish_list_link %></li>
-	        <li><%= carrito_compra_link %></li>
-					<li><%= link_to "Tu Cuenta", user_profile_personalization_path, :rel => 'nofollow' %></li>
-					<li><%= link_to 'Salir', destroy_user_session_path, method: :delete, :rel => 'nofollow' %></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tu Cuenta <b class="caret"></b></a>
+          <ul class="dropdown-menu" style="background-color:#f8f8f8; color:#777; border-top:none; font-size:12px">
+		        <li style="padding-top:10px"><%= wish_list_link %></li>
+		        <li style="padding-top:10px"><%= carrito_compra_link %></li>
+						<li style="padding-top:10px"><%= link_to "Personalización", user_profile_personalization_path, :rel => 'nofollow' %></li>
+						<% if (contest = SiteConfiguration.find(1).contest) %>
+							<li style="padding-top:10px"><%= link_to 'Concursos', user_profile_contests_path, :rel => 'nofollow' %></li>
+						<% end %>
+						<li style="padding-top:10px"><%= link_to 'Salir', destroy_user_session_path, method: :delete, :rel => 'nofollow' %></li>
+          </ul>
+        </li>
 				<% else %>
-					<li>
-					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), 
-											:html => {class: "form-inline", role: "form", style: 'margin-top:12px'}) do |f| %>
-						<div class="form-group">
-					    <label class="sr-only" for="exampleInputEmail2">Correo</label>
-							<%= f.email_field :email, :placeholder => 'Correo', :class => "form-control input-sm", style: "width:130px;font-size:11px" %>
-					  </div>
-					  <div class="form-group">
-					    <label class="sr-only" for="exampleInputPassword2">Clave</label>
-							<%= f.password_field :password, :placeholder => 'Clave', :class => "form-control input-sm", style: "width:130px;font-size:11px" %>
-					  </div>
-						<%= f.submit 'Entrar', :class => "btn btn-default input-sm", style: "font-size:11px" %>
-					<% end %>
-					</li>
-					<%- if devise_mapping.omniauthable? %>
-					<li>
-						<%= link_to image_tag('iconos_redes/facebook-user-bar.png'), omniauth_authorize_path(resource_name, 'facebook'), 
-								style: "padding:10px 0px 0px 10px" %>
-					</li>
-					<% end -%>
+					<li><%= link_to 'Entrar', new_session_path(resource_name) %></li>
+					<li><%= link_to 'Registrate', new_user_registration_path %></li>
 				<% end %>
       </ul>
     </div><!--/.nav-collapse -->

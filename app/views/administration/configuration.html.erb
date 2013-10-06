@@ -5,9 +5,14 @@
 		<div class="col-md-12">
 			<div class="form-group">
 				¿Activar Menú Liquidación? <%= f.check_box :clearance_menu %>
+				<p class="help-block">En el menú se agregará la pestaña "Liquidación" si dejas esta opción con un check.</p>
+			</div>
+			<div class="form-group">
+				¿Activar Menú Concurso? <%= f.collection_select :contest_id, Contest.all, :id, :name, :prompt => true, 
+																		:allow_blank => true, :include_blank => true, class: 'form-control' %>
+				<p class="help-block">Si no quieres que aparezca ningún concurso en el menú, deja esta opción en blanco.</p>
 			</div>
 			<%= f.submit("Guardar",  class: "btn btn-default") %>
-			</div>
 		</div>
 	</div>
 	<% end %>
