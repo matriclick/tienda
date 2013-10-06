@@ -355,12 +355,6 @@ class DressesController < ApplicationController
     
     @dress = Dress.find(params[:id])
     @sizes = @dress.dress_types.first.sizes
-
-#    @sizes.each do |size|
-#      if DressStockSize.where('size_id = ? and dress_id = ?', size.id, @dress.id).size == 0
-#        DressStockSize.create(:dress_id => @dress.id, :stock => 0, :size_id => size.id)
-#      end
-#    end
     
   end
   

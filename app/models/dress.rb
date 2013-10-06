@@ -4,6 +4,7 @@ class Dress < ActiveRecord::Base
   extend FriendlyId
   
   before_save :set_code
+  before_save :check_stock_and_update_status_and_position
   
   friendly_id :introduction, use: :slugged
 
@@ -31,6 +32,29 @@ class Dress < ActiveRecord::Base
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	
+  def check_stock_and_update_status_and_position
+    if self.dress_status.name != 'Oculto'
+      dszs = self.dress_stock_sizes
+
+      stock_left = false
+      
+      dszs.each do |dsz|
+        if dsz.stock > 0
+          stock_left = true
+        end
+      end
+      
+      if stock_left
+        ds_available = DressStatus.find_by_name 'Disponible'
+        self.dress_status = ds_available
+      else
+        ds_sold = DressStatus.find_by_name 'Vendido'
+        self.dress_status = ds_sold        
+        self.position = 50
+      end
+    end
+  end
+  
   def get_stock_from_size(size_name, color_name)
     size_id = Size.find_by_name(size_name).id if !size_name.nil?
     dress_stock_size = self.dress_stock_sizes.where(:size_id => size_id, :color => color_name).first
