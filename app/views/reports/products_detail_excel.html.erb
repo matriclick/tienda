@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>Selecciona el rango de fechas para la creación del producto</p>
+			<%= form_tag(reports_products_detail_excel_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+			<div class="form-group">
+				<div class="input-group">
+				  <span class="input-group-addon">Desde</span>
+					<%= text_field_tag(:from, @from.strftime("%Y-%m-%d"), class: 'form-control') %>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+				  <span class="input-group-addon">Hasta</span>
+					<%= text_field_tag(:to, @to.strftime("%Y-%m-%d"), class: 'form-control') %>
+				</div>
+			</div>
+			<div class="form-group">
+				<div>
+					<% if !(defined? param).nil? %>
+						<%= hidden_field_tag :status, param %>
+					<% end %>
+				</div>
+				<%= submit_tag("Descargar Reporte",  class: "btn btn-default btn-sm", "data-loading-text" => "Descargando...") %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

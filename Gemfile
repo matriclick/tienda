@@ -24,8 +24,6 @@ gem 'cancan'
 gem 'nested_form', :git => "https://github.com/fxposter/nested_form.git"
 #gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
-gem 'spreadsheet'
-
 
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete'

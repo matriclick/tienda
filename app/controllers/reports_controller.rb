@@ -98,15 +98,15 @@ class ReportsController < ApplicationController
     @day_today = Time.now.day
     @factor = @days_month.to_f/@day_today
 
-    @c_sum_month = Purchase.sum(:total_cost, :conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
+    @c_sum_month = Purchase.sum(:total_cost, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
     @p_sum_month = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
-    @r_sum_month = Purchase.sum(:refund_value, :conditions => ['refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
+    @r_sum_month = Purchase.sum(:refund_value, :conditions => ['funds_received = ? and refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
 
-    @c_sum = Purchase.sum(:total_cost, :conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])    
+    @c_sum = Purchase.sum(:total_cost, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])    
     @p_sum = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
-    @r_sum = Purchase.sum(:refund_value, :conditions => ['refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, 'finalizado', @from, @to])
+    @r_sum = Purchase.sum(:refund_value, :conditions => ['funds_received = ? and refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, true, 'finalizado', @from, @to])
     
-    @count_paid_pur = Purchase.count(:conditions => ['store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
+    @count_paid_pur = Purchase.count(:conditions => ['funds_received = ? and store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, true, 'finalizado', @from, @to])
     @count = Purchase.count(:conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
     @prod_count = 0
     Purchase.where('funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to).each do |p|
@@ -139,6 +139,23 @@ class ReportsController < ApplicationController
       @to = Time.parse(params[:to]).utc.end_of_day
     end
     
+  end
+  
+  def products_detail_excel
+    add_breadcrumb "Descargar detalle de productos", :reports_products_detail_excel_path
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.utc.beginning_of_year
+      @to = DateTime.now.utc.end_of_week
+    else
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
+    end    
+    if params[:commit] == 'Descargar Reporte'
+      respond_to do |format|
+        format.html
+        format.csv { send_data Dress.to_csv(@from, @to) }
+      end
+    end
   end
      
   private

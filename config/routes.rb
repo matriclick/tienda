@@ -64,6 +64,7 @@ Matri::Application.routes.draw do
   get 'reports/products_in_wish_list' => 'reports#products_in_wish_list', as: 'reports_products_in_wish_list'
   get 'reports/store_payments' => 'reports#store_payments', as: 'reports_store_payments'
   get 'reports/purchases_to_be_delivered' => 'reports#purchases_to_be_delivered', as: 'reports_purchases_to_be_delivered'
+  get 'reports/products_detail_excel' => 'reports#products_detail_excel', as: 'reports_products_detail_excel'
 
   resources :matriclickers
 

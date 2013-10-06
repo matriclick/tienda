@@ -32,6 +32,33 @@ class Dress < ActiveRecord::Base
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	
+  def self.to_csv(from, to)
+    dresses = Dress.where('created_at >= ? and created_at <= ?', from, to)
+    header = ['Id', 'Fecha Creación', 'Fecha Actualización', 'Introducción', 'Precio', 'Costo Neto', 'IVA', 'Tienda', 'Status', 'Posición', 'Slug', 
+              'Precio Original', 'Descuento', 'Código', 'WishList', 'Ventas', 'Carritos Agregado']
+    CSV.generate do |csv|
+      csv << header
+      dresses.each do |dress|             
+        csv << [dress.id, dress.created_at, dress.updated_at, dress.introduction, dress.price, dress.net_cost, dress.vat_cost, 
+                dress.supplier_account.fantasy_name, dress.dress_status.name, dress.position, dress.slug, dress.original_price, dress.discount, dress.code,
+                dress.users.size, dress.get_purchases.size, dress.get_shopping_cart_items.size]
+      end
+    end
+  end
+  
+  def get_purchases
+    scis = self.get_shopping_cart_items
+    purchases = Array.new
+    scis.each do |sci|
+      purchases.concat Purchase.where(:purchasable_type => 'ShoppingCart', :purchasable_id => sci.shopping_cart.id, :status => 'finalizado', :funds_received => true)
+    end
+    return purchases
+  end
+  
+  def get_shopping_cart_items
+    return ShoppingCartItem.where(:purchasable_type => 'Dress', :purchasable_id => self.id)
+  end
+  
   def check_stock_and_update_status_and_position
     if self.dress_status.name != 'Oculto'
       dszs = self.dress_stock_sizes
@@ -219,19 +246,6 @@ class Dress < ActiveRecord::Base
 	def self.available_to_purchase
 	  disp = DressStatus.find_by_name("Disponible").id
 	  where('dress_status_id = ?', disp).order('position ASC')
-  end
-  
-  def find_gift_card
-    if self.gift_cards.count > 0
-      return self.gift_cards.order('value DESC').first
-    else
-      self.supplier_account.gift_cards.each do |gc|
-        if gc.min_price <= self.price and gc.max_price >= self.price
-          return gc
-        end
-      end
-    end
-    return false
   end
     
   # -------------- PURCHASABLE METHODS -------------------
