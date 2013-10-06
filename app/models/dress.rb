@@ -35,15 +35,23 @@ class Dress < ActiveRecord::Base
   def self.to_csv(from, to)
     dresses = Dress.where('created_at >= ? and created_at <= ?', from, to)
     header = ['Id', 'Fecha Creación', 'Fecha Actualización', 'Introducción', 'Precio', 'Costo Neto', 'IVA', 'Tienda', 'Status', 'Posición', 'Slug', 
-              'Precio Original', 'Descuento', 'Código', 'WishList', 'Ventas', 'Carritos Agregado']
+              'Precio Original', 'Descuento', 'Código', 'WishList', 'Ventas', 'Carritos Agregado', 'Stock Disponible']
     CSV.generate do |csv|
       csv << header
       dresses.each do |dress|             
         csv << [dress.id, dress.created_at, dress.updated_at, dress.introduction, dress.price, dress.net_cost, dress.vat_cost, 
                 dress.supplier_account.fantasy_name, dress.dress_status.name, dress.position, dress.slug, dress.original_price, dress.discount, dress.code,
-                dress.users.size, dress.get_purchases.size, dress.get_shopping_cart_items.size]
+                dress.users.size, dress.get_purchases.size, dress.get_shopping_cart_items.size, dress.get_available_stock]
       end
     end
+  end
+  
+  def get_available_stock
+    stock = 0
+    self.dress_stock_sizes.each do |dsz|
+      stock = dsz.stock + stock
+    end
+    return stock
   end
   
   def get_purchases
