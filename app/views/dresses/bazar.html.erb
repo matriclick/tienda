@@ -1,4 +1,4 @@
-<% cache ['bazar_home_page', @dresses.first] do %>
+<% cache ['bazar_home_page_4', @dresses.first] do %>
 <script type="text/javascript">
   $(document).ready(function() {
     $('#myCarousel').carousel({
@@ -14,10 +14,23 @@
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
+		<li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
   <div class="carousel-inner">
-    <div class="item active">
-      <img src="<%= asset_path 'el_bazar/b1.jpg' %>" alt="Bienvenido a Tramanta.com">
+		<% if (contest = SiteConfiguration.find(1).contest) %>
+		<div class="item active">
+      <img src="<%= asset_path 'el_bazar/miss-tramanta-2013.jpg' %>" alt="Miss Tramanta 2013">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1><%= contest.name.capitalize %></h1>
+          <p>Buscamos a la modelo para la temporada primavera/verano 2013 de Tramanta.com. La ganadora participará de las sesiones fotográficas y ganará $150,000 en productos poublicados en Tramanta.com</p>
+          <p><%= link_to 'Ver Concurso', contest, class: "btn btn-large btn-primary" %></p>
+        </div>
+      </div>
+    </div>
+		<% end %>
+    <div class="item">
+      <img src="<%= asset_path 'el_bazar/moda-tendencia-vestidos.jpg' %>" alt="Moda Tendencia y Vestidos en Tramanta.com">
       <div class="container">
         <div class="carousel-caption">
           <h1>Bienvenido a Tramanta.com</h1>
@@ -27,7 +40,7 @@
       </div>
     </div>
     <div class="item">
-      <img src="<%= asset_path 'el_bazar/b4.jpg' %>" alt="Todas las semanas nuevos productos">
+      <img src="<%= asset_path 'el_bazar/nuevos-productos.jpg' %>" alt="Todas las semanas nuevos productos">
       <div class="container">
         <div class="carousel-caption">
           <h1>Todas las semanas nuevos productos</h1>
@@ -37,7 +50,7 @@
       </div>
     </div>
     <div class="item">
-      <img src="<%= asset_path 'el_bazar/b2.jpg' %>" alt="Moda y Tendencias">
+      <img src="<%= asset_path 'el_bazar/siempre-a-la-vanguardia.jpg' %>" alt="Siempre a la Vanguardia en Tramanta.com">
       <div class="container">
         <div class="carousel-caption">
           <h1>Moda y Tendencias</h1>
