@@ -5,28 +5,9 @@
 		</div>
 	</div>
 	<div class="row">
-	<% @purchasable.shopping_cart_items.each do |shopping_cart_item| %>
-		<div class="col-md-4">
-			<div class="panel panel-default">
-			  <div class="panel-heading">
-			    <h3 class="panel-title"><%= link_to shopping_cart_item.purchasable.introduction, dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug) %></h3>
-			  </div>
-			  <div class="panel-body">
-					<div class="media">
-							<%= link_to image_tag(shopping_cart_item.purchasable.small_image, class: 'media-object'), 
-													dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), class: 'pull-left thumbnail' %>
-					  <div class="media-body">
-							<ul class="list-group">
-							  <li class="list-group-item"><strong>Precio:</strong> <%= number_to_currency shopping_cart_item.purchasable.price %></li>
-							  <li class="list-group-item"><strong>Talla:</strong> <%= shopping_cart_item.size.to_s %></li>
-							  <li class="list-group-item"><strong>Cantidad:</strong> <%= shopping_cart_item.quantity.to_s %></li>
-							</ul>
-					  </div>
-					</div>
-				</div>
-			</div>
+		<div class="col-md-12">
+			<%= render 'cart', purchasable: @purchasable %>
 		</div>
-	<% end %>
 	</div>
 	
 	<div class="row">

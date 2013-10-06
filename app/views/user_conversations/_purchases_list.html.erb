@@ -1,48 +1,56 @@
 <% purchases.each do |purchase| %>
 <div class="row">
 	<% if purchase.purchasable_type == 'Dress' %>
-		<div class="conversation_box">
-			<div class="col-md-2">
-				<div>		
-					<%= purchase.created_at.strftime("%d %b %Y") %>
-				</div>
-				<div>
-					<%= image_tag(purchase.purchasable.small_image) %>
-				</div>
-			</div>
-			<div class="col-md-10">
-				<div style="color:#777;">
-					<%= raw purchase.purchasable.description %><br />
-					<%= number_to_currency(purchase.price) + ' ' + purchase.currency %>
-				</div>
-				<div style="margin-top:10px">
-					<%= link_to 'Ver Detalle', purchase.purchasable.link_to_view(purchase.id), :class => 'blue no_underline' %>
-				</div>		
-			</div>
-		</div>
-	<% else %>
-			<div class="col-md-12">
-				<div class="panel panel-info">
-				  <div class="panel-heading">
-				    <h3 class="panel-title">Fecha: <%= purchase.created_at.strftime("%d %b %Y") %></h3>
-				  </div>
-				  <div class="panel-body">
-						<% purchase.purchasable.shopping_cart_items.each do |shopping_cart_item| %>
-						<div class="media">
-								<%= link_to image_tag(shopping_cart_item.purchasable.small_image, class: 'media-object'), 
-														dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), class: 'pull-left thumbnail' %>
-						  <div class="media-body">
-								<ul class="list-group">
-									<li class="list-group-item"><%= link_to shopping_cart_item.purchasable.introduction, dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug) %></li>
-								  <li class="list-group-item"><strong>Precio:</strong> <%= number_to_currency shopping_cart_item.purchasable.price %></li>
-								  <li class="list-group-item"><strong>Talla:</strong> <%= shopping_cart_item.size.to_s %> <strong>| Cantidad:</strong> <%= shopping_cart_item.quantity.to_s %></li>
-								</ul>
-						  </div>
-						</div>
-						<% end %>
+		<div class="col-md-12">
+			<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Fecha: <%= purchase.created_at.strftime("%d %b %Y") %></h3>
+			  </div>
+			  <div class="panel-body">
+					<div class="media">
+							<%= link_to image_tag(purchase.purchasable.small_image), class: 'media-object'), 
+													dress_ver_path(:type => purchase.purchasable.dress_type.name, :slug => purchase.purchasable.slug), class: 'pull-left thumbnail' %>
+					  <div class="media-body">
+							<ul class="list-group">
+								<li class="list-group-item"><%= link_to purchase.purchasable.introduction, dress_ver_path(:type => purchase.purchasable.dress_type.name, :slug => purchase.purchasable.slug) %></li>
+							  <li class="list-group-item"><strong>Precio:</strong> <%= number_to_currency purchase.purchasable.price %></li>
+							  <li class="list-group-item">
+									<strong>Cantidad:</strong> <%= purchase.quantity.to_s %>
+									<%= raw('| <strong>Talla:</strong> '+purchase.size.to_s) if !shopping_cart_item.size.nil? %>
+								</li>
+							</ul>
+					  </div>
 					</div>
 				</div>
 			</div>
+		</div>
+	<% else %>
+		<div class="col-md-12">
+			<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Fecha: <%= purchase.created_at.strftime("%d %b %Y") %></h3>
+			  </div>
+			  <div class="panel-body">
+					<% purchase.purchasable.shopping_cart_items.each do |shopping_cart_item| %>
+					<div class="media">
+							<%= link_to image_tag(shopping_cart_item.purchasable.small_image, class: 'media-object'), 
+													dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), class: 'pull-left thumbnail' %>
+					  <div class="media-body">
+							<ul class="list-group">
+								<li class="list-group-item"><%= link_to shopping_cart_item.purchasable.introduction, dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug) %></li>
+							  <li class="list-group-item"><strong>Precio:</strong> <%= number_to_currency shopping_cart_item.purchasable.price %></li>
+							  <li class="list-group-item">
+									<strong>Cantidad:</strong> <%= shopping_cart_item.quantity.to_s %>
+									<%= raw('| <strong>Talla:</strong> '+shopping_cart_item.size.to_s) if !shopping_cart_item.size.nil? %>
+									<%= raw('| <strong>Color:</strong> '+shopping_cart_item.color.to_s) if !shopping_cart_item.color.nil? %>
+								</li>
+							</ul>
+					  </div>
+					</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
 	<% end %>
 </div>
 <% end %>

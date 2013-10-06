@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131005214024) do
+ActiveRecord::Schema.define(:version => 20131006000110) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -610,6 +610,7 @@ ActiveRecord::Schema.define(:version => 20131005214024) do
     t.integer  "price"
     t.integer  "unit_cost"
     t.boolean  "store_paid"
+    t.string   "color"
   end
 
   create_table "shopping_cart_items_store_payments", :id => false, :force => true do |t|

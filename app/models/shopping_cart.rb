@@ -100,7 +100,7 @@ class ShoppingCart < ActiveRecord::Base
   def full_link_to_view(purchase_id = nil)
     host = 'www.tramanta.com'
     
-    purchases_show_for_user_path(:only_path => false, :host => host, :id => purchase_id)
+    user_profile_path(:only_path => false, :host => host)
   end
   # -------------- END PURCHASABLE METHODS -------------------
   

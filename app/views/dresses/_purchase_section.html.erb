@@ -1,8 +1,21 @@
 <% if !dress.supplier_account.supplier_account_type.nil? %>
 	<% if dress.has_stock? %>
-		<%= link_to "AGREGAR AL CARRITO", 
-					buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), 
-					:method => :post, :class => 'btn btn-primary', :style => 'width:100%' %>
+		<%= form_tag(buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), 
+				:method => "post", :html => {class: 'form-horizontal', role: 'form'}) do %>
+		  <div class="form-group">
+		    <label>Selecciona la talla:</label>
+				<%= collection_select('shopping_cart_item', 'size', Size.all, :name, :name, {include_blank: true}, 
+						{ :class => "form-control", style: 'width:100%' }) %>
+		  </div>
+		  <div class="form-group">
+		    <label>Selecciona el color:</label>
+				<%= select('shopping_cart_item', 'color', dress.get_available_colors, {include_blank: true}, 
+						{ :class=> "form-control", style: 'width:100%' }) %>
+		  </div>
+		  <div class="form-group">
+				<%= submit_tag "AGREGAR AL CARRITO",	:method => :post, :class => 'btn btn-primary', :style => 'width:100%' %>
+		  </div>
+		<% end %>
 	<% else %>
 		ITEM SIN STOCK DISPONIBLE<br />
 	<% end %>

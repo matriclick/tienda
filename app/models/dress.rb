@@ -31,6 +31,20 @@ class Dress < ActiveRecord::Base
 	validates :dress_images, :presence => true
 	validates :price, :presence => true
 	
+  def get_stock_from_size(size_name, color_name)
+    size_id = Size.find_by_name(size_name).id if !size_name.nil?
+    dress_stock_size = self.dress_stock_sizes.where(:size_id => size_id, :color => color_name).first
+    return !dress_stock_size.nil? ? dress_stock_size.stock : 0
+  end
+  
+  def get_available_colors
+    colors = Array.new
+    self.dress_stock_sizes.each do |dsz|
+      colors << dsz.color if !dsz.color.nil? and dsz.color != ''
+    end
+    return colors
+  end
+  
   def set_code
     if self.code.blank?
       code_s = 'TRA'

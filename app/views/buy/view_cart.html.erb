@@ -19,43 +19,25 @@
 												dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, 
 												:slug => shopping_cart_item.purchasable.slug) %>
 					</div>			
-					<div class="col-md-6">
-						<table width="100%">
-							<tr>
-								<th style="">Descripción</th>
-								<th style="">Precio Unitario</th>
-								<th style="">Talla</th>
-								<th style="">Cantidad</th>
-							</tr>
-							<tr>
-								<td style="vertical-align:top"><%= raw shopping_cart_item.purchasable.description.gsub(/\n/, '<br/>') if !shopping_cart_item.purchasable.description.nil? %></td>
-								<td style="vertical-align:top"><%= number_to_currency shopping_cart_item.purchasable.price %></td>
-								<td style="vertical-align:top">
-									<% shopping_cart_item.purchasable.dress_stock_sizes.each do |dress_stock_size| %>
-										<% if !dress_stock_size.stock.blank? %>
-											<% if dress_stock_size.stock > 0 %>
-												<% if shopping_cart_item.size.blank? %>
-													<%= f.radio_button(:size, dress_stock_size.size.name, :checked => dress_stock_size.first_with_stock?, :class => "buy_radio_button_cart") %> <%= dress_stock_size.size.name %>
-												<% else %>
-													<%= f.radio_button(:size, dress_stock_size.size.name, :checked => dress_stock_size.size.name == shopping_cart_item.size, :class => "buy_radio_button_cart") %> <%= dress_stock_size.size.name %>
-												<% end %>
-											<% end %>
-										<% end %>
-									<% end %>
-								</td>
-								<td style="vertical-align:top">
-									<% if @first_max[shopping_cart_item.id.to_s].blank? %>
-										<%= f.select(:quantity, 1..5) %>
-									<% else %>
-										<%= f.select(:quantity, 1..@first_max[shopping_cart_item.id.to_s]) %>
-									<% end %>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div class="col-md-3">
-						<%= link_to image_tag('shopping_cart/remove-from-cart-small.jpeg', :class => 'image_button', alt: 'Eliminar'), 
-							buy_remove_from_cart_path(:shopping_cart_item_id => shopping_cart_item.id), method: :post %>
+					<div class="col-md-10">
+						<div class="row">
+								<div class="col-md-3"><b>Descripción</b><br />
+									<%= raw shopping_cart_item.purchasable.description.gsub(/\n/, '<br/>') if !shopping_cart_item.purchasable.description.nil? %></div>
+								<div class="col-md-2"><b>Precio Unitario</b><br />
+									<%= number_to_currency shopping_cart_item.purchasable.price %></div>
+								<div class="col-md-2"><b>Talla</b><br />
+									<%= shopping_cart_item.size %></div>
+								<div class="col-md-2"><b>Color</b><br />
+									<%= shopping_cart_item.color %></div>
+								<div class="col-md-2"><b>Cantidad</b><br />
+									<%= f.select(:quantity, 1..shopping_cart_item.purchasable.get_stock_from_size(shopping_cart_item.size, 
+															shopping_cart_item.color)) %></div>
+								<div class="col-md-1">
+									<%= link_to image_tag('shopping_cart/remove-from-cart-small.jpeg', :class => 'image_button', alt: 'Eliminar'), 
+										buy_remove_from_cart_path(:shopping_cart_item_id => shopping_cart_item.id), method: :post %>
+								</div>
+								
+						</div>
 					</div>
 				</div>
 			</div>

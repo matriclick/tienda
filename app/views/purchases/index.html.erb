@@ -90,6 +90,7 @@
 													<em>(<%= number_to_currency(sci.purchasable.price) %> c/u)</em>
 									| Cantidad: <%= sci.quantity %> 
 									| Talla: <%= sci.size %> 
+									<%= '| Color: '+sci.color if !sci.color.nil? %> 
 									| Tienda: <%= link_to sci.purchasable.supplier_account.fantasy_name, 
 													supplier_description_path(:public_url => sci.purchasable.supplier_account.public_url) %> 
 									| Pago a tienda: <em>(<%= number_to_currency(sci.total_cost) %>)</em>
