@@ -1,8 +1,11 @@
-<% cache ['list_competitor-'+contestant.contest_votes.size.to_s, contestant] do %>
+<% cache ['list_competitor_1_'+contestant.contest_votes.size.to_s, contestant] do %>
 	<% unless contestant.contestant_images.first.nil? %>
-	<div class="col-md-2" style="height:330px; overflow:hidden; padding-top:10px;">
+	<div class="col-md-2" style="height:330px; overflow:hidden;">
 		<p style="text-align:center">
 			<%= link_to contestant.name.capitalize, contestant %> <%= link_to raw(' <span class="glyphicon glyphicon-search"></span>'), contestant %>
+			<br />
+			<%= link_to image_tag(contestant.contestant_images.first.image.url(:index_dress), :alt => contestant.contestant_images.first.name,
+														:style => 'height:250px; overflow:hidden'), contestant %>
 			<br />
 			<%= contestant.contest_votes.size %> <span style="font-size:18px" class="glyphicon glyphicon-thumbs-up"></span> - 
 			<% if !current_user.nil? and current_user.contest_votes.where(:contest_id => contestant.contest.id).size > 0 and 
@@ -14,7 +17,6 @@
 				<%= link_to '¡Votar!', contestants_add_vote_path(id: contestant.id), method: 'put' %>
 			<% end %>
 		</p>
-		<%= link_to image_tag(contestant.contestant_images.first.image.url(:index_dress), :alt => contestant.contestant_images.first.name), contestant %>
 	</div>
 	<% end %>
 <% end %>
