@@ -40,6 +40,7 @@
           <ul class="dropdown-menu" style="background-color:#f8f8f8; color:#777; border-top:none; font-size:12px">
 		        <li style="padding-top:10px"><%= wish_list_link %></li>
 		        <li style="padding-top:10px"><%= carrito_compra_link %></li>
+						<li style="padding-top:10px"><%= link_to "Información", user_profile_information_path, :rel => 'nofollow' %></li>
 						<li style="padding-top:10px"><%= link_to "Personalización", user_profile_personalization_path, :rel => 'nofollow' %></li>
 						<% if (contest = SiteConfiguration.find(1).contest) %>
 							<li style="padding-top:10px"><%= link_to 'Concursos', user_profile_contests_path, :rel => 'nofollow' %></li>

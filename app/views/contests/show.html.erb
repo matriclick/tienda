@@ -28,10 +28,17 @@
 	
 	<div class="row" style="padding-bottom:10px; margin-top:-20px">
 		<div class="col-md-12">
+			<%= link_to 'Inscríbete para concursar', user_profile_contests_path, class: "btn btn-default" %> 
+			<%= link_to '¿Ya estás participando?', user_profile_contests_path, class: "btn btn-default" %>
+		</div>
+	</div>
+	
+	<div class="row" style="padding-bottom:10px; margin-top:-20px">
+		<div class="col-md-12">
 			<h3>Los competidores</h3>
 			<p class="help-block">
 				Para votar debes estar registrado e iniciar sesión, puedes <%= link_to 'registrarte acá', new_user_registration_path %>.
-				Si ya estás inscrito puedes <%= link_to 'iniciar sesión acá', new_session_path(resource_name) %>.
+				Si ya estás inscrito puedes <%= link_to 'iniciar sesión acá', new_session_path(resource_name) %>. 
 			</p>
 		</div>
 	</div>
