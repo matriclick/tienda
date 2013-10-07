@@ -55,8 +55,11 @@ class Dress < ActiveRecord::Base
   end
   
   def get_purchases
-    scis = self.get_shopping_cart_items
     purchases = Array.new
+    #Compras directas
+    purchases.concat Purchase.where(:purchasable_type => 'Dress', :purchasable_id => self.id, :status => 'finalizado', :funds_received => true)
+    #Compras con shopping cart
+    scis = self.get_shopping_cart_items
     scis.each do |sci|
       purchases.concat Purchase.where(:purchasable_type => 'ShoppingCart', :purchasable_id => sci.shopping_cart.id, :status => 'finalizado', :funds_received => true)
     end
