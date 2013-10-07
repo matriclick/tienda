@@ -15,8 +15,10 @@
 			<b>Sin Stock</b>
 		<% end %>
 	</p>
-	<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
-		dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+	<div style="max-height:270px; overflow:hidden;">
+		<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
+								dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+	</div>
 	<p style="font-size:12px"><strong><%= number_to_currency dress.price %></strong><br/>
 		 <%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></p>
 		<%= link_to 'Modificar Stock', dresses_set_stock_path(:id => dress.id), 
