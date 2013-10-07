@@ -1,4 +1,4 @@
-<% cache ['list_dress_5', dress] do %>
+<% cache ['list_dress_6', dress] do %>
 	<div class="col-md-3" style="height:371px; overflow:hidden;">
 	<% if dress.dress_status.name.include?('Vendido') %>
 		<div style="position:absolute; top:40px">
@@ -14,9 +14,10 @@
 			</div>
 		</div>
 	<% end %>
-
-		<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name, 
-													style: 'max-height:270px; overflow:hidden;'), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+		<div style="max-height:270px; overflow:hidden;">
+			<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
+									dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+		</div>
 		<p style="font-size:12px">
 			<span style="margin-right:5px; text-decoration:line-through"><%= number_to_currency dress.original_price %></span> 
 			<strong><%= number_to_currency dress.price %></strong><br/>
