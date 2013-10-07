@@ -24,7 +24,10 @@ class BuyController < ApplicationController
     user = current_user
     purchasable_id = params[:purchasable_id]
     purchasable_type = params[:purchasable_type]
-    color = !params[:shopping_cart_item].nil? ? params[:shopping_cart_item][:color] : ''
+    color = params[:shopping_cart_item][:color] if !params[:shopping_cart_item].nil?
+    if color.nil?
+      color = ""
+    end
     size = params[:shopping_cart_item][:size] if !params[:shopping_cart_item].nil?
     shopping_cart = user.select_current_shopping_cart
     
