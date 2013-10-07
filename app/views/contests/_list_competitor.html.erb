@@ -1,6 +1,6 @@
 <% cache ['list_competitor-'+contestant.contest_votes.size.to_s, contestant] do %>
 	<% unless contestant.contestant_images.first.nil? %>
-	<div class="col-md-2" style="height:400px; overflow:hidden;">
+	<div class="col-md-2" style="height:330px; overflow:hidden; padding-top:10px;">
 		<p style="text-align:center">
 			<%= link_to contestant.name.capitalize, contestant %> <%= link_to raw(' <span class="glyphicon glyphicon-search"></span>'), contestant %>
 			<br />
