@@ -1,8 +1,5 @@
-<script>
-	stocks_for_js = <%= @stocks_for_js %>
-</script>
-
 <div class="container">
+<%= render 'layouts/notice', notice: notice %>
 <%= render 'user_profile/left_menu' %>
 
 <%= form_tag buy_refresh_cart_path, :method => "put" do %>

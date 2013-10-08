@@ -99,31 +99,21 @@ class BuyController < ApplicationController
     
     if @shopping_cart_items.empty?
       if params[:commit] == 'Pagar carrito de compras'
-        redirect_to buy_details_path(:purchasable_type => @shopping_cart.class, :purchasable_id => @shopping_cart.id)
-      else
-        redirect_to buy_view_cart_path
-      end
-    else
-      @first_max = {}
-      @stocks_for_js = '{'
-      @shopping_cart_items.each do |shopping_cart_item|
-        @stocks_for_js += shopping_cart_item.id.to_s + ': '
-        stock_line_for_js = '{'
-        shopping_cart_item.purchasable.dress_stock_sizes.each do |dress_stock_size|
-    			if !dress_stock_size.stock.blank?
-    			  if dress_stock_size.stock > 0
-    			    if dress_stock_size.first_with_stock?
-    			      @first_max = @first_max.merge("#{shopping_cart_item.id.to_s}" => dress_stock_size.stock)
-    		      end
-              stock_line_for_js += 'shopping_cart_items_' + shopping_cart_item.id.to_s + '_size_' + dress_stock_size.size.name.downcase.gsub(" ","_").gsub("á","").gsub("é","").gsub("í","").gsub("ó","").gsub("ú","").gsub("Á","").gsub("É","").gsub("Í","").gsub("Ó","").gsub("Ú","") + ': ' + dress_stock_size.stock.to_s + ','
-            end
+        if @shopping_cart.check_all_items_are_available
+          redirect_to buy_details_path(:purchasable_type => @shopping_cart.class, :purchasable_id => @shopping_cart.id)
+        else
+          respond_to do |format|
+            format.html { redirect_to buy_view_cart_path, notice: 'Tienes productos en tu carrito sin stock disponible<br /><br />Debes eliminarlos para continuar con el pago.' }
+            format.json { head :ok }
           end
         end
-        stock_line_for_js = stock_line_for_js[0..stock_line_for_js.size - 2] + '}'
-        @stocks_for_js += stock_line_for_js + ','
+      else
+        respond_to do |format|
+          format.html { redirect_to buy_view_cart_path, notice: 'No has agregado productos al carrito de compras' }
+          format.json { head :ok }
+        end
       end
-      @stocks_for_js = @stocks_for_js[0..@stocks_for_js.size - 2] + '}'
-      
+    else
       render :action => "view_cart"
     end
   end

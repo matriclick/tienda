@@ -2,6 +2,14 @@
 class ShoppingCartItem < ActiveRecord::Base
   belongs_to :shopping_cart
   has_and_belongs_to_many :store_payments
+    
+  def has_stock?
+    size = Size.find_by_name(self.size)
+    dress_stock_size = DressStockSize.where("size_id = ? and dress_id = ? and color = ?", size.id, self.purchasable_id, self.color).first
+    
+    return false if dress_stock_size.nil?
+    return dress_stock_size.stock >= self.quantity ? true : false
+  end
   
   def get_store
     return self.purchasable.supplier_account
@@ -24,20 +32,4 @@ class ShoppingCartItem < ActiveRecord::Base
     eval(self.purchasable_type.to_s + '.find ' + self.purchasable_id.to_s)
   end
   
-  def enough_stock?
-    if self.purchasable_type != 'Dress'
-      return true
-    else
-      if !self.quantity.blank? and !self.size.blank?
-        matri_size = Size.find_by_name(self.size)
-        dress = self.purchasable
-        dress_stock_size = DressStockSize.where("size_id = ? and dress_id = ?", matri_size.id, dress.id).first
-        if !(self.quantity > dress_stock_size.stock)
-          return true
-        end
-      end
-    end
-    return false
-  end
-
 end
