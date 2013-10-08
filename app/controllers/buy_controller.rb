@@ -69,26 +69,6 @@ class BuyController < ApplicationController
     
     add_breadcrumb "Tramanta", :bazar_path
     add_breadcrumb "Carrito", :buy_view_cart_path
-    
-    @first_max = {}
-    @stocks_for_js = '{'
-    @shopping_cart_items.each do |shopping_cart_item|
-      @stocks_for_js += shopping_cart_item.id.to_s + ': '
-      stock_line_for_js = '{'
-      shopping_cart_item.purchasable.dress_stock_sizes.each do |dress_stock_size|
-  			if !dress_stock_size.stock.blank?
-  			  if dress_stock_size.stock > 0
-  			    if dress_stock_size.first_with_stock?
-  			      @first_max = @first_max.merge("#{shopping_cart_item.id.to_s}" => dress_stock_size.stock)
-  		      end
-            stock_line_for_js += 'shopping_cart_items_' + shopping_cart_item.id.to_s + '_size_' + dress_stock_size.size.name.downcase.gsub(" ","_").gsub("á","").gsub("é","").gsub("í","").gsub("ó","").gsub("ú","").gsub("Á","").gsub("É","").gsub("Í","").gsub("Ó","").gsub("Ú","") + ': ' + dress_stock_size.stock.to_s + ','
-          end
-        end
-      end
-      stock_line_for_js = stock_line_for_js[0..stock_line_for_js.size - 2] + '}'
-      @stocks_for_js += stock_line_for_js + ','
-    end
-    @stocks_for_js = @stocks_for_js[0..@stocks_for_js.size - 2] + '}'
   end
   
   def refresh_cart
