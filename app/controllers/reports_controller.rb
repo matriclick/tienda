@@ -13,7 +13,14 @@ class ReportsController < ApplicationController
       @to = Time.parse(params[:to]).utc.end_of_day
     end
     
+    if params[:commit] == 'Descargar Reporte'
+      respond_to do |format|
+        format.html
+        format.csv { send_data Credit.to_csv(@from, @to) }
+      end
+    end
     @credits = Credit.where('created_at >= ? and created_at <= ?', @from, @to).order 'created_at DESC'
+        
   end
   
   def purchases_to_be_delivered

@@ -1,7 +1,20 @@
+# encoding: UTF-8
 class Credit < ActiveRecord::Base
   belongs_to :purchase
   belongs_to :user
   has_many :credit_reductions
+  
+  def self.to_csv(from, to)
+  	header = ['Usuario', 'Fecha Creación', 'Razón', 'Créditos Obtenidos', 'Créditos Disponibles', 'Fecha Expiración']
+    credits = Credit.where('created_at >= ? and created_at <= ?', from, to).order 'created_at DESC'
+  
+    CSV.generate do |csv|
+      csv << header
+      credits.each do |credit|
+        csv << [credit.user.email, credit.created_at, credit.formula, credit.value, credit.available_credit, credit.expiration_date]
+      end
+    end
+  end  
   
   def self.is_active
     where(:active => true)

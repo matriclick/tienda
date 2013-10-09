@@ -5,7 +5,15 @@
 			<%= render 'date_range_selector' %>
 		</div>
 	</div>
-	
+	<div class="row" style="margin-bottom:20px">
+			<div class="col-md-12">
+				<%= form_tag(reports_credits_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+					<%= hidden_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
+					<%= hidden_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
+					<%= submit_tag("Descargar Reporte",  class: "btn btn-default btn-sm", "data-loading-text" => "Descargando...") %>
+				<% end %>
+			</div>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table">
