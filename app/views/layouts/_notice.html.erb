@@ -1,19 +1,10 @@
 <% if notice %>
 	<!-- Button trigger modal -->
 	<script type="text/javascript">
-	    $(window).load(function(){
-	        $('#myModal').modal('show');
-	    });
+			$(".alert").alert()
 	</script>
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title" style="text-align:center"><%= raw notice %></h4>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+	<div class="alert alert-success fade in">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<p><%= raw notice %></p>
+	</div>
 <% end %>
