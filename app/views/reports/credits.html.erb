@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<b>Filtro por fecha en que se crearon los créditos</b>
+			<%= render 'date_range_selector' %>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<tr>
+					<th>Usuario</th>
+					<th>Fecha Creación</th>
+					<th>Razón</th>
+					<th>Créditos Obtenidos</th>
+					<th>Créditos Disponibles</th>
+					<th>Fecha Expiración</th>
+				</tr>
+				<% @credits.each do |credit| %>
+				<tr <%= credit.available_credit > 0 ? raw('style="background-color:#f5fffa"') : ''  %>>
+					<td><%= credit.user.email %></td>
+					<td><%= credit.created_at.strftime("%Y-%m-%d") %></td>
+					<td><%= credit.formula %></td>
+					<td><%= number_to_currency credit.value %></td>
+					<td><%= number_to_currency credit.available_credit %></td>
+					<td><%= credit.expiration_date.strftime("%Y-%m-%d") %></td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

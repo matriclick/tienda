@@ -3,6 +3,19 @@ class ReportsController < ApplicationController
   before_filter :redirect_unless_admin, :generate_bread_crumbs
   before_filter { redirect_unless_privilege('Reportes') }
   
+  def credits
+    add_breadcrumb "Créditos", :reports_credits_path
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.utc.beginning_of_year
+      @to = DateTime.now.utc.end_of_year
+    else
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
+    end
+    
+    @credits = Credit.where('created_at >= ? and created_at <= ?', @from, @to).order 'created_at DESC'
+  end
+  
   def purchases_to_be_delivered
     add_breadcrumb "Productos por despachar", :reports_purchases_to_be_delivered_path
     redirect_unless_privilege('Vestidos')
