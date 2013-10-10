@@ -68,14 +68,14 @@
 				<tr style="">
 					<th colspan="2">Suscriptores por comuna</th>
 				</tr>
-				<tr>
 					<% Commune.all.each do |c| %>
 						<% if c.subscribers.where('created_at >= ? and created_at <= ?', @from, @to).size > 0 %>
+						<tr>
 							<th><%= c.name %></th>
 							<td><%= c.subscribers.where('created_at >= ? and created_at <= ?', @from, @to).size %></td>
+						</tr>
 						<% end %>
 					<% end %>
-				</tr>
 			</table>
 		</div>
 		
