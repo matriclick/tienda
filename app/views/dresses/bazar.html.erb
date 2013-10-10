@@ -71,7 +71,7 @@
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-<% cache ['bazar_home_page_8', @dresses.first] do %>
+<% cache ['bazar_home_page_9', @dresses.first] do %>
 <div class="container marketing">
   <!-- Three columns of text below the carousel -->
   <div class="row" style="margin-top:-30px;">
@@ -80,7 +80,7 @@
 		<% end %>
   </div><!-- /.row -->
 	
-  <div class="row" style="padding-bottom:20px;">
+  <div class="row" style="padding-bottom:20px; padding-top:10px;">
 		<div class="col-md-12">
 			<form action="<%= dresses_search_path %>" method="get">
 			  <div class="input-group">

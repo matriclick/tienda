@@ -77,7 +77,9 @@ class Dress < ActiveRecord::Base
       stock_left = false
       
       dszs.each do |dsz|
-        if dsz.stock > 0
+        if dsz.stock.nil?
+          dsz.destroy
+        elsif dsz.stock > 0
           stock_left = true
         end
       end

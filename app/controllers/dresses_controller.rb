@@ -349,7 +349,6 @@ class DressesController < ApplicationController
     
     @dress = Dress.find(params[:id])
     @sizes = @dress.dress_types.first.sizes
-    
   end
   
   # PUT /dresses/1

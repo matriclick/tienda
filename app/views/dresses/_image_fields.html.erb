@@ -1,7 +1,5 @@
 <b><%= t 'images' %><%= mark_required @dress, :dress_images %></b>
-<br />
-<div class="help_tip">
-	<br />
+<p class="help-block">
 	IMPORTANTE:<br />
 	<br />
 	- <b>950px x 1400px</b> es el tamaño ideal de las imágenes<br />
@@ -9,8 +7,7 @@
 	- Si el tamaño de la imagen no permite esas dimensiones, completar con fondo blanco<br />
 	- Cada imagen por sí sola NO DEBE SUPERAR los <b>2MB</b><br />
 	- La primera imagen que se sube será la principal<br />
-</div>
-<br />
+</p>
 <div class="field" style="margin-top:-10px;">
 	<%= f.fields_for :dress_images do |di_form| %>
 		<%= di_form.hidden_field :id %>
