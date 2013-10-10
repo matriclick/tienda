@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable, :confirmable
@@ -34,6 +35,24 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids, :dress_id
 	
+  def self.to_csv(from, to)
+  	header = ['Correo Usuario', 'Fecha Inscripción', '# Compras', '# Compras Finalizadas', 'Monto Compras Finalizadas', 
+              'Créditos Disponibles', 'Fecha Última Compra', 'Fecha Último Ingreso', 'Cantidad de Ingresos']
+    users = User.where('created_at >= ? and created_at <= ?', from, to).order 'created_at DESC'
+  
+    CSV.generate do |csv|
+      csv << header
+      users.each do |user|
+        if user.purchases.where(:status => 'finalizado').size > 0
+          csv << [user.email, user.created_at, user.purchases.size, user.purchases.where(:status => 'finalizado').size, user.purchases.where(:status => 'finalizado').sum(:price),
+                user.credit_amount, user.purchases.where(:status => 'finalizado').last.created_at, user.current_sign_in_at, user.sign_in_count]
+        else
+          csv << [user.email, user.created_at, user.purchases.size, 0, 0, user.credit_amount, 'n/a', user.current_sign_in_at, user.sign_in_count]
+        end
+      end
+    end
+  end
+  
 	def is_first_purchase
 	  self.purchases.where('purchases.status = "finalizado"').size == 1 ? true : false
   end

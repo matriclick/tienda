@@ -3,50 +3,94 @@
 		<div class="col-md-12">
 			<h1>Reporte Usuarios</h1>
 			<%= render 'date_range_selector' %>
-			<div style="float:right">
-			<a href="https://twitter.com/tramantaonline" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @twitterapi</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-			</div>
-			<table class="table">
+		</div>
+	</div>
+	<div class="row" style="padding-bottom:20px">
+		<div class="col-md-6">
+			<%= form_tag(reports_users_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+				<%= hidden_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
+				<%= hidden_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
+				<%= submit_tag("Descargar Reporte de Usuarios",  class: "btn btn-default btn-sm") %>
+			<% end %>
+			<p class="help-block">El reporte de usuarios permite bajar una lista de todos los <b>correos de los usuarios</b> con la <b>cantidad de compras</b> que han realizado, <b>los créditos que tienen disponibles</b>, el monto total de <b>dinero que han gastado</b> en Tramanta y otras columnas, <b>filtrados según la fecha de registro</b> del usuario.</p>
+		</div>
+		<div class="col-md-6">
+			<%= form_tag(reports_users_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+				<%= hidden_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
+				<%= hidden_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
+				<%= submit_tag("Descargar Reporte de Suscriptores",  class: "btn btn-default btn-sm") %>
+			<% end %>
+			<p class="help-block">El reporte de suscriptores permite bajar una lista de todos los <b>correos de los suscriptores</b> con la <b>comuna</b> en la que se suscribieron y la fecha en la que se suscribieron.</p>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<table class="table table-condensed table-hover">
 				<tr style="">
-					<th></th>
-					<% @init = @from %>
-					<% while @init < @to %>
-						<th><%= @init.strftime("%d %b %Y") %></th>
-					<% @init = @init + 1.day %>
-					<% end %>
-					<th>
-						<b>Total</b>
-					</th>
+					<th colspan="2">Usuarios Registrados (acumulado)</th>
 				</tr>
-				<tr style="">
-					<td>Usuarios <br />(acumulado)</td>
-					<% @init = @from %>
-					<% while @init < @to %>
-						<td style="text-align:center">
-							<%= count_link_users(@init, @init + 1.day) %>
-						</td>
-					<% @init = @init + 1.day %>
-					<% end %>
-					<td style="text-align:center">
-						<b><%= count_link_users(@from, @to) %></b>
-					</td>
 				<tr>
-				<tr style="">
-					<td>Novios registrados <br />(acumulado)</td>
-					<% @init = @from %>
-					<% while @init < @to %>
-						<td style="text-align:center">
-							<%= count_link_couples(@init, @init + 1.day) %>
-						</td>
-					<% @init = @init + 1.day %>
-					<% end %>
-					<td style="text-align:center">
-						<b><%= count_link_couples(@from, @to) %></b>
-					</td>
+					<th>Total</th>
+					<th><%= count_link_users(@from, @to) %></th>
+				</tr>
+				<% @init = @to %>
+				<% while @init > @from %>
 				<tr>
+					<td><%= @init.strftime("%d %b %Y") %></td>
+					<td><%= count_link_users(@init, @init - 1.day) %></td>
+				</tr>
+				<% @init = @init - 1.day %>
+				<% end %>
 			</table>
-			<%= link_to 'Volver al menú de administración', administration_index_path %>
+		</div>
+		<div class="col-md-3">
+			<table class="table table-condensed table-hover">
+				<tr style="">
+					<th colspan="2">Suscriptores (acumulado)</th>
+				</tr>
+				<tr>
+					<th>Total</th>
+					<th><%= count_link_subscribers(@from, @to) %></th>
+				</tr>
+				<% @init = @to %>
+				<% while @init > @from %>
+				<tr>
+					<td><%= @init.strftime("%d %b %Y") %></td>
+					<td><%= count_link_subscribers(@init, @init - 1.day) %></td>
+				</tr>
+				<% @init = @init - 1.day %>
+				<% end %>
+			</table>
+		</div>
+		<div class="col-md-3">
+			<table class="table table-condensed table-hover">
+				<tr style="">
+					<th colspan="2">Suscriptores por comuna</th>
+				</tr>
+				<tr>
+					<% Commune.all.each do |c| %>
+						<% if c.subscribers.where('created_at >= ? and created_at <= ?', @from, @to).size > 0 %>
+							<th><%= c.name %></th>
+							<td><%= c.subscribers.where('created_at >= ? and created_at <= ?', @from, @to).size %></td>
+						<% end %>
+					<% end %>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="col-md-3">
+			<div class="row">
+				<div class="col-md-6">
+					<a href="https://twitter.com/tramantaonline" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @twitterapi</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ftramantaonline&amp;width=150&amp;height=65&amp;colorscheme=light&amp;layout=box_count&amp;action=like&amp;show_faces=true&amp;send=true&amp;appId=199668766763277" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:65px;" allowTransparency="true"></iframe>
+				</div>			
+			</div>
 		</div>
 	</div>
 </div>

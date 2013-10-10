@@ -147,6 +147,21 @@ class ReportsController < ApplicationController
       @from = Time.parse(params[:from]).utc.beginning_of_day
       @to = Time.parse(params[:to]).utc.end_of_day
     end
+    
+    if params[:commit] == 'Descargar Reporte de Usuarios'
+      respond_to do |format|
+        format.html
+        format.csv { send_data User.to_csv(@from, @to) }
+      end
+    end
+
+    if params[:commit] == 'Descargar Reporte de Suscriptores'
+      respond_to do |format|
+        format.html
+        format.csv { send_data Subscriber.to_csv(@from, @to) }
+      end
+    end
+    
   end
   
   def purchases
