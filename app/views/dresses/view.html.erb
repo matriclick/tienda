@@ -1,26 +1,9 @@
-<script>
-$("#main_search").live("blur", function(){
-	var default_value = $(this).attr("rel");
-	if ($(this).val() == ""){
-		$(this).val(default_value);
-		$(this).css('color', '#bbb')
-	}
-}).live("focus", function(){
-	var default_value = $(this).attr("rel");
-	if ($(this).val() == default_value){
-		$(this).val("");
-		$(this).css('color', 'black')
-	}
-});
-</script>
-
 <div class="container">
 	<div class="row" style="padding-bottom:10px; margin-top:-10px">
 		<form action="<%= dresses_search_path %>" method="get">
 			<div class="col-md-12">
 			  <div class="input-group">
-						<%= text_field_tag(:q, @search_text, id: 'main_search', 
-			 				value: 'Encuentra lo que estás buscando', rel: 'Encuentra lo que estás buscando', class: "form-control") %>
+						<%= text_field_tag(:q, @search_text, placeholder: @search_text, class: "form-control") %>
 			       <span class="input-group-btn">
 							<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
 			  		 </span>

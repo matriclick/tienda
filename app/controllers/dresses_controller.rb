@@ -167,17 +167,17 @@ class DressesController < ApplicationController
     @search_sizes = params[:sizes]
     
     unless @search_term.nil? and @search_sizes.nil?
-      @search_text = @search_term != '' ? @search_term : 'Busca por color, talla, tela, etc...'
+      @search_text = @search_term != '' ? @search_term.gsub('-', ' ').capitalize : 'Busca por color, talla, tela, etc...'
       
-      @all_dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC, created_at DESC').uniq
-      @dresses = @all_dresses.paginate(:page => params[:page])
+      @all_dresses = Dress.all_filtered(@search_term).uniq
+      @dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC, created_at DESC').uniq.paginate(:page => params[:page])
       @sizes = Dress.check_sizes(@all_dresses)
 
       add_breadcrumb "Tramanta", :bazar_path    
       if !@search_term.nil?
-        @title_content = 'Buscando '+@search_term.capitalize 
-      	@meta_description_content = 'Compra '+@search_term.capitalize
-        add_breadcrumb @search_term, dresses_search_path(q: @search_term)
+        @title_content = 'Buscando '+@search_text
+      	@meta_description_content = 'Compra '+@search_text
+        add_breadcrumb @search_text, dresses_search_path(q: @search_text)
       else
         txt = @search_sizes.join(", ")  
         @title_content = 'Buscando por tallas: '+txt
