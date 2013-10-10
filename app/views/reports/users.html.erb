@@ -7,6 +7,7 @@
 	</div>
 	<div class="row" style="padding-bottom:20px">
 		<div class="col-md-6">
+			<p>Usuarios creados desde <%= @from.strftime("%d %b %Y") %> hasta <%= @to.strftime("%d %b %Y") %></p>
 			<%= form_tag(reports_users_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
 				<%= hidden_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
 				<%= hidden_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
@@ -15,6 +16,7 @@
 			<p class="help-block">El reporte de usuarios permite bajar una lista de todos los <b>correos de los usuarios</b> con la <b>cantidad de compras</b> que han realizado, <b>los créditos que tienen disponibles</b>, el monto total de <b>dinero que han gastado</b> en Tramanta y otras columnas, <b>filtrados según la fecha de registro</b> del usuario.</p>
 		</div>
 		<div class="col-md-6">
+			<p>Suscriptores creados desde <%= @from.strftime("%d %b %Y") %> hasta <%= @to.strftime("%d %b %Y") %></p>
 			<%= form_tag(reports_users_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
 				<%= hidden_field_tag(:from, @from.strftime("%Y-%m-%d")) %>
 				<%= hidden_field_tag(:to, @to.strftime("%Y-%m-%d")) %>
@@ -22,13 +24,12 @@
 			<% end %>
 			<p class="help-block">El reporte de suscriptores permite bajar una lista de todos los <b>correos de los suscriptores</b> con la <b>comuna</b> en la que se suscribieron y la fecha en la que se suscribieron.</p>
 		</div>
-		
 	</div>
 	<div class="row">
 		<div class="col-md-3">
 			<table class="table table-condensed table-hover">
 				<tr style="">
-					<th colspan="2">Usuarios Registrados (acumulado)</th>
+					<th colspan="2">Usuarios Registrados<br />(acumulado hasta <%= @to.strftime("%d %b %Y") %>)</th>
 				</tr>
 				<tr>
 					<th>Total</th>
@@ -47,7 +48,7 @@
 		<div class="col-md-3">
 			<table class="table table-condensed table-hover">
 				<tr style="">
-					<th colspan="2">Suscriptores (acumulado)</th>
+					<th colspan="2">Suscriptores<br />(acumulado hasta <%= @to.strftime("%d %b %Y") %>)</th>
 				</tr>
 				<tr>
 					<th>Total</th>
@@ -66,13 +67,13 @@
 		<div class="col-md-3">
 			<table class="table table-condensed table-hover">
 				<tr style="">
-					<th colspan="2">Suscriptores por comuna</th>
+					<th colspan="2">Suscriptores por comuna<br />(acumulado hasta <%= @to.strftime("%d %b %Y") %>)</th>
 				</tr>
 					<% Commune.all.each do |c| %>
-						<% if c.subscribers.where('created_at >= ? and created_at <= ?', @from, @to).size > 0 %>
+						<% if c.subscribers.where('created_at <= ?', @to).size > 0 %>
 						<tr>
 							<th><%= c.name %></th>
-							<td><%= c.subscribers.where('created_at >= ? and created_at <= ?', @from, @to).size %></td>
+							<td><%= c.subscribers.where('created_at <= ?', @to).size %></td>
 						</tr>
 						<% end %>
 					<% end %>

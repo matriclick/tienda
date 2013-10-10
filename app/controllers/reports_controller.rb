@@ -147,18 +147,20 @@ class ReportsController < ApplicationController
       @from = Time.parse(params[:from]).utc.beginning_of_day
       @to = Time.parse(params[:to]).utc.end_of_day
     end
-    
+          
     if params[:commit] == 'Descargar Reporte de Usuarios'
       respond_to do |format|
         format.html
-        format.csv { send_data User.to_csv(@from, @to) }
+        format.csv { send_data User.to_csv(@from, @to).encode("iso-8859-1"), 
+                      :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=usuarios.csv" }
       end
     end
 
     if params[:commit] == 'Descargar Reporte de Suscriptores'
       respond_to do |format|
         format.html
-        format.csv { send_data Subscriber.to_csv(@from, @to) }
+        format.csv { send_data Subscriber.to_csv(@from, @to).encode("iso-8859-1"), 
+                      :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=suscriptores.csv" }
       end
     end
     
@@ -188,7 +190,8 @@ class ReportsController < ApplicationController
     if params[:commit] == 'Descargar Reporte'
       respond_to do |format|
         format.html
-        format.csv { send_data Dress.to_csv(@from, @to) }
+        format.csv { send_data Dress.to_csv(@from, @to).encode("iso-8859-1"), 
+                      :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=detalle_productos.csv" }
       end
     end
   end
