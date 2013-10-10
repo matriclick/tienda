@@ -9,12 +9,6 @@
 			</ul>
 		</div>
 	<% end %>
-	<% if defined? @supplier_accounts %>
-		<div style="margin-bottom:20px">
-			<%= f.label :supplier_account_id, 'Proveedor' %><%= mark_required @dress, :supplier_account_id %>
-	  	<%= f.collection_select :supplier_account_id, @supplier_accounts, :id, :fantasy_name, :prompt => true, :allow_blank => false %>
-		</div>
-	<% end %>
 	<%= render 'image_fields', :f => f %>
 	<table class="table">
 		<tr>

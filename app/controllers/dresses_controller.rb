@@ -320,13 +320,7 @@ class DressesController < ApplicationController
     
     if !current_supplier.nil?
       set_supplier_layout
-    else
-      @supplier_accounts = SupplierAccount.approved
-      if !@supplier_accounts.nil?
-        @supplier_accounts = @supplier_accounts.uniq
-        @supplier_accounts = @supplier_accounts.sort_by {|sa| sa[:fantasy_name]}
-      end
-    end    
+    end
   end
 
   # POST /dresses
