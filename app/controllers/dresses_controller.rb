@@ -167,7 +167,7 @@ class DressesController < ApplicationController
     @search_sizes = params[:sizes]
     
     unless @search_term.nil? and @search_sizes.nil?
-      @search_text = @search_term != '' ? @search_term.gsub('-', ' ').capitalize : 'Busca por color, talla, tela, etc...'
+      @search_text = (!@search_term.nil? and @search_term != '') ? @search_term.gsub('-', ' ').capitalize : 'Busca por color, talla, tela, etc...'
       
       @all_dresses = Dress.all_filtered(@search_term).uniq
       @dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC, created_at DESC').uniq.paginate(:page => params[:page])
@@ -197,7 +197,7 @@ class DressesController < ApplicationController
   def new_arrivals
     disp = DressStatus.find_by_name("Disponible").id
     @all_dresses = Dress.where('dress_status_id = ?', disp)
-    @dresses = @all_dresses.order('created_at DESC').limit 20
+    @dresses = @all_dresses.order('created_at DESC').limit 28
     @sizes = Dress.check_sizes(@all_dresses)
     @not_paginate = true
     
