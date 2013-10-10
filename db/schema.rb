@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131007182238) do
+ActiveRecord::Schema.define(:version => 20131010004352) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -318,6 +318,7 @@ ActiveRecord::Schema.define(:version => 20131007182238) do
     t.integer  "original_price"
     t.float    "discount"
     t.string   "code"
+    t.boolean  "fix_cost"
   end
 
   add_index "dresses", ["slug"], :name => "index_dresses_on_slug", :unique => true
