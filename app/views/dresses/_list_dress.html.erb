@@ -1,5 +1,5 @@
-<% cache ['list_dress_6', dress] do %>
-	<div class="col-md-3" style="height:371px; overflow:hidden;">
+<% #cache ['list_dress_6', dress] do %>
+	<div class="col-md-3" style="height:390px; overflow:hidden;">
 	<% if dress.dress_status.name.include?('Vendido') %>
 		<div style="position:absolute; top:40px">
 			<div style="background-color:black; color:white; width:190px; text-align:center; padding:10px; opacity:0.7;">
@@ -21,7 +21,11 @@
 		<p style="font-size:12px">
 			<span style="margin-right:5px; text-decoration:line-through"><%= number_to_currency dress.original_price %></span> 
 			<strong><%= number_to_currency dress.price %></strong><br/>
-			<%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+			<%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %><br />
+			<span style="font-size:11px">
+				<%= (dress.dress_stock_sizes.map { |dsz| dsz.size.name.downcase if dsz.stock > 0 and !dsz.size.blank?}).uniq.join(', ') %><br />
+				<%= (dress.dress_stock_sizes.map { |dsz| dsz.color.downcase if dsz.stock > 0 and !dsz.color.blank? }).uniq.join(', ') %>
+			</span>
 		 </p>
 		<p>
 			<% if dress.dress_status.name.include?('Vendido') %>
@@ -44,4 +48,4 @@
 			<% end %>
 		</p>
 	</div><!--/span--> 
-<% end %>
+<% #end %>
