@@ -71,29 +71,77 @@
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-<% cache ['bazar_home_page_7', @dresses.first] do %>
+<% cache ['bazar_home_page_8', @dresses.first] do %>
 <div class="container marketing">
-  <div class="row" style="margin-top:-30px; padding-bottom:20px;">
-		<form action="<%= dresses_search_path %>" method="get">
-		  <div class="input-group">
-					<%= text_field_tag(:q, @search_text, placeholder: @search_text, class: "form-control") %>
-		       <span class="input-group-btn">
-						<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
-		  		 </span>
-		  </div><!-- /input-group -->
-		</form>
-	</div>
   <!-- Three columns of text below the carousel -->
-  <div class="row">
+  <div class="row" style="margin-top:-30px;">
 		<% @dresses.each do |dress| %>
-    <div class="col-md-3">
-			<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), class: "img-circle", alt: dress.dress_images.first.name), 
-				dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
-      <h3><%= dress.introduction %></h3>
-      <p><%= raw dress.description.gsub(/\n/, '<br/>') %></p>
-      <p><%= link_to('Ver más de este tipo', dresses_search_path(q: dress.dress_type.name), class: "btn btn-default") %></p>
-    </div><!-- /.col-lg-4 -->
+			<%= render 'list_dress', dress: dress %>
 		<% end %>
+  </div><!-- /.row -->
+	
+  <div class="row" style="padding-bottom:20px;">
+		<div class="col-md-12">
+			<form action="<%= dresses_search_path %>" method="get">
+			  <div class="input-group">
+						<%= text_field_tag(:q, @search_text, placeholder: @search_text, class: "form-control") %>
+			       <span class="input-group-btn">
+							<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
+			  		 </span>
+			  </div><!-- /input-group -->
+			</form>
+		</div>
+	</div>	
+  <div class="row">
+		<div class="col-md-3">
+			<div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">VESTIDOS</div>
+			  <!-- List group -->
+			  <ul class="list-group">
+			    <li class="list-group-item"><%= link_to 'Peplum', dresses_search_path(q: 'vestido peplum') %></li>
+			    <li class="list-group-item"><%= link_to 'Encajes', dresses_search_path(q: 'vestido encaje') %></li>
+			    <li class="list-group-item"><%= link_to 'Gaza', dresses_search_path(q: 'vestido gaza') %></li>
+			  </ul>
+			</div>
+		</div>
+		
+		<div class="col-md-3">
+			<div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">ROPA DE MUJER</div>
+			  <!-- List group -->
+			  <ul class="list-group">
+			    <li class="list-group-item"><%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
+			    <li class="list-group-item"><%= link_to 'Chalecos y Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
+					<li class="list-group-item"><%= link_to 'Leggings y Pantalones', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>
+					<li class="list-group-item"><%= link_to 'Faldas y Minis', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
+			  </ul>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">ZAPATOS Y BOTAS</div>
+			  <!-- List group -->
+			  <ul class="list-group">
+			    <li class="list-group-item"><%= link_to 'Zapatos', dresses_search_path(q: 'zapato') %></li>
+			    <li class="list-group-item"><%= link_to 'Botas', dresses_search_path(q: 'bota') %></li>
+			  </ul>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">ROPA INTERIOR</div>
+			  <!-- List group -->
+			  <ul class="list-group">
+			    <li class="list-group-item"><%= link_to 'Algodón', dresses_search_path(q: 'ropa interior algodón') %></li>
+			    <li class="list-group-item"><%= link_to 'Satín', dresses_search_path(q: 'ropa interior satín') %></li>
+			    <li class="list-group-item"><%= link_to 'Tull', dresses_search_path(q: 'ropa interior tull') %></li>
+			  </ul>
+			</div>
+		</div>
   </div><!-- /.row -->
 		
   <!-- START THE FEATURETTES -->
