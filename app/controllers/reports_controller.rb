@@ -99,8 +99,8 @@ class ReportsController < ApplicationController
       @to = Time.parse(params[:to]).utc.end_of_day
     end
     
-    @supplier_accounts = SupplierAccount.approved
-    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ? and store_paid = ?', @from, @to, true, false)
+    @supplier_accounts = SupplierAccount.all
+    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)
     
   end
   
