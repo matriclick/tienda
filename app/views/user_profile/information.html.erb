@@ -5,7 +5,8 @@
 	  <div class="panel-heading"><h3 class="panel-title">Créditos</h3></div>
 	  <div class="panel-body">
 			<% if @user.check_if_has_credits %>
-				¡Felicitaciones! Tienes <strong><%= number_to_currency @user.credit_amount %></strong> para comprar en Tramanta.com<br /><br />
+				¡Felicitaciones! Tienes <strong><%= number_to_currency @user.credit_amount %></strong> para comprar en Tramanta.com.<br /><br />
+				Los créditos expiran el <strong><%= @user.credits.where(:active => true).first.expiration_date.strftime("%d/%m/%Y") %></strong><br /><br />
 				En tu próxima descontaremos los créditos que tengas disponible del precio final
 			<% else %>
 				No tienes créditos abonados a tu cuenta

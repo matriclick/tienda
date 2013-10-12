@@ -144,8 +144,8 @@ class Dress < ActiveRecord::Base
     joins(:tags).where('dresses.created_at >= ? and dresses.created_at <= ?', start_date, end_date).uniq
   end
   
-	def self.all_filtered(string_filter = nil, sizes = nil, separator = ' ')
-    if string_filter.nil? and sizes.nil?
+	def self.all_filtered(string_filter = nil, sizes = nil, discount = nil, separator = ' ')
+    if string_filter.nil? and sizes.nil? and discount.nil?
       return Dress.all
     end
     
@@ -181,9 +181,19 @@ class Dress < ActiveRecord::Base
       end
     end
     
+    if !discount.nil?
+      if query.nil?
+        query = 'dresses.discount > '+discount.to_s
+      else
+        query = '('+query+') and dresses.discount > '+discount.to_s
+      end
+    end
+    
+    
     disp = DressStatus.find_by_name("Disponible").id
     vend = DressStatus.find_by_name("Vendido").id
-    return self.joins(:dress_types).joins(:sizes).where(query).where('(dress_status_id = ? or dress_status_id = ?)', disp, vend).available
+    
+    return self.joins(:dress_types).joins(:sizes).where(query).where('dress_status_id = ? or dress_status_id = ?', disp, vend).available
     
   end
 	

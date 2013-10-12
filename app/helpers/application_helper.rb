@@ -1,9 +1,17 @@
+# encoding: UTF-8
 module ApplicationHelper
+  
+  def information_link
+		if !current_user.nil? and current_user.check_if_has_credits
+      link_to "Información ("+(number_to_currency(current_user.credit_amount)).to_s+")", user_profile_information_path, :rel => 'nofollow'
+		else
+      link_to "Información", user_profile_information_path, :rel => 'nofollow'
+    end
+  end
   
   def wish_list_link
 		link_to '('+current_user.dresses.size.to_s+') Wish List', user_profile_wish_list_path
   end
-  
   
   # Helpers to build sortable tables
   def sortable(column, title = nil)

@@ -149,14 +149,6 @@ class DressesController < ApplicationController
       @all_dresses = Dress.joins(:dress_types).where('dress_types.name like "%'+params[:type]+'%" and (dress_status_id = ? or dress_status_id = ?)', disp, vend)
       @dresses = @all_dresses.paginate(:page => params[:page]).order('position ASC, created_at DESC')
       @sizes = Dress.check_sizes(@all_dresses)
-      
-      #@dresses = Array.new
-      #@dress_types.each do |dt| 
-      #  @dresses.concat(dt.dresses.available)
-      #end
-      #@dresses.uniq!
-      #@dresses.sort_by! {|dr| [dr.position.nil? ? 999 : dr.position] }
-    
       @title_content = (params[:type]).gsub('-', ' ').capitalize
     	@meta_description_content = 'Compra '+(params[:type]).gsub('-', ' ')
     end    
@@ -165,15 +157,21 @@ class DressesController < ApplicationController
   def view_search
     @search_term = params[:q]
     @search_sizes = params[:sizes]
-    
+    @clearing = params[:clearing]
+    add_breadcrumb "Tramanta", :bazar_path    
+      
     unless @search_term.nil? and @search_sizes.nil?
       @search_text = (!@search_term.nil? and @search_term != '') ? @search_term.gsub('-', ' ').capitalize : 'Busca por color, talla, tela, etc...'
-      
-      @all_dresses = Dress.all_filtered(@search_term).uniq
-      @dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC, created_at DESC').uniq.paginate(:page => params[:page])
+      if @clearing
+        @all_dresses = Dress.all_filtered(@search_term, nil, 9).uniq
+        @dresses = Dress.all_filtered(@search_term, @search_sizes, 9).order('position ASC, created_at DESC').uniq.paginate(:page => params[:page])        
+        add_breadcrumb 'Liquidación!', dresses_clearing_path
+      else
+        @all_dresses = Dress.all_filtered(@search_term).uniq
+        @dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC, created_at DESC').uniq.paginate(:page => params[:page])
+      end
       @sizes = Dress.check_sizes(@all_dresses)
 
-      add_breadcrumb "Tramanta", :bazar_path    
       if !@search_term.nil?
         @title_content = 'Buscando '+@search_text
       	@meta_description_content = 'Compra '+@search_text
@@ -212,10 +210,9 @@ class DressesController < ApplicationController
   
   def clearing
     disp = DressStatus.find_by_name("Disponible").id
-    @all_dresses = Dress.where('dress_status_id = ?', disp)
-    @dresses = @all_dresses.where('discount > 0').order('created_at DESC').limit 20
+    @all_dresses = Dress.where('dress_status_id = ?', disp).where('discount > 9')
+    @dresses = @all_dresses.paginate(:page => params[:page]).order('position ASC, created_at DESC')
     @sizes = Dress.check_sizes(@all_dresses)
-    @not_paginate = true
     
     add_breadcrumb "Tramanta", :bazar_path
     add_breadcrumb 'Liquidación!', :dresses_clearing_path

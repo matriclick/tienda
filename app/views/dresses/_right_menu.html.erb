@@ -5,7 +5,9 @@
 	<% elsif !params[:type].blank? %>
 		<%= hidden_field_tag(:q, params[:type]) %>
 	<% end %>
-	
+	<% if action_name == 'clearing' or @clearing %>
+		<%= hidden_field_tag(:clearing, true) %>
+	<% end %>
 	<ul class="nav nav-pills nav-stacked">
 		<% sizes.each do |size| %>
 		  <li>
