@@ -126,7 +126,7 @@
 						</div>
 						<br />
 					  <div class="field">
-							<%= f.label :refund_value, 'Monto devuelto' %> <%= f.number_field :refund_value %>
+							<%= f.label :refund_value, 'Monto devuelto' %> <%= f.number_field :refund_value, class: 'form-control' %>
 						</div>
 						<% if @purchase.purchasable_type == 'ShoppingCart' %>
 						<br />
@@ -142,7 +142,7 @@
 						<% end %>
 						<br />
 					  <div class="field">
-							<%= f.label :refund_date, 'Fecha devolución' %> <%= f.text_field :refund_date %>
+							<%= f.label :refund_date, 'Fecha devolución' %> <%= f.text_field :refund_date, class: 'form-control' %>
 					  </div>
 					</div>
 				</div>

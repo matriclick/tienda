@@ -1,0 +1,271 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<%= render 'date_range_selector' %>
+			<div style="font-size:12px">Semana actual = <%= Date.today.strftime('%W').to_i + 1 %></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table" style="font-size:12px">
+				<tr>
+					<td colspan="<%= @colspan %>"><h3>Results</h3></td>
+				</tr>
+				<tr style="background-color:black; color:white">
+					<td>Semana</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<th><%= week.to_s+' - '+year.to_s %></th>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr style="background-color:#DAF2F2;">
+					<th>Sales (Cash In + Credits - Delivery Income)</th>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<th><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:sales_week] %></th>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr style="background-color:#f5fffa;">
+					<td>Cash In</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:price_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr style="background-color:#f5fffa;">
+					<td>Credits</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:credits_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>				
+				<tr style="background-color:#f5fffa;">
+					<td>Delivery Income</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:dispatch_income_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr style="background-color:#ffe4e1;">
+					<td>Products Costs (w/o refunded purchases)</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:cost_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr style="background-color:#ffe4e1;">
+					<td>IVA</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:cost_week]*(1/0.81-1) %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr style="background-color:#ffe4e1;">
+					<td>Delivery Cost</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:dispatch_cost_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr style="background-color:#ffe4e1;">
+					<td>Refunds</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:refunds_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr style="background-color:#DAF2F2;">
+					<td>Revenue (Sales - Product Cost - IVA + Delivery Income - Delivery Cost - Credits - Refunds)</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:revenue_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Margin (w/ refunds) (1 - Products Cost / Sales)</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= number_to_percentage @wbr_data[week.to_s+' - '+year.to_s][:margin_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Purchases Made</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:purchases_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Products Sold</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:prod_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td colspan="<%= @colspan %>"><h3>Supply</h3></td>
+				</tr>
+				<tr style="background-color:black; color:white">
+					<td>Semana</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<th><%= week.to_s+' - '+year.to_s %></th>
+						<% end %>
+					<% end %>
+				</tr>	
+				<tr>
+					<td>New Stores</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:stores_week] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<th>New Products</th>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<th><%= @wbr_data[week.to_s+' - '+year.to_s][:new_products] %></th>
+						<% end %>
+					<% end %>
+					
+				</tr>
+				<tr>
+					<td style="padding-left:15px">Vestidos</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:vestidos] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td style="padding-left:15px">Leggings/Calzas</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:pantalones] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td style="padding-left:15px">Blusas/Poleras</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:tops] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td style="padding-left:15px">Chalecos/Polerones</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:abrigados] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td style="padding-left:15px">Chaquetas</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:chaquetas] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td style="padding-left:15px">Faldas/Shorts</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:polleras] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td style="padding-left:15px">Ropa Interior</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:interior] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td style="padding-left:15px">Zapatos y Botas</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:zapatos] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td colspan="<%= @colspan %>"><h3>Demand</h3></td>
+				</tr>
+				<tr style="background-color:black; color:white">
+					<td>Semana</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<th><%= week.to_s+' - '+year.to_s %></th>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Visits</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:visits] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td>New Users</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:new_users] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Newsletter Subscribers</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:new_subscribers] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Newsletters Sent</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:newsletters_sent] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Total FB Followers</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:fb_followers] %></td>
+						<% end %>
+					<% end %>
+				</tr>
+			</table>
+		</div>		
+	</div>
+
+	<div class="row">
+		<div class="col-md-12" style="text-align:right">
+			<%= link_to 'Agregar Información al WBR', new_wbr_datum_path, class: "btn btn-default btn-sm" %>
+		</div>		
+	</div>
+	
+</div>

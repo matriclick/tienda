@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Year:</b>
+  <%= @wbr_datum.year %>
+</p>
+
+<p>
+  <b>Week:</b>
+  <%= @wbr_datum.week %>
+</p>
+
+<p>
+  <b>Fb followers:</b>
+  <%= @wbr_datum.fb_followers %>
+</p>
+
+<p>
+  <b>Webpage visits:</b>
+  <%= @wbr_datum.webpage_visits %>
+</p>
+
+<p>
+  <b>Newsletters sent:</b>
+  <%= @wbr_datum.newsletters_sent %>
+</p>
+
+
+<%= link_to 'Edit', edit_wbr_datum_path(@wbr_datum) %> |
+<%= link_to 'Back', wbr_data_path %>

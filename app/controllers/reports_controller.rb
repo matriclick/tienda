@@ -3,6 +3,105 @@ class ReportsController < ApplicationController
   before_filter :redirect_unless_admin, :generate_bread_crumbs
   before_filter { redirect_unless_privilege('Reportes') }
   
+  def wbr
+    add_breadcrumb "WBR", :reports_wbr_path
+    if params[:from].nil? or params[:to].nil?
+      @from = DateTime.now.utc.beginning_of_month
+      @to = DateTime.now.utc.end_of_day
+    else
+      @from = Time.parse(params[:from]).utc.beginning_of_day
+      @to = Time.parse(params[:to]).utc.end_of_day
+    end
+    
+    @wbr_data = Hash.new
+    #Semana Inicio
+    @init_week = @from.strftime("%W").to_i + 1
+    @init_year = @from.strftime("%Y").to_i
+    #Semana Fin
+    @end_week = @to.strftime("%W").to_i + 1
+    @end_year = @to.strftime("%Y").to_i
+
+    @colspan = ((@to - @from) / 1.week).round + 2
+    
+    (@init_year..@end_year).each do |year|    
+      (@init_week..@end_week).each do |week|
+        monday_week = (Date.commercial(year, week)).beginning_of_day #Lunes de la semana week año year
+        sunday_week = (Date.commercial(year, week + 1) - 1.day).end_of_day
+        puts monday_week
+        puts sunday_week
+        
+        #Total recibido
+        price_week = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', monday_week, sunday_week])  
+        #Créditos usados
+        credits_week = Purchase.sum(:credits_used, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', monday_week, sunday_week])  
+        #Despachos pagados Cliente
+        dispatch_income_week = Purchase.sum(:delivery_cost, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', monday_week, sunday_week])  
+        #Despachos pagados Tramanta
+        dispatch_cost_week = Purchase.sum(:actual_delivery_cost, :conditions => ['funds_received = ? and status = ? and delivery_date >= ? and delivery_date <= ?', true, 'finalizado', monday_week, sunday_week])  
+        #Total Vendido (Recibido + créditod - despachos)
+        sales_week = price_week + credits_week - dispatch_income_week
+        #Costo Productos sin devoluciones
+        cost_week = Purchase.sum(:total_cost, :conditions => ['funds_received = ? and status = ? and (refunded = ? or refunded is null) and created_at >= ? and created_at <= ?', true, 'finalizado', false, monday_week, sunday_week])        
+        #Costo Productos con devoluciones
+        cost_week_w_refund = Purchase.sum(:total_cost, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', monday_week, sunday_week])        
+        #Devoluciones
+        refunds_week = Purchase.sum(:refund_value, :conditions => ['funds_received = ? and refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, true, 'finalizado', monday_week, sunday_week])
+        #Margin
+        margin_week = 100*(1 - cost_week_w_refund.to_f / (sales_week.to_f*0.81))
+        #Revenue
+        revenue_week = sales_week - cost_week/0.81 + dispatch_income_week - dispatch_cost_week - credits_week - refunds_week
+        #Purchases
+        purchases = Purchase.where('funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', monday_week, sunday_week)  
+        purchases_week = purchases.size
+        #Products
+        prod_week = 0
+        purchases.each do |p|
+          if p.purchasable_type == 'Dress'
+            prod_week = 1 + prod_week
+          else
+            prod_week = p.purchasable.shopping_cart_items.size + prod_week
+          end
+        end
+        #Tiendas con vestidos disponibles para vender
+        supplier_accounts = SupplierAccount.where('created_at >= ? and created_at <= ?', monday_week, sunday_week)  
+        disp = DressStatus.find_by_name("Disponible").id
+        stores_week = 0
+        supplier_accounts.each do |sa|
+          stores_week = stores_week + 1 if sa.dresses.where(dress_status_id: disp).size > 0
+        end
+        #Productos creados
+        vestidos = DressType.where('name like "%vestidos-fiesta%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+			  pantalones = DressType.where('name like "%ropa-de-mujer-pantalones%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+        tops = DressType.where('name like "%ropa-de-mujer-tops%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+			  abrigados = DressType.where('name like "%ropa-de-mujer-abrigados%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+			  chaquetas = DressType.where('name like "%ropa-de-mujer-chaquetas%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+			  polleras = DressType.where('name like "%ropa-de-mujer-polleras%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+			  interior = DressType.where('name like "%ropa-interior%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+			  zapatos = DressType.where('name like "%zapatos%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+        new_products = Dress.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+        #Usuarios
+        new_users = User.where('created_at >= ? and created_at <= ?', monday_week, sunday_week).size
+        #Suscriptores
+        new_subscribers = Subscriber.where('created_at >= ? and created_at <= ?', monday_week, sunday_week).size        
+        #Información en WbrData
+        wbr_datum = WbrDatum.where(:year => year, :week => week).first
+        unless wbr_datum.nil?
+          visits = wbr_datum.webpage_visits
+          fb_followers = wbr_datum.fb_followers
+          newsletters_sent = wbr_datum.newsletters_sent
+        end
+        
+        #Agrego la información
+        @wbr_data[(week.to_s+' - '+year.to_s)] = 
+          { price_week: price_week, credits_week: credits_week, dispatch_income_week: dispatch_income_week, dispatch_cost_week: dispatch_cost_week, 
+            sales_week: sales_week, cost_week: cost_week, revenue_week: revenue_week, refunds_week: refunds_week, margin_week: margin_week, 
+            purchases_week: purchases_week, prod_week: prod_week, stores_week: stores_week, vestidos: vestidos, pantalones: pantalones, tops: tops, 
+            abrigados: abrigados, chaquetas: chaquetas, polleras: polleras, interior: interior, zapatos: zapatos, new_products: new_products,
+            new_users: new_users, new_subscribers: new_subscribers, visits: visits, fb_followers: fb_followers, newsletters_sent: newsletters_sent }
+      end
+    end
+  end
+  
   def credits
     add_breadcrumb "Créditos", :reports_credits_path
     if params[:from].nil? or params[:to].nil?

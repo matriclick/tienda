@@ -1,6 +1,8 @@
 # encoding: UTF-8
 Matri::Application.routes.draw do
 
+  resources :wbr_data
+
   resources :contests
 
   resources :contestants
@@ -66,6 +68,7 @@ Matri::Application.routes.draw do
   get 'reports/purchases_to_be_delivered' => 'reports#purchases_to_be_delivered', as: 'reports_purchases_to_be_delivered'
   get 'reports/products_detail_excel' => 'reports#products_detail_excel', as: 'reports_products_detail_excel'
   get 'reports/credits' => 'reports#credits', as: 'reports_credits'
+  get 'reports/wbr' => 'reports#wbr', as: 'reports_wbr'
   resources :matriclickers
 
   put "slider_images/update_positions" => "slider_images#update_positions"

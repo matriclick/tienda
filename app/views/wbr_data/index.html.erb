@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row">
+		<%= render 'layouts/notice', notice: notice %>
+		<div class="col-md-12">
+			<h1>WBR Data</h1>
+			<table class="table">
+			  <tr>
+			    <th>Year</th>
+			    <th>Week</th>
+			    <th>FB followers</th>
+			    <th>Webpage visits</th>
+			    <th>Newsletters sent</th>
+			    <th></th>
+			    <th></th>
+			  </tr>
+			<% @wbr_data.each do |wbr_datum| %>
+			  <tr>
+			    <td><%= wbr_datum.year %></td>
+			    <td><%= wbr_datum.week %></td>
+			    <td><%= wbr_datum.fb_followers %></td>
+			    <td><%= wbr_datum.webpage_visits %></td>
+			    <td><%= wbr_datum.newsletters_sent %></td>
+			    <td><%= link_to 'Edit', edit_wbr_datum_path(wbr_datum) %></td>
+			    <td><%= link_to 'Destroy', wbr_datum, confirm: 'Are you sure?', method: :delete %></td>
+			  </tr>
+			<% end %>
+			</table>
+			<%= link_to 'New WBR Data', new_wbr_datum_path, class: "btn btn-default btn-sm" %>
+			<%= link_to 'Ver WBR', reports_wbr_path, class: "btn btn-default btn-sm" %>
+		</div>
+	</div>
+</div>

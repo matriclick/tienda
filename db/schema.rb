@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131012003343) do
+ActiveRecord::Schema.define(:version => 20131012205218) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -891,6 +891,16 @@ ActiveRecord::Schema.define(:version => 20131012003343) do
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "wbr_data", :force => true do |t|
+    t.integer  "year"
+    t.integer  "week"
+    t.integer  "fb_followers"
+    t.integer  "webpage_visits"
+    t.integer  "newsletters_sent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "wed_benchmarks", :force => true do |t|
     t.integer  "industry_category_id"

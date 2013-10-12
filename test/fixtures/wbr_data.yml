@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  year: 1
+  week: 1
+  fb_followers: 1
+  webpage_visits: 1
+  newsletters_sent: 1
+
+two:
+  year: 1
+  week: 1
+  fb_followers: 1
+  webpage_visits: 1
+  newsletters_sent: 1
