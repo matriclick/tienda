@@ -6,11 +6,11 @@ class ReportsController < ApplicationController
   def wbr
     add_breadcrumb "WBR", :reports_wbr_path
     if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.utc.beginning_of_month
+      @from = (DateTime.now.utc - 6.week).beginning_of_week
       @to = DateTime.now.utc.end_of_day
     else
-      @from = Time.parse(params[:from]).utc.beginning_of_day
-      @to = Time.parse(params[:to]).utc.end_of_day
+      @from = Time.parse(params[:from]).utc.beginning_of_week
+      @to = Time.parse(params[:to]).utc.end_of_week
     end
     
     @wbr_data = Hash.new

@@ -15,7 +15,10 @@
 					<td>Semana</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<th><%= week.to_s+' - '+year.to_s %></th>
+							<th>
+									<%= week.to_s+' - '+year.to_s %><br />
+									<%= Date.commercial(year, week, 1).strftime('%d/%m') %>
+							</th>
 						<% end %>
 					<% end %>
 				</tr>
@@ -122,7 +125,10 @@
 					<td>Semana</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<th><%= week.to_s+' - '+year.to_s %></th>
+						<th>
+								<%= week.to_s+' - '+year.to_s %><br />
+								<%= Date.commercial(year, week, 1).strftime('%d/%m') %>
+						</th>
 						<% end %>
 					<% end %>
 				</tr>	
@@ -214,7 +220,10 @@
 					<td>Semana</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<th><%= week.to_s+' - '+year.to_s %></th>
+						<th>
+								<%= week.to_s+' - '+year.to_s %><br />
+								<%= Date.commercial(year, week, 1).strftime('%d/%m') %>
+						</th>
 						<% end %>
 					<% end %>
 				</tr>
