@@ -43,10 +43,12 @@ class StoreAdminController < ApplicationController
     @paid = 0
     @debt = 0
     @purchased_products_data.each do |val|
-      if val[:store_paid]
-        @paid = @paid + val[:unit_cost]*val[:quantity] if !val[:unit_cost].nil? and !val[:quantity].nil?
-      else
-        @debt = @debt + val[:unit_cost]*val[:quantity] if !val[:unit_cost].nil? and !val[:quantity].nil?
+      unless val[:refunded]
+        if val[:store_paid]
+          @paid = @paid + val[:unit_cost]*val[:quantity] if !val[:unit_cost].nil? and !val[:quantity].nil?
+        else
+          @debt = @debt + val[:unit_cost]*val[:quantity] if !val[:unit_cost].nil? and !val[:quantity].nil?
+        end
       end
     end
   end

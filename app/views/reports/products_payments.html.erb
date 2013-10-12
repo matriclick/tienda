@@ -27,7 +27,6 @@
 								    <th>Precio Vendido</th>
 										<th>Cantidad</th>
 										<th>Talla</th>
-								    <th>¿Producto Devuelto?</th>
 								    <th>Pago por Producto</th>
 								    <th>Pago Total</th>
 								    <th>¿Producto Pagado?</th>
@@ -35,7 +34,7 @@
 									<% debt = 0 %>
 									<% prod_count = 0 %>
 									<% products.each do |val| %>
-										<% if !val[:store_paid] %>
+										<% if !val[:store_paid] and !val[:refunded] %>
 											<tr>
 												<% dress = Dress.find val[:dress_id] %>
 												<td><%= check_box_tag 'sci_ids[]', val[:sci_id], false, id: val[:sci_id],
@@ -45,7 +44,6 @@
 												<td><%= number_to_currency val[:price] %></td>
 												<td><%= val[:quantity] %></td>
 												<td><%= val[:size] %></td>
-												<td><%= val[:refunded] ? 'Sí' : 'No' %></td>
 												<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]) %></td>
 												<td><%= number_to_currency (val[:unit_cost].nil? ? 0 : val[:unit_cost]*val[:quantity]) %></td>
 												<td><%= val[:store_paid] ? 'Sí' : 'No' %></td>
