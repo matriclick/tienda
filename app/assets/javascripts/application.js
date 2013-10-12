@@ -16,6 +16,7 @@
 $(function() {
   $("#purchase_delivery_date").datepicker({ dateFormat: 'yy-mm-dd', firstDay: 1 });
   $("#purchase_refund_date").datepicker({ dateFormat: 'yy-mm-dd', firstDay: 1 });
+  $('.tiptip').popover();
 });
 
 function remove_fields_post(link) {
@@ -93,21 +94,6 @@ $(function(){
 		animate({opacity: 1}, 2000).
 		animate({ height: 0, opacity: 0 }, 'slow');
 	
-	$(".tiptip").tipTip({
-		edgeOffset: 10,
-		defaultPosition: "right",
-		activation: "click",
-		delay:0
-		});
-		
-	$(".hovertip").tipTip({ // appears faster with fadeIn
-		edgeOffset: 10,
-		defaultPosition: "right",
-		activation: "hover",
-		delay:0,
-		fadeIn:1
-		});
-
 	// FGM: Feedback Tab
 	$('.slide-out-div').tabSlideOut({
   	tabHandle: '.handle',                     //class of the element that will become your tab
@@ -165,21 +151,6 @@ $(function(){
 		animate({opacity: 1}, 2000).
 		animate({ height: 0, opacity: 0 }, 'slow');
 	
-	$(".tiptip").tipTip({
-		edgeOffset: 10,
-		defaultPosition: "right",
-		activation: "click",
-		delay:0
-		});
-		
-	$(".hovertip").tipTip({ // appears faster with fadeIn
-		edgeOffset: 10,
-		defaultPosition: "right",
-		activation: "hover",
-		delay:0,
-		fadeIn:1
-		});
-
 	// FGM: Feedback Tab
 	$('.slide-out-div').tabSlideOut({
   	tabHandle: '.handle',                     //class of the element that will become your tab

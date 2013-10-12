@@ -23,7 +23,11 @@
 					<% end %>
 				</tr>
 				<tr style="background-color:#DAF2F2;">
-					<th>Sales (Cash In + Credits - Delivery Income)</th>
+					<th>
+						Sales <a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Sales" data-content="Cash In + Credits - Delivery Income">
+						<span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</th>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
 							<th><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:sales_week] %></th>
@@ -55,7 +59,12 @@
 					<% end %>
 				</tr>
 				<tr style="background-color:#ffe4e1;">
-					<td>Products Costs (w/o refunded purchases)</td>
+					<td>Products Costs 
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Products Costs" 
+						data-content="Costo de los productos sin IVA (es lo que le pagamos a la tienda). No incluye los productos que se devolvieron ya que esos no se van a pagar a la tienda (no es un costo que se cuenta como devolución)"> <span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</td>
+					
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
 							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:cost_week] %></td>
@@ -63,7 +72,11 @@
 					<% end %>
 				</tr>
 				<tr style="background-color:#ffe4e1;">
-					<td>IVA</td>
+					<td>IVA
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="IVA" 
+						data-content="Está calculado como [Costo de Producto x (1/0.81 - 1)]"> <span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
 							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:cost_week]*(1/0.81-1) %></td>
@@ -87,7 +100,11 @@
 					<% end %>
 				</tr>
 				<tr style="background-color:#DAF2F2;">
-					<td>Revenue (Sales - Product Cost - IVA + Delivery Income - Delivery Cost - Credits - Refunds)</td>
+					<td>Revenue
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Revenue" 
+						data-content="Sales - Product Cost - IVA + Delivery Income - Delivery Cost - Credits - Refunds"> <span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
 							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:revenue_week] %></td>
@@ -95,7 +112,12 @@
 					<% end %>
 				</tr>
 				<tr>
-					<td>Margin (w/ refunds) (1 - Products Cost / Sales)</td>
+					<td>Margin
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Margin" 
+						data-content="Se calcula como (1 - Products Cost / Sales). Para el cálculo también se consideran las compras que generaron devoluciones."> 
+						<span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
 							<td><%= number_to_percentage @wbr_data[week.to_s+' - '+year.to_s][:margin_week] %></td>
