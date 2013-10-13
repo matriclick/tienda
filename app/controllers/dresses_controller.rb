@@ -217,8 +217,8 @@ class DressesController < ApplicationController
     add_breadcrumb "Tramanta", :bazar_path
     add_breadcrumb 'Liquidación!', :dresses_clearing_path
     @search_text = 'Busca por color, talla, tela, etc...'
-    @title_content = 'New Arrivals'
-  	@meta_description_content = 'Los últimos productos agregados: vestidos, leggings, blusas, chaquetas y muchas cosas más.'
+    @title_content = 'Productos en Liquidación!'
+  	@meta_description_content = 'Productos en liquidación: vestidos, leggings, blusas, chaquetas y muchas cosas más.'
     
     render :view
   end
