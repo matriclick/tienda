@@ -53,13 +53,26 @@ class ReportsController < ApplicationController
         #Purchases
         purchases = Purchase.where('funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', monday_week, sunday_week)  
         purchases_week = purchases.size
-        #Products
+        #Products and Cash In per Category
+        categories_data = Hash.new
         prod_week = 0
         purchases.each do |p|
           if p.purchasable_type == 'Dress'
             prod_week = 1 + prod_week
+            if categories_data[p.purchasable.dress_type.name].nil?
+              categories_data[p.purchasable.dress_type.name] = { price_week: p.price }
+            else 
+              categories_data[p.purchasable.dress_type.name][:price_week] = categories_data[p.purchasable.dress_type.name][:price_week] + p.price
+            end
           else
             prod_week = p.purchasable.shopping_cart_items.size + prod_week
+            p.purchasable.shopping_cart_items.each do |sci|
+              if categories_data[sci.purchasable.dress_type.name].nil?
+                categories_data[sci.purchasable.dress_type.name] = { price_week: sci.price }
+              else 
+                categories_data[sci.purchasable.dress_type.name][:price_week] = categories_data[sci.purchasable.dress_type.name][:price_week] + sci.price
+              end
+            end
           end
         end
         #Tiendas con vestidos disponibles para vender
@@ -69,6 +82,7 @@ class ReportsController < ApplicationController
         supplier_accounts.each do |sa|
           stores_week = stores_week + 1 if sa.dresses.where(dress_status_id: disp).size > 0
         end
+        
         #Productos creados
         vestidos = DressType.where('name like "%vestidos-fiesta%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
 			  pantalones = DressType.where('name like "%ropa-de-mujer-pantalones%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
@@ -97,7 +111,8 @@ class ReportsController < ApplicationController
             sales_week: sales_week, cost_week: cost_week, revenue_week: revenue_week, refunds_week: refunds_week, margin_week: margin_week, 
             purchases_week: purchases_week, prod_week: prod_week, stores_week: stores_week, vestidos: vestidos, pantalones: pantalones, tops: tops, 
             abrigados: abrigados, chaquetas: chaquetas, polleras: polleras, interior: interior, zapatos: zapatos, new_products: new_products,
-            new_users: new_users, new_subscribers: new_subscribers, visits: visits, fb_followers: fb_followers, newsletters_sent: newsletters_sent }
+            new_users: new_users, new_subscribers: new_subscribers, visits: visits, fb_followers: fb_followers, newsletters_sent: newsletters_sent,
+            categories_data: categories_data }
       end
     end
   end

@@ -289,6 +289,38 @@
 						<% end %>
 					<% end %>
 				</tr>
+				<tr>
+					<td colspan="<%= @colspan %>"><h3>Category Analysis</h3>Cash In by Category</td>
+				</tr>
+				<tr style="background-color:black; color:white">
+					<td>Semana</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+						<th>
+								<%= week.to_s+' - '+year.to_s %><br />
+								<%= Date.commercial(year, week, 1).strftime('%d/%m') %>
+						</th>
+						<% end %>
+					<% end %>
+				</tr>
+				<% DressType.all.each do |dt| %>
+				<tr>
+					<td>
+						<%= dt.get_human_name %>
+					</td>
+					<% (@init_year..@end_year).each do |year| %>
+	      		<% (@init_week..@end_week).each do |week| %>
+						<td>
+						<% if !@wbr_data[week.to_s+' - '+year.to_s][:categories_data][dt.name].nil? %>
+							<%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:categories_data][dt.name][:price_week] %>
+						<% else %>
+							0
+						<% end %>
+						</td>
+						<% end %>
+					<% end %>
+				</tr>
+				<% end %>
 			</table>
 		</div>		
 	</div>
