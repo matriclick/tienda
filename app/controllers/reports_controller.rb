@@ -84,15 +84,12 @@ class ReportsController < ApplicationController
         end
         
         #Productos creados
-        vestidos = DressType.where('name like "%vestidos-fiesta%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
-			  pantalones = DressType.where('name like "%ropa-de-mujer-pantalones%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
-        tops = DressType.where('name like "%ropa-de-mujer-tops%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
-			  abrigados = DressType.where('name like "%ropa-de-mujer-abrigados%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
-			  chaquetas = DressType.where('name like "%ropa-de-mujer-chaquetas%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
-			  polleras = DressType.where('name like "%ropa-de-mujer-polleras%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
-			  interior = DressType.where('name like "%ropa-interior%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
-			  zapatos = DressType.where('name like "%zapatos%"').first.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+        products_created_week = Hash.new
+        DressType.all.each do |dt|
+          products_created_week[dt.name] = dt.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+        end
         new_products = Dress.where('dresses.created_at >= ? and dresses.created_at <= ?', monday_week, sunday_week).size
+
         #Usuarios
         new_users = User.where('created_at >= ? and created_at <= ?', monday_week, sunday_week).size
         #Suscriptores
@@ -109,8 +106,7 @@ class ReportsController < ApplicationController
         @wbr_data[(week.to_s+' - '+year.to_s)] = 
           { price_week: price_week, credits_week: credits_week, dispatch_income_week: dispatch_income_week, dispatch_cost_week: dispatch_cost_week, 
             sales_week: sales_week, cost_week: cost_week, revenue_week: revenue_week, refunds_week: refunds_week, margin_week: margin_week, 
-            purchases_week: purchases_week, prod_week: prod_week, stores_week: stores_week, vestidos: vestidos, pantalones: pantalones, tops: tops, 
-            abrigados: abrigados, chaquetas: chaquetas, polleras: polleras, interior: interior, zapatos: zapatos, new_products: new_products,
+            purchases_week: purchases_week, prod_week: prod_week, stores_week: stores_week, products_created_week: products_created_week, new_products: new_products,
             new_users: new_users, new_subscribers: new_subscribers, visits: visits, fb_followers: fb_followers, newsletters_sent: newsletters_sent,
             categories_data: categories_data }
       end

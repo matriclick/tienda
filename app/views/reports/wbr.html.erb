@@ -176,72 +176,17 @@
 							<th><%= @wbr_data[week.to_s+' - '+year.to_s][:new_products] %></th>
 						<% end %>
 					<% end %>
-					
 				</tr>
+				<% DressType.all.each do |dt| %>
 				<tr>
-					<td style="padding-left:15px">Vestidos</td>
+					<td style="padding-left:15px"><%= dt.get_human_name %></td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:vestidos] %></td>
+							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:products_created_week][dt.name] %></td>
 						<% end %>
 					<% end %>
 				</tr>
-				<tr>
-					<td style="padding-left:15px">Leggings/Calzas</td>
-					<% (@init_year..@end_year).each do |year| %>
-	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:pantalones] %></td>
-						<% end %>
-					<% end %>
-				</tr>
-				<tr>
-					<td style="padding-left:15px">Blusas/Poleras</td>
-					<% (@init_year..@end_year).each do |year| %>
-	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:tops] %></td>
-						<% end %>
-					<% end %>
-				</tr>
-				<tr>
-					<td style="padding-left:15px">Chalecos/Polerones</td>
-					<% (@init_year..@end_year).each do |year| %>
-	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:abrigados] %></td>
-						<% end %>
-					<% end %>
-				</tr>
-				<tr>
-					<td style="padding-left:15px">Chaquetas</td>
-					<% (@init_year..@end_year).each do |year| %>
-	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:chaquetas] %></td>
-						<% end %>
-					<% end %>
-				</tr>
-				<tr>
-					<td style="padding-left:15px">Faldas/Shorts</td>
-					<% (@init_year..@end_year).each do |year| %>
-	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:polleras] %></td>
-						<% end %>
-					<% end %>
-				</tr>
-				<tr>
-					<td style="padding-left:15px">Ropa Interior</td>
-					<% (@init_year..@end_year).each do |year| %>
-	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:interior] %></td>
-						<% end %>
-					<% end %>
-				</tr>
-				<tr>
-					<td style="padding-left:15px">Zapatos y Botas</td>
-					<% (@init_year..@end_year).each do |year| %>
-	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:zapatos] %></td>
-						<% end %>
-					<% end %>
-				</tr>
+				<% end %>
 				<tr>
 					<td colspan="<%= @colspan %>"><h3>Demand</h3></td>
 				</tr>
