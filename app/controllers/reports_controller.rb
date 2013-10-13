@@ -349,6 +349,16 @@ class ReportsController < ApplicationController
     purchases_made << 'Purchases Made'
     products_sold = Array.new
     products_sold << 'Products Sold'
+    visits = Array.new
+    visits << 'Visits'
+    new_users = Array.new
+    new_users << 'New Users'
+    new_subscribers = Array.new
+    new_subscribers << 'New Subscribers'
+    newsletters_sent = Array.new
+    newsletters_sent << 'Newsletters Sent'
+    fb_followers = Array.new
+    fb_followers << 'FB Followers'
     
     (init_year..end_year).each do |year|
     	(init_week..end_week).each do |week|
@@ -365,6 +375,11 @@ class ReportsController < ApplicationController
         margin << wbr_data[week.to_s+' - '+year.to_s][:margin_week]
         purchases_made << wbr_data[week.to_s+' - '+year.to_s][:purchases_week]
         products_sold << wbr_data[week.to_s+' - '+year.to_s][:prod_week]
+        visits << wbr_data[week.to_s+' - '+year.to_s][:visits]
+        new_users << wbr_data[week.to_s+' - '+year.to_s][:new_users]
+        new_subscribers << wbr_data[week.to_s+' - '+year.to_s][:new_subscribers]
+        newsletters_sent << wbr_data[week.to_s+' - '+year.to_s][:newsletters_sent]
+        fb_followers << wbr_data[week.to_s+' - '+year.to_s][:fb_followers]
     	end
     end
     
@@ -382,6 +397,11 @@ class ReportsController < ApplicationController
       csv << margin
       csv << purchases_made
       csv << products_sold
+      csv << visits
+      csv << new_users
+      csv << new_subscribers
+      csv << newsletters_sent
+      csv << fb_followers   
     end
   end
 end
