@@ -6,8 +6,15 @@
 		</div>
 	</div>
 	<div class="row">
+		<div class="col-md-12" style="text-align:right">
+			<%= form_tag(reports_wbr_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+				<%= submit_tag("Descargar Resultados",  class: "btn btn-default btn-sm") %>
+			<% end %>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-md-12">
-			<table class="table" style="font-size:12px">
+			<table class="table table-condensed table-hover" style="font-size:12px">
 				<tr>
 					<td colspan="<%= @colspan %>"><h3>Results</h3></td>
 				</tr>
@@ -61,7 +68,7 @@
 				<tr style="background-color:#ffe4e1;">
 					<td>Products Costs 
 						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Products Costs" 
-						data-content="Costo de los productos sin IVA (es lo que le pagamos a la tienda). No incluye los productos que se devolvieron ya que esos no se van a pagar a la tienda (no es un costo que se cuenta como devolución)"> <span class="glyphicon glyphicon-question-sign"></span>
+						data-content="Costo de los productos sin IVA (es lo que le pagamos a la tienda). No incluye los productos que se devolvieron ya que esos no se van a pagar a la tienda."> <span class="glyphicon glyphicon-question-sign"></span>
 						</a>
 					</td>
 					
@@ -253,7 +260,7 @@
 					<td>Visits</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:visits] %></td>
+							<td><%= number_with_delimiter @wbr_data[week.to_s+' - '+year.to_s][:visits] %></td>
 						<% end %>
 					<% end %>
 				</tr>
@@ -261,7 +268,7 @@
 					<td>New Users</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:new_users] %></td>
+							<td><%= number_with_delimiter @wbr_data[week.to_s+' - '+year.to_s][:new_users] %></td>
 						<% end %>
 					<% end %>
 				</tr>
@@ -269,7 +276,7 @@
 					<td>Newsletter Subscribers</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:new_subscribers] %></td>
+							<td><%= number_with_delimiter @wbr_data[week.to_s+' - '+year.to_s][:new_subscribers] %></td>
 						<% end %>
 					<% end %>
 				</tr>
@@ -285,7 +292,7 @@
 					<td>Total FB Followers</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= @wbr_data[week.to_s+' - '+year.to_s][:fb_followers] %></td>
+							<td><%= number_with_delimiter @wbr_data[week.to_s+' - '+year.to_s][:fb_followers] %></td>
 						<% end %>
 					<% end %>
 				</tr>

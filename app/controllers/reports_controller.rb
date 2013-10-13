@@ -115,6 +115,16 @@ class ReportsController < ApplicationController
             categories_data: categories_data }
       end
     end
+    
+    if params[:commit] == 'Descargar Resultados'
+      respond_to do |format|
+        format.html
+        format.csv { send_data export_wbr(@wbr_data,@init_year,@end_year,@init_week,@end_week).encode("iso-8859-1"), 
+                      :type => 'text/csv; charset=iso-8859-1; header=present', 
+                      :disposition => "attachment; filename=wbr_"+@init_week.to_s+"_"+@init_year.to_s+"_a_"+@end_week.to_s+"_"+@end_year.to_s+".csv" }
+      end
+    end
+    
   end
   
   def credits
@@ -315,5 +325,67 @@ class ReportsController < ApplicationController
   def generate_bread_crumbs
     add_breadcrumb "Administrador", :administration_index_path
   end
+  
+  def export_wbr(wbr_data,init_year,end_year,init_week,end_week)
+    header = Array.new
+    header << 'Semana'
+    sales = Array.new
+    sales << 'Sales'
+    cash_in = Array.new
+    cash_in << 'Cash In'
+    credits = Array.new
+    credits << 'Credits'
+    delivery_income = Array.new
+    delivery_income << 'Delivery Income'
+    products_cost = Array.new
+    products_cost << 'Products Costs' 
+    tax = Array.new
+    tax << 'Tax' 
+    delivery_cost = Array.new
+    delivery_cost << 'Delivery Cost'
+    refunds = Array.new
+    refunds << 'Refunds'
+    revenue = Array.new
+    revenue << 'Revenue'
+    margin = Array.new
+    margin << 'Margin'
+    purchases_made = Array.new
+    purchases_made << 'Purchases Made'
+    products_sold = Array.new
+    products_sold << 'Products Sold'
     
+    (init_year..end_year).each do |year|
+    	(init_week..end_week).each do |week|
+        header << week.to_s+' - '+year.to_s
+    		sales << wbr_data[week.to_s+' - '+year.to_s][:sales_week]
+        cash_in << wbr_data[week.to_s+' - '+year.to_s][:price_week]
+        credits << wbr_data[week.to_s+' - '+year.to_s][:credits_week]
+        delivery_income << wbr_data[week.to_s+' - '+year.to_s][:dispatch_income_week]
+        products_cost << wbr_data[week.to_s+' - '+year.to_s][:cost_week]
+        tax << wbr_data[week.to_s+' - '+year.to_s][:cost_week]*(1/0.81-1)
+        delivery_cost << wbr_data[week.to_s+' - '+year.to_s][:dispatch_cost_week]
+        refunds << wbr_data[week.to_s+' - '+year.to_s][:refunds_week]
+        revenue << wbr_data[week.to_s+' - '+year.to_s][:revenue_week]
+        margin << wbr_data[week.to_s+' - '+year.to_s][:margin_week]
+        purchases_made << wbr_data[week.to_s+' - '+year.to_s][:purchases_week]
+        products_sold << wbr_data[week.to_s+' - '+year.to_s][:prod_week]
+    	end
+    end
+    
+    CSV.generate do |csv|
+      csv << header
+      csv << sales
+      csv << cash_in
+      csv << credits
+      csv << delivery_income
+      csv << products_cost
+      csv << tax
+      csv << delivery_cost
+      csv << refunds
+      csv << revenue
+      csv << margin
+      csv << purchases_made
+      csv << products_sold
+    end
+  end
 end
