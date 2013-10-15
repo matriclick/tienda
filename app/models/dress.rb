@@ -263,7 +263,7 @@ class Dress < ActiveRecord::Base
 	  oculto_id = DressStatus.find_by_name("Oculto").id
 	  vendido_oculto_id = DressStatus.find_by_name("Vendido y Oculto").id
 	  
-	  where('dress_status_id <> ? and dress_status_id <> ?', oculto_id, vendido_oculto_id).order('position ASC')
+	  where('dress_status_id <> ? and dress_status_id <> ?', oculto_id, vendido_oculto_id)
   end
       
 	def self.available_to_purchase

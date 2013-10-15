@@ -1,10 +1,9 @@
 # encoding: UTF-8
 class DressesController < ApplicationController
   around_filter :catch_not_found
+  before_filter :check_order, only: [:view, :view_search, :new_arrivals, :clearing]
   require 'will_paginate/array'
   
-  @@scrolling_set = 12
-
   # GET /dresses
   # GET /dresses.json
   def index 
@@ -27,11 +26,6 @@ class DressesController < ApplicationController
     add_breadcrumb "Preguntas frecuentes", :faq_elbazar_path
   end
   
-  def women_clothing_menu
-    add_breadcrumb "El Bazar", :bazar_path
-    add_breadcrumb "Ropa de Mujer", :dresses_women_clothing_menu_path
-  end
-  
   def contact_elbazar
     add_breadcrumb "Tramanta", :bazar_path
     add_breadcrumb "Contacto", :contact_elbazar_path
@@ -46,16 +40,7 @@ class DressesController < ApplicationController
     end
     
   end
-    
-	def wedding_dress_menu
-    @title_content = 'Vestidos de Fiesta'
-    @meta_description_content = 'Elige entre cientos de vestidos de fiesta, accesorios y moda de mujer para que nunca te repitas la misma ropa... ah! y te lo llevamos a tu casa!'
-	  if !current_supplier.nil?
-	    sign_out current_supplier
-    end
-    add_breadcrumb "Vestidos de Novia", :dresses_wedding_dress_menu_path
-	end
-	
+    	
 	def bazar
 	  @home = true
     @not_breadcrumbs = true
@@ -69,40 +54,6 @@ class DressesController < ApplicationController
 	    sign_out current_supplier
     end
     add_breadcrumb "Tramanta", :bazar_path
-  end
-	
-	def party_dress_menu
-	  if !current_supplier.nil?
-	    sign_out current_supplier
-    end
-    add_breadcrumb "El Bazar", :bazar_path
-    add_breadcrumb "Vestidos de fiesta", :dresses_party_dress_menu_path
-  end
-  
-  def party_dress_boutique
-    @ic = IndustryCategory.find_by_name('vestidos_de_fiesta')
-    @supplier_account_type = SupplierAccountType.find_by_name('Vestidos Boutique')
-    @supplier_accounts = SupplierAccount.where("supplier_account_type_id = #{@supplier_account_type.id}").by_industry_category(@ic.id).approved.sort_by {|sa| sa.reviews.approved.size}.reverse		  	  
-    @vestido_boutique = true
-    add_breadcrumb "El Bazar", :bazar_path
-    add_breadcrumb "Vestidos boutique", :dresses_party_dress_boutique_path
-  end
-  
-  def wedding_dress_stores
-    @ic = IndustryCategory.find_by_name('vestidos_y_calzado_novia')
-    @supplier_account_type = SupplierAccountType.find_by_name('Regular')
-    @supplier_accounts = SupplierAccount.where("supplier_account_type_id = #{@supplier_account_type.id}").by_industry_category(@ic.id).approved.sort_by {|sa| sa.reviews.approved.size}.reverse		  	  
-    add_breadcrumb "Vestidos de Novia", :dresses_wedding_dress_menu_path
-    add_breadcrumb "Tiendas", :dresses_wedding_dress_stores_path
-  end
-	
-	def baby_clothing_menu
-    #aguclik
-    @title_content = 'Ropa de Bebe | Matriclick' #SEO
-    @meta_description_content = 'En este sitio encontrarás todo lo que necesitas para vestir a tu bebé durante las distintas etapas de su crecimiento' #Descripción
-    @og_type = 'website' #FB Puede ser website, article
-    @og_image = 'http://www.tramanta.com/images/emails/logo_matriclick_sin_caja.png' #FB Ruta completa a la imagen, por ejemplo http://www.tramanta.com/images/emails/logo_matriclick_sin_caja.png
-    add_breadcrumb "Ropa de Bebe", :mibebe_menu_path
   end
 
   def supplier_view
@@ -147,7 +98,7 @@ class DressesController < ApplicationController
       disp = DressStatus.find_by_name("Disponible").id
       vend = DressStatus.find_by_name("Vendido").id
       @all_dresses = Dress.joins(:dress_types).where('dress_types.name like "%'+params[:type]+'%" and (dress_status_id = ? or dress_status_id = ?)', disp, vend)
-      @dresses = @all_dresses.paginate(:page => params[:page]).order('position ASC, created_at DESC')
+      @dresses = @all_dresses.paginate(:page => params[:page]).order(@order)
       @sizes = Dress.check_sizes(@all_dresses)
       @title_content = (params[:type]).gsub('-', ' ').capitalize
     	@meta_description_content = 'Compra '+(params[:type]).gsub('-', ' ')
@@ -164,11 +115,11 @@ class DressesController < ApplicationController
       @search_text = (!@search_term.nil? and @search_term != '') ? @search_term.gsub('-', ' ').capitalize : 'Busca por color, talla, tela, etc...'
       if @clearing
         @all_dresses = Dress.all_filtered(@search_term, nil, 9).uniq
-        @dresses = Dress.all_filtered(@search_term, @search_sizes, 9).order('position ASC, created_at DESC').uniq.paginate(:page => params[:page])        
+        @dresses = Dress.all_filtered(@search_term, @search_sizes, 9).order(@order).uniq.paginate(:page => params[:page])        
         add_breadcrumb 'Liquidación!', dresses_clearing_path
       else
         @all_dresses = Dress.all_filtered(@search_term).uniq
-        @dresses = Dress.all_filtered(@search_term, @search_sizes).order('position ASC, created_at DESC').uniq.paginate(:page => params[:page])
+        @dresses = Dress.all_filtered(@search_term, @search_sizes).order(@order).uniq.paginate(:page => params[:page])
       end
       @sizes = Dress.check_sizes(@all_dresses)
 
@@ -195,7 +146,7 @@ class DressesController < ApplicationController
   def new_arrivals
     disp = DressStatus.find_by_name("Disponible").id
     @all_dresses = Dress.where('dress_status_id = ?', disp)
-    @dresses = @all_dresses.order('created_at DESC').limit 28
+    @dresses = @all_dresses.order(@order).limit(28)
     @sizes = Dress.check_sizes(@all_dresses)
     @not_paginate = true
     
@@ -211,7 +162,7 @@ class DressesController < ApplicationController
   def clearing
     disp = DressStatus.find_by_name("Disponible").id
     @all_dresses = Dress.where('dress_status_id = ?', disp).where('discount > 9')
-    @dresses = @all_dresses.paginate(:page => params[:page]).order('position ASC, created_at DESC')
+    @dresses = @all_dresses.paginate(:page => params[:page]).order(@order)
     @sizes = Dress.check_sizes(@all_dresses)
     
     add_breadcrumb "Tramanta", :bazar_path
@@ -416,6 +367,25 @@ class DressesController < ApplicationController
   end
   
   private
+  
+  def check_order
+    @order_param = params[:order]
+    if @order_param.nil? or @order_param == "- Orden -"
+      if action_name == 'new_arrivals'
+        @order = "created_at DESC"
+      else
+        @order = "position ASC, created_at DESC"
+      end
+    else
+      if @order_param == "Lo nuevo"
+        @order = "created_at DESC"
+      elsif @order_param == "Precio Menor a Mayor"
+        @order = "price ASC"
+      elsif @order_param == "Precio Mayor a Menor"
+        @order = "price DESC"
+      end
+    end
+  end
 
   def catch_not_found
     yield

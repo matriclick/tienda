@@ -1,3 +1,21 @@
+<form action="<%= request.fullpath %>" method="get">
+	<% if @search_term %>
+		<%= hidden_field_tag(:q, @search_term) %>
+	<% elsif !params[:type].blank? %>
+		<%= hidden_field_tag(:q, params[:type]) %>
+	<% end %>
+
+	<% if !params[:sizes].blank? %>
+		<%= hidden_field_tag('sizes[]', @search_sizes) %>
+	<% end %>
+	<% if action_name == 'clearing' or @clearing %>
+		<%= hidden_field_tag(:clearing, true) %>
+	<% end %>
+	
+	<%= select_tag "order", options_for_select(["- Orden -", "Lo nuevo", "Precio Menor a Mayor", "Precio Mayor a Menor"], @order_param), 
+								{ :class => "form-control", style: 'width:100%; margin-bottom:10px; font-size:12px', :onchange => "this.form.submit()" } %>
+</form>
+
 <form action="<%= dresses_search_path %>" method="get">
 	<%= submit_tag("Filtrar", :name => nil, class: "btn btn-primary btn-sm btn-block") %>
 	<% if @search_term %>
