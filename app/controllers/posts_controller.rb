@@ -4,12 +4,15 @@ class PostsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   
   def blog
-    @posts = Post.where(:country_id => session[:country].id, :post_type => 'Post').is_visible.order('created_at DESC').limit 35
-	  @slider_images = SliderImage.where(:country_id => session[:country].id, :slider_image_type_id => 2).order(:position)
-  	
-  	@title_content = 'Reportajes de Matrimonios'
-  	@meta_description_content = 'Toda la información que necesitas: datos, anécdotas e historias para que te prepares para tu Matrimonio'
-    add_breadcrumb "Revista Matriclick", :blog_path
+    @posts = Post.is_visible.paginate(:page => params[:page], :per_page => 12).order('created_at DESC')
+    @background = true
+    @not_breadcrumbs = true
+	  
+  	@title_content = 'Moda y Tendencias'
+  	@meta_description_content = 'Reportajes e información sobre las últimas tendencias de la moda local e internacional'
+  	@h1 = 'Revista de Moda y Tendencias'
+  	@h2 = 'En este blog encontrarás datos, ideas y todo lo que necesitas saber para que todas te sigan'
+  	@h3 = ''
   end
   
   def index
@@ -110,16 +113,9 @@ class PostsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
-  def check_older_guests # DZF check for guests older than 1 week and destroy them
-		begin
-			UserAccount.joins(:users).where('users.role_id = 3 and created_at <= ? ', Time.now - 3.weeks).destroy_all
-		rescue
-			logger.info  "---------> ERROR WHEN clearing older guest users" 
-		end
-  end
 
 	private
+  
 	def redirect_unless_admin
 		if !user_signed_in? or current_user.role_id != 1
   			redirect_to blog_url

@@ -1,12 +1,11 @@
 class Post < ActiveRecord::Base
-  include CountryMethods
-  self.per_page = 8
-  
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :history, :i18n]
+
   after_create :set_country_id_with_locale
   
   belongs_to :country
   has_many :post_contents
-  has_and_belongs_to_many :pack_promotions
   
   has_attached_file :main_image, :styles => {
                  :tiny => "40x40>",
@@ -18,8 +17,6 @@ class Post < ActiveRecord::Base
   
   accepts_nested_attributes_for :post_contents, :reject_if => proc { |a| a[:content].blank? }, :allow_destroy => true
   
-  extend FriendlyId
-  friendly_id :title, use: [:slugged, :history, :i18n]
   
   def self.find_last(position)
     posts = Post.is_visible.order('id DESC').limit(3)

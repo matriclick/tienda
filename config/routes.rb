@@ -2,19 +2,17 @@
 Matri::Application.routes.draw do
 
   resources :wbr_data
-
   resources :contests
-
   resources :contestants
+  resources :posts
+  get 'blog' => 'posts#blog', as: 'blog_el_bazar'
+  
   put "contestants/add_vote/:id"     => "contestants#add_vote",   as: 'contestants_add_vote'
   
   get "admin-tienda/seleccionar" => 'store_admin#select_store', :as => 'store_admin_select_store'
   get "admin-tienda/productos/:public_url" => 'store_admin#products', :as => 'store_admin_products'
   get "admin-tienda/ventas/:public_url" => 'store_admin#purchases', :as => 'store_admin_purchases'
   get "admin-tienda/pagos/:public_url" => 'store_admin#payments', :as => 'store_admin_payments'
-
-  get "mail_inline/i_want_it/:dress_id" => 'mail_inline#i_want_it', :as => 'mail_inline_i_want_it'
-  post "mail_inline/send_i_want_it" => 'mail_inline#send_i_want_it'
 
   post 'buy/add_to_cart' => 'buy#add_to_cart'
   post 'buy/remove_from_cart' => 'buy#remove_from_cart'
@@ -70,49 +68,25 @@ Matri::Application.routes.draw do
   get 'reports/credits' => 'reports#credits', as: 'reports_credits'
   get 'reports/wbr' => 'reports#wbr', as: 'reports_wbr'
   resources :matriclickers
-
-  put "slider_images/update_positions" => "slider_images#update_positions"
-  resources :slider_images
   
   # DRESSES
 	get "dresses/display_dispatch_costs" => 'dresses#display_dispatch_costs', as: 'display_dispatch_costs'
 	
-	get 'tramanta/accesorios' => 'dresses#accessories_menu', as: 'dresses_accessories_menu'
-	get "tramanta/vestidos" => 'dresses#party_dress_menu', as: 'dresses_party_dress_menu'
 	get "contacto-tramanta" => 'dresses#contact_elbazar', as: 'contact_elbazar'
-	get "faq-tramanta" => 'dresses#faq_elbazar', as: 'faq_elbazar'
-	
+	get "faq-tramanta" => 'dresses#faq_elbazar', as: 'faq_elbazar'	
 	get 'dresses/set_stock/:id' => 'dresses#set_stock', as: 'dresses_set_stock'
 	post 'dresses/update_stock' => 'dresses#update_stock', as: 'dresses_update_stock'
-	post 'dresses/notify_request/:slug' => 'dresses#notify_request', as: 'dresses_notify_request'
-	get 'dresses/dress_request/:slug' => 'dresses#dress_request', as: 'dresses_dress_request'
-	
-	get "dresses/wedding_dress_menu" => 'dresses#wedding_dress_menu', as: 'dresses_wedding_dress_menu'
-	get "dresses/party_dress_boutique" => 'dresses#party_dress_boutique', as: 'dresses_party_dress_boutique'
-	get "dresses/wedding_dress_stores" => 'dresses#wedding_dress_stores', as: 'dresses_wedding_dress_stores'
-
 	get "dresses/ver/:type" => 'dresses#view', as: 'dresses_ver'
-	post "dresses/ver/dresses/endless_scrolling" => 'dresses#endless_scrolling', as: 'dresses_endless_scrolling'
 	resources :dresses, :except => ['show']
   get 'dresses/:type/:slug' => 'dresses#show', :as => 'dress_ver'
   get 'dresses/buscar' => 'dresses#view_search', :as => 'dresses_search'
   post "dresses/dresses/endless_scrolling" => 'dresses#endless_scrolling'
   get 'dresses/new-arrivals'	=> 'dresses#new_arrivals', as: 'dresses_new_arrivals'
-  get 'dresses/clearing'	=> 'dresses#clearing', as: 'dresses_clearing'
-  get 'dresses/browse'	=> 'dresses#browse', as: 'dresses_browse'
-  get 'dresses/details'	=> 'dresses#details', as: 'dresses_details'
-  
+  get 'dresses/clearing'	=> 'dresses#clearing', as: 'dresses_clearing'  
   get 'dresses/refund_policy'	=> 'dresses#refund_policy', as: 'refund_policy'
   resources :refund_requests
-  resources :cloth_measures	    
+  resources :cloth_measures
 	resources :mailings
-	# BLOG
-  resources :posts do
-		resources :blog_comments  	
-  end
-
-	# PACKS
-  get 'blog-tramanta' => 'packs#el_bazar', as: 'blog_el_bazar'
   resources :contacts
     
   # USER_PROFILE
