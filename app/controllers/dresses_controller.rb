@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class DressesController < ApplicationController
   around_filter :catch_not_found
-  before_filter :check_order, only: [:view, :view_search, :new_arrivals, :clearing]
+  before_filter :check_order, only: [:view, :view_search, :clearing]
   require 'will_paginate/array'
   
   # GET /dresses
@@ -145,8 +145,21 @@ class DressesController < ApplicationController
   
   def new_arrivals
     disp = DressStatus.find_by_name("Disponible").id
-    @all_dresses = Dress.where('dress_status_id = ?', disp)
-    @dresses = @all_dresses.order(@order).limit(28)
+    @all_dresses = Dress.where('dress_status_id = ?', disp).order('created_at DESC').limit(28)
+    
+    @order_param = params[:order]
+    if !@order_param.nil? and @order_param != "- Orden -"
+      if @order_param == "Precio Menor a Mayor"
+        @dresses = @all_dresses.sort_by { |d| d.price }
+      elsif @order_param == "Precio Mayor a Menor"
+        @dresses = @all_dresses.sort_by { |d| -d.price }
+      else
+        @dresses = @all_dresses
+      end
+    else
+      @dresses = @all_dresses
+    end
+    
     @sizes = Dress.check_sizes(@all_dresses)
     @not_paginate = true
     
