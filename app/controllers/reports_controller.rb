@@ -99,6 +99,7 @@ class ReportsController < ApplicationController
         unless wbr_datum.nil?
           visits = wbr_datum.webpage_visits
           fb_followers = wbr_datum.fb_followers
+          fb_organic_reach = wbr_datum.fb_organic_reach
           newsletters_sent = wbr_datum.newsletters_sent
         end
         
@@ -108,7 +109,7 @@ class ReportsController < ApplicationController
             sales_week: sales_week, cost_week: cost_week, revenue_week: revenue_week, refunds_week: refunds_week, margin_week: margin_week, 
             purchases_week: purchases_week, prod_week: prod_week, stores_week: stores_week, products_created_week: products_created_week, new_products: new_products,
             new_users: new_users, new_subscribers: new_subscribers, visits: visits, fb_followers: fb_followers, newsletters_sent: newsletters_sent,
-            categories_data: categories_data }
+            categories_data: categories_data, fb_organic_reach: fb_organic_reach }
       end
     end
     
@@ -359,6 +360,8 @@ class ReportsController < ApplicationController
     newsletters_sent << 'Newsletters Sent'
     fb_followers = Array.new
     fb_followers << 'FB Followers'
+    fb_organic_reach = Array.new
+    fb_organic_reach << 'FB Organic Reach'
     
     (init_year..end_year).each do |year|
     	(init_week..end_week).each do |week|
@@ -380,6 +383,7 @@ class ReportsController < ApplicationController
         new_subscribers << wbr_data[week.to_s+' - '+year.to_s][:new_subscribers]
         newsletters_sent << wbr_data[week.to_s+' - '+year.to_s][:newsletters_sent]
         fb_followers << wbr_data[week.to_s+' - '+year.to_s][:fb_followers]
+        fb_organic_reach << wbr_data[week.to_s+' - '+year.to_s][:fb_organic_reach]
     	end
     end
     
@@ -401,7 +405,8 @@ class ReportsController < ApplicationController
       csv << new_users
       csv << new_subscribers
       csv << newsletters_sent
-      csv << fb_followers   
+      csv << fb_followers
+      csv << fb_organic_reach
     end
   end
 end

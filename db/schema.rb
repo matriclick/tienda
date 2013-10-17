@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131013161852) do
+ActiveRecord::Schema.define(:version => 20131017182310) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -900,6 +900,7 @@ ActiveRecord::Schema.define(:version => 20131013161852) do
     t.integer  "newsletters_sent"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "fb_organic_reach"
   end
 
   create_table "wed_benchmarks", :force => true do |t|
