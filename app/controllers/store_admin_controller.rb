@@ -87,12 +87,8 @@ class StoreAdminController < ApplicationController
   
   def check_order
     @order_param = params[:order]
-    if @order_param.nil? or @order_param == "- Orden -"
-      if action_name == 'new_arrivals'
-        @order = "created_at DESC"
-      else
-        @order = "position ASC, created_at DESC"
-      end
+    if @order_param.nil? or @order_param == "Sin orden"
+      @order = "position ASC, created_at DESC"
     else
       if @order_param == "Lo nuevo"
         @order = "created_at DESC"
