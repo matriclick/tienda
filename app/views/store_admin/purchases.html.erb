@@ -8,6 +8,7 @@
 			  <tr>
 			    <th>Fecha Compra</th>
 			    <th>Producto</th>
+			    <th>Código</th>
 			    <th>Precio Vendido</th>
 					<th>Cantidad</th>
 					<th>Talla</th>
@@ -21,6 +22,7 @@
 					<% dress = Dress.find val[:dress_id] %>
 					<td><%= val[:date].strftime("%Y-%m-%d") %><br /><%= dress.introduction %></td>
 					<td><%= link_to image_tag(dress.small_image), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></td>
+					<td><%= val[:code] %></td>
 					<td><%= number_to_currency val[:price] %></td>
 					<td><%= val[:quantity] %></td>
 					<td><%= val[:size] %></td>
