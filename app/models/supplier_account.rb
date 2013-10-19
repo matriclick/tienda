@@ -48,7 +48,6 @@ class SupplierAccount < ActiveRecord::Base
 	#http://railscasts.com/episodes/108-named-scope
 	scope :from_industry, lambda { |ic| { :joins => :industry_categories, :conditions => [ "industry_categories.id = ?", ic.id ] } }
   
-  
   def check_owned_products_purchased_from_purchases(purchases)
     purchased_products_data = Array.new
     
@@ -68,6 +67,16 @@ class SupplierAccount < ActiveRecord::Base
       end
     end
     return purchased_products_data
+  end
+  
+  def check_view(view)
+    unless view.nil? or view == "Ver todos"
+      if view == "Ver solo con stock"
+        where('dress_status_id == ? or dress_status_id == ?', DressStatus.find_by_name('Disponible').first.id, DressStatus.find_by_name('Oculto').first.id)
+      elsif view == "Ver solo agotados"
+        where('dress_status_id == ? or dress_status_id == ?', DressStatus.find_by_name('Vendido y Oculto').first.id, DressStatus.find_by_name('Vendido').first.id)
+      end
+    end
   end
   
   def get_sold_items(from, to)
@@ -149,33 +158,7 @@ class SupplierAccount < ActiveRecord::Base
     file_name = self.image_file_name
 	  return !file_name.nil? ? file_name[0..file_name.index('.')-1].gsub('-', ' ') : 'sin-imagen'
 	end
-  
-	def has_discount
-	  if self.services.where("discount > 0").count > 0 or self.products.where("discount > 0").count > 0
-	    return true
-    end
-    return false
-  end
-  	
-  def main_industry_category
-    self.industry_categories.first
-  end
-	# FGM: Bookable = Product/Service that have one or more bookings
-	def bookables(options = {})
-		options[:date].present? ? @bookings = bookings.where(:date => options[:date]) : @bookings = bookings
-		@bookings = @bookings.by_status(:except => options[:except]) if options[:except].present?
-		@bookings.collect { |b| b.bookable }.uniq.reject {|a| a.nil?}
-	end
-	
-	# FGM: Check if date should be blocked based on available booking_resources
-	def should_create_no_more_booking?(date)
-		confirmed_booking_resources(date) >= self.booking_resources
-	end
-	
-	def confirmed_booking_resources(date)
-		self.bookables(:date => date, :except => :custom).map{ |b| b.bookings.where(date: date).by_status(status: :confirmed).count * b.booking_resources_consumed }.sum
-	end
-	
+ 
 	# FGM: Self information
 	def self.approved
 		where(:approved_by_us => true, :approved_by_supplier => true)
@@ -185,55 +168,8 @@ class SupplierAccount < ActiveRecord::Base
 		order(:corporate_name => :asc)
 	end
 	
-	def self.suggested
-		where(:suggested_for_campaign => true)
-	end
-	
-	# FGM: Not used
-	def self.random
-		order( 'rand()')
-	end
-		
-	def self.by_industry_category(id, name = nil)
-		if id
-			joins(:industry_categories).where("industry_categories.id = #{id}")
-		elsif name
-			joins(:industry_categories).where("industry_categories.name = #{name}")
-		else
-			scoped
-		end
-	end
-	
-	def unread_bookings?
-		events.supplier_unread.blank? ? false : true
-	end
-
 	def is_approved?
 		self.approved_by_us and self.approved_by_supplier
-	end
-	
- 	def validate_industry_category
-    hasitems = false
-    for p in self.products
-      if self.industry_categories.find_all_by_id(p.industry_category_id).length==0 then hasitems=true end    
-    end
-
-    for s in self.services
-      if self.industry_categories.find_all_by_id(s.industry_category_id).length==0 then hasitems=true end    
-    end
-
-    errors.add :IndustryCategories, I18n.t('errors.messages.has_items') if hasitems
-	end
-	
-	def services_and_products_count
-		self.services.count + self.products.count
-	end
-	
-	def add_supplier_page_view(ip, type_name = 'Presentacion')
-	  type = ViewCountType.find_by_name type_name
-		supplier_page_view = supplier_page_views.where(:created_at => Date.today.beginning_of_month..Date.today.end_of_month, :ip => ip, view_count_type_id: type.id).first || supplier_page_views.build(ip: ip, view_count_type_id: type.id)
-		supplier_page_view.count.blank? ? supplier_page_view.count = 1 : supplier_page_view.count += 1
-		supplier_page_view.save
 	end
 		
 	private
@@ -245,16 +181,7 @@ class SupplierAccount < ActiveRecord::Base
 	def correct_phone_number_format
 		self.phone_number.gsub!(/[^\d^+]/, "") unless self.phone_number.blank?
  	end
- 	
- 	def self.user_reviewable(user_account)
- 		supplier_accounts = []
-		user_account.expenses.each do |exp|
-			supplier_accounts << exp.supplier_account unless exp.supplier_account.blank?
-		end
-		#DZF dont repeat suppliers
-		supplier_accounts.uniq
- 	end
-  
+
   def add_address_if_nil
     if self.address.nil?
         a = Address.new
@@ -263,13 +190,5 @@ class SupplierAccount < ActiveRecord::Base
         self.save(:validate => false)
       end
   end
-  
-  def delete_sub_ics_when_no_ic
-   	self.sub_industry_categories.each do |sa_sub_ic|
-       if !self.industry_categories.include?(sa_sub_ic.industry_category)
-         self.sub_industry_categories.delete(sa_sub_ic)
-       end
-     end
-   end
 	
 end

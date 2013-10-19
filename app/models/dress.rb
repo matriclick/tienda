@@ -44,7 +44,7 @@ class Dress < ActiveRecord::Base
                 dress.users.size, dress.get_purchases.size, dress.get_shopping_cart_items.size, dress.get_available_stock]
       end
     end
-  end
+  end  
   
   def get_available_stock
     stock = 0
