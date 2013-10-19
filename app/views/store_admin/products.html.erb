@@ -25,13 +25,16 @@
 			</div>
 			<div class="row" style="margin-top:20px">
 				<form action="<%= request.fullpath %>" method="get" class="form" role="form">
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<%= select_tag "view", options_for_select(["Ver todos", "Ver solo con stock", "Ver solo agotados"], @view_param), 
 																			{ :class => "form-control", style: 'font-size:12px', :onchange => "this.form.submit()" } %>
 				</div>
-				<div class="col-md-6">
-					<%= select_tag "order", options_for_select(["- Orden -", "Lo nuevo", "Precio Menor a Mayor", "Precio Mayor a Menor"], @order_param), 
+				<div class="col-md-4">
+					<%= select_tag "order", options_for_select(["Lo nuevo", "Precio Menor a Mayor", "Precio Mayor a Menor"], @order_param), 
 												{ :class => "form-control", style: 'font-size:12px', :onchange => "this.form.submit()" } %>
+				</div>
+				<div class="col-md-4">
+					<%= select_tag "dress_type", content_tag(:option,'Todas las categorías', :value => "")+options_from_collection_for_select(DressType.all, 'name', 'get_human_name', @dress_type_name), { :class => "form-control", style: 'font-size:12px', :onchange => "this.form.submit()" } %>
 				</div>
 				<% if !@code_q.blank? %>
 					<%= hidden_field_tag(:code_q, @code_q) %>

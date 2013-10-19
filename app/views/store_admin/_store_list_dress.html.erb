@@ -22,6 +22,6 @@
 	<p style="font-size:12px"><strong><%= number_to_currency dress.price %></strong> (<%= dress.code %>)<br/>
 		 <%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></p>
 		<%= link_to 'Modificar Stock', dresses_set_stock_path(:id => dress.id), 
-				:class => 'btn btn-default btn-xs', title: "Modificar Stock", style: 'margin-top:-10px' %>							
+				:class => 'btn btn-default btn-xs', title: "Modificar Stock", style: 'margin-top:-10px' %>
 	</p>
 </div><!--/span--> 

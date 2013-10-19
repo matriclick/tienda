@@ -11,20 +11,29 @@ class StoreAdminController < ApplicationController
     @supplier_account = SupplierAccount.find_by_public_url params[:public_url]
     add_breadcrumb "Productos de "+@supplier_account.fantasy_name, store_admin_products_path(public_url: params[:public_url])
     
+  
+    @dress_type_name = params[:dress_type]
+    if @dress_type_name.blank? or @dress_type_name == "Todas las categorías"
+      dresses_aux = @supplier_account.dresses
+    else
+      dt = DressType.find_by_name @dress_type_name
+      dresses_aux = @supplier_account.dresses.joins(:dress_types).where('dress_types.id = ?', dt.id)
+    end
+    
     if !params[:code_q].nil?
       @code_q = params[:code_q]
       @code_search_text = params[:code_q]
       @search_text = 'Nombre o descripción del producto'      
-      @dresses = @supplier_account.dresses.where('code like "%'+params[:code_q]+'%"'+check_view).paginate(:page => params[:page]).order(@order)
+      @dresses = dresses_aux.where('code like "%'+params[:code_q]+'%"'+check_view).paginate(:page => params[:page]).order(@order)
     elsif !params[:q].nil?
       @q = params[:q]
       @code_search_text = 'Código del producto'
       @search_text = params[:q]
-      @dresses = @supplier_account.dresses.where('introduction like "%'+params[:q]+'%" or description like "%'+params[:q]+'%"'+check_view).paginate(:page => params[:page]).order(@order)
+      @dresses = dresses_aux.where('introduction like "%'+params[:q]+'%" or description like "%'+params[:q]+'%"'+check_view).paginate(:page => params[:page]).order(@order)
     else
       @code_search_text = 'Código del producto'
       @search_text = 'Nombre o descripción del producto'
-      @dresses = @supplier_account.dresses.where('dresses.price like "%0%"'+check_view).paginate(:page => params[:page]).order(@order)
+      @dresses = dresses_aux.where('dresses.price like "%0%"'+check_view).paginate(:page => params[:page]).order(@order)
     end
   end
 
@@ -107,5 +116,5 @@ class StoreAdminController < ApplicationController
     end
     return sql
   end
-
+    
 end
