@@ -3,6 +3,9 @@
 		<div class="col-md-12">
 			<%= render 'date_range_selector' %>
 			<div>
+				<% total_tramanta_debt = 0 %>
+				<% total_tramanta_unpaid_products = 0 %>
+				
 				<% @supplier_accounts.each do |sa| %>
 				<% products = sa.check_owned_products_purchased_from_purchases(@purchases) %>
 				<% not_paid = false %>
@@ -58,11 +61,19 @@
 				      </div>
 				    </div>
 						<p style="margin-left:20px; margin-top:10px;">Total adeudado = <b><%= number_to_currency debt %></b> (<%= prod_count %> productos)</p>
+						<% total_tramanta_debt = total_tramanta_debt + debt %>
+						<% total_tramanta_unpaid_products = total_tramanta_unpaid_products + prod_count %>
 				  </div>
 					<% end %>
 					<% end %>
 				<% end %>
 			</div>
+		</div>
+	</div>
+	<div class="row" style="border:1px solid grey;">
+		<div class="col-md-12">
+			<p style="margin-top:10px;">Total adeudado = <b><%= number_to_currency total_tramanta_debt %></b> 
+				(<%= total_tramanta_unpaid_products %> productos)</p>
 		</div>
 	</div>
 </div>

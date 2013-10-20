@@ -220,7 +220,7 @@ class ReportsController < ApplicationController
       @to = Time.parse(params[:to]).utc.end_of_day
     end
     
-    @supplier_accounts = SupplierAccount.all
+    @supplier_accounts = SupplierAccount.where('fantasy_name not like "%Tramanta%"')
     @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)
     
   end
