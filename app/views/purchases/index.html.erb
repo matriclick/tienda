@@ -40,7 +40,7 @@
 					    <th>Tracking #</th>
 					    <th>3PL</th>
 					    <th>¿Fondos recibidos?</th>
-					    <th>¿Tienda pagada?</th>
+					    <th>¿Tiendas pagadas?</th>
 					    <th>¿Devolución realizada?</th>
 							<th> </th>
 					  </tr>
@@ -99,7 +99,8 @@
 									<%= '| Color: '+sci.color if !sci.color.nil? %> 
 									| Tienda: <%= link_to sci.purchasable.supplier_account.fantasy_name, 
 													supplier_description_path(:public_url => sci.purchasable.supplier_account.public_url) %> 
-									| Pago a tienda: <em>(<%= number_to_currency(sci.total_cost) %>)</em>
+									| Pago a tienda: <em><%= number_to_currency(sci.total_cost) %></em>
+									| ¿Pagado? <em> <%= sci.store_paid ? 'Sí' : 'No' %></em>
 								</div>
 							</td>
 						</tr>
