@@ -8,7 +8,7 @@
 				<% not_paid = false %>
 				<% products.map {|val| (not_paid = true; puts [:store_paid]) if !val[:store_paid] } %>
 				<% if not_paid %>
-					<%= form_tag(administration_new_store_payment_path, :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+					<%= form_tag(administration_new_store_payment_path, :method => "post", :html => {class: 'form-horizontal', role: 'form'}) do %>
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">

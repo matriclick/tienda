@@ -173,7 +173,7 @@ Matri::Application.routes.draw do
   get "administration/add_user_to_supplier/:sa_id" => "administration#add_user_to_supplier", as: 'administration_add_user_to_supplier'
   put "administration/assign_user_to_supplier" => "administration#assign_user_to_supplier", as: 'administration_assign_user_to_supplier'
 
-  get "administration/new_store_payment" => "administration#new_store_payment", as: 'administration_new_store_payment'
+  post "administration/new_store_payment" => "administration#new_store_payment", as: 'administration_new_store_payment'
   put "administration/create_store_payment" => "administration#create_store_payment", as: 'administration_create_store_payment'
   
   get "administration/configuration" => "administration#configuration", as: 'administration_configuration'
