@@ -16,4 +16,5 @@ class Contest < ActiveRecord::Base
 												}, :whiny => false
   
   has_many :contestants, :dependent => :destroy
+  
 end
