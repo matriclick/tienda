@@ -71,7 +71,7 @@ class Dress < ActiveRecord::Base
   end
   
   def check_stock_and_update_status_and_position
-    if self.dress_status.name != 'Oculto' and self.dress_status.name != 'Vendido y Oculto'
+    if self.dress_status.name != 'Oculto'
       dszs = self.dress_stock_sizes
 
       stock_left = false
