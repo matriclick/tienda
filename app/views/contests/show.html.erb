@@ -42,11 +42,9 @@
 			</p>
 		</div>
 	</div>
-	<% cache ['contest_'+@contest.name+'_'+@contest.contestants.size.to_s, @contest.contest_votes.last] do %>
 	<div class="row" style="padding-bottom:20px;">
     <% @contest.contestants.sort_by{|c| -c.contest_votes.size }.each do |contestant| %>
 				<%= render 'list_competitor', contestant: contestant %>
 		<% end %>
 	</div>
-	<% end %>
 </div>
