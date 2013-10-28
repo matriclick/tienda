@@ -24,12 +24,11 @@
 							<%= render 'info_dress_images_mobile', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
 						<% end %>
 					<% else %>
-						<% cache ['desktop', @dress] do %>
+						<% #cache ['desktop_1', @dress] do %>
 							<%= render 'info_dress_images', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
-						<% end %>
+						<% #end %>
 					<% end %>
 				</div>
-				<% #cache [@dress_stock_text, @dress] do %>
 				<div class="col-md-7">
 					<h1 style="font-size:22px; margin-bottom:5px"><%= @dress.introduction %></h2>
 					<h2 style="font-size:18px; margin-top:0px; color:#285e8e">
@@ -49,7 +48,6 @@
 						</div>
 					<% end %>
 				</div>
-				<% #end %>
 			</div>
 			<div class="row">
 			<% unless @viewed_dresses.blank? %>

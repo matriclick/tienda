@@ -9,10 +9,10 @@
 			<div style="margin:10px">
 				<%= link_to image_tag(post.main_image.url(:home_page), :alt => post.title, :class => 'image_button'), 
 						post_path(post) %>
-				<div style="margin-top:5px; background:black;">
-					<div style="margin:10px"><%= link_to post.title, post_path(post) %></div>
+				<div style="margin-top:5px; background:black; font-size:13px;">
+					<div style="padding:5px"><%= link_to post.title, post_path(post) %></div>
 				</div>
-				<div style="margin:10px">
+				<div style="padding:5px; font-size:12px">
 					<%= (desc = strip_tags(post.introduction)).blank? ? 
 					'Próximamente en Matriclick.com' : content_tag(:span, (desc[0..180].gsub(/\n/, '<br/>')).html_safe + ("..." if desc.length > 180) ) %>
 				</div>
