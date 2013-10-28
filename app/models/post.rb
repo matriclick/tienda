@@ -2,8 +2,6 @@ class Post < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :history, :i18n]
 
-  after_create :set_country_id_with_locale
-  
   belongs_to :country
   has_many :post_contents
   
