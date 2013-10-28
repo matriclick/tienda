@@ -24,9 +24,9 @@
 							<%= render 'info_dress_images_mobile', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
 						<% end %>
 					<% else %>
-						<% #cache ['desktop_1', @dress] do %>
+						<% cache ['desktop_2', @dress] do %>
 							<%= render 'info_dress_images', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
-						<% #end %>
+						<% end %>
 					<% end %>
 				</div>
 				<div class="col-md-7">
