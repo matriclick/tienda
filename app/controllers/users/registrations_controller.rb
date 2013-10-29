@@ -54,7 +54,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 		if !!session[:matriclick_last_url]
 			session[:matriclick_last_url]
 		else
-			products_and_services_catalog_select_industry_category_path
+			root_path
 		end
   end
 
