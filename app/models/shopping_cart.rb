@@ -65,7 +65,7 @@ class ShoppingCart < ActiveRecord::Base
   def description
     aux = ''
     self.shopping_cart_items.each do |sci|
-      aux = '- '+sci.purchasable.introduction+'<br />'+aux
+      aux = '- '+sci.quantity.to_s+' '+sci.purchasable.introduction+' <b>'+sci.size.to_s+'</b> '+(!sci.color.nil? ? sci.color : '')+' <br />'+aux
     end
     return 'CARRITO DE COMPRAS<br />'+aux
   end
