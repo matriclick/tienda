@@ -6,6 +6,6 @@
 
 <% unless (imgs = dress.dress_images).blank? %>
 	<% for image in imgs %>
-		<img src="<%= image.dress.url(:main) %>" alt="<%= image.name %>" /><br /><br />
+		<img itemprop="image" src="<%= image.dress.url(:main) %>" alt="<%= image.name %>" /><br /><br />
 	<% end %>
 <% end %>

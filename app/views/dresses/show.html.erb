@@ -2,7 +2,8 @@
 <div class="container">
 	<%= render 'layouts/notice', notice: notice %>
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-md-9" itemscope itemtype="http://data-vocabulary.org/Product">
+			<meta itemprop="identifier" content="mpn:"<%= @dress.code %> />
 			<div class="row">
 				<div class="col-md-5">
 					<div class="addthis_toolbox addthis_default_style" style="margin-top:5px">
@@ -30,23 +31,28 @@
 					<% end %>
 				</div>
 				<div class="col-md-7">
-					<h1 style="font-size:22px; margin-bottom:5px"><%= @dress.introduction %></h2>
-					<h2 style="font-size:18px; margin-top:0px; color:#285e8e">
-						<% if !@dress.discount.blank? and @dress.discount > 9 %>
-						<span style="margin-right:5px; text-decoration:line-through"><%= number_to_currency @dress.original_price %></span> 
+					<h2 style="font-size:22px; margin-bottom:5px" itemprop="name"><%= @dress.introduction %></h2>
+					<div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+						<h2 style="font-size:18px; margin-top:0px; color:#285e8e">
+							<% if !@dress.discount.blank? and @dress.discount > 9 %>
+							<span style="margin-right:5px; text-decoration:line-through"><%= number_to_currency @dress.original_price %></span> 
+							<% end %>
+							<span itemprop="price"><%= number_to_currency @dress.price %></span> <meta itemprop="currency" content="CLP" />
+						</h2>
+						<p itemprop="description"><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
+						<p>Tallas y colores disponibles:</p>
+						<ul><%= raw @dress_stock_text %></ul>
+						<% if @dress.dress_status.name == 'Disponible' %>
+							<div class="purchase_section" style="margin-top:30px;">
+								<span itemprop="availability" content="in_stock">
+									<%= render 'purchase_section', dress: @dress %>
+								</span>
+								<span itemprop="condition" content="new">
+									<%= render 'info_delivery', dress: @dress %>
+								</span>
+							</div>
 						<% end %>
-						<%= number_to_currency @dress.price %>
-					</h2>
-					<p><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
-					<p>Tallas y colores disponibles:</p>
-					<ul><%= raw @dress_stock_text %></ul>
-					</p>
-					<% if @dress.dress_status.name == 'Disponible' %>
-						<div class="purchase_section" style="margin-top:30px;">
-							<%= render 'purchase_section', dress: @dress %>
-							<%= render 'info_delivery', dress: @dress %>
-						</div>
-					<% end %>
+					</div>
 				</div>
 			</div>
 			<div class="row">

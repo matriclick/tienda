@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   	    session[:url_coming_from] = request.fullpath
   	  end
 	  
-  	  if !cookies[:asked_to_subscribe]
+  	  if !cookies[:asked_to_subscribe] and params[:controller] == 'home'
     	  @subscriber_pop_up = '$("a.subscription_popup").trigger("click");'
   	    cookies[:asked_to_subscribe] = { :value => true, :expires => 2.month.from_now }
       end

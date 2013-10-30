@@ -20,7 +20,7 @@
 	</div>
 <% end %>
 
-<img id="zoom_03" src="<%= dress.dress_images.first.dress.url(:main) %>" data-zoom-image="<%= dress.dress_images.first.dress.url(:original) %>" alt="<%= dress.dress_images.first.name %>" />
+<img id="zoom_03" itemprop="image" src="<%= dress.dress_images.first.dress.url(:main) %>" data-zoom-image="<%= dress.dress_images.first.dress.url(:original) %>" alt="<%= dress.dress_images.first.name %>" />
 
 <% unless (imgs = dress.dress_images).blank? %>
 <div id="gallery_01"> 
