@@ -12,6 +12,12 @@
 																		:allow_blank => true, :include_blank => true, class: 'form-control' %>
 				<p class="help-block">Si no quieres que aparezca ningún concurso en el menú, deja esta opción en blanco.</p>
 			</div>
+			<div class="form-group">
+				¿Despacho Gratis? <%= f.select :free_shipping_from_price, (0..10).to_a.map{|n| [n*10000, n*10000]}, :prompt => true, 
+																		:allow_blank => true, :include_blank => true, :class => "form-control" %>						
+				<p class="help-block">
+					Selecciona el monto desde el cuál no cobraremos despacho. Déjalo en blanco si no aplica y en 0 si es gratis para todas las compras.</p>
+			</div>
 			<%= f.submit("Guardar",  class: "btn btn-default") %>
 		</div>
 	</div>

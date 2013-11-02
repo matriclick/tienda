@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="row">
+	<div class="row" style="margin-top:-20px">
 		<div id="notice" style="margin-left:20px;"><%= raw notice %></div>
 		<%= form_for(@purchase) do |f| %>
 			<% if @purchase.errors.any? %>
@@ -14,8 +14,17 @@
 			<% end %>
 	</div>
 	<div class="row">
-		<h1>Detalles de la compra</h1>
-		<hr>
+		<div class="col-md-12">
+			<h1>Detalles de la compra</h1>
+			<% if !@site_configuration.free_shipping_from_price.blank? %>
+				<% if @site_configuration.free_shipping_from_price > 0 %>
+					<p>Recuerda que el despacho es gratis para las compras por sobre <%= number_to_currency @site_configuration.free_shipping_from_price %></p>
+				<% else %>
+					<p>¡Recuerda que todas las compras tienen despacho gratis por tiempo limitado!</p>
+				<% end %>
+			<% end %>
+			<hr>
+		</div>
 		<div class="col-md-12">
 			<%= render 'cart', purchasable: @purchasable %>
 		</div>

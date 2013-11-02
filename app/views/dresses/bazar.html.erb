@@ -68,13 +68,27 @@
   <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 </div><!-- /.carousel -->
 
+<% if !@site_configuration.free_shipping_from_price.blank? %>
+<div class="container marketing">
+	<div class="row" style="margin-top:-50px;">
+		<div class="col-md-12" style="text-align:center; font-size:25px">
+				<% if @site_configuration.free_shipping_from_price > 0 %>
+					<p>¡Despacho gratis para compras por sobre <%= number_to_currency @site_configuration.free_shipping_from_price %>!</p>
+				<% else %>
+					<p>¡Todas las compras tienen despacho gratis por tiempo limitado!</p>
+				<% end %>
+		</div>
+	</div>
+</div>
+<% end %>
+
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-<% cache ['bazar_home_page_9', @dresses.first] do %>
+<% cache ['bazar_home_page_11', @dresses.first] do %>
 <div class="container marketing">
   <!-- Three columns of text below the carousel -->
-  <div class="row" style="margin-top:-30px;">
+  <div class="row">
 		<% @dresses.each do |dress| %>
 			<%= render 'list_dress', dress: dress %>
 		<% end %>
@@ -101,7 +115,7 @@
 			  <ul class="list-group">
 			    <li class="list-group-item"><%= link_to 'Peplum', dresses_search_path(q: 'vestido peplum') %></li>
 			    <li class="list-group-item"><%= link_to 'Encajes', dresses_search_path(q: 'vestido encaje') %></li>
-			    <li class="list-group-item"><%= link_to 'Gaza', dresses_search_path(q: 'vestido gaza') %></li>
+			    <li class="list-group-item"><%= link_to 'Gasa', dresses_search_path(q: 'vestido gasa') %></li>
 			  </ul>
 			</div>
 		</div>

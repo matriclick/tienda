@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ApplicationController < ActionController::Base  
-  before_filter :set_user_language, :meta_content_default, :set_time_zone, :save_matriclick_last_url_in_session, :set_locale_from_url, :subscriber_pop_up
+  before_filter :set_user_language, :meta_content_default, :set_time_zone, :save_matriclick_last_url_in_session, :set_locale_from_url, :subscriber_pop_up, :load_configuration
   before_filter :set_type_param
 	protect_from_forgery
 
@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
 	  redirect_to blog_el_bazar_path, :notice => exception.message
   end
 
+  def load_configuration
+    @site_configuration = SiteConfiguration.find(1)
+  end
+  
 	def meta_content_default
     	@title_content = "Tramanta.com"
     	@meta_description_content = "Compra online vestidos de fiesta, chaquetas, blusas, y muchas otros productos de moda en Tramanta.com"

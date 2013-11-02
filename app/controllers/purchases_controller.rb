@@ -143,16 +143,24 @@ class PurchasesController < ApplicationController
     @purchase.delivery_method_cost = @purchase.delivery_method.price
     
     if !@purchase.delivery_info.nil? and !@purchase.delivery_info.commune.dispatch_cost.nil?
-      @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost
+      if !@site_configuration.free_shipping_from_price.blank? and @site_configuration.free_shipping_from_price < @object.price
+        @purchase.delivery_cost = 0
+      else
+        @purchase.delivery_cost = @purchase.delivery_info.commune.dispatch_cost
+      end
     else
-      @purchase.delivery_cost = 3200
+      if !@site_configuration.free_shipping_from_price.blank? and @site_configuration.free_shipping_from_price < @object.price
+        @purchase.delivery_cost = 0
+      else
+        @purchase.delivery_cost = 3200
+      end
     end
     
     @purchase.purchasable_price = @object.price
   
     if !@purchase.quantity.blank? and !@purchase.delivery_cost.nil?
         @purchase.price = @purchase.purchasable_price * @purchase.quantity + @purchase.delivery_cost + @purchase.delivery_method.price
-    elsif !@purchase.delivery_cost.nil?
+    elsif !@purchase.delivery_cost.blank?
         @purchase.price = @purchase.purchasable_price + @purchase.delivery_cost + @purchase.delivery_method.price
         @purchase.quantity = 1
     end

@@ -12,7 +12,7 @@
     <div class="navbar-collapse collapse" style="font-size:13px;">
       <ul class="nav navbar-nav">
         <li><%= link_to 'New Arrivals!', dresses_new_arrivals_path %></li>
-				<% if SiteConfiguration.find(1).clearance_menu %>
+				<% if @site_configuration.clearance_menu %>
 					<li><%= link_to 'Liquidación!', dresses_clearing_path %></li>
 				<% end %>
         <li class="dropdown">
@@ -29,7 +29,7 @@
           </ul>
         </li>
 	  		<li><%= link_to 'Zapatos y Botas', dresses_ver_path(:type => "zapatos") %></li>
-				<% if (contest = SiteConfiguration.find(1).contest) %>
+				<% if (contest = @site_configuration.contest) %>
 					<li><%= link_to contest.name.capitalize, contest %></li>
 				<% end %>
 				<li><%= link_to 'Blog', blog_el_bazar_path %></li>
@@ -43,7 +43,7 @@
 		        <li style="padding-top:10px"><%= carrito_compra_link %></li>
 						<li style="padding-top:10px"><%= information_link %></li>
 						<li style="padding-top:10px"><%= link_to "Personalización", user_profile_personalization_path, :rel => 'nofollow' %></li>
-						<% if (contest = SiteConfiguration.find(1).contest) %>
+						<% if (contest = @site_configuration.contest) %>
 							<li style="padding-top:10px"><%= link_to 'Concursos', user_profile_contests_path, :rel => 'nofollow' %></li>
 						<% end %>
 						<li style="padding-top:10px"><%= link_to 'Salir', destroy_user_session_path, method: :delete, :rel => 'nofollow' %></li>
