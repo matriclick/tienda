@@ -83,12 +83,12 @@
 				<tr style="background-color:#ffe4e1;">
 					<td>IVA
 						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="IVA" 
-						data-content="Está calculado como [Costo de Producto x (1/0.81 - 1)]"> <span class="glyphicon glyphicon-question-sign"></span>
+						data-content="Está calculado como [Sales x Margin x 0,19]"> <span class="glyphicon glyphicon-question-sign"></span>
 						</a>
 					</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:cost_week]*(1/0.81-1) %></td>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:sales_week]*@wbr_data[week.to_s+' - '+year.to_s][:margin_week]*0.19/100 %></td>
 						<% end %>
 					<% end %>
 				</tr>
@@ -123,7 +123,7 @@
 				<tr>
 					<td>Margin
 						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Margin" 
-						data-content="Se calcula como (1 - Products Cost / Sales). Para el cálculo también se consideran las compras que generaron devoluciones."> 
+						data-content="Se calcula como (Sales - Products Costs) / (Sales * 1.19). Ojo que asume que todas las tiendas están en la modalidad de comisión, es decir les cobramos un X% + IVA"> 
 						<span class="glyphicon glyphicon-question-sign"></span>
 						</a>
 					</td>

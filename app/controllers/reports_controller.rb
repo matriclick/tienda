@@ -47,7 +47,7 @@ class ReportsController < ApplicationController
         #Devoluciones
         refunds_week = Purchase.sum(:refund_value, :conditions => ['funds_received = ? and refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, true, 'finalizado', monday_week, sunday_week])
         #Margin
-        margin_week = 100*(1 - cost_week_w_refund.to_f / (sales_week.to_f*0.81))
+        margin_week = 100*((sales_week.to_f - cost_week_w_refund.to_f) / (sales_week.to_f*1.19))
         #Revenue
         revenue_week = sales_week - cost_week/0.81 + dispatch_income_week - dispatch_cost_week - credits_week - refunds_week
         #Purchases
