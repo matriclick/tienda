@@ -373,7 +373,7 @@ class ReportsController < ApplicationController
         credits << wbr_data[week.to_s+' - '+year.to_s][:credits_week]
         delivery_income << wbr_data[week.to_s+' - '+year.to_s][:dispatch_income_week]
         products_cost << wbr_data[week.to_s+' - '+year.to_s][:cost_week]
-        tax << wbr_data[week.to_s+' - '+year.to_s][:cost_week]*(1/0.81-1)
+        tax << wbr_data[week.to_s+' - '+year.to_s][:tax_week]
         delivery_cost << wbr_data[week.to_s+' - '+year.to_s][:dispatch_cost_week]
         refunds << wbr_data[week.to_s+' - '+year.to_s][:refunds_week]
         revenue << wbr_data[week.to_s+' - '+year.to_s][:revenue_week]
