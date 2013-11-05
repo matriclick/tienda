@@ -88,7 +88,7 @@
 					</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:sales_week]*@wbr_data[week.to_s+' - '+year.to_s][:margin_week]*0.19/100 %></td>
+							<td><%= number_to_currency @wbr_data[week.to_s+' - '+year.to_s][:tax_week] %></td>
 						<% end %>
 					<% end %>
 				</tr>
@@ -122,14 +122,14 @@
 				</tr>
 				<tr>
 					<td>Margin
-						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Margin" 
-						data-content="Se calcula como (Sales - Products Costs) / (Sales * 1.19). Ojo que asume que todas las tiendas están en la modalidad de comisión, es decir les cobramos un X% + IVA"> 
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Average Margin" 
+						data-content="Es la comisión promedio. Se calcula como (Sales - Products Costs) / (Sales * 1.19). Ojo que asume que todas las tiendas están en la modalidad de comisión, es decir les cobramos un X% + IVA"> 
 						<span class="glyphicon glyphicon-question-sign"></span>
 						</a>
 					</td>
 					<% (@init_year..@end_year).each do |year| %>
 	      		<% (@init_week..@end_week).each do |week| %>
-							<td><%= number_to_percentage @wbr_data[week.to_s+' - '+year.to_s][:margin_week] %></td>
+							<td><%= number_to_percentage @wbr_data[week.to_s+' - '+year.to_s][:margin_week]*100 %></td>
 						<% end %>
 					<% end %>
 				</tr>

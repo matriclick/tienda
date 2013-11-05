@@ -47,9 +47,11 @@ class ReportsController < ApplicationController
         #Devoluciones
         refunds_week = Purchase.sum(:refund_value, :conditions => ['funds_received = ? and refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, true, 'finalizado', monday_week, sunday_week])
         #Margin
-        margin_week = 100*((sales_week.to_f - cost_week_w_refund.to_f) / (sales_week.to_f*1.19))
+        margin_week = ((sales_week.to_f - cost_week_w_refund.to_f) / (sales_week.to_f*1.19))
+        #Tax
+        tax_week = sales_week*margin_week*0.19
         #Revenue
-        revenue_week = sales_week - cost_week/0.81 + dispatch_income_week - dispatch_cost_week - credits_week - refunds_week
+        revenue_week = sales_week - cost_week + dispatch_income_week - dispatch_cost_week - credits_week - refunds_week
         #Purchases
         purchases = Purchase.where('funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', monday_week, sunday_week)  
         purchases_week = purchases.size
@@ -106,7 +108,7 @@ class ReportsController < ApplicationController
         #Agrego la información
         @wbr_data[(week.to_s+' - '+year.to_s)] = 
           { price_week: price_week, credits_week: credits_week, dispatch_income_week: dispatch_income_week, dispatch_cost_week: dispatch_cost_week, 
-            sales_week: sales_week, cost_week: cost_week, revenue_week: revenue_week, refunds_week: refunds_week, margin_week: margin_week, 
+            sales_week: sales_week, cost_week: cost_week, revenue_week: revenue_week, tax_week: tax_week, refunds_week: refunds_week, margin_week: margin_week, 
             purchases_week: purchases_week, prod_week: prod_week, stores_week: stores_week, products_created_week: products_created_week, new_products: new_products,
             new_users: new_users, new_subscribers: new_subscribers, visits: visits, fb_followers: fb_followers, newsletters_sent: newsletters_sent,
             categories_data: categories_data, fb_organic_reach: fb_organic_reach }
