@@ -149,7 +149,7 @@ class Dress < ActiveRecord::Base
       return Dress.all
     end
     
-    if !string_filter.nil?
+    if !string_filter.blank?
       keywords = Array.new
       keywords = keywords + string_filter.split(separator) if !string_filter.nil?
       
@@ -163,7 +163,7 @@ class Dress < ActiveRecord::Base
       end
     end
     
-    if !sizes.nil?
+    if !sizes.blank?
       query_s = '('
       sizes.each_with_index do |k, i|
         if i == 0
@@ -174,15 +174,15 @@ class Dress < ActiveRecord::Base
       end
       query_s+')'
       
-      if query.nil?
+      if query.blank?
         query = query_s
       else
         query = query_s +' and '+query
       end
     end
     
-    if !discount.nil?
-      if query.nil?
+    if !discount.blank?
+      if query.blank?
         query = 'dresses.discount > '+discount.to_s
       else
         query = '('+query+') and dresses.discount > '+discount.to_s

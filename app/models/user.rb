@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :contestants, :dependent => :destroy
 	has_many :contest_travelites, :dependent => :destroy
 	has_many :refund_requests, :dependent => :destroy
-  has_many :dresses_users_wish_lists
+  has_many :dresses_users_wish_lists, :dependent => :destroy
   has_many :dresses, :through => :dresses_users_wish_lists    
 	has_many :dress_requests, :dependent => :destroy
 	has_many :purchases, :dependent => :destroy

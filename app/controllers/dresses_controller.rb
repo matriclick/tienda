@@ -111,8 +111,8 @@ class DressesController < ApplicationController
     @clearing = params[:clearing]
     add_breadcrumb "Tramanta", :bazar_path    
       
-    unless @search_term.nil? and @search_sizes.nil?
-      @search_text = (!@search_term.nil? and @search_term != '') ? @search_term.gsub('-', ' ').capitalize : 'Busca por color, talla, tela, etc...'
+    unless @search_term.blank? and @search_sizes.blank?
+      @search_text = !@search_term.blank? ? @search_term.gsub('-', ' ').capitalize : 'Busca por color, talla, tela, etc...'
       if @clearing
         @all_dresses = Dress.all_filtered(@search_term, nil, 9).uniq
         @dresses = Dress.all_filtered(@search_term, @search_sizes, 9).order(@order).uniq.paginate(:page => params[:page])        
