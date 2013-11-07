@@ -15,15 +15,12 @@ class User < ActiveRecord::Base
 	has_one :matriclicker, :dependent => :destroy
 
   has_many :contestants, :dependent => :destroy
-	has_many :contest_travelites, :dependent => :destroy
 	has_many :refund_requests, :dependent => :destroy
   has_many :dresses_users_wish_lists, :dependent => :destroy
-  has_many :dresses, :through => :dresses_users_wish_lists    
-	has_many :dress_requests, :dependent => :destroy
+  has_many :dresses, :through => :dresses_users_wish_lists
 	has_many :purchases, :dependent => :destroy
 	has_many :orders, :dependent => :destroy
 	has_many :delivery_infos, :dependent => :destroy
-	has_many :user_contest_selections, :dependent => :destroy
 	has_many :credits, :dependent => :destroy
 	has_many :shopping_carts, :dependent => :destroy
 	has_many :contest_votes, :dependent => :destroy
