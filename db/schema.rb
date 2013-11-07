@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106223540) do
+ActiveRecord::Schema.define(:version => 20131107035853) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
