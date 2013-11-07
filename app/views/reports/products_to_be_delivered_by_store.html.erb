@@ -15,7 +15,7 @@
 				    </div>
 				    <div id="collapse<%= sa.id %>" class="panel-collapse collapse">
 				      <div class="panel-body">
-								<p style="font-size:12px"><%= sa.address.get_address %></p>
+								<p style="font-size:12px"><%= sa.address.get_address if !sa.address.nil? %></p>
 								<table class="table table-condensed report" style="font-size:11px">
 								  <tr>
 								    <th>Fecha Compra</th>
