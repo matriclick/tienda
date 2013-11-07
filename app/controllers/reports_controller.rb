@@ -157,7 +157,7 @@ class ReportsController < ApplicationController
     add_breadcrumb "Productos por despachar por tienda", :reports_products_to_be_delivered_by_store_path
     redirect_unless_privilege('Vestidos')
   
-    @supplier_accounts = SupplierAccount.all#where('fantasy_name not like "%Tramanta%"')
+    @supplier_accounts = SupplierAccount.where('fantasy_name not like "%Tramanta%"')
     @purchases = Purchase.where('logistic_provider_id is null and funds_received = true').order('purchases.created_at DESC')
   end
   
