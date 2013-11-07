@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
   
 	has_one :matriclicker, :dependent => :destroy
 
-	has_many :reviews, :dependent => :destroy
   has_many :contestants, :dependent => :destroy
 	has_many :contest_travelites, :dependent => :destroy
 	has_many :refund_requests, :dependent => :destroy
