@@ -4,6 +4,7 @@
 			<div>
 				<% @supplier_accounts.each do |sa| %>
 				<% products = sa.check_owned_products_purchased_from_purchases(@purchases) %>
+					<% if products.size > 0 %>
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
@@ -41,6 +42,7 @@
 				      </div>
 				    </div>
 				  </div>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
