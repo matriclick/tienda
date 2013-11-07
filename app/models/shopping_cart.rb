@@ -3,7 +3,7 @@ class ShoppingCart < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   
   belongs_to :user
-  has_many :shopping_cart_items
+  has_many :shopping_cart_items, :dependent => :destroy
   
   def check_all_items_are_available
     self.shopping_cart_items.each do |sci|
