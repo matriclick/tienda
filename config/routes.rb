@@ -67,6 +67,7 @@ Matri::Application.routes.draw do
   get 'reports/products_detail_excel' => 'reports#products_detail_excel', as: 'reports_products_detail_excel'
   get 'reports/credits' => 'reports#credits', as: 'reports_credits'
   get 'reports/wbr' => 'reports#wbr', as: 'reports_wbr'
+  get 'reports/products_to_be_delivered_by_store' => 'reports#products_to_be_delivered_by_store', as: 'reports_products_to_be_delivered_by_store'
   resources :matriclickers
   
   # DRESSES

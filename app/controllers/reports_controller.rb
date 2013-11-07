@@ -147,11 +147,18 @@ class ReportsController < ApplicationController
   end
   
   def purchases_to_be_delivered
-    add_breadcrumb "Productos por despachar", :reports_purchases_to_be_delivered_path
+    add_breadcrumb "Compras por despachar", :reports_purchases_to_be_delivered_path
     redirect_unless_privilege('Vestidos')
   
     @purchases = Purchase.where('logistic_provider_id is null and funds_received = true').order('purchases.created_at DESC')
+  end
   
+  def products_to_be_delivered_by_store
+    add_breadcrumb "Productos por despachar por tienda", :reports_products_to_be_delivered_by_store_path
+    redirect_unless_privilege('Vestidos')
+  
+    @supplier_accounts = SupplierAccount.all#where('fantasy_name not like "%Tramanta%"')
+    @purchases = Purchase.where('logistic_provider_id is null and funds_received = true').order('purchases.created_at DESC')
   end
   
   def store_payments
@@ -223,8 +230,7 @@ class ReportsController < ApplicationController
     end
     
     @supplier_accounts = SupplierAccount.where('fantasy_name not like "%Tramanta%"')
-    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)
-    
+    @purchases = Purchase.where('created_at >= ? and created_at <= ? and funds_received = ?', @from, @to, true)    
   end
   
   def sales_dashboard

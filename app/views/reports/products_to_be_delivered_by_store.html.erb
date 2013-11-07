@@ -1,0 +1,48 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div>
+				<% @supplier_accounts.each do |sa| %>
+				<% products = sa.check_owned_products_purchased_from_purchases(@purchases) %>
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= sa.id %>">
+				          <%= sa.fantasy_name %> (<%= products.size %>)
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapse<%= sa.id %>" class="panel-collapse collapse">
+				      <div class="panel-body">
+								<table class="table table-condensed report" style="font-size:11px">
+								  <tr>
+								    <th>Fecha Compra</th>
+								    <th>Producto</th>
+								    <th>Precio Vendido</th>
+										<th>Cantidad</th>
+										<th>Talla</th>
+										<th>Color</th>
+								  </tr>
+									<% products.each do |val| %>
+										<% if !val[:refunded] %>
+											<tr>
+												<% dress = Dress.find val[:dress_id] %>
+												<td><%= val[:date].strftime("%Y-%m-%d") %><br />
+													<%= link_to dress.introduction, dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></td>
+												<td><%= link_to image_tag(dress.small_image), dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %></td>
+												<td><%= number_to_currency val[:price] %></td>
+												<td><%= val[:quantity] %></td>
+												<td><%= val[:size] %></td>
+												<td><%= val[:color] %></td>
+											</tr>
+										<% end %>
+									<% end %>
+								</table>
+				      </div>
+				    </div>
+				  </div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
