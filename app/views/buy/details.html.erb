@@ -51,14 +51,8 @@
 			  <div class="panel-body">
 					<%= f.check_box :confirmed_terms %>
 					He leído y estoy de acuerdo con 
-					<b><%= link_to 'los términos y condiciones', terms_path, :target => '_blank' %></b>
-					<% case @purchasable.class.to_s %>
-						<% when 'ShoppingCart' %>
-							.
-						<% else %>
-							y con las 
-							<b><%= link_to 'políticas de cambio y devolución.', "#refund", :style => 'color:blue;', :id => :form_inline, :class => :hideable %></b>
-					<% end %>			
+					<%= link_to 'los términos y condiciones', terms_path, :target => '_blank' %>	y con la 
+					<%= link_to 'política de devoluciones', refund_policy_path, :id => 'form_inline' %>
 				</div>
 			</div>
 		</div>
