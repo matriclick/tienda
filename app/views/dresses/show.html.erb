@@ -47,10 +47,20 @@
 						  <span class="glyphicon glyphicon-search"></span> Ver tabla de medidas
 						</p>
 						<% if @dress.dress_status.name == 'Disponible' %>
-							<div class="purchase_section" style="margin-top:30px;">
+							<div class="purchase_section" style="margin-top:10px;">
 								<span itemprop="availability" content="in_stock">
 									<%= render 'purchase_section', dress: @dress %>
 								</span>
+							</div>
+						<% end %>
+						<p style="font-size:12px;">
+							<b>¿No está la talla que buscas o el vestido está agotado?</b><br />
+						  <span class="glyphicon glyphicon-send"></span> 
+							<span data-toggle="modal" data-target="#myModalForm" style="cursor:pointer; text-decoration:underline">Inscríbete acá</span>
+							para recibir una notificación cuando llegue lo que buscas.
+						</p>
+						<% if @dress.dress_status.name == 'Disponible' %>
+							<div class="purchase_section" style="font-size:12px;">
 								<span itemprop="condition" content="new">
 									<%= render 'info_delivery', dress: @dress %>
 								</span>
@@ -136,6 +146,19 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabelForm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Generar una alerta</h4>
+      </div>
+			<%= render 'dress_stock_change_notifications/form' %>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

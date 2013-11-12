@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <%= @dress_stock_change_notification.email %>
+</p>
+
+<p>
+  <b>Dress:</b>
+  <%= @dress_stock_change_notification.dress_id %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%= @dress_stock_change_notification.size_id %>
+</p>
+
+<p>
+  <b>Color:</b>
+  <%= @dress_stock_change_notification.color %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @dress_stock_change_notification.comments %>
+</p>
+
+
+<%= link_to 'Edit', edit_dress_stock_change_notification_path(@dress_stock_change_notification) %> |
+<%= link_to 'Back', dress_stock_change_notifications_path %>

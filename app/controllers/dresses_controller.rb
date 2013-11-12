@@ -195,6 +195,7 @@ class DressesController < ApplicationController
     
     @dress = Dress.find_by_slug(params[:slug])
     @type = DressType.find_by_name params[:type]
+    @dress_stock_change_notification = DressStockChangeNotification.new
     
     if !@dress.nil? and !@type.nil?
       @related_dresses = @dress.get_related_dresses
@@ -326,6 +327,7 @@ class DressesController < ApplicationController
           format.html { redirect_to dresses_set_stock_path(id: @dress) }
           format.json { head :ok }
         else
+          send_email_to_people_interested_in_dress(@dress)
           format.html { redirect_to dress_ver_path(type: @dress.dress_types.first.name, slug: @dress.slug) }
           format.json { head :ok }        
         end
@@ -435,4 +437,13 @@ class DressesController < ApplicationController
       return dresses
     end
   end    
+  
+  def send_email_to_people_interested_in_dress(dress)
+    dress.dress_stock_change_notifications.each do |dscn|
+      if dress.sizes.where('size_id = ? and stock > 0', dscn.size_id).size > 0
+        NoticeMailer.dress_stock_change_notification_email(dscn).deliver
+      end
+    end
+  end
+  
 end

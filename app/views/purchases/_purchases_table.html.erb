@@ -52,7 +52,9 @@
   </tr>
 	<tr <%= purchase.funds_received ? raw('style="background-color:#f5fffa"') : raw('style="background-color:#ffe4e1"') %>>
 		<td colspan="16">
-			<div style="margin-left:15px"><%= purchase.dispatch_address %></div>
+			<div style="margin-left:15px">
+				<%= purchase.dispatch_address %> <%= '('+purchase.delivery_info.additional_info+')' if !purchase.delivery_info.additional_info.blank? %>
+			</div>
 		</td>
 	</tr>
   <% if purchase.purchasable_type == 'ShoppingCart' %>

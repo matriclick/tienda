@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row" style="margin-top:-30px">
+		<div class="col-md-12">
+			<h1>Lista de usuarios en espera por productos</h1>
+			<table class="table">
+			  <tr>
+			    <th>Email</th>
+			    <th>Dress</th>
+			    <th>Size</th>
+			    <th>Color</th>
+			    <th>Comments</th>
+			    <th></th>
+			    <th></th>
+			    <th></th>
+			  </tr>
+
+			<% @dress_stock_change_notifications.each do |dress_stock_change_notification| %>
+			  <tr>
+			    <td><%= dress_stock_change_notification.email %></td>
+			    <td><%= link_to dress_stock_change_notification.dress.introduction, dress_ver_path(:type => 
+						dress_stock_change_notification.dress.dress_type.name, :slug => dress_stock_change_notification.dress.slug) unless
+						dress_stock_change_notification.dress.blank? %></td>
+			    <td><%= dress_stock_change_notification.size.name unless dress_stock_change_notification.size.blank? %></td>
+			    <td><%= dress_stock_change_notification.color %></td>
+			    <td><%= dress_stock_change_notification.comments %></td>
+			    <td><%= link_to 'Eliminar', dress_stock_change_notification, confirm: 'Are you sure?', method: :delete %></td>
+			  </tr>
+			<% end %>
+			</table>
+		</div>
+	</div>
+</div>

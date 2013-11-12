@@ -1,0 +1,29 @@
+<%= form_for(@dress_stock_change_notification, :html => {role: 'form', class: 'form'}) do |f| %>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-md-12 form-group">
+	    <%= f.text_field :email, class: 'form-control', placeholder: 'Ingresa tu correo electrónico' %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 form-group">	
+			<%= f.collection_select :size_id, @dress.sizes, :id, :name, {:prompt => 'Selecciona Talla', :allow_blank => false}, { :class => "form-control" } %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 form-group">
+				<%= f.text_field :color, class: 'form-control', placeholder: 'Color que buscas' %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 form-group">	
+	    <%= f.text_area :comments, rows: 4, class: 'form-control', placeholder: 'Comentarios adicionales' %>
+		</div>
+	</div>
+	<%= f.hidden_field :dress_id, value: @dress.id %>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	<%= f.submit 'Guardar', class: "btn btn-primary" %>
+</div>
+<% end %>

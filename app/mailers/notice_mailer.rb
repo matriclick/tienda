@@ -20,5 +20,10 @@ class NoticeMailer < ActionMailer::Base
   	@purchasable = purchase.purchasable
   	mail to: @purchase.user.email, bcc: "equipo-tramanta@matriclick.com", subject: "Compra en Tramanta.com"
   end
+  
+  def dress_stock_change_notification_email(dress_stock_change_notification)
+    @dscn = dress_stock_change_notification
+    mail to: @dscn.email, bcc: "equipo-tramanta@matriclick.com", subject: "¡El producto que buscabas está disponible!"
+  end
 
 end

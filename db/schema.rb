@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107035853) do
+ActiveRecord::Schema.define(:version => 20131112013842) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -269,6 +269,16 @@ ActiveRecord::Schema.define(:version => 20131107035853) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "dress_stock_change_notifications", :force => true do |t|
+    t.integer  "dress_id"
+    t.integer  "size_id"
+    t.string   "color"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "email"
   end
 
   create_table "dress_stock_sizes", :force => true do |t|

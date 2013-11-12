@@ -1,0 +1,17 @@
+<% content_for :content do %>
+	<table width="95%" cellpadding="30">
+		<tr>
+			<td align="left">
+				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
+					¡El producto por el que preguntaste está disponible!<br /><br />
+					Lo puedes encontrar en este link: 
+					<%= link_to @dscn.dress.introduction, dress_ver_path(:only_path => false, :host => 'www.tramanta.com',
+						:type => @dscn.dress.dress_type.name, :slug => @dscn.dress.slug) %><br /><br />
+					<i>Si tienes dudas, escríbenos a contacto@tramanta.com</i>
+				</font>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<%= render "layouts/email_template" %>
