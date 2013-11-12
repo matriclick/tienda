@@ -1,5 +1,5 @@
 <div class="col-md-12">
-<%= form_for @delivery_info, :validate => true, :html => {role: 'form', class: 'form-horizontal'} do |f| %>
+<%= form_for @delivery_info, :validate => true, :html => {role: 'form', class: 'form'} do |f| %>
 	<% if @delivery_info.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@delivery_info.errors.count, "error") %> Han ocurrido los siguientes errores en la dirección:</h2>
@@ -10,71 +10,72 @@
 			</ul>
 		</div>
 	<% end %>
-	<div class="form-group">
-		<div class="field">
-		    <%= f.label :name, 'Tu nombre completo' %> <%= f.text_field :name, class: 'form-control' %>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="field">
-		    <%= f.label :rut, 'Tu RUT' %><%= f.text_field :rut, class: 'form-control' %>
-			<span class="help-block">Ejemplo: 17.009.227-4</span>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="field">
-		   	<%= f.label :contact_phone, 'Tu teléfono de contacto' %><%= f.text_field :contact_phone, class: 'form-control' %>
-			 	<span class="help-block">Ejemplo: 56 9 9851 7762.</span>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<div class="field">
+				    <%= f.label :name, 'Tu nombre completo' %> <%= f.text_field :name, class: 'form-control' %>
+				</div>
+			</div>
+			<div class="form-group">
+			    <%= f.label :rut, 'Tu RUT' %><%= f.text_field :rut, class: 'form-control', placeholder: "Ejemplo: 17.009.227-4" %>
+			</div>
+			<div class="form-group">
+			   	<%= f.label :contact_phone, 'Tu teléfono de contacto' %>
+					<%= f.text_field :contact_phone, class: 'form-control', placeholder: "Ejemplo: 56 9 9851 7762" %>
+			</div>
 		</div>
 	</div>
 
-	<div class="form-group">
-	  <div class="field">
-	    <%= f.label :street, 'Calle de despacho' %>		
-			<%= f.text_field :street, class: 'form-control' %>
-			<span class="help-block">Ejemplo: “Apoquindo”. No pongas el número acá.</span>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<%= f.label :street, 'Calle' %>	
+				<%= f.text_field :street, class: 'form-control', placeholder: "Ejemplo: Apoquindo." %>
+			</div>
 		</div>
-  </div>
-	
-	<div class="form-group">
-	  <div class="field">
-	    <%= f.label :number, 'Número de la calle de despacho' %>
-			<%= f.text_field :number, class: 'form-control' %>
-			<span class="help-block">Ejemplo: “2355”. Acá va el número.</span>
+		
+		<div class="col-md-3">
+			<div class="form-group">
+				<%= f.label :number, 'Número' %>
+				<%= f.text_field :number, class: 'form-control', placeholder: "Ejemplo: 2355" %>
+			</div>
 		</div>
-  </div>
-	
-	<div class="form-group">
-	  <div class="field">
-	    <%= f.label :apartment, 'Número de departamento o casa' %>
-			<%= f.text_field :apartment, class: 'form-control' %>
-			<span class="help-block">Ejemplo: “Depto 709 o Casa C". Dejar en blanco si no aplica.</span>
+		
+		<div class="col-md-3">
+			<div class="form-group">
+				<%= f.label :apartment, 'Depto' %>
+				<%= f.text_field :apartment, class: 'form-control' %>
+			</div>
 		</div>
-  </div>
-	
-	<div class="form-group">
-	  <div class="field">
-	    <%= f.label :commune_id, 'Comuna' %>
-			<%= f.grouped_collection_select :commune_id, Region.order(:name), :communes, :name, :id, :name, {:prompt=>t('select')}, {class: 'form-control'} %>
-				<span class="help-block">Ejemplo: “Las Condes”</span>
-	  </div>
 	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+		    <%= f.label :commune_id, 'Comuna' %>
+				<%= f.grouped_collection_select :commune_id, Region.order(:name), :communes, 
+						:name, :id, :name, {:prompt=>t('select')}, {class: 'form-control'} %>
+		  </div>
 
-	<div class="form-group">
-	  <div class="field">
-	   <%= f.label :additional_info, 'Información adicional para quien entrega el producto' %>
-	    <%= f.text_area :additional_info, class: "form-control", rows: '4' %>
-				<span class="help-block">Ejemplo: “ Esquina avenida Las Condes. Lo va a recibir Juanita”</span>
-	  </div>
-		<%= f.hidden_field :user_id, :value => @user.id %>
-		<% if !@object.nil? %>
-			<%= hidden_field :purchasable, :type, :value => @object.class %>
-			<%= hidden_field :purchasable, :id, :value => @object.id %>
-		<% end %>
-	</div>
+			<div class="form-group">
+		  	<%= f.label :additional_info, 'Información adicional para quien entrega el producto' %>
+		    <%= f.text_area :additional_info, class: "form-control", rows: '4', 
+						placeholder: "Ejemplo: Esquina avenida Las Condes. Lo va a recibir Juanita" %>
+		  </div>
+			
+			<%= f.hidden_field :user_id, :value => @user.id %>
+			<% if !@object.nil? %>
+				<%= hidden_field :purchasable, :type, :value => @object.class %>
+				<%= hidden_field :purchasable, :id, :value => @object.id %>
+			<% end %>
 
-	<div class="form-group">
-  	<%= f.submit('Guardar', :class => 'btn btn-default') %>
+			<div class="form-group">
+		  	<%= f.submit('Guardar', :class => 'btn btn-default') %>
+			</div>
+		</div>
 	</div>
+	
 <% end %>
 </div>

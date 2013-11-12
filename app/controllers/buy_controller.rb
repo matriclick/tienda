@@ -271,7 +271,7 @@ class BuyController < ApplicationController
         #REGISTRO DE DATOS DE DESPACHO
         if !@purchase.delivery_info.nil?
           @purchase.dispatch_address = @purchase.delivery_info.street + ' ' + @purchase.delivery_info.number
-          @purchase.dispatch_address = @purchase.dispatch_address +  ', depto/casa ' + @purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.blank?
+          @purchase.dispatch_address = @purchase.dispatch_address +  ' - ' + @purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.blank?
           @purchase.dispatch_address = @purchase.dispatch_address +  ', ' + @purchase.delivery_info.commune.name if !@purchase.delivery_info.commune.nil?
           @purchase.dispatch_address = @purchase.dispatch_address +  ', ' + @purchase.delivery_info.commune.region.name if !@purchase.delivery_info.commune.region.nil?
         end

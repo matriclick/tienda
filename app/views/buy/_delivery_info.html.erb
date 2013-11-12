@@ -8,7 +8,7 @@
 				<b>
 					<%= di.street %>
 					<%= di.number %>
-					<%= ', depto/casa ' + di.apartment if !di.apartment.blank? %>
+					<%= ' - ' + di.apartment if !di.apartment.blank? %>
 
 					<% if !di.commune.nil? %>
 						<%= ', ' + di.commune.name %>

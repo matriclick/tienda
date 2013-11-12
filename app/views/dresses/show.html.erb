@@ -42,6 +42,10 @@
 						<p itemprop="description"><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
 						<p>Tallas y colores disponibles:</p>
 						<ul><%= raw @dress_stock_text %></ul>
+						<!-- Button trigger modal -->
+						<p data-toggle="modal" data-target="#myModal" style="cursor:pointer; font-size:12px;">
+						  <span class="glyphicon glyphicon-search"></span> Ver tabla de medidas
+						</p>
 						<% if @dress.dress_status.name == 'Disponible' %>
 							<div class="purchase_section" style="margin-top:30px;">
 								<span itemprop="availability" content="in_stock">
@@ -73,3 +77,65 @@
 		<% end %>
 	</div>
 </div><!--/.container-->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Tabla de Medidas</h4>
+      </div>
+      <div class="modal-body">
+				<table class="table table-striped">
+					<tr>
+						<th>Talla</th>
+						<th>Busto (cms)</th>
+						<th>Cintura (cms)</th>
+						<th>Caderas (cms)</th>
+					</tr>
+					<tr>
+						<th>XXS</th>
+						<td>78,5</td>
+						<td>60,5</td>
+						<td>86</td>
+					</tr>
+					<tr>
+						<th>XS</th>
+						<td>81</td>
+						<td>63</td>
+						<td>88,5</td>
+					</tr>
+					<tr>
+						<th>S</th>
+						<td>86</td>
+						<td>68</td>
+						<td>93,5</td>
+					</tr>
+					<tr>
+						<th>M</th>
+						<td>91</td>
+						<td>73</td>
+						<td>98,5</td>
+					</tr>
+					<tr>
+						<th>L</th>
+						<td>96</td>
+						<td>78</td>
+						<td>103,5</td>
+					</tr>
+					<tr>
+						<th>XL</th>
+						<td>101</td>
+						<td>83</td>
+						<td>108,5</td>
+					</tr>
+				</table>
+				<p><i>Las medidas son referenciales y pueden variar por modelo.</i></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
