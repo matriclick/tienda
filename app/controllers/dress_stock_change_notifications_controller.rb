@@ -6,7 +6,7 @@ class DressStockChangeNotificationsController < ApplicationController
   # GET /dress_stock_change_notifications.json
   def index
     add_breadcrumb "Lista de espera de productos", :dress_stock_change_notifications_path
-    @dress_stock_change_notifications = DressStockChangeNotification.all
+    @dress_stock_change_notifications = DressStockChangeNotification.order 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -48,10 +48,10 @@ class DressStockChangeNotificationsController < ApplicationController
 
     respond_to do |format|
       if @dress_stock_change_notification.save
-        format.html { redirect_to dress_ver_path(:type => @dress_stock_change_notification.dress.dress_type.name, :slug => @dress_stock_change_notification.dress.slug), notice: '¡Alerta creada exitosamente! Te estaremos contactando.' }
+        format.html { redirect_to dress_ver_path(:type => @dress_stock_change_notification.dress.dress_type.name, :slug => @dress_stock_change_notification.dress.slug), notice: '<b>¡Alerta creada exitosamente!</b> Te estaremos contactando.' }
         format.json { render json: @dress_stock_change_notification, status: :created, location: @dress_stock_change_notification }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to dress_ver_path(:type => @dress_stock_change_notification.dress.dress_type.name, :slug => @dress_stock_change_notification.dress.slug), notice: '<b>No se ha creado la solicitud.</b> Como mínimo debes agregar la talla y tu correo.' }
         format.json { render json: @dress_stock_change_notification.errors, status: :unprocessable_entity }
       end
     end
