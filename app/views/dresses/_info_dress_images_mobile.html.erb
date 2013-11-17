@@ -9,3 +9,14 @@
 		<img itemprop="image" src="<%= image.dress.url(:main) %>" alt="<%= image.name %>" /><br /><br />
 	<% end %>
 <% end %>
+
+<% if !dress.video_url.blank? and !dress.video_type.blank? %>
+<div>
+	<% if dress.video_type == 'YouTube' %>
+		<iframe width="330" height="281" src="<%= dress.video_url.gsub('watch?v=', 'embed/') %>" frameborder="0" allowfullscreen></iframe>
+	<% elsif dress.video_type == 'Vimeo' %>
+		<iframe src="<%= dress.video_url.gsub('http://vimeo.com/', '//player.vimeo.com/video/') %>" width="330" height="281" 
+			frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+	<% end %>
+</div>
+<% end %>

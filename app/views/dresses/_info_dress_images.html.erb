@@ -32,6 +32,17 @@
 </div>
 <% end %>
 
+<% if !dress.video_url.blank? and !dress.video_type.blank? %>
+<div>
+	<% if dress.video_type == 'YouTube' %>
+		<iframe width="330" height="281" src="<%= dress.video_url.gsub('watch?v=', 'embed/') %>" frameborder="0" allowfullscreen></iframe>
+	<% elsif dress.video_type == 'Vimeo' %>
+		<iframe src="<%= dress.video_url.gsub('http://vimeo.com/', '//player.vimeo.com/video/') %>" width="330" height="281" 
+			frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+	<% end %>
+</div>
+<% end %>
+
 <script type="text/javascript">
 	//initiate the plugin and pass the id of the div containing gallery images
 	$("#zoom_03").elevateZoom({gallery:'gallery_01', cursor: 'pointer', galleryActiveClass: 'active', borderColour: '#FFF',  zoomWindowWidth: 400 }); 
@@ -42,5 +53,4 @@
 		$.fancybox(ez.getGalleryList());
 	  return false;
 	});
-
 </script>

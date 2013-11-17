@@ -21,11 +21,11 @@
 					</div>
 					<% end %>
 					<% if @mobile %>
-						<% cache ['mobile', @dress] do %>
+						<% cache ['mobile_w_video', @dress] do %>
 							<%= render 'info_dress_images_mobile', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
 						<% end %>
 					<% else %>
-						<% cache ['desktop_2', @dress] do %>
+						<% cache ['desktop_w_video', @dress] do %>
 							<%= render 'info_dress_images', :dress => @dress, enable_edit: @enable_edit, supplier: @supplier %>
 						<% end %>
 					<% end %>
@@ -88,7 +88,7 @@
 	</div>
 </div><!--/.container-->
 
-<!-- Modal -->
+<!-- Modal with sizes table -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -150,7 +150,7 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!-- Modal -->
+<!-- Modal Form to get Alert when Stock Changes -->
 <div class="modal fade" id="myModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabelForm" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

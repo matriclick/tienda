@@ -15,6 +15,34 @@
 	<table class="table">
 		<tr>
 			<td>
+			  <div class="panel panel-default">
+			    <div class="panel-heading">
+			      <h4 class="panel-title">
+			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse12" style="font-size:12px">
+			          ¿Tiene video?
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapse12" class="panel-collapse collapse">
+			      <div class="panel-body">
+							<div>
+								<b>Link al video:</b> <%= f.text_field :video_url, class: "form-control"  %>
+								<p class="help-block">
+								Link completo al video, ejemplo http://www.youtube.com/watch?v=Hl5_te1c-Mc o http://vimeo.com/77293967
+								</p>
+							</div>
+							<div>
+								<b>Tipo de video:</b> 
+								<%= f.select :video_type, options_for_select(["YouTube", "Vimeo"], @dress.video_type), { :include_blank => true }, 
+										{:class => "form-control", style: 'font-size:12px'} %>
+							</div>
+			      </div>
+			    </div>
+			  </div>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<div class="panel panel-default">
 				  <div class="panel-heading">
 				    <h3 class="panel-title"><%= f.label :dress_type, 'Tipo de producto' %><%= mark_required @dress, :dress_type_id %></h3>
