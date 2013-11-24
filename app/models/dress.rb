@@ -88,10 +88,7 @@ class Dress < ActiveRecord::Base
       if stock_left
         self.dress_status = DressStatus.find_by_name 'Disponible'
       else
-        self.dress_status = DressStatus.find_by_name 'Vendido'        
-        if self.position < 90
-          self.position = 99
-        end
+        self.dress_status = DressStatus.find_by_name 'Vendido'
       end
     end
   end
