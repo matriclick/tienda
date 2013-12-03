@@ -13,24 +13,9 @@
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
-		<li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
   <div class="carousel-inner">
-		<% if (contest = SiteConfiguration.find(1).contest) %>
-		<div class="item active">
-      <img src="<%= asset_path 'el_bazar/miss-tramanta-2013.jpg' %>" alt="Miss Tramanta 2013">
-      <div class="container">
-        <div class="carousel-caption">
-          <h1><%= contest.name.capitalize %></h1>
-          <p>Buscamos a la modelo para la temporada primavera/verano 2013.<br />
-						La ganadora participará de las sesiones fotográficas <br />
-						y tendrá $150.000 para comprar en Tramanta.com</p>
-          <p><%= link_to 'Ver Concurso', contest, class: "btn btn-large btn-primary" %></p>
-        </div>
-      </div>
-    </div>
-		<% end %>
-    <div class="item">
+    <div class="item active">
       <img src="<%= asset_path 'el_bazar/new_background/women-fighters.jpg' %>" alt="Moda Tendencia y Vestidos en Tramanta.com">
       <div class="container">
         <div class="carousel-caption">
