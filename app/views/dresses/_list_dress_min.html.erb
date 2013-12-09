@@ -1,4 +1,4 @@
-<% #cache ['list_dress_9', dress] do %>
+<% cache ['list_dress_min_1', dress] do %>
 	<div class="col-md-2" style="height:355px; overflow:hidden; margin:0px 5px 0px 5px">
 	<% if dress.dress_status.name.include?('Vendido') %>
 		<div style="position:absolute; top:40px">
@@ -29,4 +29,4 @@
 			</span>
 		 </p>
 	</div><!--/span--> 
-<% #end %>
+<% end %>

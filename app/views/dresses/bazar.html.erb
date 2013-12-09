@@ -23,7 +23,7 @@
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-<% #cache ['bazar_home_page_13', @dresses.first] do %>
+<% cache ['bazar_home_page_15', Dress.all.last] do %>
 	<div class="container ">
 	  <div class="row">
 			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
@@ -177,4 +177,4 @@
 	    </div>
 	  </div>
 	</div><!-- /.container -->
-<% #end %>
+<% end %>
