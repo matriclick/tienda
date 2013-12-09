@@ -1,0 +1,51 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">VESTIDOS</div>
+		  <!-- List group -->
+		  <ul class="list-group">
+		    <li class="list-group-item"><%= link_to 'Peplum', dresses_search_path(q: 'vestido peplum') %></li>
+		    <li class="list-group-item"><%= link_to 'Encajes', dresses_search_path(q: 'vestido encaje') %></li>
+		    <li class="list-group-item"><%= link_to 'Gasa', dresses_search_path(q: 'vestido gasa') %></li>
+		  </ul>
+		</div>
+	</div>
+	
+	<div class="col-md-3">
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">ROPA DE MUJER</div>
+		  <!-- List group -->
+		  <ul class="list-group">
+		    <li class="list-group-item"><%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
+		    <li class="list-group-item"><%= link_to 'Chalecos y Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
+				<li class="list-group-item"><%= link_to 'Leggings y Pantalones', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>
+				<li class="list-group-item"><%= link_to 'Faldas y Minis', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
+		  </ul>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">ZAPATOS Y BOTAS</div>
+		  <!-- List group -->
+		  <ul class="list-group">
+		    <li class="list-group-item"><%= link_to 'Zapatos', dresses_search_path(q: 'zapato') %></li>
+		    <li class="list-group-item"><%= link_to 'Botas', dresses_search_path(q: 'bota') %></li>
+		  </ul>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">ROPA INTERIOR</div>
+		  <!-- List group -->
+		  <ul class="list-group">
+		    <li class="list-group-item"><%= link_to 'Algodón', dresses_search_path(q: 'ropa interior algodón') %></li>
+		    <li class="list-group-item"><%= link_to 'Satín', dresses_search_path(q: 'ropa interior satín') %></li>
+		    <li class="list-group-item"><%= link_to 'Tull', dresses_search_path(q: 'ropa interior tull') %></li>
+		  </ul>
+		</div>
+	</div>
+</div><!-- /.row -->

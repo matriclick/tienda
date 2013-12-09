@@ -383,7 +383,7 @@ aux << (DressType.find_by_name("ropa-de-mujer-tops-poleras") || DressType.create
 aux << (DressType.find_by_name("ropa-de-mujer-tops-blusas") || DressType.create(:name => 'ropa-de-mujer-tops-blusas', :description => "Blusas mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-pantalones-tela") || DressType.create(:name => 'ropa-de-mujer-pantalones-tela', :description => "Pantalones mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-pantalones-jeans") || DressType.create(:name => 'ropa-de-mujer-pantalones-jeans', :description => "Jeans mujer"))
-aux << (DressType.find_by_name("ropa-de-mujer-pantalones-leggins") || DressType.create(:name => 'ropa-de-mujer-pantalones-leggins', :description => "Leggins mujer"))
+aux << (DressType.find_by_name("ropa-de-mujer-pantalones-leggings") || DressType.create(:name => 'ropa-de-mujer-pantalones-leggings', :description => "Leggings mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-pantalones-panties") || DressType.create(:name => 'ropa-de-mujer-pantalones-panties', :description => "Panties mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-shorts") || DressType.create(:name => 'ropa-de-mujer-shorts', :description => "Shorts mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-polleras") || DressType.create(:name => 'ropa-de-mujer-polleras', :description => "Shorts mujer"))

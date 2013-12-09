@@ -5,53 +5,6 @@
     })
   });
 </script>
-<!-- Carousel
-================================================== -->
-<div id="myCarousel" class="carousel slide">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="item active">
-      <img src="<%= asset_path 'el_bazar/new_background/women-fighters.jpg' %>" alt="Moda Tendencia y Vestidos en Tramanta.com">
-      <div class="container">
-        <div class="carousel-caption">
-          <h1>Bienvenido a Tramanta.com</h1>
-					<%= render 'layouts/notice', notice: notice %>
-          <p>Compra vestidos y ropa de mujer online con despachos a todo Chile. El producto estará en tu casa entre 1 a 5 días después de realizada la compra. Todos los productos se pueden devolver si no te gustan o quedan bien.</p>
-          <p><%= link_to 'Regístrate', new_user_registration_path, class: "btn btn-large btn-primary" %></p>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <img src="<%= asset_path 'el_bazar/new_background/sunglasses-style.jpg' %>" alt="Todas las semanas nuevos productos">
-      <div class="container">
-        <div class="carousel-caption">
-          <h1>Todas las semanas nuevos productos</h1>
-          <p>Estamos renovando y cambiando los productos todas las semanas para que siempre encuentres la nuevas alternativas para complementar tu closet. Recuerda que manejamos stock limitados y muchos productos se agotan rápidamente.</p>
-          <p><%= link_to 'Revisa los nuevos Productos', dresses_new_arrivals_path, class: "btn btn-large btn-primary" %></p>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <img src="<%= asset_path 'el_bazar/new_background/rock-and-roll.jpg' %>" alt="Siempre a la Vanguardia en Tramanta.com">
-      <div class="container">
-        <div class="carousel-caption">
-          <h1>Moda y Tendencias</h1>
-          <p>Siempre a la vanguardia. En nuestro blog podrás encontrar reportajes para que conozcas otras experiencias y estés siempre a la moda. No te olvides de seguirnos en Facebook para que no te pierdas nada.</p>
-          <p>
-						<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ftramantaonline&amp;width=150&amp;height=65&amp;colorscheme=light&amp;layout=box_count&amp;action=like&amp;show_faces=true&amp;send=true&amp;appId=199668766763277" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:65px;" allowTransparency="true"></iframe>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-  <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-</div><!-- /.carousel -->
 
 <% if !@site_configuration.free_shipping_from_price.blank? %>
 <div class="container marketing">
@@ -70,152 +23,158 @@
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-<% cache ['bazar_home_page_12', @dresses.first] do %>
-<div class="container marketing">
-  <!-- Three columns of text below the carousel -->
-  <div class="row">
-		<% @dresses.each do |dress| %>
-			<%= render 'list_dress', dress: dress %>
-		<% end %>
-  </div><!-- /.row -->
-	
-  <div class="row" style="padding-bottom:20px; padding-top:10px;">
-		<div class="col-md-12">
-			<form action="<%= dresses_search_path %>" method="get">
-			  <div class="input-group">
-						<%= text_field_tag(:q, @search_text, placeholder: @search_text, class: "form-control") %>
-			       <span class="input-group-btn">
-							<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
-			  		 </span>
-			  </div><!-- /input-group -->
-			</form>
+<% #cache ['bazar_home_page_13', @dresses.first] do %>
+	<div class="container ">
+	  <div class="row">
+			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
+				Llegaste al lugar donde las mujeres realizan sus compras de moda online. Todas las semanas encontrarás nuevos productos.
+			</h1>
 		</div>
-	</div>	
-  <div class="row">
-		<div class="col-md-3">
-			<div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <div class="panel-heading">VESTIDOS</div>
-			  <!-- List group -->
-			  <ul class="list-group">
-			    <li class="list-group-item"><%= link_to 'Peplum', dresses_search_path(q: 'vestido peplum') %></li>
-			    <li class="list-group-item"><%= link_to 'Encajes', dresses_search_path(q: 'vestido encaje') %></li>
-			    <li class="list-group-item"><%= link_to 'Gasa', dresses_search_path(q: 'vestido gasa') %></li>
-			  </ul>
-			</div>
-		</div>
-		
-		<div class="col-md-3">
-			<div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <div class="panel-heading">ROPA DE MUJER</div>
-			  <!-- List group -->
-			  <ul class="list-group">
-			    <li class="list-group-item"><%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %></li>
-			    <li class="list-group-item"><%= link_to 'Chalecos y Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %></li>
-					<li class="list-group-item"><%= link_to 'Leggings y Pantalones', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %></li>
-					<li class="list-group-item"><%= link_to 'Faldas y Minis', dresses_ver_path(:type => "ropa-de-mujer-polleras") %></li>
-			  </ul>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <div class="panel-heading">ZAPATOS Y BOTAS</div>
-			  <!-- List group -->
-			  <ul class="list-group">
-			    <li class="list-group-item"><%= link_to 'Zapatos', dresses_search_path(q: 'zapato') %></li>
-			    <li class="list-group-item"><%= link_to 'Botas', dresses_search_path(q: 'bota') %></li>
-			  </ul>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <div class="panel-heading">ROPA INTERIOR</div>
-			  <!-- List group -->
-			  <ul class="list-group">
-			    <li class="list-group-item"><%= link_to 'Algodón', dresses_search_path(q: 'ropa interior algodón') %></li>
-			    <li class="list-group-item"><%= link_to 'Satín', dresses_search_path(q: 'ropa interior satín') %></li>
-			    <li class="list-group-item"><%= link_to 'Tull', dresses_search_path(q: 'ropa interior tull') %></li>
-			  </ul>
-			</div>
-		</div>
-  </div><!-- /.row -->
-		
-  <!-- START THE FEATURETTES -->
-  <hr class="featurette-divider">
-
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading">¿Cómo funciona Tramanta?<br/>
-				<span class="text-muted" style="margin-left:40px">Renovemos tu closet</span></h2>
-				<ol class="lead">
-					<li>Revisa los productos: puedes usar el buscador o el menú.</li>
-					<li>Agrega al carrito de compras los productos que te vayan gustando.</li>
-					<li>Comienza el proceso de confirmación de tu compra.</li>
-					<li>Paga con tarjetas de crédito, débito o realiza una transferencia.</li>
-					<li>Tu producto será despachado según la opción que hayas seleccionado.</li>
-					<li>Te llegará un correo de confirmación de tu compra.</li>
-				</ol>
-    </div>
-    <div class="col-md-5">
-      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/como-funciona-tramanta.jpg' %>"
-				 		data-src="<%= asset_path 'el_bazar/como-funciona-tramanta.jpg' %>" alt="Generic placeholder image">
-    </div>
-  </div>
-	
-	<hr class="featurette-divider">
-	
-  <div class="row featurette">
-    <div class="col-md-5">
-      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/despacho-a-todo-chile.jpg' %>"
-				 		data-src="<%= asset_path 'el_bazar/despacho-a-todo-chile.jpg' %>" alt="Generic placeholder image">
-    </div>
-    <div class="col-md-7">
-      <h2 class="featurette-heading">¿Y después de comprar?<br />
-				<span class="text-muted" style="margin-left:40px">Siempre informado.</span></h2>
-				<ol class="lead">
-					<li>Un par de días después de haber recibido el correo de confirmación de compra, te llegará un nuevo correo con los datos de tu despacho para que le puedas hacer seguimiento a tu orden.</li>
-					<li>Una vez llegue el producto a la dirección de despacho tendrás 5 días para realizar la devolución completando el <%= link_to 'siguiente formulario', new_refund_request_path %>.</li>
-					<li>Luego de completado el formulario, un representante de Tramanta.com te contactará para darte las instrucciones de devolución.</li>
-				</ol>
-    </div>
-  </div>
-
-  <hr class="featurette-divider">
-
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading">Y para que no te pierdas nada <span class="text-muted">suscríbete.</span></h2>
-      <p class="lead">Inscríbete para que recibas todas las semanas información sobre los nuevos productos, las promociones y ofertas que tenemos preparadas para ti.</p>
-			<p>
-				<%= form_for @subscriber, :html => {class: "form-horizontal", role: "form"}, :url => subscription_create_path, :validate => false do |f| %>
-					<div class="form-group">
-						<label for="inputEmail1" class="col-lg-2 control-label">Correo</label>
-						<div class="col-lg-10">
-									<%= f.text_field :email, class: "form-control", placeholder: "Correo" %>
-						 </div>
-					</div>
-					<div class="form-group">
-				    <label for="inputComuna1" class="col-lg-2 control-label">Comuna</label>
-				    <div class="col-lg-10">
-							<%= f.grouped_collection_select(:commune_id, Region.order(:name), :communes, :name, :id, :name, 
-																							{ :prompt => t('select') }, { :class=> "form-control", style: 'width:100%' }) %>
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <div class="col-lg-offset-2 col-lg-10">
-							<%= f.submit 'Suscribirse', class: "btn btn-default" %>
-				    </div>
-				  </div>
-				<% end %>
+	  <!-- Three columns of text below the carousel -->
+		<hr>
+	  <div class="row">
+			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
+				<%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %>
+			</h1>
+			<% @dresses.each do |dress| %>
+				<%= render 'list_dress_min', dress: dress %>
+			<% end %>
+	  </div><!-- /.row -->
+		<div class="row">
+			<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
+				<%= link_to 'Ver muchos vestidos más >>', dresses_ver_path(:type => "vestidos-fiesta") %>
 			</p>
-    </div>
-    <div class="col-md-5">
-      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/suscribete-a-tramanta.jpg' %>"
-				 		data-src="<%= asset_path 'el_bazar/suscribete-a-tramanta.jpg' %>" alt="Generic placeholder image">
-    </div>
-  </div>
-</div><!-- /.container -->
-<% end %>
+		</div>
+		<hr>
+	  <div class="row">
+			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
+				<%= link_to 'Poleras y Blusas', dresses_ver_path(:type => "tops") %>
+			</h1>
+			<% @shirts.each do |dress| %>
+				<%= render 'list_dress_min', dress: dress %>
+			<% end %>
+	  </div><!-- /.row -->
+		<div class="row">
+			<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
+				<%= link_to 'Ver muchas poleras y blusas más >>', dresses_ver_path(:type => "tops") %>
+			</p>
+		</div>
+		
+		<hr>	
+	  <div class="row">
+			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
+				<%= link_to 'Leggings y Pantalones', dresses_ver_path(:type => "pantalones") %>
+			</h1>
+			<% @pants.each do |dress| %>
+				<%= render 'list_dress_min', dress: dress %>
+			<% end %>
+	  </div><!-- /.row -->
+		<div class="row">
+			<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
+				<%= link_to 'Ver más leggings y pantalones >>', dresses_ver_path(:type => "pantalones") %>
+			</p>
+		</div>
+		
+		<hr>
+	  <div class="row">
+			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
+				<%= link_to 'Zapatos y Botas', dresses_ver_path(:type => "zapatos") %>
+			</h1>
+			<% @shoes.each do |dress| %>
+				<%= render 'list_dress_min', dress: dress %>
+			<% end %>
+	  </div><!-- /.row -->
+		<div class="row">
+			<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
+				<%= link_to 'Ver más zapatos y botas >>', dresses_ver_path(:type => "zapatos") %>
+			</p>
+		</div>
+		
+		<hr>
+	  <div class="row" style="padding-bottom:20px; padding-top:10px;">
+			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">Encuentra muchas cosas más!</h1>
+			<div class="col-md-12">
+				<form action="<%= dresses_search_path %>" method="get">
+				  <div class="input-group">
+							<%= text_field_tag(:q, @search_text, placeholder: @search_text, class: "form-control", style: 'font-weight:lighter') %>
+				       <span class="input-group-btn">
+								<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
+				  		 </span>
+				  </div><!-- /input-group -->
+				</form>
+			</div>
+		</div>
+		<hr>
+	  <div class="row featurette">
+	    <div class="col-md-7">
+	      <h2 class="featurette-heading">¿Cómo funciona Tramanta?<br/>
+					<span class="text-muted" style="margin-left:40px">Renovemos tu closet</span></h2>
+					<ol class="lead">
+						<li>Revisa los productos: puedes usar el buscador o el menú.</li>
+						<li>Agrega al carrito de compras los productos que te vayan gustando.</li>
+						<li>Comienza el proceso de confirmación de tu compra.</li>
+						<li>Paga con tarjetas de crédito, débito o realiza una transferencia.</li>
+						<li>Tu producto será despachado según la opción que hayas seleccionado.</li>
+						<li>Te llegará un correo de confirmación de tu compra.</li>
+					</ol>
+	    </div>
+	    <div class="col-md-5">
+	      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/como-funciona-tramanta.jpg' %>"
+					 		data-src="<%= asset_path 'el_bazar/como-funciona-tramanta.jpg' %>" alt="Generic placeholder image">
+	    </div>
+	  </div>
+	
+		<hr class="featurette-divider">
+	
+	  <div class="row featurette">
+	    <div class="col-md-5">
+	      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/despacho-a-todo-chile.jpg' %>"
+					 		data-src="<%= asset_path 'el_bazar/despacho-a-todo-chile.jpg' %>" alt="Generic placeholder image">
+	    </div>
+	    <div class="col-md-7">
+	      <h2 class="featurette-heading">¿Y después de comprar?<br />
+					<span class="text-muted" style="margin-left:40px">Siempre informado.</span></h2>
+					<ol class="lead">
+						<li>Un par de días después de haber recibido el correo de confirmación de compra, te llegará un nuevo correo con los datos de tu despacho para que le puedas hacer seguimiento a tu orden.</li>
+						<li>Una vez llegue el producto a la dirección de despacho tendrás 5 días para realizar la devolución completando el <%= link_to 'siguiente formulario', new_refund_request_path %>.</li>
+						<li>Luego de completado el formulario, un representante de Tramanta.com te contactará para darte las instrucciones de devolución.</li>
+					</ol>
+	    </div>
+	  </div>
+
+	  <hr class="featurette-divider">
+
+	  <div class="row featurette">
+	    <div class="col-md-7">
+	      <h2 class="featurette-heading">Y para que no te pierdas nada <span class="text-muted">suscríbete.</span></h2>
+	      <p class="lead">Inscríbete para que recibas todas las semanas información sobre los nuevos productos, las promociones y ofertas que tenemos preparadas para ti.</p>
+				<p>
+					<%= form_for @subscriber, :html => {class: "form-horizontal", role: "form"}, :url => subscription_create_path, :validate => false do |f| %>
+						<div class="form-group">
+							<label for="inputEmail1" class="col-lg-2 control-label">Correo</label>
+							<div class="col-lg-10">
+										<%= f.text_field :email, class: "form-control", placeholder: "Correo" %>
+							 </div>
+						</div>
+						<div class="form-group">
+					    <label for="inputComuna1" class="col-lg-2 control-label">Comuna</label>
+					    <div class="col-lg-10">
+								<%= f.grouped_collection_select(:commune_id, Region.order(:name), :communes, :name, :id, :name, 
+																								{ :prompt => t('select') }, { :class=> "form-control", style: 'width:100%' }) %>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-lg-offset-2 col-lg-10">
+								<%= f.submit 'Suscribirse', class: "btn btn-default" %>
+					    </div>
+					  </div>
+					<% end %>
+				</p>
+	    </div>
+	    <div class="col-md-5">
+	      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/suscribete-a-tramanta.jpg' %>"
+					 		data-src="<%= asset_path 'el_bazar/suscribete-a-tramanta.jpg' %>" alt="Generic placeholder image">
+	    </div>
+	  </div>
+	</div><!-- /.container -->
+<% #end %>

@@ -12,15 +12,4 @@ module LayoutHelper
     @show_title
   end
   
-  def carrito_compra_link
-    if current_user
-  		if current_user.cart_items
-  			link_to '('+current_user.cart_items.to_s+') Carrito', buy_view_cart_path
-  		else
-  			link_to '(0) Carrito', buy_view_cart_path, :class => 'no_underline_login'
-  		end
-  	else
-  		link_to '(0) Carrito de Compras', buy_view_cart_path, :class => 'no_underline_login'
-  	end
-  end
 end

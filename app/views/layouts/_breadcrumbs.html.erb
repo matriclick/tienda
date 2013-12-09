@@ -1,3 +1,6 @@
 <div class="container">
-	 <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder, :separator => "" %>
+	<div class="row">
+		<div class="col-md-9"><%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder, :separator => "" %></div>
+		<div class="col-md-3"><ul class="breadcrumb" style="text-align:center;"><li><%= carrito_compra_link %></li></ul></div>
+	</div>
 </div>

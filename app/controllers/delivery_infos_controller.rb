@@ -56,6 +56,8 @@ class DeliveryInfosController < ApplicationController
     
     if !params[:purchasable].blank? and !params[:purchasable][:type].blank?
       @object = eval(params[:purchasable][:type]+'.find '+params[:purchasable][:id])
+    else
+      @object = nil
     end
     
     respond_to do |format|
@@ -77,8 +79,10 @@ class DeliveryInfosController < ApplicationController
   def update
     @delivery_info = DeliveryInfo.find(params[:id])
     
-    if !params[:purchasable][:type].nil?
+    if !params[:purchasable].blank? and !params[:purchasable][:type].blank?
       @object = eval(params[:purchasable][:type]+'.find '+params[:purchasable][:id])
+    else
+      @object = nil
     end
     
     respond_to do |format|

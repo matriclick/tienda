@@ -1,5 +1,5 @@
-<% cache ['list_dress_10', dress] do %>
-	<div class="col-md-3" style="height:395px; overflow:hidden;">
+<% #cache ['list_dress_9', dress] do %>
+	<div class="col-md-2" style="height:355px; overflow:hidden; margin:0px 5px 0px 5px">
 	<% if dress.dress_status.name.include?('Vendido') %>
 		<div style="position:absolute; top:40px">
 			<div style="background-color:black; color:white; width:190px; text-align:center; padding:10px; opacity:0.7;">
@@ -28,25 +28,5 @@
 				<%= (dress.dress_stock_sizes.map { |dsz| dsz.color.downcase if dsz.stock > 0 and !dsz.color.blank? }).uniq.join(', ') %>
 			</span>
 		 </p>
-		<p>
-			<% if dress.dress_status.name.include?('Vendido') %>
-				<%= link_to raw('<span class="glyphicon glyphicon-shopping-cart"></span>'), 
-						buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), 
-						:method => :post, :class => 'btn btn-default btn-md disabled', title: "Agregar al Carrito" %>
-			<% else %>
-				<%= link_to raw('<span class="glyphicon glyphicon-shopping-cart"></span>'), 
-						buy_add_to_cart_path(:purchasable_type => dress.class, :purchasable_id => dress.id), 
-						:method => :post, :class => 'btn btn-default btn-md', title: "Agregar al Carrito" %>							
-			<% end %>
-			<% if !current_user.nil? and current_user.dresses.include? dress %>
-				<%= link_to raw('<span class="glyphicon glyphicon-star"></span>'), 
-						user_profile_add_to_wish_list_path(:dress_id => dress.id), 
-						:method => :put, class: "btn btn-default btn-md", title: "Agregar a Wish List" %>
-			<% else %>
-			<%= link_to raw('<span class="glyphicon glyphicon-star-empty"></span>'), 
-					user_profile_add_to_wish_list_path(:dress_id => dress.id), 
-					:method => :put, class: "btn btn-default btn-md", title: "Agregar a Wish List" %>
-			<% end %>
-		</p>
 	</div><!--/span--> 
-<% end %>
+<% #end %>

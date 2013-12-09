@@ -13,6 +13,18 @@ module ApplicationHelper
 		link_to '('+current_user.dresses.size.to_s+') Wish List', user_profile_wish_list_path
   end
   
+  def carrito_compra_link
+    if current_user
+  		if current_user.cart_items
+  			link_to '('+current_user.cart_items.to_s+') Carro de Compras', buy_view_cart_path
+  		else
+  			link_to '(0) Carro de Compras', buy_view_cart_path, :class => 'no_underline_login'
+  		end
+  	else
+  		link_to '(0) Carro de Compras', buy_view_cart_path, :class => 'no_underline_login'
+  	end
+  end
+  
   # Helpers to build sortable tables
   def sortable(column, title = nil)
     title ||= column.titleize

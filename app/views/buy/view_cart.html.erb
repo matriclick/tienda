@@ -3,8 +3,9 @@
 <%= render 'user_profile/left_menu' %>
 
 <%= form_tag buy_refresh_cart_path, :method => "put" do %>
-	<h1>Carrito de compras</h1>
-	<h4>Precio Carrito (Subtotal): <%= number_to_currency(@shopping_cart.price) %></h4>
+	<h1 style="font-size:24px; font-weight:lighter; margin:0px 0px 10px 0px; padding:0px">
+		Carrito de compras
+	</h1>
 	<% if @shopping_cart.shopping_cart_items.size > 0 %>
 		<% @shopping_cart.shopping_cart_items.each do |shopping_cart_item| %>
 		<div class="panel panel-default">
@@ -27,8 +28,9 @@
 								<div class="col-md-2"><b>Color</b><br />
 									<%= shopping_cart_item.color %></div>
 								<div class="col-md-2"><b>Cantidad</b><br />
-									<%= f.select(:quantity, 1..shopping_cart_item.purchasable.get_stock_from_size(shopping_cart_item.size, 
-															shopping_cart_item.color)) %></div>
+									<%= f.select(:quantity, 1..shopping_cart_item.purchasable.get_stock_from_size(shopping_cart_item.size, shopping_cart_item.color), {}, 
+									{ onchange: 'update_cart_subtotal(this, '+shopping_cart_item.id.to_s+','+shopping_cart_item.purchasable.price.to_s+')' }) %></div>
+									<span style="display:none" id="sci_id_<%= shopping_cart_item.id.to_s %>_quantity"><%= shopping_cart_item.quantity %></span>
 								<div class="col-md-1">
 									<%= link_to image_tag('shopping_cart/remove-from-cart-small.jpeg', :class => 'image_button', alt: 'Eliminar'), 
 										buy_remove_from_cart_path(:shopping_cart_item_id => shopping_cart_item.id), method: :post %>
@@ -40,18 +42,20 @@
 			</div>
 			<% end %>
 		<% end %>
-		<div class="row">
-			<div class="col-lg-offset-9 col-lg-3">
-			<%= submit_tag "Pagar carrito de compras", :go_to_buy_details => true, class: "btn btn-primary" %> 
+		<h2 style="font-size:18px; font-weight:lighter; margin:0px 0px 10px 0px; padding:0px">
+			Precio carro de compras: <span id="subtotal"><%= number_to_currency(@shopping_cart.price) %></span></h4>
+		</h2>
+		<div style="text-align:center">
+			<%= submit_tag "Pagar carrito de compras", :go_to_buy_details => true, class: "btn btn-primary", style: 'width:100%' %> 
 			<%= image_tag "loading.gif", :class => :select_loading, :style => "display:none;" %>
-			</div>
 		</div>
+		
 	<% else %>
 		  <%= render "layouts/nothing_to_show", :message => 'No has agregado Items al Carrito de Compras' %>
 	<% end %>
 <% end %>
-	<div class="row" style="margin-top:15px">
-		<div class="col-lg-12">
+
+	<div class="row" style="margin:15px 0px 25px 0px">
 			<form action="<%= dresses_search_path %>" method="get">
 			  <div class="input-group">
 						<%= text_field_tag(:q, @search_text, :placeholder => 'o sigue agregando otros productos', :class => "form-control input-md") %>
@@ -60,6 +64,6 @@
 			  		 </span>
 			  </div><!-- /input-group -->
 			</form>
-		</div>
 	</div>
+	<%= render 'dresses/categories_row_menu' %>
 </div>

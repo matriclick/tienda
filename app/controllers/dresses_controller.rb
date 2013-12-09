@@ -45,7 +45,11 @@ class DressesController < ApplicationController
 	  @home = true
     @not_breadcrumbs = true
     disp = DressStatus.find_by_name("Disponible").id
-    @dresses = Dress.where('dress_status_id = ?', disp).order('created_at DESC').limit 4
+    @dresses = Dress.joins(:dress_types).where('dress_types.name like "%vestido%" and dress_status_id = ?', disp).order('created_at DESC').limit 5
+    @shirts = Dress.joins(:dress_types).where('dress_types.name like "%tops%" and dress_status_id = ?', disp).order('created_at DESC').limit 5
+    @pants = Dress.joins(:dress_types).where('dress_types.name like "%pantalones%" and dress_status_id = ?', disp).order('created_at DESC').limit 5
+    @shoes = Dress.joins(:dress_types).where('dress_types.name like "%zapatos%" and dress_status_id = ?', disp).order('created_at DESC').limit 5
+    
     @title_content = '¡Bienvenido!'
     @search_text = 'Busca por color, talla, tela, etc...'
     @subscriber = Subscriber.new

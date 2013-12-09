@@ -30,6 +30,14 @@ function add_fields_post(link, association, content) {
   $(link).prev().after(content.replace(regexp, new_id));
 }
 
+function update_cart_subtotal(checkbox, sci_id, price) {
+	current_quantity = document.getElementById('sci_id_'+sci_id+'_quantity').innerHTML
+	current_price = document.getElementById('subtotal').innerHTML.replace('.', '').replace('$', '');
+	document.getElementById('subtotal').innerHTML = parseInt(current_price) + (parseInt(checkbox.value) - parseInt(current_quantity))*parseInt(price)
+	document.getElementById('subtotal').innerHTML = '$ '+document.getElementById('subtotal').innerHTML
+	document.getElementById('sci_id_'+sci_id+'_quantity').innerHTML = checkbox.value
+}
+
 // Google Map
 function initialize(lat, lon, address) {
     var latlng = new google.maps.LatLng(lat, lon);
