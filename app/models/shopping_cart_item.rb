@@ -7,8 +7,12 @@ class ShoppingCartItem < ActiveRecord::Base
     size = Size.find_by_name(self.size)
     dress_stock_size = DressStockSize.where("size_id = ? and dress_id = ? and color = ?", size.id, self.purchasable_id, self.color).first
     
-    return false if dress_stock_size.nil?
-    return dress_stock_size.stock >= self.quantity ? true : false
+    
+    if dress_stock_size.nil? or self.quantity.nil?
+      return false
+    else
+      return dress_stock_size.stock >= self.quantity ? true : false
+    end
   end
   
   def get_store
