@@ -3,7 +3,7 @@
 		<tr>
 			<td align="left">
 				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
-					¡Felicitaciones! Haz realizado una compra en Tramanta.<br /><br />
+					<b>¡Felicitaciones! Haz realizado una compra en Tramanta.</b><br /><br />
 					<%= raw @purchasable.description.gsub(/\n/, '<br/>') %><br /><br />
 					Precio <b><%= number_to_currency @purchase.price %> <%= number_to_currency @purchase.currency %></b><br /><br />
 					Método de pago: <%= @purchase.transfer_type %><br /><br />
@@ -12,7 +12,10 @@
 						<b>Despacho</b>: 
 						<%= @purchase.delivery_info.street %> <%= @purchase.delivery_info.number %><%= ', depto/casa '+@purchase.delivery_info.apartment if !@purchase.delivery_info.apartment.nil? %>, <%= @purchase.delivery_info.commune.name if !@purchase.delivery_info.commune.nil? %><br /><br />
 					<% end %>
-					<i>Si tienes dudas, escríbenos a contacto@tramanta.com</i>
+					Recuerda que después te llegará un nuevo correo con los datos de tu despacho para que le puedas hacer seguimiento a tu orden. Este correo se enviará entre 2 a 4 días hábiles desde hoy.<br /><br />
+					En el caso que el producto no te quede bien, tendrás 5 días corridos, luego de recibido, para solicitar tu devolución.<br /><br />
+					<i>Recuerda revisar <%= link_to 'las preguntas frecuentes', 'http://www.tramanta.com/faq-tramanta' %> para que resuelvas cualquier duda que tengas.</i><br /><br />
+					<i>Si no está respondida tu pregunta o sigues con dudas, escríbenos a contacto@tramanta.com</i>
 				</font>
 			</td>
 		</tr>
