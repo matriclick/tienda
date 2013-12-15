@@ -150,7 +150,7 @@ class ReportsController < ApplicationController
     add_breadcrumb "Compras por despachar", :reports_purchases_to_be_delivered_path
     redirect_unless_privilege('Vestidos')
   
-    @purchases = Purchase.where('logistic_provider_id is null and funds_received = true').order('purchases.created_at DESC')
+    @purchases = Purchase.where('logistic_provider_id is null and funds_received = true and (refunded is null or refunded = false)').order('purchases.created_at DESC')
   end
   
   def products_to_be_delivered_by_store
