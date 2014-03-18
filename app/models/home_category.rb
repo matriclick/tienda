@@ -8,8 +8,8 @@ class HomeCategory < ActiveRecord::Base
   def dresses
     dresses_array = Array.new
     self.dress_types.each do |dt|
-      dresses_array.concat dt.dresses.available_to_purchase
+      dresses_array.concat dt.dresses.available_to_purchase.order 'created_at DESC'
     end
-    return dresses_array
+    return dresses_array.sort { |x,y| y.created_at <=> x.created_at }
   end
 end
