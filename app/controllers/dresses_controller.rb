@@ -389,7 +389,7 @@ class DressesController < ApplicationController
       if action_name == 'new_arrivals'
         @order = "created_at DESC"
       else
-        @order = "position ASC, created_at DESC"
+        @order = "created_at DESC, position ASC"
       end
     else
       if @order_param == "Lo nuevo"
