@@ -1,6 +1,8 @@
 # encoding: UTF-8
 Matri::Application.routes.draw do
 
+  resources :home_categories
+
   resources :dress_stock_change_notifications
 
   resources :wbr_data

@@ -1,23 +1,45 @@
 <div class="container">
 	<%= render 'layouts/notice', notice: notice %>
-	<%= form_for(@conf, url: administration_save_configuration_path(id: @conf), :method => "put", :html => {role: 'form', class: 'form'}) do |f| %>
+	<%= nested_form_for(@conf, url: administration_save_configuration_path(id: @conf), :method => "put", :html => {:multipart => true, role: 'form', class: 'form-inline'}) do |f| %>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group">
 				¿Activar Menú Liquidación? <%= f.check_box :clearance_menu %>
 				<p class="help-block">En el menú se agregará la pestaña "Liquidación" si dejas esta opción con un check.</p>
 			</div>
+		</div>
+	</div>		
+	<div class="row">
+		<div class="col-md-12">
 			<div class="form-group">
 				¿Activar Menú Concurso? <%= f.collection_select :contest_id, Contest.all, :id, :name, :prompt => true, 
 																		:allow_blank => true, :include_blank => true, class: 'form-control' %>
 				<p class="help-block">Si no quieres que aparezca ningún concurso en el menú, deja esta opción en blanco.</p>
 			</div>
+		</div>
+	</div>		
+	<div class="row">
+		<div class="col-md-12">	
 			<div class="form-group">
 				¿Despacho Gratis? <%= f.select :free_shipping_from_price, (0..10).to_a.map{|n| [n*10000, n*10000]}, :prompt => true, 
 																		:allow_blank => true, :include_blank => true, :class => "form-control" %>						
 				<p class="help-block">
 					Selecciona el monto desde el cuál no cobraremos despacho. Déjalo en blanco si no aplica y en 0 si es gratis para todas las compras.</p>
 			</div>
+		</div>
+	</div>		
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Categorías de productos que aparecen en la página de inicio</h3>
+			  </div>
+			  <div class="panel-body" style="font-size:11px">
+					<%= render 'site_configuration_home_category_fields', :f => f  %>
+					<%= f.link_to_add 'Agregar categoría', :site_configuration_home_categories, :class => 'btn btn-default btn-sm' %>
+				</div>
+			</div>
+			
 			<%= f.submit("Guardar",  class: "btn btn-default") %>
 		</div>
 	</div>

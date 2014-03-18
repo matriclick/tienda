@@ -44,6 +44,8 @@ class DressesController < ApplicationController
 	def bazar
 	  @home = true
     @not_breadcrumbs = true
+    @home_categories = @site_configuration.home_categories.order 'position'
+    
     disp = DressStatus.find_by_name("Disponible").id
     @dresses = Dress.joins(:dress_types).where('dress_types.name like "%vestido%" and dress_status_id = ?', disp).order('created_at DESC').limit 5
     @shirts = Dress.joins(:dress_types).where('dress_types.name like "%tops%" and dress_status_id = ?', disp).order('created_at DESC').limit 5

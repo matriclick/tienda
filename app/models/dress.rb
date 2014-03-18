@@ -74,7 +74,6 @@ class Dress < ActiveRecord::Base
   def check_stock_and_update_status_and_position
     if self.dress_status.name != 'Oculto'
       dszs = self.dress_stock_sizes
-
       stock_left = false
       
       dszs.each do |dsz|
@@ -88,7 +87,10 @@ class Dress < ActiveRecord::Base
       if stock_left
         self.dress_status = DressStatus.find_by_name 'Disponible'
       else
-        self.dress_status = DressStatus.find_by_name 'Vendido'
+        if self.dress_status.name == 'Disponible'
+          self.dress_status = DressStatus.find_by_name 'Vendido'
+          self.position = 199
+        end
       end
     end
   end

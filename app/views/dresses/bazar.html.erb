@@ -23,76 +23,14 @@
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-<% cache ['bazar_home_page_15', Dress.all.last] do %>
+<% #cache ['bazar_home_page_20', Dress.all.last, @home_categories] do %>
 	<div class="container ">
 	  <div class="row">
 			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
 				Llegaste al lugar donde las mujeres realizan sus compras de moda online. Todas las semanas encontrarás nuevos productos.
 			</h1>
 		</div>
-	  <!-- Three columns of text below the carousel -->
-		<hr>
-	  <div class="row">
-			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
-				<%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %>
-			</h1>
-			<% @dresses.each do |dress| %>
-				<%= render 'list_dress_min', dress: dress %>
-			<% end %>
-	  </div><!-- /.row -->
-		<div class="row">
-			<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
-				<%= link_to 'Ver muchos vestidos más >>', dresses_ver_path(:type => "vestidos-fiesta") %>
-			</p>
-		</div>
-		<hr>
-	  <div class="row">
-			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
-				<%= link_to 'Poleras y Blusas', dresses_ver_path(:type => "tops") %>
-			</h1>
-			<% @shirts.each do |dress| %>
-				<%= render 'list_dress_min', dress: dress %>
-			<% end %>
-	  </div><!-- /.row -->
-		<div class="row">
-			<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
-				<%= link_to 'Ver muchas poleras y blusas más >>', dresses_ver_path(:type => "tops") %>
-			</p>
-		</div>
-		
-		<hr>	
-	  <div class="row">
-			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
-				<%= link_to 'Leggings y Pantalones', dresses_ver_path(:type => "pantalones") %>
-			</h1>
-			<% @pants.each do |dress| %>
-				<%= render 'list_dress_min', dress: dress %>
-			<% end %>
-	  </div><!-- /.row -->
-		<div class="row">
-			<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
-				<%= link_to 'Ver más leggings y pantalones >>', dresses_ver_path(:type => "pantalones") %>
-			</p>
-		</div>
-		
-		<hr>
-	  <div class="row">
-			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
-				<%= link_to 'Zapatos y Botas', dresses_ver_path(:type => "zapatos") %>
-			</h1>
-			<% @shoes.each do |dress| %>
-				<%= render 'list_dress_min', dress: dress %>
-			<% end %>
-	  </div><!-- /.row -->
-		<div class="row">
-			<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
-				<%= link_to 'Ver más zapatos y botas >>', dresses_ver_path(:type => "zapatos") %>
-			</p>
-		</div>
-		
-		<hr>
-	  <div class="row" style="padding-bottom:20px; padding-top:10px;">
-			<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">Encuentra muchas cosas más!</h1>
+	  <div class="row" style="padding-bottom:0px; padding-top:0px;">
 			<div class="col-md-12">
 				<form action="<%= dresses_search_path %>" method="get">
 				  <div class="input-group">
@@ -104,6 +42,23 @@
 				</form>
 			</div>
 		</div>
+	  <!-- Three columns of text below the carousel -->
+		<% @home_categories.each do |hc| %>
+			<hr>
+			<div class="row">
+				<h1 style="font-size:20px; font-weight:lighter; margin:0px 0px 10px 15px; padding:0px">
+					<%= link_to hc.title, dresses_ver_path(:type => hc.category_keyword_for_url) %>
+				</h1>
+				<% hc.dresses[0..4].each do |dress| %>
+					<%= render 'list_dress_min', dress: dress %>
+				<% end %>
+		  </div><!-- /.row -->
+			<div class="row">
+				<p style="font-size:20px; text-align:right; font-weight:lighter; margin:0px 0px 0px 15px; padding:0px">
+					<%= link_to hc.see_more_text+' >>', dresses_ver_path(:type => hc.category_keyword_for_url) %>
+				</p>
+			</div>
+		<% end %>
 		<hr>
 	  <div class="row featurette">
 	    <div class="col-md-7">
@@ -177,4 +132,4 @@
 	    </div>
 	  </div>
 	</div><!-- /.container -->
-<% end %>
+<% #end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131209010706) do
+ActiveRecord::Schema.define(:version => 20140318014708) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -304,6 +304,11 @@ ActiveRecord::Schema.define(:version => 20131209010706) do
     t.datetime "updated_at"
   end
 
+  create_table "dress_types_home_categories", :id => false, :force => true do |t|
+    t.integer "dress_type_id"
+    t.integer "home_category_id"
+  end
+
   create_table "dress_types_sizes", :id => false, :force => true do |t|
     t.integer "dress_type_id"
     t.integer "size_id"
@@ -371,6 +376,15 @@ ActiveRecord::Schema.define(:version => 20131209010706) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "home_categories", :force => true do |t|
+    t.string   "title"
+    t.string   "see_more_text"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "category_keyword_for_url"
+  end
 
   create_table "industry_categories_supplier_accounts", :id => false, :force => true do |t|
     t.integer  "industry_category_id"
@@ -632,6 +646,14 @@ ActiveRecord::Schema.define(:version => 20131209010706) do
   create_table "shopping_carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "site_configuration_home_categories", :force => true do |t|
+    t.integer  "site_configuration_id"
+    t.integer  "home_category_id"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

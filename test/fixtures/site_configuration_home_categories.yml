@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  site_configuration_id: 1
+  home_category_id: 1
+  position: 1
+
+two:
+  site_configuration_id: 1
+  home_category_id: 1
+  position: 1

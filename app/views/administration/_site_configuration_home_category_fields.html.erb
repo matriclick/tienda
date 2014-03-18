@@ -1,0 +1,11 @@
+<div class="field">
+<%= f.fields_for :site_configuration_home_categories do |schc| %>
+<div class="row" style="padding-bottom:10px">
+	<div class="col-md-3"><%= schc.collection_select :home_category_id, HomeCategory.all, :id, :title, {:prompt => true, :allow_blank => false}, 
+					{ :class => "form-control" } %></div>
+	<div class="col-md-1" style="text-align:right">Posición</div>
+	<div class="col-md-3"><%= schc.text_field :position, :class => "form-control" %></div>
+	<div class="col-md-3"><%= schc.link_to_remove 'Eliminar' %></div>
+</div>
+<% end %>
+</div>

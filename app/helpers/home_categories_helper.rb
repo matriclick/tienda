@@ -1,0 +1,2 @@
+module HomeCategoriesHelper
+end
