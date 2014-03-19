@@ -55,6 +55,10 @@ class Dress < ActiveRecord::Base
     return stock
   end
   
+  def get_last_stock_update
+    return self.dress_stock_sizes.order('updated_at DESC').first.updated_at
+  end
+  
   def get_purchases
     purchases = Array.new
     #Compras directas

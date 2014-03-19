@@ -387,7 +387,7 @@ class DressesController < ApplicationController
     @order_param = params[:order]
     if @order_param.nil? or @order_param == "- Orden -"
       if action_name == 'new_arrivals'
-        @order = "updated_at DESC"
+        @order = "created_at DESC"
       else
         @order = "created_at DESC, position ASC"
       end
