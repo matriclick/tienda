@@ -56,7 +56,11 @@ class Dress < ActiveRecord::Base
   end
   
   def get_last_stock_update
-    return self.dress_stock_sizes.order('updated_at DESC').first.updated_at
+    if self.dress_stock_sizes.size > 0
+      return self.dress_stock_sizes.order('updated_at DESC').first.updated_at
+    else
+      return '00-00-00'
+    end
   end
   
   def get_purchases
