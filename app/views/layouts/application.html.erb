@@ -44,17 +44,6 @@
 		<%= init_tinymce_hammer_if_required %>
 
 		<!-- FBcDbhr0WsxceBrjSWDlzAl1hio -->
-		<script type="text/javascript">
-			var __lc = {};
-			__lc.license = 1563001;
-
-			(function() {
-				var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-				lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-			})();
-		</script>
-		
 	</head>
 
 	<% (@show_map || false) ? (@msg = 'initialize('+@map.latitude.to_s+','+@map.longitude.to_s+',"'+@map.get_address_string.to_s+'");') : nil  %>
