@@ -242,5 +242,5 @@ class PurchasesController < ApplicationController
     add_breadcrumb "Administrador", :administration_index_path
     add_breadcrumb "Lista de compras", purchases_path(:status => 'finalizado')
   end
-    
+      
 end

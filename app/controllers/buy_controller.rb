@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require "active_merchant/billing/integrations/action_view_helper"
-
+require "net/http"
 class BuyController < ApplicationController
   before_filter :authenticate_user!, :only => [:index, :details, :confirm, :add_to_cart, :remove_from_cart, :view_cart, :refresh_cart]
   before_filter :get_order_and_log_user_back, :only => [:success, :failure]
@@ -244,6 +244,7 @@ class BuyController < ApplicationController
     @purchase = @oc.purchase
     @purchase.funds_received = true
     purchase_actions
+    #check_if_came_from_junta
   end
   
   def success_transfer
@@ -354,6 +355,24 @@ class BuyController < ApplicationController
       end
       return 'All credits used'
     end
+  end
+
+  def check_if_came_from_junta
+    if session[:junta].present?
+      uri = URI.parse("https://junta.cl/cashback")
+      args = {apikey: 'your_api_key', token: session[:junta], transaction_id: @purchase.id, amount: @purchase.products_in_purchase_price }
+      uri.query = URI.encode_www_form(args)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+      
+      if response.code == '200'
+        # Everything OK
+      else
+        # Oops...
+      end
+    end 
   end
   
 end

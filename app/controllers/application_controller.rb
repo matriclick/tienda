@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_configuration
-    @site_configuration = SiteConfiguration.find(1)
+    @site_configuration = SiteConfiguration.find_or_create_by_id(1)
   end
   
 	def meta_content_default

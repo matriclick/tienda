@@ -16,6 +16,19 @@ class Purchase < ActiveRecord::Base
   validates :purchasable_id, :purchasable_type, :user_id, :price, :currency, :confirmed_terms, :delivery_cost, :presence => true
   validate :check_if_delivery_info_required
     
+    
+  def products_in_purchase_price
+    if self.purchasable_type == 'Dress'
+      return self.purchasable.price
+    else
+      amount = 0
+      self.purchasable.shopping_cart_items.each do |sci|
+        amount = amount + sci.purchasable.price
+      end
+      return amount
+    end
+  end
+  
   def store_payment_amount
     if self.purchasable_type == 'Dress'
       return self.purchasable.net_cost

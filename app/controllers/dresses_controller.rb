@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class DressesController < ApplicationController
   around_filter :catch_not_found
+  #before_filter :check_if_it_came_from_junta
   before_filter :check_order, only: [:view, :view_search, :clearing]
   require 'will_paginate/array'
   
@@ -443,6 +444,12 @@ class DressesController < ApplicationController
       if dress.sizes.where('size_id = ? and stock > 0', dscn.size_id).size > 0
         NoticeMailer.dress_stock_change_notification_email(dscn).deliver
       end
+    end
+  end
+  
+  def check_if_it_came_from_junta
+    if params[:junta].present?
+      session[:junta] = params[:junta]
     end
   end
   

@@ -96,8 +96,12 @@ class Dress < ActiveRecord::Base
         self.dress_status = DressStatus.find_by_name 'Disponible'
       else
         if self.dress_status.name == 'Disponible'
-          self.dress_status = DressStatus.find_by_name 'Vendido'
-          self.position = 199
+          if self.dress_types.first.dresses.available.size > 10
+            self.dress_status = DressStatus.find_by_name 'Vendido y Oculto'
+          else
+            self.dress_status = DressStatus.find_by_name 'Vendido'
+            self.position = 199
+          end
         end
       end
     end

@@ -105,13 +105,17 @@ class ReportsController < ApplicationController
           newsletters_sent = wbr_datum.newsletters_sent
         end
         
+        aux_delivery_time_week = Purchase.average("DATEDIFF(delivery_date, (created_at  - INTERVAL 3 HOUR))", :conditions => ['created_at >= ? and created_at <= ?', monday_week, sunday_week])
+        
+        average_delivery_time_week = (aux_delivery_time_week.nil? ? '-' : aux_delivery_time_week + 1)
+        
         #Agrego la información
         @wbr_data[(week.to_s+' - '+year.to_s)] = 
           { price_week: price_week, credits_week: credits_week, dispatch_income_week: dispatch_income_week, dispatch_cost_week: dispatch_cost_week, 
             sales_week: sales_week, cost_week: cost_week, revenue_week: revenue_week, tax_week: tax_week, refunds_week: refunds_week, margin_week: margin_week, 
             purchases_week: purchases_week, prod_week: prod_week, stores_week: stores_week, products_created_week: products_created_week, new_products: new_products,
             new_users: new_users, new_subscribers: new_subscribers, visits: visits, fb_followers: fb_followers, newsletters_sent: newsletters_sent,
-            categories_data: categories_data, fb_organic_reach: fb_organic_reach }
+            categories_data: categories_data, fb_organic_reach: fb_organic_reach, average_delivery_time_week: average_delivery_time_week }
       end
     end
     
@@ -358,6 +362,8 @@ class ReportsController < ApplicationController
     purchases_made << 'Purchases Made'
     products_sold = Array.new
     products_sold << 'Products Sold'
+    average_delivery_time_week = Array.new
+    average_delivery_time_week << 'Average Delivery Time'
     visits = Array.new
     visits << 'Visits'
     new_users = Array.new
@@ -386,6 +392,7 @@ class ReportsController < ApplicationController
         margin << wbr_data[week.to_s+' - '+year.to_s][:margin_week]
         purchases_made << wbr_data[week.to_s+' - '+year.to_s][:purchases_week]
         products_sold << wbr_data[week.to_s+' - '+year.to_s][:prod_week]
+        average_delivery_time_week << wbr_data[week.to_s+' - '+year.to_s][:average_delivery_time_week]
         visits << wbr_data[week.to_s+' - '+year.to_s][:visits]
         new_users << wbr_data[week.to_s+' - '+year.to_s][:new_users]
         new_subscribers << wbr_data[week.to_s+' - '+year.to_s][:new_subscribers]
@@ -409,6 +416,7 @@ class ReportsController < ApplicationController
       csv << margin
       csv << purchases_made
       csv << products_sold
+      csv << average_delivery_time_week
       csv << visits
       csv << new_users
       csv << new_subscribers
