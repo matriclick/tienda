@@ -17,7 +17,7 @@ gem 'geocoder'
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
 
-gem "paperclip", "~> 3.0"
+gem "paperclip", "~> 4.1.1"
 # Mime Types for swfupload
 gem 'mime-types', :require => 'mime/types'
 gem 'cancan'
@@ -27,7 +27,6 @@ gem 'will_paginate-bootstrap'
 
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete'
-gem 'geocoder'
 gem 'client_side_validations'
 gem "breadcrumbs_on_rails"
 

@@ -8,6 +8,14 @@ class NoticeMailer < ActionMailer::Base
   	mail to: @refund_request.user.email, bcc: "equipo-tramanta@matriclick.com", subject: "Devolución en Tramanta.com"
   end
 	
+  def notify_store_of_request(dress_stock_change_notification)
+    @dress_stock_change_notification = dress_stock_change_notification
+    @dress = @dress_stock_change_notification.dress
+    @supplier_account = @dress.supplier_account
+    supplier_email = @supplier_account.supplier.email
+    mail to: supplier_email, bcc: "equipo-tramanta@matriclick.com", subject: "¡Alguien quiere tu producto Agotado en Tramanta.com!"
+  end
+  
 	#CONTACT
   def contact_email(contact)
   	@contact = contact

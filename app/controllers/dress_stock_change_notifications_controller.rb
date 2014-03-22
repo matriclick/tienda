@@ -48,6 +48,7 @@ class DressStockChangeNotificationsController < ApplicationController
 
     respond_to do |format|
       if @dress_stock_change_notification.save
+        NoticeMailer.notify_store_of_request(@dress_stock_change_notification).deliver
         format.html { redirect_to dress_ver_path(:type => @dress_stock_change_notification.dress.dress_type.name, :slug => @dress_stock_change_notification.dress.slug), notice: '<b>¡Alerta creada exitosamente!</b> Te estaremos contactando.' }
         format.json { render json: @dress_stock_change_notification, status: :created, location: @dress_stock_change_notification }
       else
