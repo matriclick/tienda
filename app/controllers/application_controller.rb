@@ -560,5 +560,4 @@ class ApplicationController < ActionController::Base
     return "desktop"
   end
   
-  
 end

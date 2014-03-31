@@ -244,7 +244,7 @@ class BuyController < ApplicationController
     @purchase = @oc.purchase
     @purchase.funds_received = true
     purchase_actions
-    #check_if_came_from_junta
+    
   end
   
   def success_transfer
@@ -276,7 +276,7 @@ class BuyController < ApplicationController
           @purchase.dispatch_address = @purchase.dispatch_address +  ', ' + @purchase.delivery_info.commune.name if !@purchase.delivery_info.commune.nil?
           @purchase.dispatch_address = @purchase.dispatch_address +  ', ' + @purchase.delivery_info.commune.region.name if !@purchase.delivery_info.commune.region.nil?
         end
-                
+  
         @purchase.status = 'finalizado'
         @purchase.save(:validate => false)
         
@@ -288,6 +288,8 @@ class BuyController < ApplicationController
         
         #ENVÍA EL CORREO PARA AVISAR QUE OCURRIÓ UNA COMPRA
         NoticeMailer.purchase_email(@purchase).deliver
+        
+        check_if_came_from_junta
       end
     end
   end
@@ -360,7 +362,7 @@ class BuyController < ApplicationController
   def check_if_came_from_junta
     if session[:junta].present?
       uri = URI.parse("https://junta.cl/cashback")
-      args = {apikey: 'your_api_key', token: session[:junta], transaction_id: @purchase.id, amount: @purchase.products_in_purchase_price }
+      args = {apikey: 'zKDvkvmusejH4tn1XBoh5w', token: session[:junta], transaction_id: @purchase.id, amount: @purchase.products_in_purchase_price }
       uri.query = URI.encode_www_form(args)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true

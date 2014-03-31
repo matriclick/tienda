@@ -54,6 +54,9 @@ class DressesController < ApplicationController
 	  if !current_supplier.nil?
 	    sign_out current_supplier
     end
+    
+    check_if_it_came_from_junta
+    
     add_breadcrumb "Tramanta", :bazar_path
   end
 
@@ -451,6 +454,9 @@ class DressesController < ApplicationController
     if params[:junta].present?
       session[:junta] = params[:junta]
     end
-  end
+    puts '************'
+    puts session[:junta]
+    puts '***********'
+  end  
   
 end
