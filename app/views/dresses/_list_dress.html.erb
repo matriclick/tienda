@@ -16,8 +16,10 @@
 		</div>
 	<% end %>
 		<div style="max-height:270px; overflow:hidden;">
+			<% unless dress.dress_images.first.nil? %>
 			<%= link_to image_tag(dress.dress_images.first.dress.url(:index_dress), :alt => dress.dress_images.first.name), 
 									dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>
+			<% end %>
 		</div>
 		<p style="font-size:12px">
 			<span style="margin-right:5px; text-decoration:line-through"><%= number_to_currency dress.original_price %></span> 
