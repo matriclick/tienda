@@ -30,7 +30,8 @@ class Dress < ActiveRecord::Base
 	accepts_nested_attributes_for :dress_stock_sizes, :allow_destroy => true
 	
 	validates :dress_status_id, :introduction, :description, :presence => true	
-	validates :dress_images, :presence => true
+	validates :dress_images, :presence => { :message => "Debes agregar al menos 2 imágenes del producto" }
+  validates :dress_types, :presence => { :message => "Debes seleccionar al menos 1 tipo de producto" }
 	validates :price, :presence => true
 	
   def self.to_csv(from, to)

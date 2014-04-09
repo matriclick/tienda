@@ -1,7 +1,7 @@
-<%= nested_form_for @dress, :validate => true, :html => {:multipart => true, role: "form", style: 'font-size:12px'} do |f| %>
+<%= nested_form_for @dress, :html => {:multipart => true, role: "form", style: 'font-size:12px'} do |f| %>
 	<% if @dress.errors.any? %>
 		<div id="error_explanation">
-			<h2><%= pluralize(@dress.errors.count, "error") %> prohibited this dress from being saved:</h2>
+			<h2><%= pluralize(@dress.errors.count, "errores") %> no permitieron que se creara el producto:</h2>
 			<ul>
 				<% @dress.errors.full_messages.each do |msg| %>
 					<li><%= msg %></li>
