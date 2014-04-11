@@ -240,35 +240,82 @@ class ReportsController < ApplicationController
   def sales_dashboard
     add_breadcrumb "Reporte de Ventas", :reports_sales_dashboard_path
     if params[:from].nil? or params[:to].nil?
-      @from = DateTime.now.utc.beginning_of_week
-      @to = DateTime.now.utc.end_of_week
+      @from = DateTime.now.utc.beginning_of_month
+      @to = DateTime.now.utc.end_of_month
     else
       @from = Time.parse(params[:from]).utc.beginning_of_day
       @to = Time.parse(params[:to]).utc.end_of_day
     end
-
-    @days_month = Time.days_in_month(Time.now.month)
-    @day_today = Time.now.day
-    @factor = @days_month.to_f/@day_today
-
-    @c_sum_month = Purchase.sum(:total_cost, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
-    @p_sum_month = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
-    @r_sum_month = Purchase.sum(:refund_value, :conditions => ['funds_received = ? and refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, true, 'finalizado', DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month])
-
-    @c_sum = Purchase.sum(:total_cost, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])    
-    @p_sum = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
-    @r_sum = Purchase.sum(:refund_value, :conditions => ['funds_received = ? and refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, true, 'finalizado', @from, @to])
     
-    @count_paid_pur = Purchase.count(:conditions => ['funds_received = ? and store_paid = ? and status = ? and created_at >= ? and created_at <= ?', true, true, 'finalizado', @from, @to])
-    @count = Purchase.count(:conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])
-    @prod_count = 0
-    Purchase.where('funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to).each do |p|
+    #Total recibido
+    @price_week = Purchase.sum(:price, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])  
+    #Créditos usados
+    @credits_week = Purchase.sum(:credits_used, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])  
+    #Despachos pagados Cliente
+    @dispatch_income_week = Purchase.sum(:delivery_cost, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])  
+    #Despachos pagados Tramanta
+    @dispatch_cost_week = Purchase.sum(:actual_delivery_cost, :conditions => ['funds_received = ? and status = ? and delivery_date >= ? and delivery_date <= ?', true, 'finalizado', @from, @to])  
+    #Total Vendido (Recibido + créditod - despachos)
+    @sales_week = @price_week + @credits_week - @dispatch_income_week
+    #Costo Productos sin devoluciones
+    @cost_week = Purchase.sum(:total_cost, :conditions => ['funds_received = ? and status = ? and (refunded = ? or refunded is null) and created_at >= ? and created_at <= ?', true, 'finalizado', false, @from, @to])        
+    #Costo Productos con devoluciones
+    @cost_week_w_refund = Purchase.sum(:total_cost, :conditions => ['funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to])        
+    #Devoluciones
+    @refunds_week = Purchase.sum(:refund_value, :conditions => ['funds_received = ? and refunded = ? and status = ? and refund_date >= ? and refund_date <= ?', true, true, 'finalizado', @from, @to])
+    #Margin
+    @margin_week = ((@sales_week.to_f - @cost_week_w_refund.to_f) / (@sales_week.to_f*1.19))
+    #Tax
+    @tax_week = @sales_week*@margin_week*0.19
+    #Revenue
+    @revenue_week = @price_week - @cost_week - @tax_week - @dispatch_cost_week - @refunds_week
+    #Purchases
+    @purchases = Purchase.where('funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', @from, @to)  
+    @purchases_week = @purchases.size
+    #Products and Cash In per Category
+    @categories_data = Hash.new
+    prod_week = 0
+    @purchases.each do |p|
       if p.purchasable_type == 'Dress'
-        @prod_count = 1 + @prod_count
+        prod_week = 1 + prod_week
+        if categories_data[p.purchasable.dress_type.name].nil?
+          categories_data[p.purchasable.dress_type.name] = { price_week: p.price }
+        else 
+          categories_data[p.purchasable.dress_type.name][:price_week] = categories_data[p.purchasable.dress_type.name][:price_week] + p.price
+        end
       else
-        @prod_count = p.purchasable.shopping_cart_items.size + @prod_count
+        prod_week = p.purchasable.shopping_cart_items.size + prod_week
+        p.purchasable.shopping_cart_items.each do |sci|
+          if categories_data[sci.purchasable.dress_type.name].nil?
+            categories_data[sci.purchasable.dress_type.name] = { price_week: sci.price }
+          else 
+            categories_data[sci.purchasable.dress_type.name][:price_week] = categories_data[sci.purchasable.dress_type.name][:price_week] + sci.price
+          end
+        end
       end
     end
+    #Tiendas con vestidos disponibles para vender
+    @supplier_accounts = SupplierAccount.where('created_at >= ? and created_at <= ?', @from, @to)  
+    disp = DressStatus.find_by_name("Disponible").id
+    stores_week = 0
+    @supplier_accounts.each do |sa|
+      stores_week = stores_week + 1 if sa.dresses.where(dress_status_id: disp).size > 0
+    end
+    
+    #Productos creados
+    @products_created_week = Hash.new
+    DressType.all.each do |dt|
+      @products_created_week[dt.name] = dt.dresses.where('dresses.created_at >= ? and dresses.created_at <= ?', @from, @to).size
+    end
+    @new_products = Dress.where('dresses.created_at >= ? and dresses.created_at <= ?', @from, @to).size
+
+    #Usuarios
+    @new_users = User.where('created_at >= ? and created_at <= ?', @from, @to).size
+    #Suscriptores
+    @new_subscribers = Subscriber.where('created_at >= ? and created_at <= ?', @from, @to).size        
+    aux_delivery_time = Purchase.average("DATEDIFF(delivery_date, (created_at  - INTERVAL 3 HOUR))", :conditions => ['created_at >= ? and created_at <= ?', @from, @to])
+    @average_delivery_time = (aux_delivery_time.nil? ? '-' : aux_delivery_time + 1)
+    
   end
   
   def users

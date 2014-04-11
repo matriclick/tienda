@@ -1,52 +1,158 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-3">
-			<%= render 'date_range_selector' %><br /><br />
-			<%= link_to 'Volver al menú de administración', administration_index_path %><br /><br />
-			<em>Los reportes consideran exclusivamente compras en las que hemos recibido los fondos</em><br /><br />
-			<em>El monto devuelto se calcula en función de la fecha de devolución</em>
+		<div class="col-md-12">
+			<%= render 'date_range_selector' %>
 		</div>
-		<div class="col-md-4">
-			<h4>Información del período seleccionado</h4>	
-			Desde <%= @from.strftime("%Y-%m-%d") %> hasta <%= @to.strftime("%Y-%m-%d") %>
-			<table class="table">
-				<tr class="success"><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum %></td></tr>
-				<tr class="warning"><th>Monto devuelto:</th><td><%= number_to_currency @r_sum %></td></tr>
-				<tr><td><b>Ventas - Devoluciones:</b></td><td><b><%= number_to_currency(@p_sum - @r_sum) %></b></td></tr>
-				<tr class="danger"><th>Costo productos:</th><td><%= number_to_currency @c_sum %></td></tr>
-				<tr class="success"><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum - @r_sum - @c_sum) %></b></td></tr>
-				<tr class=""><td><b>Margen Promedio:</b></td><td><b><%= number_to_percentage(100*(1-@c_sum/@p_sum)) %></b></td></tr>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<table class="table table-condensed table-hover" style="font-size:12px">
+				<tr>
+					<td colspan="<%= @colspan %>"><h3>Results</h3></td>
+				</tr>
+				<tr style="background-color:black; color:white">
+					<td>Período de Tiempo</td>
+						<th>
+							<%= @from.strftime('%d/%m/%Y') %> - <%= @to.strftime('%d/%m/%Y') %>
+						</th>
+				</tr>
+				<tr style="background-color:#DAF2F2;">
+					<th>
+						Sales <a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Sales" data-content="Cash In + Credits - Delivery Income">
+						<span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</th>
+					<th><%= number_to_currency @sales_week %></th>
+				</tr>
+				<tr style="background-color:#f5fffa;">
+					<td>Cash In</td>
+					<td><%= number_to_currency @price_week %></td>
+				</tr>
+				<tr style="background-color:#f5fffa;">
+					<td>Credits</td>
+					<td><%= number_to_currency @credits_week %></td>
+				</tr>				
+				<tr style="background-color:#f5fffa;">
+					<td>Delivery Income</td>
+					<td><%= number_to_currency @dispatch_income_week %></td>
+				</tr>
+				<tr style="background-color:#ffe4e1;">
+					<td>Products Costs 
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Products Costs" 
+						data-content="Costo de los productos sin IVA (es lo que le pagamos a la tienda). No incluye los productos que se devolvieron ya que esos no se van a pagar a la tienda."> <span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</td>
+					<td><%= number_to_currency @cost_week %></td>
+				</tr>
+				<tr style="background-color:#ffe4e1;">
+					<td>IVA
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="IVA" 
+						data-content="Está calculado como [Sales x Margin x 0,19"> <span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</td>
+					<td><%= number_to_currency @tax_week %></td>
+				</tr>
+				<tr style="background-color:#ffe4e1;">
+					<td>Delivery Cost</td>
+					<td><%= number_to_currency @dispatch_cost_week %></td>
+				</tr>
+				<tr style="background-color:#ffe4e1;">
+					<td>Refunds</td>
+					<td><%= number_to_currency @refunds_week %></td>
+				</tr>
+				<tr style="background-color:#DAF2F2;">
+					<td>Revenue
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Revenue" 
+						data-content="Sales - Product Cost - IVA + Delivery Income - Delivery Cost - Credits - Refunds"> <span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</td>
+					<td><%= number_to_currency @revenue_week %></td>
+				</tr>
+				<tr>
+					<td>Margin
+						<a class="tiptip" style="cursor:pointer" data-placement="right" data-original-title="Average Margin" 
+						data-content="Es la comisión promedio. Se calcula como (Sales - Products Costs) / (Sales * 1.19). Ojo que asume que todas las tiendas están en la modalidad de comisión, es decir les cobramos un X% + IVA"> 
+						<span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</td>
+					<td><%= number_to_percentage @margin_week*100 %></td>
+				</tr>
+				<tr>
+					<td>Purchases Made</td>
+					<td><%= @purchases_week %></td>
+				</tr>
+				<tr>
+					<td>Products Sold</td>
+					<td><%= @prod_week %></td>
+				</tr>
+				<tr>
+					<td>Average Delivery Time</td>
+					<td><%= @average_delivery_time_week %></td>
+				</tr>
+				<tr>
+					<td colspan="<%= @colspan %>"><h3>Supply</h3></td>
+				</tr>
+				<tr style="background-color:black; color:white">
+					<td>Período de Tiempo</td>
+						<th>
+							<%= @from.strftime('%d/%m/%Y') %> - <%= @to.strftime('%d/%m/%Y') %>
+						</th>
+				</tr>
+				<tr>
+					<td>New Stores</td>
+					<td><%= @stores_week %></td>
+				</tr>
+				<tr>
+					<th>New Products</th>
+					<th><%= @new_products %></th>
+				</tr>
+				<% DressType.all.each do |dt| %>
+				<tr>
+					<td style="padding-left:15px"><%= dt.get_human_name %></td>
+					<td><%= @products_created_week[dt.name] %></td>
+				</tr>
+				<% end %>
+				<tr>
+					<td colspan="<%= @colspan %>"><h3>Demand</h3></td>
+				</tr>
+				<tr style="background-color:black; color:white">
+					<td>Período de Tiempo</td>
+						<th>
+							<%= @from.strftime('%d/%m/%Y') %> - <%= @to.strftime('%d/%m/%Y') %>
+						</th>
+				</tr>
+				<tr>
+					<td>New Users</td>
+					<td><%= number_with_delimiter @new_users %></td>
+				</tr>
+				<tr>
+					<td>Newsletter Subscribers</td>
+					<td><%= number_with_delimiter @new_subscribers %></td>
+				</tr>
+				<tr>
+					<td colspan="<%= @colspan %>"><h3>Category Analysis</h3>Cash In by Category</td>
+				</tr>
+				<tr style="background-color:black; color:white">
+					<td>Período de Tiempo</td>
+						<th>
+							<%= @from.strftime('%d/%m/%Y') %> - <%= @to.strftime('%d/%m/%Y') %>
+						</th>
+				</tr>
+				<% DressType.all.each do |dt| %>
+				<tr>
+					<td>
+						<%= dt.get_human_name %>
+					</td>
+					<td>
+					<% if !@categories_data[dt.name].nil? %>
+						<%= number_to_currency @categories_data[dt.name][:price_week] %>
+					<% else %>
+						0
+					<% end %>
+					</td>
+			</tr>
+			<% end %>
 			</table>
-			<h4>Estadísticas</h4>
-			<table class="table">
-				<tr><th>Compras:</th><td><%= @count %></td></tr>
-				<tr><th>Compras pagadas:</th><td><%= @count_paid_pur %></td></tr>
-				<tr><th>Ticket promedio por compra:</th><td><%= number_to_currency(@p_sum / @count) if @count > 0 %></td></tr>
-				<tr><th>Productos vendidos:</th><td><%= @prod_count %></td></tr>
-				<tr><th>Precio promedio por producto:</th><td><%= number_to_currency(@p_sum / @prod_count) if @prod_count > 0 %></td></tr>
-			</table>
-		</div>
-		
-		<div class="col-md-4">
-			<h4>Información del mes actual</h4>
-			Días del mes: <%= @days_month %> | 
-			Día actual:<%= @day_today %>
-			<table class="table">
-				<tr class="success"><th style="width:150px">Ventas realizadas:</th><td style="width:100px"><%= number_to_currency @p_sum_month %></td></tr>
-				<tr class="warning"><th>Monto devuelto:</th><td><%= number_to_currency @r_sum_month %></td></tr>
-				<tr><td><b>Ventas - Devoluciones:</b></td><td><b><%= number_to_currency(@p_sum_month - @r_sum_month) %></b></td></tr>
-				<tr class="danger"><th>Costo productos:</th><td><%= number_to_currency @c_sum_month %></td></tr>
-				<tr class="success"><td><b>Resultado:</b></td><td><b><%= number_to_currency(@p_sum_month - @r_sum_month - @c_sum_month) %></b></td></tr>
-				<tr class=""><td><b>Margen Promedio:</b></td><td><b><%= number_to_percentage(100*(1-@c_sum_month/@p_sum_month)) %></b></td></tr>
-			</table>
-			
-			<h4>Proyecciones</h4>
-			<table class="table">
-				<tr><th>RR Ventas realizadas:</th><td><%= number_to_currency @p_sum_month*@factor %></td></tr>
-				<tr><th>RR Monto devuelto:</th><td><%= number_to_currency @r_sum_month*@factor %></td></tr>
-				<tr><th>RR Costo productos:</th><td><%= number_to_currency @c_sum_month*@factor %></td></tr>
-				<tr><td><b>RR Resultado:</b></td><td><b><%= number_to_currency((@p_sum_month - @r_sum_month - @c_sum_month)*@factor) %></b></td></tr>
-			</table>
-		</div>
+		</div>		
 	</div>
 </div>
