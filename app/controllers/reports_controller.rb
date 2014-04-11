@@ -278,18 +278,18 @@ class ReportsController < ApplicationController
     @purchases.each do |p|
       if p.purchasable_type == 'Dress'
         prod_week = 1 + prod_week
-        if categories_data[p.purchasable.dress_type.name].nil?
-          categories_data[p.purchasable.dress_type.name] = { price_week: p.price }
+        if @categories_data[p.purchasable.dress_type.name].nil?
+          @categories_data[p.purchasable.dress_type.name] = { price_week: p.price }
         else 
-          categories_data[p.purchasable.dress_type.name][:price_week] = categories_data[p.purchasable.dress_type.name][:price_week] + p.price
+          @categories_data[p.purchasable.dress_type.name][:price_week] = @categories_data[p.purchasable.dress_type.name][:price_week] + p.price
         end
       else
         prod_week = p.purchasable.shopping_cart_items.size + prod_week
         p.purchasable.shopping_cart_items.each do |sci|
-          if categories_data[sci.purchasable.dress_type.name].nil?
-            categories_data[sci.purchasable.dress_type.name] = { price_week: sci.price }
+          if @categories_data[sci.purchasable.dress_type.name].nil?
+            @categories_data[sci.purchasable.dress_type.name] = { price_week: sci.price }
           else 
-            categories_data[sci.purchasable.dress_type.name][:price_week] = categories_data[sci.purchasable.dress_type.name][:price_week] + sci.price
+            @categories_data[sci.purchasable.dress_type.name][:price_week] = @categories_data[sci.purchasable.dress_type.name][:price_week] + sci.price
           end
         end
       end

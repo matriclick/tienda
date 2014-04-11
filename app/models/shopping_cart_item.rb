@@ -33,7 +33,12 @@ class ShoppingCartItem < ActiveRecord::Base
   end
   
   def purchasable
-    eval(self.purchasable_type.to_s + '.find ' + self.purchasable_id.to_s)
+    begin
+      @object = eval(self.purchasable_type.to_s + '.find ' + self.purchasable_id.to_s)
+    rescue Exception => exc
+      @object = nil
+    end
+    return @object
   end
   
 end

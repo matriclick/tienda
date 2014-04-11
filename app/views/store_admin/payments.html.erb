@@ -38,14 +38,16 @@
 										    <th>Pago Total</th>
 											</tr>
 											<% sp.shopping_cart_items.each do |sci| %>
-											<tr>
-												<td><%= link_to image_tag(sci.purchasable.small_image), dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></td>
-												<td><%= number_to_currency sci.price %></td>
-												<td><%= sci.quantity %></td>
-												<td><%= sci.size %></td>
-												<td><%= number_to_currency sci.unit_cost %></td>
-												<td><%= number_to_currency sci.total_cost %></td>
-											</tr>
+												<% unless sci.nil? %>
+												<tr>
+													<td><%= link_to image_tag(sci.purchasable.small_image), dress_ver_path(:type => sci.purchasable.dress_type.name, :slug => sci.purchasable.slug) %></td>
+													<td><%= number_to_currency sci.price %></td>
+													<td><%= sci.quantity %></td>
+													<td><%= sci.size %></td>
+													<td><%= number_to_currency sci.unit_cost %></td>
+													<td><%= number_to_currency sci.total_cost %></td>
+												</tr>
+												<% end %>
 											<% end %>
 										</table>
 										Total pago: <%= number_to_currency sp.amount %>
