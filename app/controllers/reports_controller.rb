@@ -286,10 +286,12 @@ class ReportsController < ApplicationController
       else
         @prod_week = p.purchasable.shopping_cart_items.size + @prod_week
         p.purchasable.shopping_cart_items.each do |sci|
-          if @categories_data[sci.purchasable.dress_type.name].nil?
-            @categories_data[sci.purchasable.dress_type.name] = { price_week: sci.price }
-          else 
-            @categories_data[sci.purchasable.dress_type.name][:price_week] = @categories_data[sci.purchasable.dress_type.name][:price_week] + sci.price
+          unless sci.purchasable.nil?
+            if @categories_data[sci.purchasable.dress_type.name].nil?
+              @categories_data[sci.purchasable.dress_type.name] = { price_week: sci.price }
+            else 
+              @categories_data[sci.purchasable.dress_type.name][:price_week] = @categories_data[sci.purchasable.dress_type.name][:price_week] + sci.price
+            end
           end
         end
       end
