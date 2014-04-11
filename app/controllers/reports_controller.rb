@@ -274,17 +274,17 @@ class ReportsController < ApplicationController
     @purchases_week = @purchases.size
     #Products and Cash In per Category
     @categories_data = Hash.new
-    prod_week = 0
+    @prod_week = 0
     @purchases.each do |p|
       if p.purchasable_type == 'Dress'
-        prod_week = 1 + prod_week
+        @prod_week = 1 + @prod_week
         if @categories_data[p.purchasable.dress_type.name].nil?
           @categories_data[p.purchasable.dress_type.name] = { price_week: p.price }
         else 
           @categories_data[p.purchasable.dress_type.name][:price_week] = @categories_data[p.purchasable.dress_type.name][:price_week] + p.price
         end
       else
-        prod_week = p.purchasable.shopping_cart_items.size + prod_week
+        @prod_week = p.purchasable.shopping_cart_items.size + @prod_week
         p.purchasable.shopping_cart_items.each do |sci|
           if @categories_data[sci.purchasable.dress_type.name].nil?
             @categories_data[sci.purchasable.dress_type.name] = { price_week: sci.price }
@@ -297,9 +297,9 @@ class ReportsController < ApplicationController
     #Tiendas con vestidos disponibles para vender
     @supplier_accounts = SupplierAccount.where('created_at >= ? and created_at <= ?', @from, @to)  
     disp = DressStatus.find_by_name("Disponible").id
-    stores_week = 0
+    @stores_week = 0
     @supplier_accounts.each do |sa|
-      stores_week = stores_week + 1 if sa.dresses.where(dress_status_id: disp).size > 0
+      @stores_week = @stores_week + 1 if sa.dresses.where(dress_status_id: disp).size > 0
     end
     
     #Productos creados
@@ -315,7 +315,7 @@ class ReportsController < ApplicationController
     @new_subscribers = Subscriber.where('created_at >= ? and created_at <= ?', @from, @to).size        
     aux_delivery_time = Purchase.average("DATEDIFF(delivery_date, (created_at  - INTERVAL 3 HOUR))", :conditions => ['created_at >= ? and created_at <= ?', @from, @to])
     @average_delivery_time = (aux_delivery_time.nil? ? '-' : aux_delivery_time + 1)
-    
+    @colspan = 2
   end
   
   def users
