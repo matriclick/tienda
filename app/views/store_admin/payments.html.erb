@@ -39,7 +39,7 @@
 											</tr>
 											<% sp.shopping_cart_items.each do |sci| %>
 											<tr>
-												<% if sci.purchasable.nil? %>
+												<% if !sci.purchasable.nil? %>
 													<td><%= link_to image_tag(sci.purchasable.small_image), dress_ver_path(:type => sci.purchasable.dress_type.name, 
 																:slug => sci.purchasable.slug) %></td>
 												<% else %>
