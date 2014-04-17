@@ -1,12 +1,14 @@
 # encoding: UTF-8
 class Purchase < ActiveRecord::Base
   before_create :check_quantity_size
+  after_update :send_notification_to_store_if_funds_were_received
   
   has_one :order, :dependent => :destroy
   belongs_to :user
   belongs_to :delivery_info
   belongs_to :purchasable, :polymorphic => true
   belongs_to :logistic_provider
+  
   
   has_many :credits, :dependent => :destroy
   has_many :credit_reductions, :dependent => :destroy
@@ -16,7 +18,19 @@ class Purchase < ActiveRecord::Base
   validates :purchasable_id, :purchasable_type, :user_id, :price, :currency, :confirmed_terms, :delivery_cost, :presence => true
   validate :check_if_delivery_info_required
     
-    
+  
+  def send_notification_to_store_if_funds_were_received
+    if self.funds_received_changed? && self.funds_received == true
+      if self.purchasable_type == 'Dress'
+        NoticeMailer.notify_product_sold_to_store(self.purchasable.supplier_account.supplier.email, self.purchasable).deliver 
+      else
+        self.purchasable.shopping_cart_items.each do |sci|
+          NoticeMailer.notify_product_sold_to_store(sci.purchasable.supplier_account.supplier.email, sci.purchasable).deliver 
+        end
+      end
+    end
+  end
+  
   def products_in_purchase_price
     if self.purchasable_type == 'Dress'
       return self.purchasable.price

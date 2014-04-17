@@ -242,7 +242,8 @@ class BuyController < ApplicationController
     end
     
     @purchase = @oc.purchase
-    @purchase.funds_received = true
+    #Cada vez que se actualizan funds_received a true se envía un correo a las tiendas que corresponda con el producto que se compró
+    @purchase.funds_received = true     
     purchase_actions
     
   end
