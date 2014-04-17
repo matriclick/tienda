@@ -18,7 +18,7 @@ class NoticeMailer < ActionMailer::Base
   
   def notify_product_sold_to_store(supplier_email, dress)
     @dress = dress
-    attachments.inline['photo.png'] = File.read(dress.dress_images.first.dress.url(:main))
+    attachments.inline['photo.png'] = File.read(Rails.root.to_s+'/public'+dress.dress_images.first.dress.url(:main))
     mail to: supplier_email, bcc: "equipo-tramanta@matriclick.com", subject: dress.supplier_account.fantasy_name+", se ha vendido "+dress.introduction.capitalize
   end
   
