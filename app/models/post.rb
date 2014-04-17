@@ -11,7 +11,9 @@ class Post < ActiveRecord::Base
                  :home_page => "300x200>",
                  :main => "1140x>",
   }, :whiny => false, :dependent => :destroy
+  
   validates_attachment_size :main_image, :less_than => 7.megabytes
+  validates_attachment_content_type :main_image, :content_type => ["image/jpg", "image/jpeg", "image/png"]
   
   accepts_nested_attributes_for :post_contents, :reject_if => proc { |a| a[:content].blank? }, :allow_destroy => true
   
