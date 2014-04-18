@@ -1,13 +1,20 @@
 <% content_for :content do %>
-	<table width="95%" cellpadding="30">
+	<table width="95%" cellpadding="5">
 		<tr>
 			<td align="left">
 				<font face="Lucida Grande, Segoe UI, Arial, Verdana, Lucida Sans Unicode, Tahoma, Sans Serif">
 					<p><b>¡Felicitaciones <%= @dress.supplier_account.fantasy_name %>! Se ha vendido uno de tus productos en Tramanta.com</b></p>
-					<p style="color:#aaa;">Nombre del producto: <%= link_to @dress.introduction, dress_ver_path(:only_path => false, :host => 'www.tramanta.com',
-						:type => @dress.dress_type.name, :slug => @dress.slug) %></p>
 					<p>
-						<%= image_tag attachments['photo.png'].url, alt: @dress.description %>
+						<ul>
+							<li>Nombre del producto: <%= link_to @dress.introduction, dress_ver_path(:only_path => false, :host => 'www.tramanta.com',
+						:type => @dress.dress_type.name, :slug => @dress.slug) %></li>
+							<li>Cantidad: <%= @purchase_item.quantity.to_s %></li>
+							<li>Talla: <%= @purchase_item.size.to_s %></li>
+							<li>Color: <%= (!@purchase_item.color.nil? ? @purchase_item.color : 'no aplica') %></li>
+						</ul>
+					</p>
+					<p>
+						<%= image_tag attachments[@dress.slug].url, alt: @dress.description %>
 					</p>
 					<p style="color:#aaa;">
 						Para revisar el detalle de la compra ingresa con tu cuenta a Tramanta.com y haz click en el menú negro, en la opción "Ventas en Tramanta".

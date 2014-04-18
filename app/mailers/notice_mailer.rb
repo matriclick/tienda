@@ -16,14 +16,16 @@ class NoticeMailer < ActionMailer::Base
     mail to: supplier_email, bcc: "equipo-tramanta@matriclick.com", subject: "¡Alguien quiere tu producto Agotado en Tramanta.com!"
   end
   
-  def notify_product_sold_to_store(supplier_email, dress)
-    @dress = dress
-    attachments.inline['photo.png'] = File.read(dress.dress_images.first.dress.path)
-    attachments['photo.png'].header['content-id'] = 'logo.graphic'
-    puts '******************'
-    puts dress.dress_images.first.dress.path
-    puts '******************'
-    mail to: supplier_email, bcc: "equipo-tramanta@matriclick.com", subject: dress.supplier_account.fantasy_name+", se ha vendido "+dress.introduction.capitalize
+  def notify_product_sold_to_store(supplier_email, purchase_item)
+    @dress = purchase_item.purchasable
+    @purchase_item = purchase_item
+    attachments.inline[@dress.slug] = {
+                                    :data => File.read(@dress.dress_images.first.dress.path),
+                                    :mime_type => "image/png",
+                                    :encoding => "base64"
+                                  }
+    attachments.inline[@dress.slug].header['content-id'] = 'logo.graphic'
+    mail to: supplier_email, bcc: "equipo-tramanta@matriclick.com", subject: @dress.supplier_account.fantasy_name+", se ha vendido "+@dress.introduction.capitalize
   end
   
 	#CONTACT

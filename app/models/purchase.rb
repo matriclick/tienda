@@ -22,10 +22,10 @@ class Purchase < ActiveRecord::Base
   def send_notification_to_store_if_funds_were_received
     if self.funds_received_changed? && self.funds_received == true
       if self.purchasable_type == 'Dress'
-        NoticeMailer.notify_product_sold_to_store(self.purchasable.supplier_account.supplier.email, self.purchasable).deliver 
+        NoticeMailer.notify_product_sold_to_store(self.purchasable.supplier_account.supplier.email, self).deliver 
       else
         self.purchasable.shopping_cart_items.each do |sci|
-          NoticeMailer.notify_product_sold_to_store(sci.purchasable.supplier_account.supplier.email, sci.purchasable).deliver 
+          NoticeMailer.notify_product_sold_to_store(sci.purchasable.supplier_account.supplier.email, sci).deliver 
         end
       end
     end
