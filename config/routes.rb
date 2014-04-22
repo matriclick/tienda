@@ -157,6 +157,7 @@ Matri::Application.routes.draw do
 	get '/work_with_us' => "home#work_with_us"
 	get '/wedding_tools' => "home#wedding_tools"
 	get '/suscribirse' => 'home#subscription', as: 'subscription'
+	get '/como-funciona-tramanta' => 'home#tour', as: 'home_tour'
 	post '/subscription_create' => 'home#subscription_create',	 as: 'subscription_create'	
 
   # ADMINISTRATION

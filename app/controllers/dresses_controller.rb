@@ -49,7 +49,6 @@ class DressesController < ApplicationController
         
     @title_content = '¡Bienvenido!'
     @search_text = 'Busca por color, talla, tela, etc...'
-    @subscriber = Subscriber.new
     @meta_description_content = 'Compra miles de productos de moda para la mujer: vestidos de fiesta, blusas, chaquetas, accesorios y muchas cosas más!'
 	  if !current_supplier.nil?
 	    sign_out current_supplier

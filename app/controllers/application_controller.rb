@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   def load_configuration
     @site_configuration = SiteConfiguration.find_or_create_by_id(1)
+    @subscriber = Subscriber.new
   end
   
 	def meta_content_default

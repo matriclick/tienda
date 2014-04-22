@@ -1,6 +1,5 @@
+<hr >
 <div class="container marketing">
-  <hr class="featurette-divider">
-  <!-- /END THE FEATURETTES -->
   <!-- FOOTER -->
   <footer>
 		<div class="row">
@@ -19,10 +18,9 @@
 			<div class="col-md-3">
 				<ul class="footer_links">
 					<li class="footer_title">AYUDA</li>
-					<li><%= link_to 'Suscribirse', new_user_registration_path %></li>
+					<li><%= link_to '¿Cómo funciona?', home_tour_path %></li>
 					<li><%= link_to 'Preguntas frecuentes', faq_elbazar_path %></li>
-					<li><%= link_to 'Ingresar como empresa', new_supplier_session_path, :rel => 'nofollow' %></li>
-					<li><%= link_to 'Contacto empresas', contact_elbazar_path %></li>
+					<li><%= link_to 'Registrarse', new_user_registration_path %></li>
 				</ul>	
 			</div>
 			<div class="col-md-3">
@@ -33,21 +31,28 @@
 					<li><%= link_to 'Contacto clientes', contact_elbazar_path %></li>
 				</ul>
 			</div>
-			<% if !current_user.nil? and (current_user.role_id == 1 or current_user.role_id == 2) %>
 			<div class="col-md-3">
 				<ul class="footer_links">
-					<li class="footer_title">ADMINISTRACIÓN</li>
-					<li><%= link_to('Administrador Tramanta', administration_index_path, :rel => 'nofollow') if current_user.role_id == 1 %></li>
-					<li><%= link_to('Compras exitosas', purchases_path(:status => 'finalizado'), :rel => 'nofollow') if current_user.role_id == 1 %></li>
-					<li><%= link_to('Compras por despachar', reports_purchases_to_be_delivered_path, :rel => 'nofollow') if current_user.role_id == 1 %></li>
-					<li><%= link_to 'Mis Tiendas', store_admin_select_store_path, :rel => 'nofollow' %></li>
-				</ul>
+					<li class="footer_title">EMPRESAS</li>
+					<li><%= link_to 'Ingresar como empresa', new_supplier_session_path, :rel => 'nofollow' %></li>
+					<li><%= link_to 'Contacto empresas', contact_elbazar_path %></li>
+				</ul>	
 			</div>
-			<% end %>
-
 		</div>
 		<div class="row" style="text-align:center; margin-top:20px">
-    	<p class="pull-right"><a href="#">Volver a arriba</a></p>
+			<%= form_for @subscriber, :html => {class: "form-inline", role: "form"}, :url => subscription_create_path, :validate => false do |f| %>
+				<div class="form-group">
+					<%= f.text_field :email, class: "form-control", placeholder: "Correo" %>
+				</div>
+				<div class="form-group">
+					<%= f.grouped_collection_select(:commune_id, Region.order(:name), :communes, :name, :id, :name, 
+																					{ :prompt => 'Comuna' }, { :class=> "form-control", style: 'width:100%' }) %>
+				</div>
+					<%= f.submit 'Suscribirse', class: "btn btn-default" %>
+			<% end %>
+		</div>
+		<div class="row" style="text-align:center; margin-top:20px">
+    	<!--<p class="pull-right"><a href="#">Volver a arriba</a></p>-->
 			<p>&copy; 2013 Tramanta &middot; <%= link_to 'Términos de Uso', terms_path %></p>
 		</div>
   </footer>

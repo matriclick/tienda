@@ -3,6 +3,11 @@ class HomeController < ApplicationController
 	before_filter :load_user_tools_menu, :except => [:check_country, :chile, :peru, :tour, :subscription_create, :subscription]
 	before_filter :hide_left_menu, :except => [:check_country, :chile, :peru, :index, :wedding_tools]
 
+  def tour
+    @home = true
+    @not_breadcrumbs = true
+  end
+  
 	def test_home
 	  @slider_images = SliderImage.where(:country_id => session[:country].id, :slider_image_type_id => 1).order(:position)
   	@title_content = 'Matrimonios | Centros de Eventos y Casonas | Vestuario Femenino y de Bebe | Viajes | Vivienda y Decoración'
@@ -19,7 +24,6 @@ class HomeController < ApplicationController
     @nombre_imagenes_tu_casa = ['tu-casa-living', 'tu-casa-cocina', 'tu-casa-comedor']
     @nombre_imagenes_mi_bebe = ['ropa-de-bebe']
     
-    @subscriber = Subscriber.new
     @subscriber_preferences = SubscriberPreference.all
 	end
 

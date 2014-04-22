@@ -1,3 +1,12 @@
+function focus_on_one_dress(id) {
+	$('.home_image').css({ opacity: 0.3 });
+	$('#'+id).css({ opacity: 1 });
+}
+
+function back_to_normal() {
+	$('.home_image').css({ opacity: 1 });
+}
+
 function dress_menu(show,hide1,hide2,element) {
     $('#'+show).show();
     $('#'+hide1).hide();

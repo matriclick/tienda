@@ -1,92 +1,73 @@
-<div class="full_content center shadow">
-	<div class="tour_titulo">
-		<%= image_tag "tour/titulo.jpg", :alt => "Matriclick.com en 6 pasos"%>
-	</div>
-	<div class="dottedLine clear center" style="width:90%;"></div>
-	
-	<div class="dos_columnas center">
-		<div class="columna_imagen left shadow">
-			<%= image_tag 'tour/form.jpg', :alt => 'form' %>
-		</div>
-		<div class="columna_texto right">
-			<h2 class="titulo">Arma tu perfil</h2>
-			<p class="texto">Todos los datos que nos entregues le darán mayor valor a nuestras herramientas; podrás personalizar tu checklist, recibir promociones y orientación de nuestro equipo de expertos en novios.</p>
-			<p class="texto">
-				<b><br><%= link_to "¡Comienza creando una cuenta!", user_sign_up_path %></b>
-			</p>
-		</div>
-	</div>
-	
-	<div class="dottedLine clear center" style="width:90%;"></div>
-	
-	<div class="dos_columnas center">
-		<div class="columna_imagen right shadow">
-			<%= image_tag 'tour/servicios.jpg', :alt => 'servicios' %>
-		</div>
-		<div class="columna_texto left">
-			<h2 class="titulo textAlignRight">Recorre nuestra Vitrina online</h2>
-			<p class="texto textAlignRight">Todo lo que estás buscando lo puedes encontrar en Matriclick, hasta el más mínimo detalle importa ese día, por lo que contamos con una variada vitrina de proveedores que han sido previamente evaluados en los diferentes rubros ¡e incluso aquellos que no conocías!</p>
-			<p class="texto textAlignRight">
-				<b><br><%= link_to "¡Revisa el catálogo de proveedores!", products_and_services_catalog_select_industry_category_path %></b>
-			</p>
-		</div>
-	</div>
-	
-	<div class="dottedLine clear center" style="width:90%;"></div>
-	
-	<div class="dos_columnas center">
-		<div class="columna_imagen left shadow">
-			<%= image_tag 'tour/bookings.jpg', :alt => 'reservas' %>
-		</div>
-		<div class="columna_texto right">
-			<h2 class="titulo">Elige tú fecha y reserva en línea</h2>
-			<p class="texto">Si ya encontraste a tu proveedor y quieres saber si está disponible en la fecha que buscas, con Matriclick lo puedes hacer y no sólo eso, ¡también puedes hacer una reserva y el proveedor se pondrá en contacto contigo!</p>
-				<p class="texto">
-					<b><br><%= link_to "¡Recorre los productos y reserva una fecha!", products_and_services_catalog_select_industry_category_path %></b>
-				</p>
-		</div>
-	</div>
-	
-	<div class="dottedLine clear center" style="width:90%;"></div>
-	
-	<div class="dos_columnas center">
-		<div class="columna_imagen right shadow">
-			<%= image_tag 'tour/budgets.jpg', :alt => 'presupuestos' %>
-		</div>
-		<div class="columna_texto left">
-			<h2 class="titulo textAlignRight">No quedes en la bancarrota</h2>
-			<p class="texto textAlignRight">Puedes agregar productos o servicios a los diferentes presupuestos y luego elegir lo más conveniente. Lleva el registro de tus gastos finales, ¿quién paga?, ¿cuánto falta por pagar?, ¿cuánto gastan los novios por lo general en cada ítem?</p>
-			<p class="texto textAlignRight">
-				<b><br><%= link_to "¡Arma el matrimonio que quieres!", products_and_services_catalog_select_industry_category_path %></b>
-			</p>
-		</div>
-		
-	</div>
-	
-	<div class="dottedLine clear center" style="width:90%;"></div>
-	
-	<div class="dos_columnas center">
-		<div class="columna_imagen left shadow">
-			<%= image_tag 'tour/invitees.jpg', :alt => 'invitados' %>
-		</div>
-		<div class="columna_texto right">
-			<h2 class="titulo">Organiza a todos tus invitados </h2>
-			<p class="texto">¡Organiza, invita, confirma y crea tus mesas!<br /><br />
-			Puedes armar tu lista de invitados y asignarle un grupo a cada uno, así los podrás manejar mejor, por ejemplo; “los más amigos”, “los de la pega” y todos los que quieras. De esta forma armar las mesas ahora es simple y entretenido.
-			</p>
-				<p class="texto">
-					<b><br><%= link_to "¡Haz parte de esta fiesta a los invitados!", products_and_services_catalog_select_industry_category_path %></b>
-				</p>
-		</div>
-	</div>
-	<div class="dottedLine clear center" style="width:90%;"></div>
-		
-	<div class="dos_columnas center">
-		<div style="text-align:center; font-size:18px">
-			<b><%= link_to "¡Entra y comienza a soñar tu futuro con Matriclick!", products_and_services_catalog_select_industry_category_path %></b>
-		</div>
-	</div>
+<div class="container ">
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">¿Cómo funciona Tramanta?<br/>
+				<span class="text-muted" style="margin-left:40px">Renovemos tu closet</span></h2>
+				<ol class="lead">
+					<li>Revisa los productos: puedes usar el buscador o el menú.</li>
+					<li>Agrega al carrito de compras los productos que te vayan gustando.</li>
+					<li>Comienza el proceso de confirmación de tu compra.</li>
+					<li>Paga con tarjetas de crédito, débito o realiza una transferencia.</li>
+					<li>Tu producto será despachado según la opción que hayas seleccionado.</li>
+					<li>Te llegará un correo de confirmación de tu compra.</li>
+				</ol>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/como-funciona-tramanta.jpg' %>"
+				 		data-src="<%= asset_path 'el_bazar/como-funciona-tramanta.jpg' %>" alt="Generic placeholder image">
+    </div>
+  </div>
 
-	
-	<div class="clear"></div>
+	<hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/despacho-a-todo-chile.jpg' %>"
+				 		data-src="<%= asset_path 'el_bazar/despacho-a-todo-chile.jpg' %>" alt="Generic placeholder image">
+    </div>
+    <div class="col-md-7">
+      <h2 class="featurette-heading">¿Y después de comprar?<br />
+				<span class="text-muted" style="margin-left:40px">Siempre informado.</span></h2>
+				<ol class="lead">
+					<li>Después (entre 2 a 4 días) de haber recibido la confirmación de compra, te llegará un nuevo correo con los datos de tu despacho para que le puedas hacer seguimiento a tu orden.</li>
+					<li>Una vez llegue el producto a la dirección de despacho tendrás 5 días corridos para realizar la devolución completando el <%= link_to 'siguiente formulario', new_refund_request_path %>.</li>
+					<li>Luego de completado el formulario, un representante de Tramanta.com te contactará para darte las instrucciones de devolución.</li>
+				</ol>
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Y para que no te pierdas nada <span class="text-muted">suscríbete.</span></h2>
+      <p class="lead">Inscríbete para que recibas todas las semanas información sobre los nuevos productos, las promociones y ofertas que tenemos preparadas para ti.</p>
+			<p>
+				<%= form_for @subscriber, :html => {class: "form-horizontal", role: "form"}, :url => subscription_create_path, :validate => false do |f| %>
+					<div class="form-group">
+						<label for="inputEmail1" class="col-lg-2 control-label">Correo</label>
+						<div class="col-lg-10">
+									<%= f.text_field :email, class: "form-control", placeholder: "Correo" %>
+						 </div>
+					</div>
+					<div class="form-group">
+				    <label for="inputComuna1" class="col-lg-2 control-label">Comuna</label>
+				    <div class="col-lg-10">
+							<%= f.grouped_collection_select(:commune_id, Region.order(:name), :communes, :name, :id, :name, 
+																							{ :prompt => t('select') }, { :class=> "form-control", style: 'width:100%' }) %>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-lg-offset-2 col-lg-10">
+							<%= f.submit 'Suscribirse', class: "btn btn-default" %>
+				    </div>
+				  </div>
+				<% end %>
+			</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="<%= asset_path 'el_bazar/suscribete-a-tramanta.jpg' %>"
+				 		data-src="<%= asset_path 'el_bazar/suscribete-a-tramanta.jpg' %>" alt="Generic placeholder image">
+    </div>
+  </div>
 </div>
