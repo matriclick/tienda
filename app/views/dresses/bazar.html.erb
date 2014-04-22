@@ -1,0 +1,53 @@
+<% if !@site_configuration.free_shipping_from_price.blank? %>
+<div class="container marketing">
+	<div class="row" style="margin-top:-50px;">
+		<div class="col-md-12" style="text-align:center; font-size:25px">
+				<% if @site_configuration.free_shipping_from_price > 0 %>
+					<p>¡Despacho gratis para compras por sobre <%= number_to_currency @site_configuration.free_shipping_from_price %>!</p>
+				<% else %>
+					<p>¡Todas las compras tienen despacho gratis por tiempo limitado!</p>
+				<% end %>
+		</div>
+	</div>
+</div>
+<% end %>
+<div class="container ">
+	<%= render 'layouts/notice', notice: notice %>
+</div>
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+<% cache ['bazar_home_page_20', Dress.all.last, @home_categories] do %>
+	<div class="container ">
+	  <div class="row">
+	    <div class="col-md-12">
+	      <h2 class="featurette-heading" style="margin-top:0px; font-size:28px">Miles de productos seleccionados para ti</h2>
+			</div>
+		</div>
+	  <!-- Three columns of text below the carousel -->
+		<div class="row" onmouseout="back_to_normal()">
+			<div class="col-md-12">
+				<% @home_categories.each do |hc| %>
+					<% hc.dresses[0..10].each do |dress| %>
+						<%= render 'list_dress_super_min', dress: dress %>
+					<% end %>
+				<% end %>
+			</div>
+	  </div><!-- /.row -->
+		<hr>
+	  <div class="row" style="padding-bottom:0px; padding-top:0px;">
+			<div class="col-md-12">
+				<form action="<%= dresses_search_path %>" method="get">
+				  <div class="input-group">
+							<%= text_field_tag(:q, @search_text, placeholder: @search_text, class: "form-control", style: 'font-weight:lighter') %>
+				       <span class="input-group-btn">
+								<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
+				  		 </span>
+				  </div><!-- /input-group -->
+				</form>
+			</div>
+		</div>
+	</div><!-- /.container -->
+<% end %>
+
+
