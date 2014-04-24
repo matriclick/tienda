@@ -389,9 +389,12 @@ class DressesController < ApplicationController
   end
   
   def barcode
-    @dress = Dress.all.first
+    @dress = Dress.all.last
     barcode_value = @dress.slug
-    @full_path = File.dirname(@dress.dress_images.first.dress.path)+'/'+@dress.slug+"_barcode.png"
+    @full_path = "#{Rails.root}/public/system/barcodes/"+@dress.supplier_account.fantasy_name+'/'+@dress.slug+"_barcode.png"
+    dir = File.dirname(@full_path)
+    FileUtils.mkdir_p(dir) unless File.directory?(dir)
+    
     barcode = Barby::Code128B.new(barcode_value)
     File.open(@full_path, 'w') { |f| f.write barcode.to_png(:margin => 3, :height => 55) }
   end
