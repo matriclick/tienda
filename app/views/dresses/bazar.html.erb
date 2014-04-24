@@ -19,21 +19,23 @@
 <!-- Wrap the rest of the page in another container to center all the content. -->
 <% cache ['bazar_home_page_20', Dress.all.last, @home_categories] do %>
 	<div class="container ">
-	  <div class="row">
-	    <div class="col-md-12">
-	      <h2 class="featurette-heading" style="margin-top:0px; font-size:26px; font-weight:lighter">Miles de productos seleccionados para ti</h2>
-			</div>
-		</div>
 	  <!-- Three columns of text below the carousel -->
 		<div class="row" onmouseout="back_to_normal()">
 			<div class="col-md-12">
 				<% @home_categories.each do |hc| %>
-					<% hc.dresses[0..10].each do |dress| %>
+					<% hc.dresses[0..15].each do |dress| %>
 						<%= render 'list_dress_super_min', dress: dress %>
 					<% end %>
 				<% end %>
 			</div>
 	  </div><!-- /.row -->
+	  <div class="row">
+	    <div class="col-md-12">
+	      <h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+					Encuentra muchos más productos seleccionados para ti
+				</h2>
+			</div>
+		</div>
 		<hr>
 	  <div class="row" style="padding-bottom:0px; padding-top:0px;">
 			<div class="col-md-12" style="font-weight:lighter; text-align:center">

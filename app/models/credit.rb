@@ -18,7 +18,7 @@ class Credit < ActiveRecord::Base
   
   def self.is_active
     today = DateTime.now.utc.beginning_of_day
-    where('active => true and expiration_date < ?', today)
+    where('active = true and expiration_date < ?', today)
   end
   
   def available_credit
