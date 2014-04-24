@@ -16,6 +16,8 @@ gem 'newrelic_rpm'
 gem 'geocoder'
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
+gem 'barby'
+gem 'chunky_png'
 
 gem "paperclip", "~> 4.1.1"
 # Mime Types for swfupload

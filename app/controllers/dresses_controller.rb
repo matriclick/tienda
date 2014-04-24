@@ -1,4 +1,8 @@
 # encoding: UTF-8
+require 'barby'
+require 'barby/barcode/code_128'
+require 'barby/outputter/png_outputter'
+
 class DressesController < ApplicationController
   around_filter :catch_not_found
   #before_filter :check_if_it_came_from_junta
@@ -384,6 +388,14 @@ class DressesController < ApplicationController
     render :layout => false
   end
   
+  def barcode
+    @dress = Dress.all.first
+    barcode_value = @dress.slug
+    @full_path = File.dirname(@dress.dress_images.first.dress.path)+'/'+@dress.slug+"_barcode.png"
+    barcode = Barby::Code128B.new(barcode_value)
+    File.open(@full_path, 'w') { |f| f.write barcode.to_png(:margin => 3, :height => 55) }
+  end
+  
   private
   
   def check_order
@@ -404,7 +416,7 @@ class DressesController < ApplicationController
       end
     end
   end
-
+    
   def catch_not_found
     yield
   rescue ActiveRecord::RecordNotFound

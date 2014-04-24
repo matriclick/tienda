@@ -89,6 +89,7 @@ Matri::Application.routes.draw do
   get 'dresses/new-arrivals'	=> 'dresses#new_arrivals', as: 'dresses_new_arrivals'
   get 'dresses/clearing'	=> 'dresses#clearing', as: 'dresses_clearing'  
   get 'dresses/refund_policy'	=> 'dresses#refund_policy', as: 'refund_policy'
+  get 'dresses/barcode'	=> 'dresses#barcode', as: 'dresses_barcode'
   resources :refund_requests
   resources :cloth_measures
 	resources :mailings
