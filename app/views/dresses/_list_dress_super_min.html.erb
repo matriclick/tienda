@@ -1,5 +1,5 @@
 <% #cache ['list_dress_super_min_1', dress] do %>
-	<div style="float:left; padding:2px;" onmouseover="focus_on_one_dress('<%= dress.slug %>')" class="home_image" id="<%= dress.slug %>">
+	<div style="float:left; padding:2px;" onmouseover="focus_on_one_dress('<%= dress.slug %>', '<%= number_to_currency dress.price %>')" class="home_image" id="<%= dress.slug %>">
 		<% unless dress.dress_images.first.nil? %>
 			<%= link_to image_tag(dress.dress_images.first.dress.url(:side), :alt => dress.dress_images.first.name), 
 									dress_ver_path(:type => dress.dress_type.name, :slug => dress.slug) %>

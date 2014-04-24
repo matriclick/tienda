@@ -323,7 +323,7 @@ class BuyController < ApplicationController
   #FUNCIÓN PARA DESCONTAR LOS CRÉDITOS DE UNA COMPRA
   def generate_credit_reduction(purchase)
     purchasable = purchase.purchasable
-
+    
     case purchase.purchasable_type
       when 'Dress', 'GiftCardCode', 'ShoppingCart'
         if !purchase.quantity.blank?

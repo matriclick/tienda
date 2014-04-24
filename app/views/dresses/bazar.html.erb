@@ -21,7 +21,7 @@
 	<div class="container ">
 	  <div class="row">
 	    <div class="col-md-12">
-	      <h2 class="featurette-heading" style="margin-top:0px; font-size:28px">Miles de productos seleccionados para ti</h2>
+	      <h2 class="featurette-heading" style="margin-top:0px; font-size:26px; font-weight:lighter">Miles de productos seleccionados para ti</h2>
 			</div>
 		</div>
 	  <!-- Three columns of text below the carousel -->
@@ -34,6 +34,20 @@
 				<% end %>
 			</div>
 	  </div><!-- /.row -->
+		<hr>
+	  <div class="row" style="padding-bottom:0px; padding-top:0px;">
+			<div class="col-md-12" style="font-weight:lighter; text-align:center">
+					<%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %> | 
+					<%= link_to 'Leggings', dresses_ver_path(:type => "ropa-de-mujer-pantalones") %> | 
+          <%= link_to 'Blusas y Poleras', dresses_ver_path(:type => "ropa-de-mujer-tops") %> | 
+					<%= link_to 'Chalecos y Polerones', dresses_ver_path(:type => "ropa-de-mujer-abrigados") %> | 
+					<%= link_to 'Chaquetas', dresses_ver_path(:type => "ropa-de-mujer-chaquetas") %> | 
+					<%= link_to 'Faldas y Minis', dresses_ver_path(:type => "ropa-de-mujer-polleras") %> | 
+					<%= link_to 'Shorts', dresses_ver_path(:type => "ropa-de-mujer-shorts") %> | 
+					<%= link_to 'Ropa Interior', dresses_ver_path(:type => "ropa-interior") %> | 
+					<%= link_to 'Zapatos y Botas', dresses_ver_path(:type => "zapatos") %>
+			</div>
+		</div>
 		<hr>
 	  <div class="row" style="padding-bottom:0px; padding-top:0px;">
 			<div class="col-md-12">
