@@ -1,12 +1,12 @@
 function focus_on_one_dress(id,price) {
 	$('.home_image').css({ opacity: 0.3 });
 	$('#'+id).css({ opacity: 1 });
-	//$('#'+id).append('<div class="price" style="top:0px; text-align:center; background-color:rgba(0,0,0,0.5); color:white; font-size:11px; width:70px;">'+price+'</div>');
+	$('#'+id).prepend('<div class="price" style="position:absolute; margin-top:10px; text-align:center; background-color:rgba(0,0,0,0.5); color:white; font-size:11px; width:70px;">'+price+'</div>');
 }
 
 function back_to_normal() {
 	$('.home_image').css({ opacity: 1 });
-	//$('.price').remove()
+	$('.price').remove()
 }
 
 function dress_menu(show,hide1,hide2,element) {

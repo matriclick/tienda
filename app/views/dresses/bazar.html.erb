@@ -23,7 +23,7 @@
 		<div class="row" onmouseout="back_to_normal()">
 			<div class="col-md-12">
 				<% @home_categories.each do |hc| %>
-					<% hc.dresses[0..15].each do |dress| %>
+					<% hc.dresses[0..14].each do |dress| %>
 						<%= render 'list_dress_super_min', dress: dress %>
 					<% end %>
 				<% end %>
