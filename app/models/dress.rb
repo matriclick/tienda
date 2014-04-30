@@ -34,16 +34,24 @@ class Dress < ActiveRecord::Base
   validates :dress_types, :presence => { :message => "Debes seleccionar al menos 1 tipo de producto" }
 	validates :price, :presence => true
 	
-  def self.to_csv(from, to)
-    dresses = Dress.where('created_at >= ? and created_at <= ?', from, to)
-    header = ['Id', 'Fecha Creación', 'Fecha Actualización', 'Tipo', 'Introducción', 'Precio', 'Costo Neto', 'IVA', 'Tienda', 'Status', 'Posición', 'Slug', 
-              'Precio Original', 'Descuento', 'Código', 'WishList', 'Ventas', 'Carritos Agregado', 'Stock Disponible']
+  def self.to_csv(from, to, supplier_account = nil)
+    if supplier_account.nil?
+      dresses = Dress.where('created_at >= ? and created_at <= ?', from, to)
+    else
+      available = DressStatus.find_by_name("Disponible")
+      hidden = DressStatus.find_by_name("Oculto")
+      dresses = Dress.where('supplier_account_id = ? and (dress_status_id = ? or dress_status_id = ?)', supplier_account.id, available.id, hidden.id)
+    end
+    header = ['Fecha Creación', 'Fecha Actualización', 'Tipo', 'Título corto', 'Precio Venta', 'Costo Producto','Tienda', 'Status', 'Posición', 'URL', 
+              'Precio Original', 'Descuento', 'Código', 'Talla', 'Color', 'Stock Disponible']
     CSV.generate do |csv|
       csv << header
-      dresses.each do |dress|             
-        csv << [dress.id, dress.created_at, dress.updated_at, dress.dress_type.name, dress.introduction, dress.price, dress.net_cost, dress.vat_cost, 
-                dress.supplier_account.fantasy_name, dress.dress_status.name, dress.position, dress.slug, dress.original_price, dress.discount, dress.code,
-                dress.users.size, dress.get_purchases.size, dress.get_shopping_cart_items.size, dress.get_available_stock]
+      dresses.each do |dress|
+        dress.dress_stock_sizes.each do |dsz|
+          csv << [dress.created_at, dress.updated_at, dress.dress_type.get_human_name, dress.introduction, dress.price, dress.vat_cost, 
+                  dress.supplier_account.fantasy_name, dress.dress_status.name, dress.position, dress.slug, dress.original_price, dress.discount, dress.code, 
+                  dsz.size.name, dsz.color, dsz.stock]
+        end
       end
     end
   end  
@@ -86,9 +94,7 @@ class Dress < ActiveRecord::Base
       stock_left = false
       
       dszs.each do |dsz|
-        if dsz.stock.nil?
-          dsz.destroy
-        elsif dsz.stock > 0
+        if dsz.stock > 0
           stock_left = true
         end
       end
@@ -96,7 +102,9 @@ class Dress < ActiveRecord::Base
       if stock_left
         self.dress_status = DressStatus.find_by_name 'Disponible'
       else
-        if self.dress_status.name == 'Disponible'
+        if self.dress_status.name == 'Oculto'
+          self.dress_status = DressStatus.find_by_name 'Vendido y Oculto'
+        elsif self.dress_status.name == 'Disponible'
           if self.dress_types.first.dresses.available.size > 10
             self.dress_status = DressStatus.find_by_name 'Vendido y Oculto'
           else

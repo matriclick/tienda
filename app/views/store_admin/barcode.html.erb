@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<img src="<%= @dress.dress_images.first.dress.url(:main) %>" alt="<%= @dress.dress_images.first.name %>" />
+			<p style="margin-bottom:10px; font-weight:lighter">Mostrando solo la imagen principal del producto</p>
+		</div>
+		<div class="col-md-8">
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter; margin-bottom:10px;">Códigos de Barra</h2>
+				</div>
+			</div>
+			<% @dress.dress_stock_sizes.each do |dsz| %>
+			<div class="row">
+				<div class="col-md-12">
+					<p style="margin-bottom:0px; font-weight:lighter; font-size:12px">
+						<%= @dress.introduction %> en talla <b><%= dsz.size.name %></b> y color <b><%= dsz.color %></b>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<%= image_tag("/system/barcodes/"+@dress.supplier_account.fantasy_name+'/'+dsz.size.name+'_'+dsz.color+'_'+@dress.id.to_s+"_barcode.png") %><br />
+					<p style="margin-bottom:10px; font-weight:lighter; font-size:11px"><%= Barby::EAN13.new(dsz.generate_barcode) %></p>
+				</div>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

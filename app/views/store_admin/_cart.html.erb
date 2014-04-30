@@ -1,0 +1,66 @@
+<% if !@price.blank? %>
+<div class="row">
+	<div class="col-md-12">
+		<ul class="list-group">
+			<li class="list-group-item"><strong>Productos: <%= @purchasable.products_quantity %></strong>
+			<li class="list-group-item"><strong>Precio Total: <%= number_to_currency(@price) %></strong>
+		</ul>
+	</div>
+</div>
+<% end %>
+
+<div class="row">
+<% @purchasable.shopping_cart_items.each do |shopping_cart_item| %>
+	<div class="col-md-4">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">
+			<%= link_to shopping_cart_item.purchasable.introduction, dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), target: 'blank' %>
+			<%= link_to raw('<span class="glyphicon glyphicon-remove"></span></h3>'), 
+				store_admin_remove_product_from_cart_path(public_url: @supplier_account.public_url, cart_id: @purchasable.id, product_id: shopping_cart_item.purchasable.id), 
+				method: 'put' %>
+		  </div>
+		  <div class="panel-body">
+				<div class="media">
+						<%= link_to image_tag(shopping_cart_item.purchasable.small_image, class: 'media-object'), 
+												dress_ver_path(:type => shopping_cart_item.purchasable.dress_type.name, :slug => shopping_cart_item.purchasable.slug), class: 'pull-left thumbnail', target: 'blank' %>
+				  <div class="media-body">
+						<ul class="list-group">
+						  <li class="list-group-item"><strong>Precio:</strong> <%= number_to_currency shopping_cart_item.purchasable.price %></li>
+						  <li class="list-group-item"><strong>Talla:</strong> <%= shopping_cart_item.size.to_s %></li>
+						  <li class="list-group-item"><strong>Color:</strong> <%= shopping_cart_item.color.to_s if !shopping_cart_item.color.nil? %></li>
+						  <li class="list-group-item"><strong>Cantidad:</strong> <%= shopping_cart_item.quantity.to_s %></li>
+						</ul>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+</div>
+<% unless @purchasable.id.nil? %>
+<div class="row">
+	<div class="col-md-12">
+		<%= form_tag(store_admin_generate_pos_purchase_path(public_url: @supplier_account.public_url, cart_id: @purchasable.id), method: :put) %>
+			<%= text_field_tag(:email_buyer, '', placeholder: 'Correo comprador (opcional)', class: "form-control", style: 'font-weight:lighter') %>
+			<div style="margin-top:20px;">
+				<label class="radio-inline">
+				  <input type="radio" name="medio_pago" value="tarjeta_credito"> <span style="font-weight:lighter; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">Tarjeta de Crédito</span>
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="medio_pago" value="tarjeta_debito"> <span style="font-weight:lighter; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">Tarjeta de Débito</span>
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="medio_pago" value="cheque"> <span style="font-weight:lighter; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">Cheque</span>
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="medio_pago" value="efectivo"> <span style="font-weight:lighter; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">Efectivo</span>
+				</label>
+			</div>
+			<div style="margin-top:20px">
+				<%= submit_tag "Pagar carrito de compras", class: "btn btn-default", style: 'width:100%' %> 
+			</div>
+		</form>
+	</div>
+</div>
+<% end %>

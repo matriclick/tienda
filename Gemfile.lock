@@ -80,6 +80,7 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    chartkick (1.2.4)
     chronic (0.6.6)
     chunky_png (1.3.0)
     client_side_validations (3.1.3)
@@ -109,6 +110,8 @@ GEM
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
     geocoder (1.0.5)
+    groupdate (2.1.0)
+      activerecord (>= 3.0.0)
     hashery (2.0.1)
     highline (1.6.8)
     hike (1.2.1)
@@ -230,6 +233,7 @@ GEM
     rake (0.9.2.2)
     rdoc (3.11)
       json (~> 1.4)
+    recaptcha (0.3.6)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ruby-openid (2.1.8)
@@ -282,6 +286,7 @@ DEPENDENCIES
   breadcrumbs_on_rails
   cancan
   capistrano
+  chartkick
   chunky_png
   client_side_validations
   coffee-rails (~> 3.1.0)
@@ -290,6 +295,7 @@ DEPENDENCIES
   friendly_id
   garb
   geocoder
+  groupdate
   jquery-rails
   mime-types
   mysql2
@@ -303,6 +309,7 @@ DEPENDENCIES
   rails (= 3.1.0)
   rails-translate-routes
   rails3-jquery-autocomplete
+  recaptcha
   rubyzip
   sass-rails (~> 3.1.0)
   sitemap_generator (~> 4.0)

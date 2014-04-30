@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318014708) do
+ActiveRecord::Schema.define(:version => 20140430192131) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -393,6 +393,13 @@ ActiveRecord::Schema.define(:version => 20140318014708) do
     t.datetime "updated_at"
   end
 
+  create_table "industry_categories_suppliers", :id => false, :force => true do |t|
+    t.integer  "industry_category_id"
+    t.integer  "supplier_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "invoice_months_invoices", :id => false, :force => true do |t|
     t.integer  "invoice_id"
     t.text     "invoice_month_id"
@@ -476,6 +483,18 @@ ActiveRecord::Schema.define(:version => 20140318014708) do
     t.string   "rut"
     t.string   "email"
     t.integer  "user_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pos_purchases", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "email_buyer"
+    t.string   "payment_method"
+    t.integer  "shopping_cart_id"
+    t.integer  "price"
+    t.string   "currency"
+    t.integer  "supplier_account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -693,6 +712,17 @@ ActiveRecord::Schema.define(:version => 20140318014708) do
     t.integer  "position"
     t.integer  "country_id"
     t.boolean  "target"
+  end
+
+  create_table "store_admin_privileges", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_admin_privileges_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "store_admin_privilege_id"
   end
 
   create_table "store_payments", :force => true do |t|

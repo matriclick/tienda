@@ -9,6 +9,20 @@ class DressStockSize < ActiveRecord::Base
   belongs_to :dress
   belongs_to :size
   
+  
+  def generate_barcode
+    #Formato Barcode
+    barcode = self.id.to_s
+    length = barcode.length
+    if length < 12
+      (12 - length).times do 
+        barcode = '0'+barcode
+      end
+    end
+    puts barcode
+    return barcode
+  end
+  
   def set_invalid_stock
     if self.stock.blank?
       self.stock = 0

@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+				Permisos de <%= @user.email %>
+			</h2>
+			<hr>
+			<%= form_for @user, :url => store_admin_update_store_admin_privileges_path(public_url: @supplier_account.public_url, user_id: @user.id), 
+							:validate => true, :html => {role: 'form', class: 'form'} do |f| %>
+			  <% if @user.errors.any? %>
+			    <div id="error_explanation">
+			      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+			      <ul>
+			      <% @user.errors.full_messages.each do |msg| %>
+			        <li><%= msg %></li>
+			      <% end %>
+			      </ul>
+			    </div>
+			  <% end %>
+  
+				<div style="margin:10px 0px 10px 20px">
+				<% for store_admin_privilege in StoreAdminPrivilege.all %>
+					<span><%= check_box_tag("user[store_admin_privilege_ids][]", store_admin_privilege.id, (@user.store_admin_privileges.include? store_admin_privilege), 
+							:class => "store_admin_privilege_#{store_admin_privilege.id}") %></span>
+					<span class="lucida small"><%= store_admin_privilege.name %></span><br />
+				<% end %>
+				</div>
+
+			  <div class="actions">
+			    <%= f.submit 'Guardar', :class => "btn btn-primary" %>
+			  </div>
+			<% end %>
+		</div>
+	</div>
+</div>

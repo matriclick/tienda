@@ -510,3 +510,14 @@ aux << (LogisticProvider.find_by_name("Chile Express") || LogisticProvider.creat
 aux << (LogisticProvider.find_by_name("Correos de Chile") || LogisticProvider.create(:name => 'Correos de Chile', :website => 'http://www.correos.cl/'))
 aux.each { |x| puts x.name }
 puts "\n"
+
+puts "--> StoreAdminPrivilege:"
+aux = []
+aux << (StoreAdminPrivilege.find_by_name("Administrar Stock") || StoreAdminPrivilege.create(:name => 'Administrar Stock'))
+aux << (StoreAdminPrivilege.find_by_name("Crear Productos") || StoreAdminPrivilege.create(:name => 'Crear Productos'))
+aux << (StoreAdminPrivilege.find_by_name("Ver Pagos de Tramanta") || StoreAdminPrivilege.create(:name => 'Ver Pagos de Tramanta'))
+aux << (StoreAdminPrivilege.find_by_name("Usar Punto de Venta") || StoreAdminPrivilege.create(:name => 'Usar Punto de Venta'))
+aux << (StoreAdminPrivilege.find_by_name("Ver Reportes") || StoreAdminPrivilege.create(:name => 'Ver Reportes'))
+aux << (StoreAdminPrivilege.find_by_name("Administrar Usuarios") || StoreAdminPrivilege.create(:name => 'Administrar Usuarios'))
+aux.each { |x| puts x.name }
+puts "\n"

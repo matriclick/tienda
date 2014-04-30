@@ -1,8 +1,4 @@
 # encoding: UTF-8
-require 'barby'
-require 'barby/barcode/code_128'
-require 'barby/outputter/png_outputter'
-
 class DressesController < ApplicationController
   around_filter :catch_not_found
   #before_filter :check_if_it_came_from_junta
@@ -274,6 +270,19 @@ class DressesController < ApplicationController
         format.html # new.html.erb
         format.json { render json: @dress }
       end
+    elsif !current_user.nil? and (current_user.role_id == 1 or current_user.role_id == 2) and current_user.store_admin_privileges.include?(StoreAdminPrivilege.find_by_name 'Crear Productos')
+      @supplier_account = current_user.supplier_accounts.first
+      @supplier = @supplier_account.supplier
+      @dress.supplier_account = @supplier_account
+      @dress_types = DressType.all
+      @colors = Color.all
+      add_breadcrumb "Productos de "+@supplier_account.fantasy_name, store_admin_products_path(public_url: @supplier_account.public_url)
+      add_breadcrumb "Nuevo Producto", new_supplier_account_dress_path(@supplier_account.supplier)
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @dress }
+      end
     else
       redirect_to bazar_path, notice: 'Solo puedes crear productos entrando como proveedor.'
     end
@@ -287,8 +296,12 @@ class DressesController < ApplicationController
     @supplier_account =  @dress.supplier_account
     @supplier =  @dress.supplier_account.supplier
     
+    
     if !current_supplier.nil?
       set_supplier_layout
+    else
+      add_breadcrumb "Productos de "+@supplier_account.fantasy_name, store_admin_products_path(public_url: @supplier_account.public_url)
+      add_breadcrumb "Editar Producto", edit_supplier_account_dress_path(@supplier, @dress)
     end
   end
 
@@ -310,14 +323,20 @@ class DressesController < ApplicationController
   end
 
   def set_stock
+    @dress = Dress.find(params[:id])
+    @sizes = @dress.dress_types.first.sizes
+    
     if !current_supplier.nil?
       @supplier_account = current_supplier.supplier_account
       @supplier = @supplier_account.supplier
       set_supplier_layout
+    elsif !current_user.nil? and (current_user.role_id == 1 or current_user.role_id == 2) and current_user.store_admin_privileges.include?(StoreAdminPrivilege.find_by_name 'Crear Productos')
+      @supplier_account = current_user.supplier_accounts.first
+      @supplier = @supplier_account.supplier
+      add_breadcrumb "Productos de "+@supplier_account.fantasy_name, store_admin_products_path(public_url: @supplier_account.public_url)
+      add_breadcrumb "Editar Producto", edit_supplier_account_dress_path(@supplier, @dress)
+      add_breadcrumb "Definir Stock", dresses_set_stock_path(id: @dress)
     end
-    
-    @dress = Dress.find(params[:id])
-    @sizes = @dress.dress_types.first.sizes
   end
   
   # PUT /dresses/1
@@ -386,17 +405,6 @@ class DressesController < ApplicationController
     @regions = @regions + Region.all
     @regions = @regions.uniq
     render :layout => false
-  end
-  
-  def barcode
-    @dress = Dress.all.last
-    barcode_value = @dress.slug
-    @full_path = "#{Rails.root}/public/system/barcodes/"+@dress.supplier_account.fantasy_name+'/'+@dress.slug+"_barcode.png"
-    dir = File.dirname(@full_path)
-    FileUtils.mkdir_p(dir) unless File.directory?(dir)
-    
-    barcode = Barby::Code128B.new(barcode_value)
-    File.open(@full_path, 'w') { |f| f.write barcode.to_png(:margin => 3, :height => 55) }
   end
   
   private

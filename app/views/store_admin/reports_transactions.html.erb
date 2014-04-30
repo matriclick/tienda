@@ -1,0 +1,40 @@
+<div class="container">
+	<%= render 'layouts/notice', notice: notice %>
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+				Lista de transacciones
+			</h2>
+			<hr>
+			<%= render 'reports/date_range_selector' %>
+			<hr>
+			<ul>
+				<li style="margin-bottom:10px; font-weight:lighter">Venta total: <%= number_to_currency @pos_purchases.sum(:price) %></li>
+				<li style="margin-bottom:10px; font-weight:lighter">Compras totales: <%= @pos_purchases.size %></li>
+				<li style="margin-bottom:10px; font-weight:lighter">Productos vendidos: <%= @pos_purchases.inject(0){|sum,item| sum + item.shopping_cart.products_quantity} %></li>
+			</ul>
+			<hr>
+			<%= form_tag(store_admin_reports_transactions_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+				<%= hidden_field_tag :from, @from %> <%= hidden_field_tag :to, @to %>
+				<%= submit_tag("Descargar Reporte",  class: "btn btn-default btn-sm", "data-loading-text" => "Descargando...") %>
+			<% end %>
+			<hr>
+			<table class="table table-hover">
+				<thead>
+					<tr><th>Fecha Creación</th><th>Monto</th><th>Artículos Comprados</th><th>Medio de Pago</th><th>Vendedor</th></tr>
+				</thead>
+				<tbody>
+				<% @pos_purchases.each do |pos_purchase| %>
+				<tr>
+					<td><%= pos_purchase.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %></td>
+					<td><%= number_to_currency pos_purchase.price %></td>
+					<td><%= pos_purchase.shopping_cart.products_quantity %></td>
+					<td><%= pos_purchase.payment_method.gsub('_',' ').capitalize if !pos_purchase.payment_method.blank? %></td>
+					<td><%= pos_purchase.user.email %></td>
+				</tr>
+				<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

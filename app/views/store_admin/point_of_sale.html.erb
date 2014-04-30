@@ -1,0 +1,25 @@
+<div class="container">
+	<%= render 'layouts/notice', notice: notice %>
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+				Punto de venta
+			</h2>
+			<hr>
+			<div class="row" style="padding-bottom:0px; padding-top:0px;">
+				<div class="col-md-12">
+					<%= form_tag(store_admin_add_product_to_cart_from_barcode_path(public_url: @supplier_account.public_url, cart_id: @purchasable.id), :remote => true,  
+									method: :post, id: 'barcode_form') %>
+					  <div class="">
+						<%= text_field_tag(:barcode, '', placeholder: 'Código del producto', class: "form-control", 
+											style: 'font-weight:lighter; width:100%', onchange: "check_barcode_string();",
+											onkeyup: "this.onchange();", onpaste: "this.onchange();", oninput: "this.onchange();") %>
+					  </div><!-- /input-group -->
+					</form>
+				</div>
+			</div>
+			<hr>
+			<%= render 'cart' %>
+		</div>
+	</div>
+</div>

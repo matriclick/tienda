@@ -29,9 +29,11 @@
 		<meta name="description" content="<%= @meta_description_content %>"/>
 		<meta name="keywords" content="<%= @meta_keywords_content %>">
 		
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=320, height=device-height, target-densitydpi=medium-dpi" />
-
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=320, height=device-height" />
+		
+		
 		<%= stylesheet_link_tag("application") %>
+		<%= javascript_include_tag("//www.google.com/jsapi", "chartkick") if @view_with_graphs %>
 		<%= javascript_include_tag('application') %>
 		<%= javascript_include_tag('http://maps.googleapis.com/maps/api/js?key=AIzaSyD9u2C5a_3Fueu5XbRXXL8YPPc12HRoESY&sensor=false') if @show_map %>
 		<%= csrf_meta_tag %>
@@ -49,6 +51,7 @@
 	<% (@show_map || false) ? (@msg = 'initialize('+@map.latitude.to_s+','+@map.longitude.to_s+',"'+@map.get_address_string.to_s+'");') : nil  %>
 
 	<body onload='<%= @subscriber_pop_up %><%= @msg %>' style="padding-top: 70px;">
+		
 		<div id="fb-root"></div>
 		
 		<script>

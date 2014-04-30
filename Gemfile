@@ -18,7 +18,7 @@ gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
 gem 'barby'
 gem 'chunky_png'
-
+gem "recaptcha", :require => "recaptcha/rails"
 gem "paperclip", "~> 4.1.1"
 # Mime Types for swfupload
 gem 'mime-types', :require => 'mime/types'
@@ -26,7 +26,8 @@ gem 'cancan'
 gem 'nested_form', :git => "https://github.com/fxposter/nested_form.git"
 #gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
-
+gem "chartkick"
+gem 'groupdate'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete'
 gem 'client_side_validations'

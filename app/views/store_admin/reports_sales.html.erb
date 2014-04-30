@@ -1,0 +1,21 @@
+<div class="container">
+	<%= render 'layouts/notice', notice: notice %>
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+				Ventas
+			</h2>
+			<hr>
+			<%= render 'reports/date_range_selector' %>
+			<hr>
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:18px; font-weight:lighter">Monto Vendido</h2>
+			<%= line_chart @pos_purchases.group_by_day(:created_at).sum(:price) %>
+			<hr>
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:18px; font-weight:lighter">Cantidad de Transacciones</h2>
+			<%= line_chart @pos_purchases.group_by_day(:created_at).count %>
+			<hr>
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:18px; font-weight:lighter">Cantidad de productos vendidos</h2>
+			<%= line_chart @pos_purchases.joins(shopping_cart: :shopping_cart_items).group_by_day('pos_purchases.created_at').count %>
+		</div>
+	</div>
+</div>

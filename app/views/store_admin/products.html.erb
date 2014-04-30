@@ -1,4 +1,11 @@
 <div class="container">
+	<% if current_user.store_admin_privileges.include? StoreAdminPrivilege.find_by_name 'Crear Productos' %>
+	<div class="row" style="margin-bottom:10px">
+		<div class="col-md-12">
+			<%= link_to 'Agregar un nuevo producto', new_supplier_account_dress_path(@supplier_account.supplier), :class => 'btn btn-primary' %>
+		</div>
+	</div>
+	<% end %>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
@@ -7,7 +14,7 @@
 					  <div class="input-group">
 								<%= text_field_tag(:code_q, @code_search_text, placeholder: @code_search_text, class: "form-control") %>
 					       <span class="input-group-btn">
-									<%= submit_tag("Buscar por Código", :name => nil, class: "btn btn-default") %>
+									<%= submit_tag("Buscar por SKU", :name => nil, class: "btn btn-default") %>
 					  		 </span>
 					  </div><!-- /input-group -->
 					</form>

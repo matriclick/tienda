@@ -13,11 +13,13 @@
 //= require_directory .
 // ALERT: FETCHING THIS DIRECTORY ONLY, NOT THE HOLE TREE
 
-$(function() {
-  $("#purchase_delivery_date").datepicker({ dateFormat: 'yy-mm-dd', firstDay: 1 });
-  $("#purchase_refund_date").datepicker({ dateFormat: 'yy-mm-dd', firstDay: 1 });
-  $('.tiptip').popover();
-});
+
+function check_barcode_string() {
+	barcode = $('#barcode').val()
+	if (barcode.length == 13) {
+		$('#barcode_form').submit();
+	}
+}
 
 function remove_fields_post(link) {
   $(link).prev("input[type=hidden]").val("1");
@@ -256,3 +258,9 @@ jQuery.fn.onlyDigits = function() {
     });
 };
 
+$(function() {
+	$("#purchase_delivery_date").datepicker({ dateFormat: 'yy-mm-dd', firstDay: 1 });
+	$("#purchase_refund_date").datepicker({ dateFormat: 'yy-mm-dd', firstDay: 1 });
+	$('.tiptip').popover();
+	$("#barcode").focus();
+});

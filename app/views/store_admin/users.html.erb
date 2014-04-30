@@ -1,0 +1,42 @@
+<div class="container">
+	<%= render 'layouts/notice', notice: notice %>
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+				Administración de usuarios asociados a tu tienda
+			</h2>
+			<hr>
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:10px; font-size:18px; font-weight:lighter">
+				Agregar usuario
+			</h2>
+			<%= form_tag(store_admin_add_user_path, :method => "put", :html => {class: 'form-horizontal', role: 'form'}) do %>
+				<div class="input-group">
+					<%= autocomplete_field_tag :user_email, @p_user_email, administration_autocomplete_user_email_path, class: 'form-control' %> 
+			       	<span class="input-group-btn">
+						<%= submit_tag("Agregar",  class: "btn btn-default") %>
+			  		</span>
+			  	</div><!-- /input-group -->
+				<span style="font-size:10px;">Solo puedes agregar usuarios con cuenta en Tramanta.com y que aparecen en la lista que se despliega automáticamente</span>
+			<% end %>
+			<hr>
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:10px; font-size:18px; font-weight:lighter">
+				Modificar permisos
+			</h2>
+			<ul>
+			<% @users.each do |user| %>
+				<li style="margin-bottom:15px;"><%= user.email %> <%= link_to raw('<span class="glyphicon glyphicon-edit"></span>'), 
+					store_admin_select_user_privileges_path(public_url: @supplier_account.public_url, user_id: user.id) %> 
+					<%= link_to raw('<span class="glyphicon glyphicon-remove-circle"></span>'), 
+						store_admin_remove_user_path(public_url: @supplier_account.public_url, user_id: user.id), method: :put %>
+					<br />
+					<span style="font-size:10px;">Permisos:
+					<% user.store_admin_privileges.each do |privilege| %>
+						<%= privilege.name %> | 
+					<% end %>
+					</span>
+				</li>
+			<% end %>
+			</ul>
+		</div>
+	</div>
+</div>

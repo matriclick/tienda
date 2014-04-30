@@ -13,11 +13,27 @@ Matri::Application.routes.draw do
   
   put "contestants/add_vote/:id"     => "contestants#add_vote",   as: 'contestants_add_vote'
   
-  get "admin-tienda/seleccionar" => 'store_admin#select_store', :as => 'store_admin_select_store'
-  get "admin-tienda/productos/:public_url" => 'store_admin#products', :as => 'store_admin_products'
-  get "admin-tienda/ventas/:public_url" => 'store_admin#purchases', :as => 'store_admin_purchases'
-  get "admin-tienda/pagos/:public_url" => 'store_admin#payments', :as => 'store_admin_payments'
+  get "seleccionar-tienda" => 'store_admin#select_store', :as => 'store_admin_select_store'
+  get "productos-tienda/:public_url" => 'store_admin#products', :as => 'store_admin_products'
+  get "ventas-tienda/:public_url" => 'store_admin#purchases', :as => 'store_admin_purchases'
+  get "pagos-tienda/:public_url" => 'store_admin#payments', :as => 'store_admin_payments'
+  get "usuarios-tienda/:public_url" => 'store_admin#users', :as => 'store_admin_users'
+  get "reportes-tienda/:public_url" => 'store_admin#reports', :as => 'store_admin_reports'
+  get "punto-de-venta/:public_url" => 'store_admin#point_of_sale', :as => 'store_admin_point_of_sale'
+  get "usuarios-tienda/:public_url/:user_id" => 'store_admin#select_user_privileges', :as => 'store_admin_select_user_privileges'
+  get "reportes/:public_url/transacciones" => 'store_admin#reports_transactions', :as => 'store_admin_reports_transactions'
+  get 'dresses/barcode/:slug'	=> 'store_admin#barcode', as: 'store_admin_barcode'
+  get 'reportes/:public_url/ventas'	=> 'store_admin#reports_sales', as: 'store_admin_reports_sales'
+  get 'reportes/:public_url/inventario'	=> 'store_admin#reports_inventory', as: 'store_admin_reports_inventory'
 
+  put "usuarios-tienda/:public_url/agregar-usuario" => 'store_admin#add_user', :as => 'store_admin_add_user'  
+  put "update-store-admin-privileges/:public_url/:user_id" => 'store_admin#update_store_admin_privileges', :as => 'store_admin_update_store_admin_privileges'
+  post "add-product-to-cart-from-barcode/:public_url" => 'store_admin#add_product_to_cart_from_barcode', :as => 'store_admin_add_product_to_cart_from_barcode'
+  put "remove-product-from-cart/:public_url/:cart_id/:product_id" => 'store_admin#remove_product_from_cart', :as => 'store_admin_remove_product_from_cart'
+  put "generate-pos-purchase/:public_url/:cart_id" => 'store_admin#generate_pos_purchase', :as => 'store_admin_generate_pos_purchase'
+  put "usuarios-tienda/:public_url/:user_id/remover" => 'store_admin#remove_user', :as => 'store_admin_remove_user'
+  
+  
   post 'buy/add_to_cart' => 'buy#add_to_cart'
   post 'buy/remove_from_cart' => 'buy#remove_from_cart'
   post 'buy/success_transfer' => 'buy#success_transfer'
@@ -89,7 +105,6 @@ Matri::Application.routes.draw do
   get 'dresses/new-arrivals'	=> 'dresses#new_arrivals', as: 'dresses_new_arrivals'
   get 'dresses/clearing'	=> 'dresses#clearing', as: 'dresses_clearing'  
   get 'dresses/refund_policy'	=> 'dresses#refund_policy', as: 'refund_policy'
-  get 'dresses/barcode'	=> 'dresses#barcode', as: 'dresses_barcode'
   resources :refund_requests
   resources :cloth_measures
 	resources :mailings
@@ -129,16 +144,11 @@ Matri::Application.routes.draw do
 
 	resources :suppliers do
 		resource :supplier_account, as: :account do
-			# CONVERSATIONS
-			get 'conversations' => 'conversations#index', as: 'conversations'
-			get 'conversations/download_file/:attached_file' => 'conversations#download_file', as: 'conversations_download_file'
 			# DRESSES
     	resources :dresses, :except => ['index']
     	get "dresses" => 'dresses#supplier_view', as: 'dresses'
-    	match "dresses/ver/dresses/endless_scrolling" => 'dresses#endless_scrolling', as: 'dresses_endless_scrolling'
       get 'dresses/set_stock/:id' => 'dresses#set_stock', as: 'dresses_set_stock'
     	post 'dresses/update_stock' => 'dresses#update_stock', as: 'dresses_update_stock'
-	  	post "dresses/endless_scrolling" => 'dresses#endless_scrolling'
 			resources :supplier_contacts
 			resource :presentation do
 				resources :presentation_images

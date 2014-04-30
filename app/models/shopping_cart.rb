@@ -46,7 +46,17 @@ class ShoppingCart < ActiveRecord::Base
   def self.is_active
     where(:active => true)
   end
+  
+  def products_quantity
+    quantity = 0
+    self.shopping_cart_items.each do |shopping_cart_item|
+      shopping_cart_item.quantity = 1 if shopping_cart_item.quantity.blank?
+    	quantity = quantity + shopping_cart_item.quantity
+  	end
+  	return quantity
     
+  end
+  
   # -------------- PURCHASABLE METHODS -------------------  
   def price
     price = 0

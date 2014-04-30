@@ -26,10 +26,11 @@ class User < ActiveRecord::Base
 	has_many :contest_votes, :dependent => :destroy
   
   has_and_belongs_to_many :supplier_accounts
+  has_and_belongs_to_many :store_admin_privileges
   has_and_belongs_to_many :tags
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids, :dress_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :language, :tag_ids, :dress_id, :store_admin_privilege_ids
 	
   def self.to_csv(from, to)
   	header = ['Correo Usuario', 'Fecha Inscripción', '# Compras', '# Compras Finalizadas', 'Monto Compras Finalizadas', 

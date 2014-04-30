@@ -1,0 +1,30 @@
+<div class="container">
+	<%= render 'layouts/notice', notice: notice %>
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+				Inventario
+			</h2>
+			<p style="font-weight:lighter">Considera únicamente los productos que están en la bodega o tienda (productos en estado "Disponible" u "Oculto")</p>
+			<hr>
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:18px; font-weight:lighter">Antiguedad Inventario</h2>
+				<%= column_chart({
+					"0 a 30 días" => 
+						@dresses.where('dresses.created_at <= ? and dresses.created_at >= ?', Time.now.localtime, Time.now.localtime - 30.days).count,
+					"30 a 60 días" => 
+						@dresses.where('dresses.created_at < ? and dresses.created_at >= ?', Time.now.localtime - 30.days, Time.now.localtime - 60.days).count,
+					"60 a 90 días" => 
+						@dresses.where('dresses.created_at < ? and dresses.created_at >= ?', Time.now.localtime - 60.days, Time.now.localtime - 60.days).count,
+					"más de 90 días" => 
+						@dresses.where('dresses.created_at < ? and dresses.created_at >= ?', Time.now.localtime - 90.days, Time.now.localtime - 100.years).count}) %>
+			<hr>
+			<h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:18px; font-weight:lighter">Productos por Categoría</h2>
+				<%= bar_chart(@dress_types.map { |dt| [dt.get_human_name.gsub('Ropa de mujer', '').strip.capitalize, dt.dresses.size] }) %>
+			<hr>
+			<%= form_tag(store_admin_reports_inventory_path(format: "csv"), :method => "get", :html => {class: 'form-horizontal', role: 'form'}) do %>
+				<%= submit_tag("Descargar Reporte",  class: "btn btn-default btn-sm", "data-loading-text" => "Descargando...") %>
+			<% end %>
+			<hr>
+		</div>
+	</div>
+</div>

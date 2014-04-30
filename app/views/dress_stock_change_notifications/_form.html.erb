@@ -20,6 +20,11 @@
 	    <%= f.text_area :comments, rows: 4, class: 'form-control', placeholder: 'Comentarios adicionales' %>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-12 form-group">	
+	    <%= recaptcha_tags :display => { :theme => "white" } %>
+		</div>
+	</div>
 	<%= f.hidden_field :dress_id, value: @dress.id %>
 </div>
 <div class="modal-footer">
