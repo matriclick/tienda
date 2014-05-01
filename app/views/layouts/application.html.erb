@@ -33,7 +33,7 @@
 		
 		
 		<%= stylesheet_link_tag("application") %>
-		<%= javascript_include_tag("//www.google.com/jsapi", "chartkick") if @view_with_graphs %>
+		<%= javascript_include_tag("https://www.google.com/jsapi", "chartkick") if @view_with_graphs %>
 		<%= javascript_include_tag('application') %>
 		<%= javascript_include_tag('http://maps.googleapis.com/maps/api/js?key=AIzaSyD9u2C5a_3Fueu5XbRXXL8YPPc12HRoESY&sensor=false') if @show_map %>
 		<%= csrf_meta_tag %>
