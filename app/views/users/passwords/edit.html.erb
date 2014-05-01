@@ -1,16 +1,31 @@
-<h2><%= t 'change_password' %></h2>
+<div class="sign_in_background">
+	<div class="container">
+		<%= render 'layouts/notice', notice: notice %>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 style="color:white; margin:20px 0px 10px 0px"><%= t 'change_password' %></h1>
+					<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+					  <%= devise_error_messages! %>
+					  <%= f.hidden_field :reset_password_token %>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+					  <p><%= f.label :password, t('new_password'), style: 'color:white' %><br />
+					  <%= f.password_field :password %></p>
 
-  <p><%= f.label :password, t('new_password') %><br />
-  <%= f.password_field :password %></p>
+					  <p><%= f.label :password_confirmation, t('confirm_new_password'), style: 'color:white' %><br />
+					  <%= f.password_field :password_confirmation %></p>
 
-  <p><%= f.label :password_confirmation, t('confirm_new_password') %><br />
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.submit t('change_my_password') %></p>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+					  <p><%= f.submit t('change_my_password') %></p>
+					<% end %>
+					
+					<%- if devise_mapping.omniauthable? %>
+						<div style="margin-top:20px">
+								<%= link_to 'Entra con tu cuenta de Facebook', omniauth_authorize_path(resource_name, 'facebook') %>
+						</div>
+					<% end -%>
+					<div style="margin-top:20px">
+						<%= link_to '¿Te acordaste de tu clave?', new_session_path(resource_name) %>
+					</div>
+			</div>			
+		</div>
+	</div>
+</div>

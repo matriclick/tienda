@@ -197,80 +197,7 @@ class ApplicationController < ActionController::Base
 	
 	private
 	
-	def set_top_menu
-    case controller_name
-      when 'user_profile', 'contests', 'posts', 'products_and_services_catalog', 'campaign', 'wedding_planner_quotes', 'opportunities', 'ceremonies'
-        session[:matriclick_top_menu] = 'Novios'
-      when 'administration'
-        session[:matriclick_top_menu] = ''
-      when 'user_conversations'
-        if session[:matriclick_top_menu].blank?
-          session[:matriclick_top_menu] = 'Novios'
-        end
-      when 'packs'
-              case action_name
-                when 'index', 'honey_moons'
-                  session[:matriclick_top_menu] = 'Novios'
-                when 'el_bazar'
-                  session[:matriclick_top_menu] = 'El Bazar'
-                when 'viajes'
-                  session[:matriclick_top_menu] = 'Viajes'
-                when 'aguclick'
-                  session[:matriclick_top_menu] = 'Bebe'
-                when 'tu_casa'
-                  session[:matriclick_top_menu] = 'Tu Casa'
-              end
-      when 'home'
-              case action_name
-                when 'wedding_tools'
-                  session[:matriclick_top_menu] = 'Novios'
-                else
-                  session[:matriclick_top_menu] = ''
-              end
-      when 'travel'
-                  session[:matriclick_top_menu] = 'Viajes'
-      when 'dresses'
-              case action_name
-                when 'bazar', 'party_dress_menu', 'party_dress_boutique', 'accessories_menu', 'contact_elbazar', 'faq_elbazar', 'womens_clothing_menu'
-                  session[:matriclick_top_menu] = 'El Bazar'
-                when 'baby_clothing_menu'
-                  session[:matriclick_top_menu] = 'Bebe'
-                when 'wedding_dress_menu', 'wedding_dress_stores'
-                  session[:matriclick_top_menu] = 'Novios'
-                when 'tu_casa'
-                  session[:matriclick_top_menu] = 'Tu Casa'
-                when 'index', 'view'
-                        case params[:type]
-                          when /bebe/
-                            session[:matriclick_top_menu] = 'Bebe'
-                          when /tu-casa/
-                            session[:matriclick_top_menu] = 'Tu Casa'
-                          when 'vestidos-novia', 'vestidos-civil', nil
-                            session[:matriclick_top_menu] = 'Novios'
-                          else
-                            session[:matriclick_top_menu] = 'El Bazar'
-                        end
-                when 'show'
-                    if params[:id] != 'endless_scrolling'
-                        case params[:type]
-                          when /bebe/
-                            session[:matriclick_top_menu] = 'Bebe'
-                          when /tu-casa/
-                            session[:matriclick_top_menu] = 'Tu Casa'
-                          when 'vestidos-novia', 'vestidos-civil'
-                            session[:matriclick_top_menu] = 'Novios'
-                          else
-                            session[:matriclick_top_menu] = 'El Bazar'
-                        end
-                    end
-              end
-    end
-    
-    if session[:matriclick_top_menu].nil?
-      session[:matriclick_top_menu] = 'Novios'
-    end
-  end
-    	
+
 	def save_matriclick_last_url_in_session
 	  if !(controller_name.include?('devise') or controller_name.include?('omniauth_callbacks') or controller_name.include?('registrations') or ['sessions', 'registrations'].include?(controller_name))
 	    if !request.url.include?('endless_scrolling') and !request.url.include?('suscribirse') and request.get?
@@ -329,7 +256,7 @@ class ApplicationController < ActionController::Base
 		# FGM: Control that only a User or Supplier is logged in...
   		if resource.kind_of? User
   			sign_out(:supplier)
-  			if !!session[:matriclick_last_url]
+  			if !!session[:matriclick_last_url] and !(session[:matriclick_last_url].include? 'users')
   				session[:matriclick_last_url]
   			else
   				root_path
