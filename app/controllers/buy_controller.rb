@@ -245,7 +245,6 @@ class BuyController < ApplicationController
     #Cada vez que se actualizan funds_received a true se envía un correo a las tiendas que corresponda con el producto que se compró
     @purchase.funds_received = true     
     purchase_actions
-    
   end
   
   def success_transfer
