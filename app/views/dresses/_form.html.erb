@@ -123,10 +123,8 @@
 		</tr>
 		<tr>
 			<td>
-				<fieldset disabled>
-				<%= f.label :price, 'Pago de Tramanta' %> 
+				<%= f.label :net_cost, 'Pago de Tramanta' %> 
 				<%= mark_required @dress, :net_cost %> CLP $<%= f.number_field :net_cost, class: "form-control", style: 'width:200px' %> 
-				</fieldset>
 				<p class="help-block" style="font-weight:lighter; font-size:12px;">
 					El pago que realizará Tramanta.com a <%= @supplier_account.fantasy_name %> si el producto se vende a través de la web)</p>
 				<p class="help-block" style="font-weight:lighter; font-size:12px;">
