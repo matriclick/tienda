@@ -134,17 +134,21 @@ class StoreAdminController < ApplicationController
     # Formato de barcode: string_talla#string_color#slug_producto##
     barcode = params[:barcode]
     dsz_id = barcode[0..11].to_i
-    dress_stock_size = DressStockSize.find dsz_id
     
-    if current_user.supplier_accounts.include? dress_stock_size.dress.supplier_account
-      if dress_stock_size.stock == 0
-        redirect_to store_admin_point_of_sale_path(public_url: params[:public_url], cart_id: @purchasable.id), notice: 'Error: Producto Agotado en el Sistema'
+    begin
+      dress_stock_size = DressStockSize.find(dsz_id)    
+      if current_user.supplier_accounts.include? dress_stock_size.dress.supplier_account
+        if dress_stock_size.stock == 0
+          redirect_to store_admin_point_of_sale_path(public_url: params[:public_url], cart_id: @purchasable.id), notice: 'Error: Producto Agotado en el Sistema'
+        else
+          shopping_cart_item = ShoppingCartItem.create(:purchasable_id => dress_stock_size.dress.id, :purchasable_type => 'Dress', :shopping_cart_id => @purchasable.id, :size => dress_stock_size.size.name, :color => dress_stock_size.color, :quantity => 1) 
+          redirect_to store_admin_point_of_sale_path(public_url: params[:public_url], cart_id: @purchasable.id), notice: 'Producto Agregado'
+        end
       else
-        shopping_cart_item = ShoppingCartItem.create(:purchasable_id => dress_stock_size.dress.id, :purchasable_type => 'Dress', :shopping_cart_id => @purchasable.id, :size => dress_stock_size.size.name, :color => dress_stock_size.color, :quantity => 1) 
-        redirect_to store_admin_point_of_sale_path(public_url: params[:public_url], cart_id: @purchasable.id), notice: 'Producto Agregado'
+        redirect_to root_path
       end
-    else
-      redirect_to root_path
+    rescue Exception => exc
+      redirect_to store_admin_point_of_sale_path(public_url: params[:public_url], cart_id: @purchasable.id), notice: 'Error: Producto no existe'
     end
   end
   
