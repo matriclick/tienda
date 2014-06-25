@@ -9,7 +9,9 @@
 	<p>
 		<% if dress.dress_stock_sizes.size > 0 %>
 			<% dress.dress_stock_sizes.each do |dsz| %>
-			<b><%= dsz.size.name %></b> <span class="badge"><%= dsz.stock %></span>
+				<% unless dsz.size.blank? %>
+					<b><%= dsz.size.name %></b> <span class="badge"><%= dsz.stock %></span>
+				<% end %>
 			<% end %>
 		<% else %>
 			<b>Sin Stock</b>
