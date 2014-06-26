@@ -204,7 +204,7 @@ class DressesController < ApplicationController
       @related_dresses = @dress.get_related_dresses
       set_dresses_viewed_cookies(@dress)
       @viewed_dresses = get_dresses_viewed(@dress)
-      unless s.size.blank?
+      unless @dress.size.blank?
         @dress_stock_text = DressStockSize.where('dress_id = ? and stock > 0', @dress.id).map { |s| '<li>'+s.size.name+((!s.color.nil? and s.color != "") ? ' - '+s.color : '') if s.stock > 0 }.join('</li>')
       else
         @dress_stock_text = 'Sin stock'
