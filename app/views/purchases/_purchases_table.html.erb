@@ -46,8 +46,7 @@
 	    <td><%= purchase.funds_received ? 'Sí' : 'No' %></td>
 	    <td><%= purchase.store_paid ? 'Sí' : 'No' %><br /><%= number_to_currency(purchase.total_cost) %></td>
 	    <td><%= purchase.refunded ? raw('Sí <br />'+number_to_currency(purchase.refund_value)) : 'No' %></td>
-		<td><%= link_to 'Editar', administration_edit_purchase_path(purchase) %> | 
-			<%= link_to 'Eliminar', purchase, confirm: 'Seguro?', method: :delete %>
+		<td><%= link_to 'Editar', administration_edit_purchase_path(purchase) %>
 		</td>
   </tr>
 	<tr <%= purchase.funds_received ? raw('style="background-color:#f5fffa"') : raw('style="background-color:#ffe4e1"') %>>
