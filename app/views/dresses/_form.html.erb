@@ -71,9 +71,9 @@
 			<td>
 				<%= f.label :price, 'Precio de Venta CLP $' %><%= mark_required @dress, :price %> <br />
 				<% if @dress.fix_cost %>
-					<%= f.number_field :price, class: "form-control", style: 'width:200px' %>
+					<%= f.text_field :price, class: "form-control", style: 'width:200px' %>
 				<% else %>
-					<%= f.number_field :price, :onchange => 'update_cost(this.value,'+@dress.supplier_account.net_margin.to_s+')', 
+					<%= f.text_field :price, :onchange => 'update_cost(this.value,'+@dress.supplier_account.net_margin.to_s+')', 
 															class: "form-control", style: 'width:200px' %>
 				<% end %>
 				<div class="help_tip" style="font-weight:lighter; font-size:12px;">Precio al que se venderá el producto (no usar comas ni puntos).</div>
@@ -93,13 +93,13 @@
 			      <div class="panel-body">
 						<%= f.label :original_price, 'Precio de Original' %>
 						<%= mark_required @dress, :original_price %>
-						<%= f.number_field :original_price, :onchange => 'update_discount(this.value)', class: "form-control", style: 'width:200px' %> 
+						<%= f.text_field :original_price, :onchange => 'update_discount(this.value)', class: "form-control", style: 'width:200px' %> 
 						<div class="help_tip" style="font-weight:lighter; font-size:12px;">
 							Precio original del vestido. Si es igual al de venta déjalo en blanco o pon el mismo número (no usar comas ni puntos)
 						</div>
 						<br />
 						<%= f.label :discount, '% de Descuento' %>
-						<%= f.number_field :discount, :onchange => 'update_original_price(this.value)', class: "form-control", style: 'width:200px' %>
+						<%= f.text_field :discount, :onchange => 'update_original_price(this.value)', class: "form-control", style: 'width:200px' %>
 						<div class="help_tip" style="font-weight:lighter; font-size:12px;">
 							Porcentaje de descuento, es igual al 1 - Precio de Venta / Precio Original 
 						</div>
