@@ -14,7 +14,9 @@ class Contest < ActiveRecord::Base
                           :s => "150x",
                           :xs => "50x"
 												}, :whiny => false
-  
+	
+	validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/x-png', 'image/pjpeg']
+	  
   has_many :contestants, :dependent => :destroy
   
 end
