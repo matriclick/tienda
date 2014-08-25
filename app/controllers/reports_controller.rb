@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
         #Tax
         tax_week = sales_week*margin_week*0.19
         #Revenue
-        revenue_week = price_week - cost_week - tax_week - dispatch_cost_week - refunds_week
+        revenue_week = price_week - dispatch_income_week - cost_week - tax_week - refunds_week
         #Purchases
         purchases = Purchase.where('funds_received = ? and status = ? and created_at >= ? and created_at <= ?', true, 'finalizado', monday_week, sunday_week)  
         purchases_week = purchases.size
