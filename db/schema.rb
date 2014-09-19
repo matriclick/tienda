@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140506170625) do
+ActiveRecord::Schema.define(:version => 20140919155039) do
 
   create_table "activity_reminders", :force => true do |t|
     t.string   "name"
@@ -811,6 +811,7 @@ ActiveRecord::Schema.define(:version => 20140506170625) do
     t.string   "account_owner_email"
     t.float    "net_margin"
     t.integer  "country_id"
+    t.text     "description"
   end
 
   create_table "supplier_accounts_users", :id => false, :force => true do |t|

@@ -1,39 +1,26 @@
-<%= content_for :supplier_page_in_content do %>
-<div class="panel panel-primary">
-  <div class="panel-heading"><h3 class="panel-title">Condiciones comerciales</h3></div>
-	<div class="panel-body">
-		<%= @supplier.supplier_account.net_margin.nil? ? 'No definido' : @supplier.supplier_account.net_margin.to_s+'% + IVA' %>
-		<p>
-			<%= sanitize(@presentation.description.gsub(/\n/, '<br/>'), :tags => %W(br)) unless @presentation.description.blank? %>
-		</p>
+<div class="container">
+	<div class="row" style="padding-bottom:10px; margin-top:-10px">
+		<form action="<%= dresses_search_path %>" method="get">
+			<div class="col-md-12">
+			  <div class="input-group">
+						<%= text_field_tag(:q, @search_text, placeholder: @search_text, class: "form-control") %>
+			       <span class="input-group-btn">
+							<%= submit_tag("Buscar", :name => nil, class: "btn btn-default") %>
+			  		 </span>
+			  </div><!-- /input-group -->
+			</div>
+		</form>
 	</div>
-</div>
-
-<div class="panel panel-primary">
-  <div class="panel-heading"><h3 class="panel-title">Datos bancarios</h3></div>
-	<div class="panel-body">
-		<ul class="list-group">
-			<li class="list-group-item">RUT: <%= @supplier.supplier_account.rut %></li>
-			<li class="list-group-item">Nombre: <%= @supplier.supplier_account.account_owner_name %></li>
-			<li class="list-group-item">Correo: <%= @supplier.supplier_account.account_owner_email %></li>
-			<li class="list-group-item">Banco: <%= @supplier.supplier_account.account_bank %></li>
-			<li class="list-group-item">Número cuenta: <%= @supplier.supplier_account.account_number %></li>
-			<li class="list-group-item">Tipo de cuenta: <%= @supplier.supplier_account.account_type %></li>
-		</ul>
+	<div class="row">
+		<div class="col-md-2">
+			<%=  image_tag @supplier.supplier_account.image.url(:small), :alt => @supplier.supplier_account.image_name, :class => 'img-thumbnail' %>
+		</div>
+		<div class="col-md-10">
+			<h3 style="margin-top:0px;"><%=  @supplier.supplier_account.fantasy_name %></h3>
+			<p style="font-size:11px">><%=  @supplier.supplier_account.description %></p>
+			<p style="font-size:11px"><%= 'Dirección: '+@supplier.supplier_account.address.get_address_string if !@supplier.supplier_account.address.blank? %> | <%= 'Teléfono: '+@supplier.supplier_account.phone_number if !@supplier.supplier_account.phone_number.blank? %> </p>
+		</div>
 	</div>
+	<hr />
+  	<%= render 'dresses/view_dress_list', :dresses => @dresses %>
 </div>
-
-<div class="panel panel-primary">
-  <div class="panel-heading"><h3 class="panel-title">Ubicación</h3></div>
-	<div class="panel-body">
-		<%= @supplier.supplier_account.address.get_address_string if !@supplier.supplier_account.address.nil? %>
-		<% if @show_map %>
-		<div id="map" style="width:550px; height:300px;"></div>
-		<% else %>
-			<div class="help_tip">Mapa no disponible</div>
-		<% end %>
-	</div>
-</div>
-<% end %>
-
-<%= render "supplier_page" %>

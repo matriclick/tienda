@@ -3,10 +3,10 @@
 		<div class="row">
 		<% if defined? dresses and dresses.size > 0 %>
 		  <% dresses.each do |dress| %>
-				<%= render 'list_dress', dress: dress %>
+				<%= render 'dresses/list_dress', dress: dress %>
 		  <% end %>
 		<% else %>
-			<%= render 'not_found' %>
+			<%= render 'layouts/not_found' %>
 		<% end %>
 		</div>
 		<% unless @not_paginate %>
@@ -16,6 +16,6 @@
 		<% end %>
 	</div>
 	<div class="col-md-2">
-		<%= render 'right_menu', sizes: @sizes %>
+		<%= render 'dresses/right_menu', sizes: @sizes %>
 	</div>
 </div><!--/row-->

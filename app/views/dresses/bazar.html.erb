@@ -17,10 +17,34 @@
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-<% cache ['bazar_home_page_20', Dress.all.last, @home_categories] do %>
+<% #cache ['bazar_home_page_20', Dress.all.last, @home_categories] do %>
 	<div class="container ">
-	  <!-- Three columns of text below the carousel -->
-		<div class="row" onmouseout="back_to_normal()">
+		<div class="row">
+		    <div class="col-md-12">
+		      <h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+					¡Las tiendas que están definiendo qué se usará esta temporada están acá!
+				</h2>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<% SupplierAccount.approved.alphabetized.each do |sa| %>
+				<div class="col-md-3">
+					<p style="font-size:16px; font-weight:lighter"><%= sa.fantasy_name %></p>
+					<%= link_to image_tag(sa.image.url(:small), :alt => sa.image_name, :class => 'img-thumbnail'), '/'+sa.public_url %>
+				</div>
+			<% end %>
+	  </div><!-- /.row -->
+	<hr>
+	<div class="row">
+	    <div class="col-md-12">
+	      <h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
+				Encuentra todos los productos que estás buscando
+			</h2>
+		</div>
+	</div>
+	<hr>
+	  <div class="row" onmouseout="back_to_normal()">
 			<div class="col-md-12">
 				<% @home_categories.each do |hc| %>
 					<% hc.dresses[0..14].each do |dress| %>
@@ -29,14 +53,7 @@
 				<% end %>
 			</div>
 	  </div><!-- /.row -->
-	  <div class="row">
-	    <div class="col-md-12">
-	      <h2 class="featurette-heading" style="margin-top:10px; margin-bottom:0px; font-size:24px; font-weight:lighter">
-					Encuentra muchos más productos seleccionados para ti
-				</h2>
-			</div>
-		</div>
-		<hr>
+	<hr>
 	  <div class="row" style="padding-bottom:0px; padding-top:0px;">
 			<div class="col-md-12" style="font-weight:lighter; text-align:center">
 					<%= link_to 'Vestidos', dresses_ver_path(:type => "vestidos-fiesta") %> | 
@@ -64,6 +81,6 @@
 			</div>
 		</div>
 	</div><!-- /.container -->
-<% end %>
+<% #end %>
 
 

@@ -1,15 +1,16 @@
 # encoding: UTF-8
 class SuppliersCatalogController < ApplicationController
-	before_filter :add_breadcrumbs
+	before_filter :add_breadcrumbs, :except => ['supplier_description']
   before_filter :redirect_unless_admin, :except => ['supplier_description']
   	
   def supplier_description
-    if !current_supplier.nil?
-      set_supplier_layout
-    end
     @supplier = check_supplier
+    add_breadcrumb 'Tramanta.com', root_path
+    add_breadcrumb @supplier.supplier_account.fantasy_name, supplier_description_path(:public_url => @supplier.supplier_account.public_url)      
+    
 		if !@supplier.nil?
 			@presentation = @supplier.supplier_account.presentation
+			@supplier_account = @supplier.supplier_account
       unless @supplier.supplier_account.nil?
         unless @supplier.supplier_account.address.nil?
           if !@supplier.supplier_account.address.latitude.nil? and !@supplier.supplier_account.address.longitude.nil?
@@ -17,9 +18,17 @@ class SuppliersCatalogController < ApplicationController
     		    @map = @supplier.supplier_account.address
   	      end
   	    end
-        @title_content = @supplier.supplier_account.fantasy_name+' | Descripción'
-      	@meta_description_content = '¡'+@supplier.supplier_account.fantasy_name+' está en Matriclick! Revisa sus productos y servicios, contáctalo y cotiza, una vez estés decidido, paga online usando tus tarjetas de crédito o débito'
+        @title_content = @supplier.supplier_account.fantasy_name
+      	@meta_description_content = '¡'+@supplier.supplier_account.fantasy_name+' está en Tramanta.com! Conoce todos sus productos y compra paga online usando tus tarjetas de crédito o débito'
         load_facebook_meta(@supplier)
+        disp = DressStatus.find_by_name("Disponible").id
+        @all_dresses =  @supplier_account.dresses.where('dress_status_id = ?', disp).order('created_at DESC')
+        @search_text = 'Busca por color, talla, tela, etc...'
+
+        @dresses = @all_dresses.paginate(:page => params[:page]).order(@order)
+        @sizes = Dress.check_sizes(@all_dresses)
+        @title_content = @supplier_account.fantasy_name.capitalize
+      	@meta_description_content = 'Compra en '+@supplier_account.fantasy_name.capitalize
       end
     else
       redirect_to root_path

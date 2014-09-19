@@ -14,7 +14,7 @@ class DressesController < ApplicationController
       redirect_to bazar_path
     end
   end
-  
+
   def refund_policy
     render :layout => false    
   end
@@ -106,6 +106,23 @@ class DressesController < ApplicationController
       @title_content = (params[:type]).gsub('-', ' ').capitalize
     	@meta_description_content = 'Compra '+(params[:type]).gsub('-', ' ')
     end    
+  end
+  
+  def store
+    @supplier_account = SupplierAccount.find_by_public_url params[:public_url]
+    disp = DressStatus.find_by_name("Disponible").id
+    @all_dresses =  @supplier_account.dresses.where('dress_status_id = ?', disp).order('created_at DESC')
+    @search_text = 'Busca por color, talla, tela, etc...'
+    
+    @dresses = @all_dresses.paginate(:page => params[:page]).order(@order)
+    @sizes = Dress.check_sizes(@all_dresses)
+    @title_content = @supplier_account.fantasy_name.capitalize
+  	@meta_description_content = 'Compra en '+@supplier_account.fantasy_name.capitalize
+  	
+  	add_breadcrumb "Tramanta", :bazar_path
+    add_breadcrumb @supplier_account.fantasy_name, dresses_store_path(:public_url => @supplier_account.public_url)
+    
+    render :view
   end
   
   def view_search

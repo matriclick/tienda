@@ -98,6 +98,7 @@ Matri::Application.routes.draw do
 	get 'dresses/set_stock/:id' => 'dresses#set_stock', as: 'dresses_set_stock'
 	post 'dresses/update_stock' => 'dresses#update_stock', as: 'dresses_update_stock'
 	get "dresses/ver/:type" => 'dresses#view', as: 'dresses_ver'
+  get 'dresses/store/:public_url'	=> 'dresses#store', as: 'dresses_store'
 	resources :dresses, :except => ['show']
   get 'dresses/:type/:slug' => 'dresses#show', :as => 'dress_ver'
   get 'dresses/buscar' => 'dresses#view_search', :as => 'dresses_search'
@@ -105,6 +106,7 @@ Matri::Application.routes.draw do
   get 'dresses/new-arrivals'	=> 'dresses#new_arrivals', as: 'dresses_new_arrivals'
   get 'dresses/clearing'	=> 'dresses#clearing', as: 'dresses_clearing'  
   get 'dresses/refund_policy'	=> 'dresses#refund_policy', as: 'refund_policy'
+  
   resources :refund_requests
   resources :cloth_measures
 	resources :mailings

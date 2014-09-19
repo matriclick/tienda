@@ -165,7 +165,7 @@ class SupplierAccount < ActiveRecord::Base
 	end
 		
 	def self.alphabetized
-		order(:corporate_name => :asc)
+		order(:fantasy_name => :asc)
 	end
 	
 	def is_approved?

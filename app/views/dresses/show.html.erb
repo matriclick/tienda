@@ -40,6 +40,8 @@
 							<span itemprop="price"><%= number_to_currency @dress.price %></span> <meta itemprop="currency" content="CLP" />
 						</h2>
 						<p itemprop="description"><%= raw @dress.description.gsub(/\n/, '<br/>') %></p>
+						<p style="font-weight:lighter"><%= link_to @dress.supplier_account.fantasy_name, '/'+@dress.supplier_account.public_url %></p>
+						
 						<p>Tallas y colores disponibles:</p>
 						<ul><%= raw @dress_stock_text %></ul>
 						<!-- Button trigger modal -->
