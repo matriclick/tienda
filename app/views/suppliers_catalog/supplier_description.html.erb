@@ -17,7 +17,7 @@
 		</div>
 		<div class="col-md-10">
 			<h3 style="margin-top:0px;"><%=  @supplier.supplier_account.fantasy_name %></h3>
-			<p style="font-size:11px"><%=  @supplier.supplier_account.description %></p>
+			<p style="font-size:11px"><%=  @supplier.supplier_account.description.gsub(/\n/, '<br>').html_safe %></p>
 			<p style="font-size:11px"><%= 'Dirección: '+@supplier.supplier_account.address.get_address_string if !@supplier.supplier_account.address.blank? %> | <%= 'Teléfono: '+@supplier.supplier_account.phone_number if !@supplier.supplier_account.phone_number.blank? %> </p>
 		</div>
 	</div>
