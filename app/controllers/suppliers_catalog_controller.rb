@@ -5,10 +5,11 @@ class SuppliersCatalogController < ApplicationController
   	
   def supplier_description
     @supplier = check_supplier
-    add_breadcrumb 'Tramanta.com', root_path
-    add_breadcrumb @supplier.supplier_account.fantasy_name, supplier_description_path(:public_url => @supplier.supplier_account.public_url)      
     
 		if !@supplier.nil?
+      add_breadcrumb 'Tramanta.com', root_path
+      add_breadcrumb @supplier.supplier_account.fantasy_name, supplier_description_path(:public_url => @supplier.supplier_account.public_url)      
+
 			@presentation = @supplier.supplier_account.presentation
 			@supplier_account = @supplier.supplier_account
       unless @supplier.supplier_account.nil?
