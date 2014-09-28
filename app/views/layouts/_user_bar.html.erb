@@ -33,7 +33,7 @@
           	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tiendas <b class="caret"></b></a>
           	<ul class="dropdown-menu" style="background-color:#f8f8f8; color:#777; border-top:none; font-size:12px">
 				<% SupplierAccount.approved.order('fantasy_name ASC').each do |sa| %>
-		        	<li style="padding-top:5px"><%= link_to sa.fantasy_name, dresses_store_path(:public_url => sa.public_url) %></li>
+		        	<li style="padding-top:5px"><%= link_to sa.fantasy_name, '/'+sa.public_url %></li>
 				<% end %>
           	</ul>
         </li>

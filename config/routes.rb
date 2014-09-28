@@ -98,7 +98,6 @@ Matri::Application.routes.draw do
 	get 'dresses/set_stock/:id' => 'dresses#set_stock', as: 'dresses_set_stock'
 	post 'dresses/update_stock' => 'dresses#update_stock', as: 'dresses_update_stock'
 	get "dresses/ver/:type" => 'dresses#view', as: 'dresses_ver'
-  get 'dresses/store/:public_url'	=> 'dresses#store', as: 'dresses_store'
 	resources :dresses, :except => ['show']
   get 'dresses/:type/:slug' => 'dresses#show', :as => 'dress_ver'
   get 'dresses/buscar' => 'dresses#view_search', :as => 'dresses_search'
