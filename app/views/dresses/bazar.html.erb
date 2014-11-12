@@ -27,14 +27,18 @@
 			</div>
 		</div>
 		<hr>
-		<div class="row">
-			<% SupplierAccount.approved.alphabetized.each do |sa| %>
+		<% SupplierAccount.approved.alphabetized.each_with_index do |sa, i| %>
+			<% if i%4 == 0 %>
+			<div class="row">	
+			<% end %>
 				<div class="col-md-3">
 					<p style="font-size:16px; font-weight:lighter"><%= sa.fantasy_name %></p>
 					<%= link_to image_tag(sa.image.url(:small), :alt => sa.image_name, :class => 'img-thumbnail'), '/'+sa.public_url %>
 				</div>
+			<% if i%4 == 3 or i == SupplierAccount.approved.alphabetized.size - 1 %>
+			</div>
 			<% end %>
-	  </div><!-- /.row -->
+		<% end %>
 	<hr>
 	<div class="row">
 	    <div class="col-md-12">
