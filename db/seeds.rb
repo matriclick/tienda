@@ -378,6 +378,7 @@ aux = []
 aux << (DressType.find_by_name("ropa-interior") || DressType.create(:name => 'ropa-interior', :description => "Ropa interior"))
 aux << (DressType.find_by_name("vestidos-fiesta") || DressType.create(:name => 'vestidos-fiesta', :description => "Vestidos para la fiesta"))
 aux << (DressType.find_by_name("zapatos") || DressType.create(:name => 'zapatos', :description => "Zapatos"))
+aux << (DressType.find_by_name("accesorios") || DressType.create(:name => 'accesorios', :description => "Accesorios"))
 
 aux << (DressType.find_by_name("ropa-de-mujer-tops-poleras") || DressType.create(:name => 'ropa-de-mujer-tops-poleras', :description => "Poleras mujer"))
 aux << (DressType.find_by_name("ropa-de-mujer-tops-blusas") || DressType.create(:name => 'ropa-de-mujer-tops-blusas', :description => "Blusas mujer"))
